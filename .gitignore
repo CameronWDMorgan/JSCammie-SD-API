@@ -1,0 +1,53 @@
+/config.json
+/EasyNegativeV2.safetensors
+/generations
+/inpaintingBefore.png
+/loras
+/main copy 2.py
+/models
+/myenv
+/prompt-mimi.txt
+/stable_fast-1.0.0+torch211cu118-cp39-cp39-win_amd64.whl
+/stable_fast-1.0.0+torch211cu121-cp310-cp310-win_amd64.whl
+/stable_fast.whl
+og_image copy.png
+og_image.png
+processed_slice0-0 copy.png
+processed_slice0-0.png
+processed_slice0-1 copy.png
+processed_slice0-1.png
+processed_slice0-2.png
+processed_slice0-3.png
+processed_slice1-0.png
+processed_slice1-1.png
+processed_slice2-0.png
+processed_slice2-1.png
+processed_slice3-0.png
+processed_slice3-1.png
+slice0 copy.png
+slice0.png
+slice1.png
+slice2.png
+slice3.png
+txt2img.png
+upscaled_image copy.png
+upscaled_image.png
+vaes/kl-f8-anime.ckpt
+vaes/klF8Anime2.safetensors
+vaes/vae-ft-mse-840000-ema-pruned_fp16.safetensors
+main.py
+__pycache__/lpw_pipeline.cpython-312.pyc
+lbp.txt
+fast_passes.yaml
+blockedwords.yaml
+base3.png
+base2.png
+base1.png
+base0.png
+base0 copy.png
+animation.mp4
+animation.gif
+animation copy.gif
+animation copy 4.gif
+animation copy 3.gif
+animation copy 2.gif

@@ -1,0 +1,9 @@
+Flask
+flask-cors
+diffusers
+PyYAML
+numpy
+tomesd
+transformers
+omegaconf
+accelerate

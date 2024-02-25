@@ -1,0 +1,23 @@
+txt2img: {
+  ""
+}
+
+img2img: {
+  ""
+}
+
+txt2video: {
+  ""
+}
+
+inpainting: {
+  ""
+}
+
+latent_couple: {
+  ""
+}
+
+openpose: {
+  ""
+}
