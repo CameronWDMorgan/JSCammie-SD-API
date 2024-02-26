@@ -1150,6 +1150,26 @@ character: {
         description: "Aisha Clan Clan from Outlaw Star",
         link: "https://civitai.com/models/94601/aishaclan" },
 
+    character-gadgetthewolfsonic: { lora: "loras/character/SonicDiff_Mobians_Gadget_the_wolf.safetensors", name: "Gadget the Wolf (Sonic)", strength: 0.6,
+        words: ['gadget the wolf', 'red wolf'], 
+        description: "Gadget the Wolf from Sonic Forces",
+        link: "https://discord.gg/mobians" },
+
+    # character-nanana: { lora: "lora", name: "Name", strength: 1,
+    #     words: [''], 
+    #     description: "",
+    #     link: "" },
+
+    # character-nanana: { lora: "lora", name: "Name", strength: 1,
+    #     words: [''], 
+    #     description: "",
+    #     link: "" },
+
+    # character-nanana: { lora: "lora", name: "Name", strength: 1,
+    #     words: [''], 
+    #     description: "",
+    #     link: "" },
+
     # character-sonicthewerehog: { lora: "loras/character/Sonic_The_Werehog.safetensors", name: "Sonic the Werehog", strength: 0.5,
     #   words: ['sonicthewerehog'], 
     #   description: "Sonic the Werehog from Sonic the Hedgehog",
@@ -1480,8 +1500,7 @@ pose: {
       # words: [''], 
       # description: "",
       # link: "" },
-
-    
+  
 }
 
 background: {
@@ -1538,7 +1557,7 @@ background: {
     
     background-schoolhallway: { lora: "loras/background/school_hallway_v0.1.safetensors", name: "School Hallway", strength: 1,
         words: ["school hallway"],
-        description: "",
+        description: "school hallway",
         link: "https://civitai.com/models/112218/school-hallway" },
 
     background-schoollockerroom: { lora: "loras/background/locker_room_v0.1.safetensors", name: "School Locker Room", strength: 1,
