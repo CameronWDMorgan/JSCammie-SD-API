@@ -1306,29 +1306,37 @@ threading.Thread(target=update_fast_passes_map, daemon=True).start()
 def check_fast_pass(fastpass, data):
     print(f"Checking fast pass: {fastpass} against the fast pass map: {fast_passes_map}")
     
-    if str(fastpass) == str(0):
+    if fastpass is None:
+        print("Fast pass is nonexistant or the same as the accountId.")
         return False
     
-    # Ensure thread-safe read
-    with threading.Lock():
-        fastpass_data = fast_passes_map.get('passes', {}).get(fastpass, {})
-        
-        # Check if the fastpass is enabled
-        if not fastpass_data.get('enabled', False):
-            return "error1"
-        
-        print(f"fastpass discordId: {fastpass_data.get('discordId')}, data accountId: {data['accountId']}")
+    # remove all numbers from the fastpass string:
+    fastpass = ''.join([i for i in fastpass if not i.isdigit()])
+    
+    if str(fastpass) == "":
+        print("Fast pass is nonexistant or the same as the accountId.")
+        return False
+    else:
+        # Ensure thread-safe read
+        with threading.Lock():
+            fastpass_data = fast_passes_map.get('passes', {}).get(fastpass, {})
+            
+            # Check if the fastpass is enabled
+            if not fastpass_data.get('enabled', False):
+                return "error1"
+            
+            print(f"fastpass discordId: {fastpass_data.get('discordId')}, data accountId: {data['accountId']}")
 
-        # Check if the discordId matches
-        if int(fastpass_data.get('discordId')) != int(data['accountId']):
-            return "error2"
+            # Check if the discordId matches
+            if int(fastpass_data.get('discordId')) != int(data['accountId']):
+                return "error2"
 
-        # Check if the fast pass has not expired
-        if time.time() > fastpass_data.get('expires', 0):
-            return "error3"
+            # Check if the fast pass has not expired
+            if time.time() > fastpass_data.get('expires', 0):
+                return "error3"
 
-        print(f"Fast pass {fastpass} is valid and active.")
-        return True
+            print(f"Fast pass {fastpass} is valid and active.")
+            return True
     
     
     
@@ -1748,8 +1756,6 @@ generateTestJson2 = {
     "request_type": "txt2img",
     "lora": ['character-cocobandicoot', 'style-theotherhalf'],
     "upscale": False,
-    "accountId": 1039574722163249233,
-    "fastpass": "0"
 }
 
 generateTestJson22 = {
