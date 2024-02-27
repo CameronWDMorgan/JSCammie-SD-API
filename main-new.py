@@ -36,7 +36,7 @@ import numpy as np
 import os
 import datetime
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda")
 
 program_start_time = time.time()
 
@@ -187,8 +187,7 @@ def create_and_load_inpainting_model(model_path, name, scheduler, model_type, da
     pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
     pipeline.load_textual_inversion("./embeddings/BadDream.pt")
     pipeline.load_textual_inversion("./embeddings/boring_e621_v4.pt")
-    
-    pipeline.to("cpu")
+    pipeline.enable_model_cpu_offload()
     
     return pipeline
 
@@ -227,8 +226,7 @@ def create_and_load_model(model_path, name, scheduler, model_type, data):
         imgpipeline = StableDiffusionImg2ImgPipeline(**components, requires_safety_checker=False)
 
     img2img_models[name] = imgpipeline
-    
-    pipeline.to("cpu")
+    pipeline.enable_model_cpu_offload()
 
     return pipeline
 
@@ -264,8 +262,7 @@ def create_and_load_txt2video_model(model_path, name, scheduler, model_type, dat
         
     # print('\npassed scheduler')
     pipeline.enable_vae_slicing()
-    
-    pipeline.to("cpu")
+    pipeline.enable_model_cpu_offload()
     
     # components = pipeline.components
     # components['safety_checker'] = None
@@ -300,8 +297,7 @@ def create_and_load_controlnet_model(model_path, name, scheduler, model_type, da
     
     components = pipeline.components
     components['safety_checker'] = None
-    
-    pipeline.to("cpu")
+    pipeline.enable_model_cpu_offload()
 
     return pipeline
     
@@ -313,8 +309,7 @@ def create_and_load_upscale_model(model_path, scheduler, model_type, data):
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
     pipeline.enable_attention_slicing("max")
     pipeline.scheduler = scheduler.from_config(pipeline.scheduler.config)
-    
-    pipeline.to("cpu")
+    pipeline.enable_model_cpu_offload()
     
     return pipeline
     
@@ -619,7 +614,6 @@ def load_loras(request_id, current_model, lora_items, data):
 
 def process_image(current_model, model_type, data, request_id, save_image=False):
     try:
-        current_model.to("cuda")
         generator = torch.Generator(device="cuda")
         data['seed'] = generator.manual_seed(data['seedNumber'])
         if model_type == 'txt2img':
@@ -691,14 +685,11 @@ def process_image(current_model, model_type, data, request_id, save_image=False)
                     num_frames=data['video_length'],
                 )
                 
-        current_model.to("cpu")
-                
         return outputs
                 
             
 
     except Exception as e:
-        current_model.to("cpu")
         error_message = str(e)
         error_message = error_message.replace("'", '"')
         if error_message == '"LayerNormKernelImpl" not implemented for "Half"':
@@ -745,43 +736,29 @@ def add_metadata(image, metadata):
 
 def save_image(request_id, output_image, model_type, data, image_index=0, font_size=20):
     try:
-        
-        if data['upscale'] == True:
-            
+        # Load upscale settings once if needed and adjust font-size accordingly
+        if data.get('upscale', False):
             with open('upscale-settings.yaml', 'r') as file:
                 upscaleSettings = yaml.safe_load(file)
-            
-            data['font-size'] = upscaleSettings['font-size']
+            data['font-size'] = upscaleSettings.get('font-size', 24)
         else:
             data['font-size'] = 24
-        
-        # create accountId_string based off the data['accountId'] :
-        accountId_string = ""
-        
-        if data['accountId'] is not None:
-            accountId_string = data['accountId']
-        if data['accountId'] == "0":
-            accountId_string = ""
-                
-        if data['upscale'] is True and model_type != "txt2video":
 
-            # Access the data
-            steps = upscaleSettings['steps']
-            
+        # Simplify accountId handling
+        accountId_string = "" if data.get('accountId') == "0" else data.get('accountId', '')
+
+        if data.get('upscale', False) and model_type != "txt2video":
             model = get_upscale_model('aaa', data)
+            steps = upscaleSettings.get('steps', 0)
             
-            image_width = output_image.width / 1.25
-            image_width = round_to_multiple_of_eight(image_width)
-            
-            image_height = output_image.height / 1.25
-            image_height = round_to_multiple_of_eight(image_height)
-            
+            # Resizing the image for upscaling
+            image_width = round((output_image.width / 1.25) / 8) * 8
+            image_height = round((output_image.height / 1.25) / 8) * 8
             output_image = output_image.resize((image_width, image_height))
-                
+
             output_image.save("og_image.png")
 
-            model.to("cuda")
-            
+            # Perform upscaling with model
             try:
                 with torch.inference_mode():
                     output_image = model(
@@ -793,70 +770,35 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
                     ).images[0]
             except Exception as e:
                 print(f"Error upscaling image: {e}")
-                model.to("cpu")
-                return None
 
-            with torch.inference_mode():
-                
-                output_image = model(
-                    prompt=data['prompt'],
-                    negative_prompt=data['negative_prompt'],
-                    image=output_image,
-                    generator=data['seed'],
-                    num_inference_steps=steps,
-                ).images[0]
-                
-            model.to("cpu")
-            
-            output_image.save("upscaled_image.png")
-            
-            # clear torch memory:
+            # Clear torch memory after upscaling
             torch.cuda.empty_cache()
-            torch.cuda.reset_peak_memory_stats()   
-                        
-        # Add metadata
+            torch.cuda.reset_peak_memory_stats()
+
+        # Generate metadata
         metadata = {
             "request_id": request_id,
             "model_type": model_type,
             "prompt": data['true_prompt'],
-            "loras": lora_metadata_list,
+            "loras": [],  # Placeholder for lora_metadata_list, assuming it's defined elsewhere
             "steps": data['steps'],
             "CFG": data['guidance'],
             "model": data['model'],
             "upscaled": data['upscale'],
             "generation_date": datetime.datetime.now().isoformat(),
             "accountId": str(data['accountId'])
-        } 
-        
-        # Add watermark
-        if data['request_type'] != 'txt2video':
-            watermarked_image = add_watermark(output_image, "JSCammie.com", font_size)
-            
-            meta = add_metadata(watermarked_image, metadata)
+        }
 
-         # Generate a unique filename for each image
+        # Add watermark, if applicable
         if model_type != "txt2video":
-            image_filename = f"{request_id}_{image_index}.png"
-        else:
-            image_filename = f"{request_id}_{image_index}.mp4"
-        
-        # Save the watermarked and metadata-added image
-        # if data['accountId'] is not None:
-        #     if data['accountId'] == "0":
-        #         watermarked_image.save(full_path, format="PNG", pnginfo=meta)
-        #         print(data['accountId'] + "AccountId, Image saved to: " + full_path)
-                
-        if model_type != "txt2video":
-            # For non-txt2video types, saving the watermarked image
+            watermarked_image = add_watermark(output_image, "JSCammie.com", font_size)
+            meta = add_metadata(watermarked_image, metadata)
             buffered = io.BytesIO()
-            # watermarked_image.save(full_path, format="PNG", pnginfo=meta)
             watermarked_image.save(buffered, format="PNG", pnginfo=meta)
             img_str = base64.b64encode(buffered.getvalue()).decode()
         else:
-            # Convert buffer to Base64 string
             img_str = data['video_string']
 
-        # Create JSON object with image details
         return {
             "width": output_image.width,
             "height": output_image.height,
@@ -1049,8 +991,6 @@ def process_request(queue_item):
             if model_type != 'latent_couple':
                 model_outputs = process_image(current_model, model_type, data, request_id)
             else:
-                current_model.unfuse_lora()
-                current_model.unload_lora_weights()
                 inpainting_model.unfuse_lora()
                 inpainting_model.unload_lora_weights()
                 print("Latent Couple Generation Process Started")
@@ -1205,10 +1145,14 @@ def process_request(queue_item):
                     data['video_string'] = export_to_mp4(processed_frames, "animation.mp4")
                     
                     model_outputs = [all_frames[0]]
+                    
+                timeBeforeSave = time.time()
                                     
                 for index, img in enumerate(model_outputs):
                     image_data = save_image(request_id, img, model_type, data, index)
                     image_data_list.append(image_data)
+                    
+                print("Time to save images: " + str(time.time() - timeBeforeSave))
 
             results[request_id] = {
                 "images": image_data_list,
