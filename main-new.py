@@ -560,11 +560,18 @@ loraPattern = re.compile(r"(style|effect|concept|clothing|character|pose|backgro
 
 def load_loras(request_id, current_model, lora_items, data):
     global lora_metadata_list
+    start_time = time.time()
     lora_metadata_list = []
 
     # Parse the prompt for Lora settings and strengths
     prompt = data.get('prompt', '')
     lora_settings = {f"{match[0]}-{match[1]}": float(match[2]) for match in loraPattern.findall(prompt)}
+    
+    # Remove the matched patterns from the prompt
+    cleaned_prompt = re.sub(loraPattern, '', prompt)
+    data['prompt'] = cleaned_prompt.strip()  # Remove leading/trailing whitespace if any
+    
+    print(f"Cleaned Prompt: {data['prompt']}\n")
     
     adapter_name_list = []
     adapter_weights_list = []
@@ -577,10 +584,7 @@ def load_loras(request_id, current_model, lora_items, data):
             if lora_data:
                 strength = lora_settings.get(item, lora_data.get('strength', 1.0))
 
-                print(f"Found data for {item}: {lora_data['name']} - strength: {strength}")
-
                 if strength:  # This checks for strength != 0; it will work with negative numbers as well
-                    print(f"Applying data for {item}: {lora_data['name']} - strength: {strength}")
                     lora_metadata = f"{lora_data['name']} - strength: {strength}"
                     lora_metadata_list.append(lora_metadata)
 
@@ -596,12 +600,19 @@ def load_loras(request_id, current_model, lora_items, data):
                 print(f"No data found for {item}")
         except Exception as e:
             print(f"Error processing item '{item}': {e}")
+            
+    print(f"Time taken to fetch loras: {time.time() - start_time:.2f} seconds")
+        
+    set_adapters_start_time = time.time()
 
     try:
         current_model.set_adapters(adapter_name_list, adapter_weights=adapter_weights_list)
         current_model.fuse_lora()
     except Exception as e:
         print(f"Error during model configuration: {e}")
+        
+    print(f"Time taken to set adapters: {time.time() - set_adapters_start_time:.2f} seconds")
+    
 
 
 
@@ -1292,13 +1303,32 @@ def update_fast_passes_map():
 # Start a separate thread that updates the lora_weights_map
 threading.Thread(target=update_fast_passes_map, daemon=True).start()
 
-def check_fast_pass(fastpass):
+def check_fast_pass(fastpass, data):
     print(f"Checking fast pass: {fastpass} against the fast pass map: {fast_passes_map}")
+    
+    if str(fastpass) == str(0):
+        return False
     
     # Ensure thread-safe read
     with threading.Lock():
-        # Check if the fastpass is in the 'passes' dictionary and if 'enabled' is True
-        return fast_passes_map.get('passes', {}).get(fastpass, {}).get('enabled', False)
+        fastpass_data = fast_passes_map.get('passes', {}).get(fastpass, {})
+        
+        # Check if the fastpass is enabled
+        if not fastpass_data.get('enabled', False):
+            return "error1"
+        
+        print(f"fastpass discordId: {fastpass_data.get('discordId')}, data accountId: {data['accountId']}")
+
+        # Check if the discordId matches
+        if int(fastpass_data.get('discordId')) != int(data['accountId']):
+            return "error2"
+
+        # Check if the fast pass has not expired
+        if time.time() > fastpass_data.get('expires', 0):
+            return "error3"
+
+        print(f"Fast pass {fastpass} is valid and active.")
+        return True
     
     
     
@@ -1391,7 +1421,7 @@ def generate_image():
         data['prompt'] = data['prompt'].replace('\r', '').replace('\n', '')
         
         data['accountId'] = data.get('accountId', 0)
-        
+                
         if data['accountId'] == "":
             data['accountId'] = 0
         
@@ -1418,7 +1448,22 @@ def generate_image():
                 print(error_message)
                 return generate_error_response(error_message, 400)
             
+        fastpass = data.get('fastpass', None)
             
+        fastpass_enabled = check_fast_pass(fastpass, data)
+        
+        if fastpass_enabled == "error1":
+            error_message = "Fast pass is not enabled."
+            print(error_message)
+            return generate_error_response(error_message, 400)
+        elif fastpass_enabled == "error2":
+            error_message = "Discord ID does not match the fast pass."
+            print(error_message)
+            return generate_error_response(error_message, 400)
+        elif fastpass_enabled == "error3":
+            error_message = "Fast pass has expired."
+            print(error_message)
+            return generate_error_response(error_message, 400)
             
         # if data['model'] value isnt a key in the txt2img_models dictionary, return an error:
         if data['model'] not in txt2img_models:
@@ -1577,9 +1622,7 @@ def generate_image():
                     round(data['steps'])
             
         negativePromptFinal = "EasyNegativeV2, boring_e621_v4, " + data.get("negativeprompt", "")
-        
-        fastpass = data.get('fastpass', None)
-        
+                
         data = {
             "model": data.get('model'),
             "prompt": data.get('prompt'),
@@ -1622,12 +1665,7 @@ def generate_image():
         else:
             if fastpass:
                 
-                #  fast pass map yaml:
-                # passes: {
-                #     jscammie-fastpass: { enabled: true },
-                # }
-                
-                if check_fast_pass(fastpass) == True:
+                if fastpass_enabled == True:
                     print(f"Fast pass {fastpass} is enabled, adding to the front of the queue...")
                     request_queue.insert(0, queue_item)
                 else:
@@ -1699,7 +1737,7 @@ generateTestJsonSDXL = {
 
 
 generateTestJson2 = {
-    "model": "furry",
+    "model": "furryblend",
     "prompt": "1girl, coco bandicoot, nude, sexy,",
     "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
     "steps": 20,
@@ -1709,7 +1747,9 @@ generateTestJson2 = {
     "quantity": 1,
     "request_type": "txt2img",
     "lora": ['character-cocobandicoot', 'style-theotherhalf'],
-    "upscale": False
+    "upscale": False,
+    "accountId": 1039574722163249233,
+    "fastpass": "0"
 }
 
 generateTestJson22 = {
@@ -1839,7 +1879,7 @@ def test_all_loras():
 # test_generate_image(generateTestJsonLatentCouple)
 # test_generate_image(generateTestJsonSDXL)
 # test_generate_image(generateTestJson1)
-# test_generate_image(generateTestJson2)
+test_generate_image(generateTestJson2)
 # test_generate_image(generateTestJson22)
 # test_generate_image(generateTestJson222)
 # test_generate_image(generateTestJson3)
