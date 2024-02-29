@@ -252,22 +252,12 @@ def create_and_load_txt2video_model(model_path, name, scheduler, model_type, dat
     pipeline.scheduler = scheduler
     
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
-    # print('\npassed attn processor')
     pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
-    # print('\npassed easy negative')
     pipeline.load_textual_inversion("./embeddings/BadDream.pt")
-    # print('\npassed bad dream')
     pipeline.load_textual_inversion("./embeddings/boring_e621_v4.pt")
-    # print('\npassed boring e621')
-        
-    # print('\npassed scheduler')
+
     pipeline.enable_vae_slicing()
     pipeline.enable_model_cpu_offload()
-    
-    # components = pipeline.components
-    # components['safety_checker'] = None
-    
-    # print("Txt2Video Model Loaded")
 
     return pipeline
 
