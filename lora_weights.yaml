@@ -186,6 +186,11 @@ style: {
       description: "Emulates the style of PVC figures",
       link: "https://civitai.com/models/294556/sexy-pvc-figures?modelVersionId=331023" },
 
+    style-mariostriker: { lora: "loras/style/MarioStrikerStyle-06.safetensors", name: "Mario Striker", strength: 0.7,
+      words: ['Mario Striker Style', 'angry'], 
+      description: "Emulates the style of Mario Striker Art",
+      link: "https://civitai.com/models/60670?modelVersionId=65152" },
+
   # style-nanana: { lora: "lora", name: "Name", strength: 1,
     # words: [''], 
     # description: "",
@@ -829,6 +834,11 @@ concept: {
         words: ['defloration', 'virgin', 'first time', 'blood', 'pussy blood', 'vaginal blood', 'vaginal bleeding'],
         description: "Defloration / Virginity loss",
         link: "https://civitai.com/models/202849/defloration" },
+
+    concept-quicksandmud: { lora: "loras/concept/Quicksand.safetensors", name: "Quick Sand / Mud", strength: 1,
+        words: ['quick sand, mud, partially submerged'], 
+        description: "Character submerged in quicksand or mud",
+        link: "https://civitai.com/models/119824?modelVersionId=130228" },
     
     # concept-nanana: { lora: "lora", name: "Name", strength: 1,
     #   words: [''], 
@@ -1156,10 +1166,10 @@ character: {
         description: "Naruto Uzumaki from Naruto",
         link: "https://civitai.com/models/61568/naruto-uzumaki?modelVersionId=66114" },
 
-    character-lopunnypokemon: { lora: "loras/character/Lopunny_v2_05_R-128.safetensors", name: "Lopunny (Pokemon)", strength: 1,
+    character-lopunnypokemon: { lora: "loras/character/Lopunny-08.safetensors", name: "Lopunny (Pokemon)", strength: 0.7,
         words: ['Lopunny', 'furry', 'rabbit ears', 'black sclera', 'brown fur', 'body fur', 'fluff', 'fur cuffs'], 
         description: "LoPunny from Pokemon",
-        link: "https://civitai.com/models/26979/lopunny-pokemon?modelVersionId=139779" },
+        link: "https://civitai.com/models/96669/lopunny-pokemon-or-pocket-monsters" },
 
     character-meridabrave: { lora: "loras/character/MeridaBrave_character-20.safetensors", name: "Merida (Brave)", strength: 0.8,
         words: ['MeridaWaifu', 'dress'], 
@@ -1326,10 +1336,10 @@ character: {
         description: "Rosa from Pokemon",
         link: "https://civitai.com/models/78033/rosa-pokemon?modelVersionId=82809" },
 
-    character-ankhaanimalcrossing: { lora: "loras/character/Ankha_v2_RT_e6_R-128.safetensors", name: "Ankha (Animal Crossing)", strength: 1,
-        words: ['ankha', 'tail', 'bandages', 'white dress'], 
+    character-ankhaanimalcrossing: { lora: "loras/character/AnkhaaaV1.3-000012.safetensors", name: "Ankha (Animal Crossing)", strength: 0.8,
+        words: ['ankha, blue hair, hair ornament, yellow skin, purple eyes, striped tail,'], 
         description: "Ankha from Animal Crossing",
-        link: "https://civitai.com/models/49840/ankha-animal-crossing?modelVersionId=58494" },
+        link: "https://civitai.com/models/228594/ankha-animal-crossing" },
 
     character-mistypokemon: { lora: "loras/character/misty_(pokemon)_v2.safetensors", name: "Misty (Pokemon)", strength: 0.7,
         words: ['1girl, misty (pokemon), orange hair, solo, shorts, suspenders, side ponytail, orange hair, midriff, yellow crop top, navel, short hair, denim, denim shorts'], 
@@ -1555,7 +1565,7 @@ character: {
         description: "Sailor Venus from Sailor Moon",
         link: "https://civitai.com/models/33470/sailor-venus-sailor-moon?modelVersionId=76226" },
 
-    character-android18dragonball: { lora: "loras/character/", name: "Name", strength: 0.6,
+    character-android18dragonball: { lora: "loras/character/", name: "Android 18 (Dragon Ball)", strength: 0.6,
         words: ['and18, 1girl, android 18, solo, blonde hair, blue eyes, belt, jeans, pearl_necklace, bracelet, black gloves, white shirt, short hair, short sleeves, earrings, blue pants, open vest, black vest, large breasts'], 
         description: "Android 18 from Dragon Ball",
         link: "https://civitai.com/models/27862/android-18-18-dragon-ball-z?modelVersionId=33381" },
@@ -1586,6 +1596,11 @@ character: {
         words: ['coco'], 
         description: "Coco Bandicoot from Crash Bandicoot Game Series",
         link: "https://civitai.com/models/52735/coco-bandicoot" },
+
+    character-ryokotenchimuyo: { lora: "loras/character/RYOKOTM.safetensors", name: "Ryoko (Tenchi Muyo)", strength: 1,
+        words: ['ryouko_(tenchi_muyou!), big hair, blue hair, spiked hair'], 
+        description: "Ryoko from Tenchi Muyo",
+        link: "https://civitai.com/models/21730/ryoko-tenchi-muyo" },
 
     # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
     #     words: [''], 
