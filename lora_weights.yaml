@@ -187,14 +187,19 @@ style: {
       link: "https://civitai.com/models/294556/sexy-pvc-figures?modelVersionId=331023" },
 
     style-mariostriker: { lora: "loras/style/MarioStrikerStyle-06.safetensors", name: "Mario Striker", strength: 0.7,
-      words: ['Mario Striker Style', 'angry'], 
-      description: "Emulates the style of Mario Striker Art",
-      link: "https://civitai.com/models/60670?modelVersionId=65152" },
+        words: ['Mario Striker Style', 'angry'], 
+        description: "Emulates the style of Mario Striker Art",
+        link: "https://civitai.com/models/60670?modelVersionId=65152" },
 
-  # style-nanana: { lora: "lora", name: "Name", strength: 1,
-    # words: [''], 
-    # description: "",
-    # link: "" },
+    style-pochincoff: { lora: "loras/style/Pochincoff_v1_50_clip2.safetensors", name: "Pochincoff", strength: 1,
+        words: ['pochincoff, android, mecha, robot, robot joints, robot parts, mask, visor, led mask, helmet, colored skin, black skin, white skin, no humans'], 
+        description: "Pochincoff's style, a robot/android style | Useful Negatives: human, pink skin, tail, border",
+        link: "https://civitai.com/models/22786/pochincoff-style" },
+
+    # style-nanana: { lora: "lora", name: "Name", strength: 1,
+        # words: [''], 
+        # description: "",
+        # link: "" },
 }
 
 effect: {
@@ -1601,6 +1606,16 @@ character: {
         words: ['ryouko_(tenchi_muyou!), big hair, blue hair, spiked hair'], 
         description: "Ryoko from Tenchi Muyo",
         link: "https://civitai.com/models/21730/ryoko-tenchi-muyo" },
+
+    character-kinonbachikagurrenlagann: { lora: "loras/character/KinonBachika.safetensors", name: "Kinon Bachika (Gurren Lagann)", strength: 1,
+        words: ['Kinon_Bachika'], 
+        description: "Kinon Bachika from Gurren Lagann; \nadd short or long hair, since this character has two versions",
+        link: "https://civitai.com/models/81539/kinon-bachika-gurren-lagan" },
+
+    character-drosselvonflugelfireball: { lora: "loras/character/drossel-10.safetensors", name: "Drossel von Flügel (Fireball)", strength: 1,
+        words: ['drossel, twintail, no mouth'], 
+        description: "Drossel from Fireball",
+        link: "https://civitai.com/models/73157/drossel-von-flugel" },
 
     # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
     #     words: [''], 
