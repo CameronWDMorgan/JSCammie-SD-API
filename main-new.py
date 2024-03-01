@@ -11,7 +11,7 @@ import yaml
 import uuid
 import torch
 import tomesd
-from diffusers import AutoPipelineForText2Image, StableDiffusionXLImg2ImgPipeline, StableDiffusionXLInpaintPipeline, AnimateDiffPipeline, MotionAdapter, ControlNetModel, StableDiffusionUpscalePipeline, StableDiffusionPipeline, DiffusionPipeline, StableDiffusionImg2ImgPipeline, DDIMScheduler, EulerAncestralDiscreteScheduler, StableDiffusionInpaintPipeline, StableDiffusionControlNetPipeline
+from diffusers import AutoPipelineForText2Image, StableDiffusionXLImg2ImgPipeline, StableDiffusionXLInpaintPipeline, AnimateDiffPipeline, MotionAdapter, ControlNetModel, StableDiffusionUpscalePipeline, StableDiffusionPipeline, DiffusionPipeline, StableDiffusionImg2ImgPipeline, DPMSolverMultistepScheduler, EulerAncestralDiscreteScheduler, StableDiffusionInpaintPipeline, StableDiffusionControlNetPipeline
 from diffusers.utils import load_image, export_to_gif
 from diffusers.models.attention_processor import AttnProcessor2_0
 import time
@@ -61,58 +61,110 @@ global lora_metadata_list
 lora_metadata_list = []
 try:
         
-    img2img_models = {}
+    eulera_img2img_models = {}
+    dpm_img2img_models = {}
     
-    upscale_model = {
-        '4x': {'loaded':None, 'model_path': 'stabilityai/stable-diffusion-x4-upscaler', 'scheduler': EulerAncestralDiscreteScheduler}
+    eulera_upscale_model = {
+        '4x': {'loaded':None, 'model_path': 'stabilityai/stable-diffusion-x4-upscaler'}
     }
     
-    inpainting_models = {
-        'inpainting': {'loaded':None, 'model_path': './models/inpainting/SonicDiffusionV4-inpainting.inpainting.safetensors', 'scheduler': EulerAncestralDiscreteScheduler},
-        'sonic': {'loaded':None, 'model_path': sonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'aing': {'loaded':None, 'model_path': aing_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        # 'xl-pony': {'loaded':None, 'model_path': xl_pony_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
+    eulera_inpainting_models = {
+        'inpainting': {'loaded':None, 'model_path': './models/inpainting/SonicDiffusionV4-inpainting.inpainting.safetensors'},
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
     }
 
-    txt2img_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'aing': {'loaded':None, 'model_path': aing_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        # 'xl-pony': {'loaded':None, 'model_path': xl_pony_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
+    eulera_txt2img_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
     }
     
-    txt2video_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'aing': {'loaded':None, 'model_path': aing_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
+    eulera_txt2video_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
     }
     
-    openpose_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'aing': {'loaded':None, 'model_path': aing_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-        # 'xl-pony': {'loaded':None, 'model_path': xl_pony_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
+    eulera_openpose_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
     }
+    
+    
+    
+    
+    
+    dpm_upscale_model = {
+        '4x': {'loaded':None, 'model_path': 'stabilityai/stable-diffusion-x4-upscaler'}
+    }
+    
+    dpm_inpainting_models = {
+        'inpainting': {'loaded':None, 'model_path': './models/inpainting/SonicDiffusionV4-inpainting.inpainting.safetensors'},
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+    }
+
+    dpm_txt2img_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+    }
+    
+    dpm_txt2video_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+    }
+    
+    dpm_openpose_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+    }
+    
+    
+    
+    
+    
         
     # for each model in txt2img_models that doesnt have a save_pretrained folder, create one by using StableDiffusionPipeline, loading the model and using the name as the final folder:
-    for model_name, model_info in txt2img_models.items():
+    for model_name, model_info in eulera_txt2img_models.items():
         if not os.path.exists('./models/' + model_name):
             print("Creating folder for " + model_name)
             try:
@@ -152,7 +204,7 @@ except Exception as e:
 
         
 
-def create_and_load_inpainting_model(model_path, name, scheduler, model_type, data):
+def create_and_load_inpainting_model(model_path, name, model_type, data):
     if name.startswith("xl-"):
         pipeline = StableDiffusionXLInpaintPipeline.from_pretrained(
             './models/' + name, 
@@ -183,7 +235,11 @@ def create_and_load_inpainting_model(model_path, name, scheduler, model_type, da
             load_safety_checker=False,
         )
         
-    pipeline.scheduler = scheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
     pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
     pipeline.load_textual_inversion("./embeddings/BadDream.pt")
     pipeline.load_textual_inversion("./embeddings/boring_e621_v4.pt")
@@ -192,7 +248,7 @@ def create_and_load_inpainting_model(model_path, name, scheduler, model_type, da
     return pipeline
 
 
-def create_and_load_model(model_path, name, scheduler, model_type, data):
+def create_and_load_model(model_path, name, model_type, data):
 
     if name.startswith("xl-"):
         pipeline = AutoPipelineForText2Image.from_pretrained(
@@ -208,13 +264,19 @@ def create_and_load_model(model_path, name, scheduler, model_type, data):
             revision="fp16",
             safety_checker=None
         )
-    
+
     pipeline.enable_vae_slicing()
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
     pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
     pipeline.load_textual_inversion("./embeddings/BadDream.pt")
     pipeline.load_textual_inversion("./embeddings/boring_e621_v4.pt")
-    pipeline.scheduler = scheduler.from_config(pipeline.scheduler.config)
+    
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
+    
     pipeline.enable_vae_tiling()
     
     components = pipeline.components
@@ -222,17 +284,19 @@ def create_and_load_model(model_path, name, scheduler, model_type, data):
     if name.startswith("xl-"):
         imgpipeline = StableDiffusionXLImg2ImgPipeline(**components)
     else:
-        components['safety_checker'] = None
         imgpipeline = StableDiffusionImg2ImgPipeline(**components, requires_safety_checker=False)
 
-    img2img_models[name] = imgpipeline
+    if data['scheduler'] == "eulera":
+        eulera_img2img_models[name] = imgpipeline
+    if data['scheduler'] == "dpm":
+        dpm_img2img_models[name] = imgpipeline
     pipeline.enable_model_cpu_offload()
 
     return pipeline
 
 adapter = MotionAdapter.from_pretrained("guoyww/animatediff-motion-adapter-v1-5-2")
 
-def create_and_load_txt2video_model(model_path, name, scheduler, model_type, data):
+def create_and_load_txt2video_model(model_path, name, model_type, data):
     
     pipeline = AnimateDiffPipeline.from_pretrained(
         './models/' + name,
@@ -240,16 +304,24 @@ def create_and_load_txt2video_model(model_path, name, scheduler, model_type, dat
         torch_dtype=torch.float16,
     )
     
-    scheduler = EulerAncestralDiscreteScheduler.from_pretrained(
-        './models/' + name,
-        subfolder="scheduler",
-        clip_sample=False,
-        timestep_spacing="linspace",
-        beta_schedule="linear",
-        steps_offset=1,
-    )
-    
-    pipeline.scheduler = scheduler
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_pretrained(
+            './models/' + name,
+            subfolder="scheduler",
+            clip_sample=False,
+            timestep_spacing="linspace",
+            beta_schedule="linear",
+            steps_offset=1,
+        )
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_pretrained(
+            './models/' + name,
+            subfolder="scheduler",
+            clip_sample=False,
+            timestep_spacing="linspace",
+            beta_schedule="linear",
+            steps_offset=1,
+        )
     
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
     pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
@@ -262,7 +334,7 @@ def create_and_load_txt2video_model(model_path, name, scheduler, model_type, dat
     return pipeline
 
 
-def create_and_load_controlnet_model(model_path, name, scheduler, model_type, data):
+def create_and_load_controlnet_model(model_path, name, model_type, data):
     
     if(model_type == "openpose"):
         controlnet = ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-openpose", torch_dtype=torch.float16, use_safetensors=True)
@@ -282,7 +354,12 @@ def create_and_load_controlnet_model(model_path, name, scheduler, model_type, da
     pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
     pipeline.load_textual_inversion("./embeddings/BadDream.pt")
     pipeline.load_textual_inversion("./embeddings/boring_e621_v4.pt")
-    pipeline.scheduler = scheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
+    
     pipeline.enable_vae_tiling()
     
     components = pipeline.components
@@ -291,67 +368,131 @@ def create_and_load_controlnet_model(model_path, name, scheduler, model_type, da
 
     return pipeline
     
-def create_and_load_upscale_model(model_path, scheduler, model_type, data):
+def create_and_load_upscale_model(model_path, model_type, data):
     pipeline = StableDiffusionUpscalePipeline.from_pretrained(
         model_path,
         revision="fp16",
     )
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
     pipeline.enable_attention_slicing("max")
-    pipeline.scheduler = scheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
     pipeline.enable_model_cpu_offload()
     
     return pipeline
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 def get_upscale_model(name, data):
-    global upscale_model
-    model_info = upscale_model['4x']
+    global eulera_upscale_model
+    global dpm_upscale_model
+    if data['scheduler'] == "eulera":
+        model_info = eulera_upscale_model[name]
+    if data['scheduler'] == "dpm":
+        model_info = dpm_upscale_model[name]
     
     # print("Upscale Model Info: ", model_info)
     
     if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_upscale_model(model_info['model_path'], model_info['scheduler'], data['request_type'], data)
+        model_info['loaded'] = create_and_load_upscale_model(model_info['model_path'], data['request_type'], data)
     else:
-        model_info = upscale_model['4x']
+        if data['scheduler'] == "eulera":
+            model_info = eulera_upscale_model[name]
+        if data['scheduler'] == "dpm":
+            model_info = dpm_upscale_model[name]
     
     return model_info['loaded']
+    
+    
+    
+    
+    
     
 def get_txt2img_model(name, data):
-    model_info = txt2img_models[name]
+    if data['scheduler'] == "eulera":
+        model_info = eulera_txt2img_models[name]
+    if data['scheduler'] == "dpm":
+        model_info = dpm_txt2img_models[name]
     
     if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_model(model_info['model_path'], name, model_info['scheduler'], data['request_type'], data)
+        model_info['loaded'] = create_and_load_model(model_info['model_path'], name, data['request_type'], data)
     else:
-        model_info = txt2img_models[name]
+        if data['scheduler'] == "eulera":
+            model_info = eulera_txt2img_models[name]
+        if data['scheduler'] == "dpm":
+            model_info = dpm_txt2img_models[name]
 
                 
     return model_info['loaded']
+
+
+
+
+
 
 def get_txt2video_model(name, data):
-    model_info = txt2video_models[name]
+    if data['scheduler'] == "eulera":
+        model_info = eulera_txt2video_models[name]
+    if data['scheduler'] == "dpm":
+        model_info = dpm_txt2video_models[name]
     
     if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_txt2video_model(model_info['model_path'], name, model_info['scheduler'], data['request_type'], data)
+        model_info['loaded'] = create_and_load_txt2video_model(model_info['model_path'], name, data['request_type'], data)
     else:
-        model_info = txt2video_models[name]
+        if data['scheduler'] == "eulera":
+            model_info = eulera_txt2video_models[name]
+        if data['scheduler'] == "dpm":
+            model_info = dpm_txt2video_models[name]
 
                 
     return model_info['loaded']
+
+
+
+
+
 
 
 
 def get_inpainting_model(name, data):
     if data['inpainting_original_option'] == False:
         name = "inpainting"
-    model_info = inpainting_models[name]
+    if data['scheduler'] == "eulera":
+        model_info = eulera_inpainting_models[name]
+    if data['scheduler'] == "dpm":
+        model_info = dpm_inpainting_models[name]
     
     if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_inpainting_model(model_info['model_path'], name, model_info['scheduler'], data['request_type'], data)
+        model_info['loaded'] = create_and_load_inpainting_model(model_info['model_path'], name, data['request_type'], data)
     else:
-        model_info = inpainting_models[name]
+        if data['scheduler'] == "eulera":
+            model_info = eulera_inpainting_models[name]
+        if data['scheduler'] == "dpm":
+            model_info = dpm_inpainting_models[name]
                    
     return model_info['loaded']
+
+
+
+
+
 
 
 
@@ -368,14 +509,28 @@ def get_inpainting_model(name, data):
 
 
 def get_openpose_model(name, data):
-    model_info = openpose_models[name]
+    if data['scheduler'] == "eulera":
+        model_info = eulera_openpose_models[name]
+    if data['scheduler'] == "dpm":
+        model_info = dpm_openpose_models[name]
     
     if model_info['loaded'] is None:
         model_info['loaded'] = create_and_load_controlnet_model(model_info['model_path'], name, model_info['scheduler'], data['request_type'], data)
     else:
-        model_info = openpose_models[name]
+        if data['scheduler'] == "eulera":
+            model_info = eulera_openpose_models[name]
+        if data['scheduler'] == "dpm":
+            model_info = dpm_openpose_models[name]
         
     return model_info['loaded']
+
+
+
+
+
+
+
+
 
 
 
@@ -695,15 +850,30 @@ def process_image(current_model, model_type, data, request_id, save_image=False)
         error_message = error_message.replace("'", '"')
         if error_message == '"LayerNormKernelImpl" not implemented for "Half"':
             if data['request_type'] == 'txt2img':
-                txt2img_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "eulera":
+                    eulera_txt2img_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "dpm":
+                    dpm_txt2img_models[data['model']]['loaded'] = None
             elif data['request_type'] == 'img2img':
-                img2img_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "eulera":
+                    eulera_img2img_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "dpm":
+                    dpm_img2img_models[data['model']]['loaded'] = None
             elif data['request_type'] == 'inpainting':
-                inpainting_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "eulera":
+                    eulera_inpainting_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "dpm":
+                    dpm_inpainting_models[data['model']]['loaded'] = None
             elif data['request_type'] == 'openpose':
-                openpose_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "eulera":
+                    eulera_openpose_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "dpm":
+                    dpm_openpose_models[data['model']]['loaded'] = None
             elif data['request_type'] == 'txt2video':
-                txt2video_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "eulera":
+                    eulera_txt2video_models[data['model']]['loaded'] = None
+                if data['scheduler'] == "dpm":
+                    dpm_txt2video_models[data['model']]['loaded'] = None
             error_message = error_message + " | Model Reloaded"
         
         error_message = error_message + " | Reset Model"
@@ -787,7 +957,8 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
             "model": data['model'],
             "upscaled": data['upscale'],
             "generation_date": datetime.datetime.now().isoformat(),
-            "accountId": str(data['accountId'])
+            "accountId": str(data['accountId']),
+            "scheduler": data['scheduler']
         }
 
         # Add watermark, if applicable
@@ -948,7 +1119,7 @@ def process_request(queue_item):
             promptString = ' '.join(data['prompt'])
         
         # data on multiple print lines for easier debugging
-        print("Request Type: " + str(data['request_type']) + "\nModel: " + str(data['model']) + " | Steps: " + str(data['steps']) + " | Width: " + str(data['width']) + "px | Height: " + str(data['height']) + "px\nSeed: " + str(data['seedNumber']) + " | Strength: " + str(data['strength']) + " | CFGuidance: " + str(data['guidance']) + " | Image Count: " + str(data['image_count'] )  + "\nPrompt: " + str(promptString) + "\nNegative Prompt: " + str(data['negative_prompt']) + "\nLora: " + str(data['lora']))
+        print("Request Type: " + str(data['request_type']) + " | Model: " + str(data['model']) + " Scheduler: " + str(data['scheduler']) + "\nSteps: " + str(data['steps']) + " | Width: " + str(data['width']) + "px | Height: " + str(data['height']) + "px\nSeed: " + str(data['seedNumber']) + " | Strength: " + str(data['strength']) + " | CFGuidance: " + str(data['guidance']) + " | Image Count: " + str(data['image_count'] )  + "\nPrompt: " + str(promptString) + "\nNegative Prompt: " + str(data['negative_prompt']) + "\nLora: " + str(data['lora']))
 
         model_name = data['model']
         lora = data.get('lora', "NO")
@@ -968,7 +1139,10 @@ def process_request(queue_item):
             model = get_txt2img_model(model_name, data)
             data['inpainting_original_option'] = True
             inpainting_model = get_inpainting_model(model_name, data)
-            img2img_model = img2img_models.get(model_name)
+            if data['scheduler'] == "eulera":
+                img2img_model = eulera_img2img_models.get(model_name)['loaded']
+            if data['scheduler'] == "dpm":
+                img2img_model = dpm_img2img_models.get(model_name)['loaded']
         elif model_type == 'txt2video':
             model = get_txt2video_model(model_name, data)
             
@@ -978,7 +1152,10 @@ def process_request(queue_item):
         if model_type != 'img2img':
             current_model = model
         else:
-            current_model = img2img_models.get(model_name)
+            if data['scheduler'] == "eulera":
+                current_model = eulera_img2img_models.get(model_name)['loaded']
+            if data['scheduler'] == "dpm":
+                current_model = dpm_img2img_models.get(model_name)['loaded']
        
        
        
@@ -1464,7 +1641,7 @@ def generate_image():
             return generate_error_response(error_message, 400)
             
         # if data['model'] value isnt a key in the txt2img_models dictionary, return an error:
-        if data['model'] not in txt2img_models:
+        if data['model'] not in eulera_txt2img_models:
             error_message = "Invalid model name"
             print(error_message)
             return generate_error_response(error_message, 400)
@@ -1520,23 +1697,23 @@ def generate_image():
                 print(error_message)
                 return generate_error_response(error_message, 400)
         
-        if data['steps'] > 100:
-            error_message = "You have reached the limit of 100 steps per request. Please reduce the number of steps and try again."
+        if data['steps'] > 126:
+            error_message = "You have reached the limit of 126 steps per request. Please reduce the number of steps and try again."
             print(error_message)
             return generate_error_response(error_message, 400)
         
-        if data['quantity'] > 8:
+        if data['quantity'] > 5:
             error_message = "You have reached the limit of 8 images per request. Please reduce the number of images and try again."
             print(error_message)
             return generate_error_response(error_message, 400)
                 
-        if data['steps'] > 20 and data['quantity'] > 8:
+        if data['steps'] > 20 and data['quantity'] > 5:
             error_message = "You have reached the limit of 8 images per request. Please reduce the number of steps and try again."
             print(error_message)
             return generate_error_response(error_message, 400)
         
-        if len(data['lora']) > 5:
-            error_message = "You have reached the limit of 5 Lora options. Please deselect some and try again."
+        if len(data['lora']) > 4:
+            error_message = "You have reached the limit of 4 Lora options. Please deselect some and try again."
             print(error_message)
             return generate_error_response(error_message, 400)
         
@@ -1646,6 +1823,7 @@ def generate_image():
             "video_length": int(data.get('video_length', 16)),
             "accountId": int(data.get('accountId', 0)),
             "true_prompt": str(true_prompt),
+            "scheduler": data.get('scheduler', "eulera"),
         } 
 
             
@@ -1835,12 +2013,12 @@ def test_generate_image(test_data):
 
 # for every txt2img model, create_and_load_model:
 # txt2img_models = {
-#         'furry': {'loaded':None, 'model_path': furry_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-#         'sonic': {'loaded':None, 'model_path': sonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-#         'aing': {'loaded':None, 'model_path': aing_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-#         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-#         'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
-#         'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path, 'scheduler': EulerAncestralDiscreteScheduler},
+#         'furry': {'loaded':None, 'model_path': furry_model_path},
+#         'sonic': {'loaded':None, 'model_path': sonic_model_path},
+#         'aing': {'loaded':None, 'model_path': aing_model_path},
+#         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+#         'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+#         'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
 #     }
 
 # use lora_weights_map to create a for loop that runs test_generate_image for each lora in the lora_weights_map:
@@ -1875,7 +2053,7 @@ def test_all_loras():
 # test_generate_image(generateTestJsonLatentCouple)
 # test_generate_image(generateTestJsonSDXL)
 # test_generate_image(generateTestJson1)
-test_generate_image(generateTestJson2)
+# test_generate_image(generateTestJson2)
 # test_generate_image(generateTestJson22)
 # test_generate_image(generateTestJson222)
 # test_generate_image(generateTestJson3)
