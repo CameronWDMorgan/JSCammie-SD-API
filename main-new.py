@@ -35,6 +35,9 @@ import numpy as np
 
 import os
 import datetime
+import asyncio
+
+from DB import *
 
 device = torch.device("cuda")
 
@@ -840,7 +843,10 @@ def process_image(current_model, model_type, data, request_id, save_image=False)
                     generator=data['seed'],
                     num_frames=data['video_length'],
                 )
-                
+
+        # Async calc the hash and send the prompt info to the DB
+        asyncio.create_task(process_images_and_store_hashes(outputs, data))
+
         return outputs
                 
             

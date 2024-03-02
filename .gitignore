@@ -51,3 +51,5 @@ animation copy.gif
 animation copy 4.gif
 animation copy 3.gif
 animation copy 2.gif
+venv/
+__pycache__/
