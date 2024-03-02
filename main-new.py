@@ -89,6 +89,16 @@ try:
         'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
     }
     
+    eulera_img2img_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+    }
+    
     eulera_txt2video_models = {
         'sonic': {'loaded':None, 'model_path': sonic_model_path},
         'aing': {'loaded':None, 'model_path': aing_model_path},
@@ -129,6 +139,16 @@ try:
     }
 
     dpm_txt2img_models = {
+        'sonic': {'loaded':None, 'model_path': sonic_model_path},
+        'aing': {'loaded':None, 'model_path': aing_model_path},
+        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+        'ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+    }
+    
+    dpm_img2img_models = {
         'sonic': {'loaded':None, 'model_path': sonic_model_path},
         'aing': {'loaded':None, 'model_path': aing_model_path},
         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
@@ -248,6 +268,11 @@ def create_and_load_inpainting_model(model_path, name, model_type, data):
     return pipeline
 
 
+
+
+
+
+
 def create_and_load_model(model_path, name, model_type, data):
 
     if name.startswith("xl-"):
@@ -266,6 +291,8 @@ def create_and_load_model(model_path, name, model_type, data):
         )
 
     pipeline.enable_vae_slicing()
+    pipeline.enable_vae_tiling()
+        
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
     pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
     pipeline.load_textual_inversion("./embeddings/BadDream.pt")
@@ -277,22 +304,43 @@ def create_and_load_model(model_path, name, model_type, data):
         pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
         pipeline.scheduler.use_karras_sigmas = True
     
-    pipeline.enable_vae_tiling()
-    
-    components = pipeline.components
-    
-    if name.startswith("xl-"):
-        imgpipeline = StableDiffusionXLImg2ImgPipeline(**components)
-    else:
-        imgpipeline = StableDiffusionImg2ImgPipeline(**components, requires_safety_checker=False)
-
-    if data['scheduler'] == "eulera":
-        eulera_img2img_models[name] = imgpipeline
-    if data['scheduler'] == "dpm":
-        dpm_img2img_models[name] = imgpipeline
     pipeline.enable_model_cpu_offload()
 
     return pipeline
+
+def create_and_load_img2img_model(model_path, name, model_type, data):
+    if name.startswith("xl-"):
+        pipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
+            './models/' + name, 
+            torch_dtype=torch.float16,
+            revision="fp16",
+        )
+    else:
+        pipeline = StableDiffusionImg2ImgPipeline.from_pretrained(
+            './models/' + name, 
+            torch_dtype=torch.float16, 
+            revision="fp16",
+            safety_checker=None
+        )
+    
+    pipeline.unet.set_attn_processor(AttnProcessor2_0())
+    pipeline.load_textual_inversion("./embeddings/EasyNegativeV2.safetensors")
+    pipeline.load_textual_inversion("./embeddings/BadDream.pt")
+    pipeline.load_textual_inversion("./embeddings/boring_e621_v4.pt")
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
+
+    pipeline.enable_model_cpu_offload()
+    
+    return pipeline
+
+
+
+
+
 
 adapter = MotionAdapter.from_pretrained("guoyww/animatediff-motion-adapter-v1-5-2")
 
@@ -443,7 +491,22 @@ def get_txt2img_model(name, data):
     return model_info['loaded']
 
 
+def get_img2img_model(name, data):
+    if data['scheduler'] == "eulera":
+        model_info = eulera_img2img_models[name]
+    if data['scheduler'] == "dpm":
+        model_info = dpm_img2img_models[name]
+    
+    if model_info['loaded'] is None:
+        model_info['loaded'] = create_and_load_img2img_model(model_info['model_path'], name, data['request_type'], data)
+    else:
+        if data['scheduler'] == "eulera":
+            model_info = eulera_img2img_models[name]
+        if data['scheduler'] == "dpm":
+            model_info = dpm_img2img_models[name]
 
+                
+    return model_info['loaded']
 
 
 
@@ -563,21 +626,25 @@ def get_lora_yaml():
 from PIL import Image, ImageDraw, ImageFont, PngImagePlugin
 
 def add_watermark(image, text, font_size):
-    
     draw = ImageDraw.Draw(image)
     try:
-        font = ImageFont.truetype("./Amaranth-Regular.ttf", font_size) 
+        font = ImageFont.truetype("Amaranth-Regular.ttf", font_size)
     except IOError:
         font = ImageFont.load_default()  # Load the default font in case of error
-        
-    # get the image size so I can calculate the offset of the watermark to be in the top right corner:
-    x = image.width - 10 - font.getsize(text)[0]  # 10 pixels offset from the right edge
-    y = 4  # 10 pixels offset from the top edge
+
+    # Use textbbox to get the bounding box of the text
+    text_bbox = draw.textbbox((0, 0), text, font=font)
+    text_width = text_bbox[2] - text_bbox[0]
+    text_height = text_bbox[3] - text_bbox[1]
+
+    # Calculate the x, y position of the text
+    x = image.width - 10 - text_width  # 10 pixels offset from the right edge
+    y = 10  # 10 pixels offset from the top edge
 
     # Text outline
     outline_color = "black"
-    for offset in [(1,1), (1,-1), (-1,1), (-1,-1)]:  # Offsets for the outline
-        draw.text((x+offset[0], y+offset[1]), text, font=font, fill=outline_color)
+    for offset in [(1, 1), (1, -1), (-1, 1), (-1, -1)]:  # Offsets for the outline
+        draw.text((x + offset[0], y + offset[1]), text, font=font, fill=outline_color)
 
     # Text itself
     text_color = "white"
@@ -905,13 +972,23 @@ def add_metadata(image, metadata):
         meta.add_text(str(key), str(value))
     return meta
 
+
+
+
+
+
+
+
+
+
+
 def save_image(request_id, output_image, model_type, data, image_index=0, font_size=20):
     try:
         # Load upscale settings once if needed and adjust font-size accordingly
-        if data.get('upscale', False):
+        if data.get('upscale', True):
             with open('upscale-settings.yaml', 'r') as file:
                 upscaleSettings = yaml.safe_load(file)
-            data['font-size'] = upscaleSettings.get('font-size', 24)
+                data['font-size'] = upscaleSettings.get('font-size', 96)
         else:
             data['font-size'] = 24
 
@@ -919,32 +996,26 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
         accountId_string = "" if data.get('accountId') == "0" else data.get('accountId', '')
 
         if data.get('upscale', False) and model_type != "txt2video":
-            model = get_upscale_model('aaa', data)
-            steps = upscaleSettings.get('steps', 0)
             
-            # Resizing the image for upscaling
-            image_width = round((output_image.width / 1.25) / 8) * 8
-            image_height = round((output_image.height / 1.25) / 8) * 8
-            output_image = output_image.resize((image_width, image_height))
-
+            # save image as "og_image.png"
             output_image.save("og_image.png")
+           
+            import subprocess
 
-            # Perform upscaling with model
-            try:
-                with torch.inference_mode():
-                    output_image = model(
-                        prompt=data['prompt'],
-                        negative_prompt=data['negative_prompt'],
-                        image=output_image,
-                        generator=data['seed'],
-                        num_inference_steps=steps,
-                    ).images[0]
-            except Exception as e:
-                print(f"Error upscaling image: {e}")
+            # Define the command to run as a list of arguments
+            command = ["./esrganvulkan/realesrgan-ncnn-vulkan.exe", "-n", "realesrgan-x4plus-anime", "-i", "og_image.png", "-o", "upscaled_image.png", "-f", "png"]
+            # python Real-ESRGAN/inference_realesrgan.py -n realesrgan-x4plus-anime -i og_image.png -o upscaled_image.png -f png
 
-            # Clear torch memory after upscaling
-            torch.cuda.empty_cache()
-            torch.cuda.reset_peak_memory_stats()
+            # Run the command and wait for it to complete, capturing the output
+            result = subprocess.run(command, capture_output=True, text=True)
+            
+            print(result.returncode)
+            print(result.stdout)
+
+            # Now, open the file
+            with open("upscaled_image.png", "rb") as file:
+                output_image = Image.open(file)
+                output_image.load()
 
         # Generate metadata
         metadata = {
@@ -963,7 +1034,7 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
 
         # Add watermark, if applicable
         if model_type != "txt2video":
-            watermarked_image = add_watermark(output_image, "JSCammie.com", font_size)
+            watermarked_image = add_watermark(output_image, "JSCammie.com", data['font-size'])
             meta = add_metadata(watermarked_image, metadata)
             buffered = io.BytesIO()
             watermarked_image.save(buffered, format="PNG", pnginfo=meta)
@@ -971,14 +1042,27 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
         else:
             img_str = data['video_string']
 
+
         return {
             "width": output_image.width,
             "height": output_image.height,
             "base64": img_str
         }
+            
     except Exception as e:
         print(f"Error saving image: {e}")
         return None
+
+
+
+
+
+
+
+
+
+
+
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -1061,7 +1145,7 @@ def process_request(queue_item):
                 data['width'], data['height'] = new_width, new_height
 
                 # Resize the image
-                data['image_data'] = data['image_data'].resize((new_width, new_height), Image.ANTIALIAS)
+                data['image_data'] = data['image_data'].resize((new_width, new_height))
                 data['image_data'] = data['image_data'].convert('RGB')
 
             except Exception as e:
@@ -1127,8 +1211,10 @@ def process_request(queue_item):
         
                 
         # if model_type is txt2img or img2img, get the model, else get the inpainting model:
-        if model_type == 'txt2img' or model_type == 'img2img':
+        if model_type == 'txt2img':
             model = get_txt2img_model(model_name, data)
+        elif model_type == 'img2img':
+            model = get_img2img_model(model_name, data)
         elif model_type == 'inpainting':
             model = get_inpainting_model(model_name, data)
         # elif model_type == 'controlnet_img2img':
@@ -1148,14 +1234,7 @@ def process_request(queue_item):
             
             
             
-        # checks the model type to load the correct model:
-        if model_type != 'img2img':
-            current_model = model
-        else:
-            if data['scheduler'] == "eulera":
-                current_model = eulera_img2img_models.get(model_name)['loaded']
-            if data['scheduler'] == "dpm":
-                current_model = dpm_img2img_models.get(model_name)['loaded']
+        current_model = model
        
        
        
@@ -1682,15 +1761,11 @@ def generate_image():
         
         print(f"Upscale: {upscale}")
         
-        if upscale != False:
-            error_message = "Upscaling is temporarily disabled! Sorry for the inconvenience."
-            print(error_message)
-            return generate_error_response(error_message, 400)
+        # if upscale != False:
+        #     error_message = "Upscaling is temporarily disabled! Sorry for the inconvenience."
+        #     print(error_message)
+        #     return generate_error_response(error_message, 400)
         
-        if upscale and data['quantity'] > 1:
-            error_message = "You can only generate one image at a time when using the upscale option!"
-            print(error_message)
-            return generate_error_response(error_message, 400)
         if not data['model'].startswith("xl-"):
             if data['height'] > 768 or data['width'] > 768:
                 error_message = "Image dimensions are too large. Please use an image with a maximum resolution of 768x768."
@@ -1922,8 +1997,8 @@ generateTestJson2 = {
     "seed": -1,
     "quantity": 1,
     "request_type": "txt2img",
-    "lora": ['character-cocobandicoot', 'style-theotherhalf'],
-    "upscale": False,
+    "lora": [],
+    "upscale": True,
 }
 
 generateTestJson22 = {
@@ -2053,7 +2128,7 @@ def test_all_loras():
 # test_generate_image(generateTestJsonLatentCouple)
 # test_generate_image(generateTestJsonSDXL)
 # test_generate_image(generateTestJson1)
-# test_generate_image(generateTestJson2)
+test_generate_image(generateTestJson2)
 # test_generate_image(generateTestJson22)
 # test_generate_image(generateTestJson222)
 # test_generate_image(generateTestJson3)
