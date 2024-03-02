@@ -17,7 +17,7 @@ style: {
       link: "https://civitai.com/models/11161/cutesexyrobutts-style" },
       
     style-flatcolor: { lora: "./loras/style/flatcolor.pt", name: "Flat-Color", strength: 1,
-      words: ['flat_color', 'ligne_claire'], 
+      words: ['flat_color, ligne_claire'], 
       description: "Emulates the style of Flat-Color, with pastel blocks of color with no shadows, similar to ligne claire",
       link: "https://civitai.com/models/6433/loraflatcolor" },
       
@@ -42,12 +42,12 @@ style: {
       link: "https://civitai.com/models/9995/genshin-impact-model-style-lora" },
       
     style-manga: { lora: "loras/style/mangapolonia.safetensors", name: "Manga", strength: 0.7,
-      words: ['comic book cover', 'comic book panels', 'comic panel layout'],
+      words: ['comic book cover, comic book panels, comic panel layout'],
       description: "Emulates manga panels, covers, and pages",
       link: "https://civitai.com/models/158867/mangapolonia-comics" },
       
     style-oilpainting: { lora: "loras/style/Oil painting stick.safetensors", name: "Oil Painting", strength: 0.7,
-      words: ['bichu', 'oil painting', 'Impressionism'], 
+      words: ['bichu, oil painting, Impressionism'], 
       description: "Emulates the style of oil paintings",
       link: "https://civitai.com/models/84542/oil-paintingoil-brush-stroke" },
       
@@ -62,7 +62,7 @@ style: {
       link: "https://civitai.com/models/177066/the-other-half-artist-style" },
       
     style-popupparade: { lora: "loras/style/popupparade-10.safetensors", name: "Pop up Parade (Anime Figurines)", strength: 1,
-      words: ['popupparade', 'anime figurines', 'figurines'], 
+      words: ['popupparade, anime figurines, figurines'], 
       description: "Emulates the look of Pop up Parade figurines",
       link: "https://civitai.com/models/78997/pop-up-parade-anime-figures-figurines-style" },
       
@@ -87,7 +87,7 @@ style: {
       link: "https://civitai.com/models/25470/moffmachistyle" },
       
     style-kyurisawasensei: {lora: "loras/style/kyurisawasensei.safetensors", name: "Kyurisawa Sensei", strength: 0.3,
-      words: ['diives', 'kyurisawasensei'], 
+      words: ['diives, kyurisawasensei'], 
       description: "Emulates the style of Kyurisawa Sensei / Diives",
       link: "N/A" },
       
@@ -97,12 +97,12 @@ style: {
       link: "https://civitai.com/models/252630/akami-mirai-style" },
       
     style-snksprites: { lora: "loras/style/SNK-Kof_sprites_Fp.safetensors", name: "SNK Sprites", strength: 0.8,
-      words: ['simple background', 'full body', 'standing'], 
+      words: ['simple background, full body, standing'], 
       description: "Emulates the style of SNK sprites, similar to sprites in King of Fighters",
       link: "https://civitai.com/models/243388/snk-neo-geo-sprite-style" },
       
     style-ddlc: { lora: "loras/style/DDLC-Style_Fp.safetensors", name: "DDLC", strength: 0.7,
-      words: ['doki doki literature club', 'ddlc', 'simple background'], 
+      words: ['doki doki literature club, ddlc, simple background'], 
       description: "Emulates the style of Doki Doki Literature Club",
       link: "https://civitai.com/models/256193?modelVersionId=288838" },
       
@@ -117,7 +117,7 @@ style: {
       link: "https://civitai.com/models/9922/komowata-haruka-chibi-art-style-lora" },
       
     style-psychophonky: { lora: "loras/style/PSYCHOPHONKY.safetensors", name: "PSYCHOPHONKY", strength: 1,
-      words: ['psychophonky', '1girl', 'crazy smile', 'fangs', 'tongue sticking out'], 
+      words: ['psychophonky, 1girl, crazy smile, fangs, tongue sticking out'], 
       description: "Creates a Yandere / psycho style",
       link: "https://civitai.com/models/246977/psychophonky" },
       
@@ -127,12 +127,12 @@ style: {
       link: "https://civitai.com/models/259590/konpeto-style" },
       
     style-abmayo: { lora: "loras/style/abmayoepoch-000003.safetensors", name: "Abmayo", strength: 1,
-      words: ['abmayo', '1girl', 'solo', 'simple background'], 
+      words: ['abmayo, 1girl, solo, simple background'], 
       description: "Emulates the style of Abmayo",
       link: "https://civitai.com/models/6251/abmayo-240-style-lora" },
       
     style-playboycenterfold: { lora: "loras/style/PlayboyCenterfold-v1.0a.safetensors", name: "Playboy Centerfold", strength: 1,
-      words: ['PLAYBOY','1950S','1960S','1970S','1980S','1990S','2000S','2010S'], 
+      words: ['PLAYBOY, 1950S, 1960S, 1970S, 1980S, 1990S, 2000S, 2010S'], 
       description: "Emulates the look of old Playboy centerfolds in the 1950s-2010s",
       link: "https://civitai.com/models/264134/playboy-centerfolds" },
       
@@ -142,7 +142,7 @@ style: {
       link: "N/A" },
       
     style-nekoarc: { lora: "loras/style/Neco-Arc.safetensors", name: "Necoarc", strength: 1,
-      words: ['neco-arc', 'necopose', '1girl', 'full body', ':3', 'cat ears', 'chibi', 'cat girl', 'cat tail', 'solo', 'slit pupils'], 
+      words: ['neco-arc, necopose, 1girl, full body, :3, cat ears, chibi, cat girl, cat tail, solo, slit pupils'], 
       description: "Emulates the style of Neko-Arc characters",
       link: "https://civitai.com/models/7222/neco-arc-characters" },
       
@@ -157,7 +157,7 @@ style: {
       link: "https://civitai.com/models/121538/watercolor-style-sdxl-and-15" },
 
     style-lego: { lora: "loras/style/lego_v2.0.768.safetensors", name: "Lego", strength: 1,
-      words: ['LEGO BrickHeadz', 'LEGO MiniFig', 'LEGO Creator'], 
+      words: ['LEGO BrickHeadz, LEGO MiniFig, LEGO Creator'], 
       description: "Emulates the style of Lego bricks and minifigures",
       link: "https://civitai.com/models/92444/lelo-lego-lora-for-xl-and-sd15?modelVersionId=150123" },
 
@@ -187,7 +187,7 @@ style: {
       link: "https://civitai.com/models/294556/sexy-pvc-figures?modelVersionId=331023" },
 
     style-mariostriker: { lora: "loras/style/MarioStrikerStyle-06.safetensors", name: "Mario Striker", strength: 0.7,
-        words: ['Mario Striker Style', 'angry'], 
+        words: ['Mario Striker Style, angry'], 
         description: "Emulates the style of Mario Striker Art",
         link: "https://civitai.com/models/60670?modelVersionId=65152" },
 
@@ -205,12 +205,12 @@ style: {
 effect: {
   # effects
   effect-easysticker: { lora: "loras/effect/easy_sticker.safetensors", name: "Easy Sticker", strength: 1,
-    words: ['sticker', 'die-cut sticker', '{main object} sticker', 'sample background', 'solid outline', 'white outline'], 
+    words: ['sticker, die-cut sticker, {main object} sticker, sample background, solid outline, white outline'], 
     description: "Helps create a sticker of the main object in the image",
     link: "https://civitai.com/models/76732/easy-sticker" },
 
   effect-glitching: { lora: "loras/effect/Glitching.safetensors", name: "Glitching", strength: 0.9,
-    words: ['glitching', 'glitch'], 
+    words: ['glitching, glitch'], 
     description: "Creates a glitching effect on the image",
     link: "https://civitai.com/models/82129/glitching-or-styleconcept-lora" },
 
@@ -220,12 +220,12 @@ effect: {
     link: "https://civitai.com/models/196752/hyper-detailer" },
     
   effect-animetarot: { lora: "loras/effect/animetarotV51.safetensors", name: "Anime Tarot", strength: 1,
-    words: ['anime tarot', 'tarot card', 'tarot card border', 'tarot card art style', 'tarot card art'], 
+    words: ['anime tarot, tarot card, tarot card border, tarot card art style, tarot card art'], 
     description: "Creates a tarot card art style & adds a tarot card border to the image",
     link: "https://civitai.com/models/11177/anime-tarot-card-art-style-lora" },
     
   effect-epinoiseoffset: { lora: "loras/effect/epi_noiseoffset2.safetensors", name: "EPI Noise Offset", strength: 1,
-    words: ['dark studio', 'rim lighting', 'two tone lighting', 'dimly lit', 'low key'], 
+    words: ['dark studio, rim lighting, two tone lighting, dimly lit, low key'], 
     description: "Helps improve the lighting and contrast of the image",
     link: "https://civitai.com/models/13941?modelVersionId=16576" },
     
@@ -245,7 +245,7 @@ effect: {
     link: "https://civitai.com/models/73249/retrowave" },
     
   effect-twitchemotes: { lora: "loras/effect/twitch_emotes_v1.3.safetensors", name: "Twitch Emotes", strength: 1,
-    words: ['twitch emoji', 'twitch emote', 'white background sticker'], 
+    words: ['twitch emoji, twitch emote, white background sticker'], 
     description: "Creates a sticker of the main object in the image, with a white background and solid outline, similar to Twitch emotes",
     link: "https://civitai.com/models/18916/twitch-emotes-lora" },
     
@@ -260,17 +260,17 @@ effect: {
     link: "https://civitai.com/models/157105/furthermore-detail-enhancer" },
     
   effect-glasssculpture: { lora: "loras/effect/glasssculpture_v8.safetensors ", name: "Glass Sculpture", strength: 0.8,
-    words: ['a glasssculpture of {main object}', 'transparent', 'translucent', 'reflections'], 
+    words: ['a glasssculpture of {main object}, transparent, translucent, reflections'], 
     description: "Creates a glass sculpture of the main object in the image, with a transparent and translucent effect, and reflections",
     link: "https://civitai.com/models/11203/glass-sculptures" },
     
   effect-neonfacefilter: { lora: "loras/effect/neon face filter v1.safetensors", name: "Neon Face Filter", strength: 1,
-    words: ['neonfacefilter', 'face filter', '/colour/ face filter', 'catearsfilter', 'rabbitearsfilter', 'whiskersfilter', 'heartsfilter', 'antlersfilter'], 
+    words: ['neonfacefilter, face filter, /colour/ face filter, catearsfilter, rabbitearsfilter, whiskersfilter, heartsfilter, antlersfilter'], 
     description: "Adds a neon face filter to the image, with a variety of filters to choose from, similar to Snapchat filters",
     link: "https://civitai.com/models/250462/neon-face-filter" },
     
   effect-girllikewashingmachine: { lora: "loras/effect/girllikewashingmachine.safetensors", name: "Girl Like Washing Machine", strength: 1,
-    words: ['washing machine', 'laundry', 'putting clothes', 'fisheye lens', 'ribbon', 'camisole', 'cardigan'], 
+    words: ['washing machine, laundry, putting clothes, fisheye lens, ribbon, camisole, cardigan'], 
     description: "Creats a POV view from inside a washing machine, with a fisheye lens effect",
     link: "https://civitai.com/models/238621/girl-like-washing-machine" },
     
@@ -300,7 +300,7 @@ effect: {
         link: "https://civitai.com/models/216620/paseer-sd15-accelerator-lcm-lora-2mb?modelVersionId=244118" },
 
     effect-brokenglass: { lora: "loras/effect/BrokenGlass.safetensors", name: "Broken Glass", strength: 1,
-        words: ['IncrsBrknGls', 'broken glass', 'reflection'],
+        words: ['IncrsBrknGls, broken glass, reflection'],
         description: "character appearing through broken glass (very cool effect)",
         link: "https://civitai.com/models/208016/broken-glass-or-concept-lora" 
         },
@@ -329,7 +329,7 @@ concept: {
         link: "https://civitai.com/models/57112/slime-girl" },
         
     concept-futavieny: { lora: "loras/concept/futaveiny6.safetensors", name: "Futa", strength: 1,
-        words: ['veiny penis', 'futanari', 'erection', 'testicles', 'large penis'],
+        words: ['veiny penis, futanari, erection, testicles, large penis'],
         description: "Makes the chracter Futanari (girl with penis)",
         link: "https://civitai.com/models/36056/futaveiny" },
         
@@ -339,12 +339,12 @@ concept: {
         link: "https://civitai.com/models/155508/wet-tshirt-oranime-realisticor" },
         
     concept-analbeads: { lora: "loras/concept/anarubizu-000004.safetensors", name: "Anal Beads", strength: 1,
-        words: ['anarubizu', 'sex toy'],
+        words: ['anarubizu, sex toy'],
         description: "Anal Beads",
         link: "https://civitai.com/models/12704/anal-beads" },
         
     concept-doublev: { lora: "loras/concept/concept-double_v-v1.safetensors", name: "Double V", strength: 1,
-        words: ['double v', 'single v', 'v'],
+        words: ['double v, single v, v'],
         description: "Double V handsigns",
         link: "https://civitai.com/models/43687/double-v-concept" },
         
@@ -354,17 +354,17 @@ concept: {
         link: "https://civitai.com/models/59268/clothed-sex-pov-concepts" },
         
     concept-waitforcum: { lora: "loras/concept/concept-waiting_for_cum-v1.safetensors", name: "Waiting For Cum", strength: 1,
-        words: ['foreshortening', 'from above', 'open mouth', 'uvula', 'teeth', 'lower teeth', 'upper teeth'],
+        words: ['foreshortening, from above, open mouth, uvula, teeth, lower teeth, upper teeth'],
         description: "Character waiting for cum to be ejaculated onto them / with cum on them",
         link: "https://civitai.com/models/57335/waitingforcum-concept" },
         
     concept-funtoys: { lora: "loras/concept/funtoys_v1.safetensors", name: "Fun Toys", strength: 0.65,
-        words: ['funtoys', 'dildo', 'sex toy'],
+        words: ['funtoys, dildo, sex toy'],
         description: "Helps with generating sex toys, hence the name 'Fun Toys'",
         link: "https://civitai.com/models/42901/funtoys-or-sex-toys" },
         
     concept-giftinabox: { lora: "loras/concept/GiftInBoxV1.safetensors", name: "Gift in a Box", strength: 1,
-        words: ['BONDAGE', 'IN BOX', 'FULL BODY', 'LYING ON SIDE', 'BOUND', 'ARMS BEHIND BACK'],
+        words: ['BONDAGE, IN BOX, FULL BODY, LYING ON SIDE, BOUND, ARMS BEHIND BACK'],
         description: "Character inside a box, bound up",
         link: "https://civitai.com/models/59525/conceptbound-gift-in-box" },
         
@@ -384,7 +384,7 @@ concept: {
         link: "https://civitai.com/models/111386/prison-or" },
         
     concept-kissingpenis: { lora: "loras/concept/kissing-penis.safetensors", name: "Kissing Penis", strength: 1,
-        words: ['kissing penis', 'pov', 'from side'],
+        words: ['kissing penis, pov, from side'],
         description: "Character kissing tip of penis",
         link: "https://civitai.com/models/13921/kissing-penis-concept" },
         
@@ -404,17 +404,17 @@ concept: {
         link: "https://civitai.com/models/14134/panties-aside" },
         
     concept-penisstomachebulge: { lora: "loras/concept/pulge-stomach_bulge.safetensors", name: "Penis Stomache Bulge", strength: 1,
-        words: ['pulge', 'stomach bulge'],
+        words: ['pulge, stomach bulge'],
         description: "Stomach bulge cause by penis",
         link: "https://civitai.com/models/12621/pulge-stomach-bulge-caused-by-penis" },
         
     concept-aftersex: { lora: "loras/concept/qqq-aftersex_usedcondom-v1-000013.safetensors", name: "After Sex", strength: 1,
-        words: ['after sex', 'condom wrapper', 'used condom', 'pointless condom'],
+        words: ['after sex, condom wrapper, used condom, pointless condom'],
         description: "Character with used condoms over them and usually cum exiting their vagina",
         link: "https://civitai.com/models/31459/after-sex" },
         
     concept-rulertattoo: { lora: "loras/concept/RulerTattooV2-000006.safetensors", name: "Ruler Tattoo", strength: 1,
-        words: ['navel', 'ruler tattoo'],
+        words: ['navel, ruler tattoo'],
         description: "Ruler tattoo on belly to show how deep someone is inside them",
         link: "https://civitai.com/models/14769?modelVersionId=17822" },
         
@@ -424,7 +424,7 @@ concept: {
         link: "https://civitai.com/models/28808/concept-slap-mark" },
         
     concept-sexmachine: { lora: "loras/concept/smachine.safetensors", name: "Sex Machine", strength: 1,
-        words: ['smachine', 'sex machine', 'restrained', 'bound', 'bdsm', 'object insertion'],
+        words: ['smachine, sex machine, restrained, bound, bdsm, object insertion'],
         description: "character hooked up to a machine that fucks them",
         link: "https://civitai.com/models/110337/sex-machine" },
         
@@ -439,22 +439,22 @@ concept: {
         link: "https://civitai.com/models/59592/sweat-lora" },
         
     concept-tentacleclothes: { lora: "loras/concept/tentacle_clothes.safetensors", name: "Tentacle Clothes", strength: 1,
-        words: ['tentacle clothes', 'bodysuit', 'leotard'],
+        words: ['tentacle clothes, bodysuit, leotard'],
         description: "Clothes with tentacles on the inside of them",
         link: "https://civitai.com/models/9878/tentacle-clothes" },
         
     concept-toomuchcum: { lora: "loras/concept/vomcum.safetensors", name: "Too Much Cum", strength: 1,
-        words: ['excessive cum', 'vomcum'],
+        words: ['excessive cum, vomcum'],
         description: "cum pouring out of character's mouth and nose",
         link: "https://civitai.com/models/120152/too-much-cum" },
         
     concept-wombtattoo: { lora: "loras/concept/womb_tattoo.safetensors", name: "Womb Tattoo", strength: 1,
-        words: ['womb tattoo', 'Pubic tattoo'],
+        words: ['womb tattoo, Pubic tattoo'],
         description: "womb tattoo / pubic tattoo on their belly",
         link: "https://civitai.com/models/81409/womb-tattoo-pubic-tattoo-or-goofy-ai" },
         
     concept-cumontongue: { lora: "loras/concept/CumOnTongueMS.safetensors", name: "Cum on Tongue", strength: 1,
-        words: ['cum in mouth', 'cum on tongue', 'tongue', 'open mouth', 'tongue out', 'cum on hands', 'cupping hands', 'own hands together'],
+        words: ['cum in mouth, cum on tongue, tongue, open mouth, tongue out, cum on hands, cupping hands, own hands together'],
         description: "cum on tongue, hands, and mouth",
         link: "https://civitai.com/models/16775/murkys-cum-on-tongue-lora" },
         
@@ -464,7 +464,7 @@ concept: {
         link: "https://civitai.com/models/3938/x-ray-hentai-25" },
         
     concept-pillory: { lora: "loras/concept/Concept-pilloryV2.safetensors", name: "Pillory", strength: 1,
-        words: ['pillory', 'bound', 'bondage', 'bound wrist'],
+        words: ['pillory, bound, bondage, bound wrist'],
         description: "character in a pillory",
         link: "https://civitai.com/models/15132/conceptpillory-jiaju" },
         
@@ -474,27 +474,27 @@ concept: {
         link: "https://civitai.com/models/33101/pregnant" },
         
     concept-glorywall: { lora: "loras/concept/glory_wall.safetensors", name: "Glory Wall", strength: 1,
-        words: ['glory wall', 'through wall', 'stationary restraints'],
+        words: ['glory wall, through wall, stationary restraints'],
         description: "character in a glory wall / hole, back view",
         link: "https://civitai.com/models/58083/glory-wall" },
         
     concept-hairgrabbing: { lora: "loras/concept/hair grabbing v1【hair grabbing,grabbing another's hair,sex from behind,doggstyle】.safetensors", name: "Hair Grabbing", strength: 1,
-        words: ['hair grabbing', 'grabbing anothers hair', 'sex from behind', 'doggystyle'],
+        words: ['hair grabbing, grabbing anothers hair, sex from behind, doggystyle'],
         description: "hair being grabbed whilst having sex",
         link: "https://civitai.com/models/18373/concept-hair-grabbing" },
         
     concept-underwater: { lora: "loras/concept/jkUnderwaterShot-v01.safetensors", name: "Underwater", strength: 0.8,
-        words: ['underwater', 'caustics', 'pool', 'afloat', 'submerged', 'partially submerged', 'swimming'],
+        words: ['underwater, caustics, pool, afloat, submerged, partially submerged, swimming'],
         description: "mimics the look of being underwater",
         link: "https://civitai.com/models/29491/jk-underwater-naked-shot" },
         
     concept-insideglassbottle: { lora: "loras/concept/GlassBottle.safetensors", name: "Inside Glass Bottle", strength: 0.5,
-        words: ['bottle', 'in glass bottle'],
+        words: ['bottle, in glass bottle'],
         description: "Subject in a glass bottle",
         link: "https://civitai.com/models/110240/glass-bottle-orconcept-glass-or-sora" },
         
     concept-againstglass: { lora: "loras/concept/against_glass_v0.2.safetensors", name: "Against Glass", strength: 1,
-        words: ['hands on glass', 'breasts on glass', 'ass on glass', 'window fog', 'water drop'],
+        words: ['hands on glass, breasts on glass, ass on glass, window fog, water drop'],
         description: "Character with their ass/breasts/hands pressed against glass",
         link: "https://civitai.com/models/118928/against-glass-breasts-on-glass-ass-on-glass" },
         
@@ -509,17 +509,17 @@ concept: {
         link: "https://civitai.com/models/43965/photo-comparison-beta-v2" },
         
     concept-juicypussy: { lora: "loras/concept/juicypussy1660980008760370794.safetensors", name: "Juicy Pussy", strength: 1,
-        words: ['crotch rub', 'ass focus', 'close-up', 'suggestive fluid'],
+        words: ['crotch rub, ass focus, close-up, suggestive fluid'],
         description: "Wetness or 'pussy juices' coming from the characters crotch/vagina",
         link: "https://civitai.com/models/148890?modelVersionId=166185" },
         
     concept-ahegao: { lora: "loras/concept/Ahegaoo.safetensors", name: "Ahegao", strength: 1,
-        words: ['ahegao', 'rolling eyes', 'blush', 'tongue out', 'drooling', 'saliva', 'blush'],
+        words: ['ahegao, rolling eyes, blush, tongue out, drooling, saliva, blush'],
         description: "character with their tongue out and eyes rolling, the classic hentai face",
         link: "https://civitai.com/models/8505/ahegao" },
         
     concept-throughscreen: { lora: "loras/concept/ThroughScreenStuckMonitorUpperBodyV3f.safetensors", name: "Through Screen", strength: 1,
-        words: ['through screen', 'stuck', 'monitor', 'upped body'],
+        words: ['through screen, stuck, monitor, upped body'],
         description: "Going through the screen",
         link: "https://civitai.com/models/10877/conceptthrough-screen" },
         
@@ -529,30 +529,30 @@ concept: {
         link: "https://civitai.com/models/177451?modelVersionId=311730" },
         
     concept-cumbath: { lora: "loras/concept/WeossCumBathed_v1.safetensors", name: "Cum Bath", strength: 1,
-        words: ['cum bathed', 'cum on hair', 'cum on face'],
+        words: ['cum bathed, cum on hair, cum on face'],
         description: "character bathing in cum",
         link: "https://civitai.com/models/26818/cum-bath" },
         
     concept-penisoncheek: {lora: "loras/concept/PenisOnCheekMS.safetensors", name: "Penis on Cheek", strength: 1,
-        words: ['penis', 'solo focus', 'cheek poking', 'hetero', 'penis on face', 'poking', 'one eye closed', 'penis awe', 'erection', 'cheek squash', 'large penis', 'cheek press'],
+        words: ['penis, solo focus, cheek poking, hetero, penis on face, poking, one eye closed, penis awe, erection, cheek squash, large penis, cheek press'],
         description: "penis(es) pressed against cheek",
         link: "https://civitai.com/models/21129/murkys-penis-on-cheek-lora" 
         },
         
     concept-fellatiogesture: { lora: "loras/concept/fellatio gesture2-000011.safetensors", name: "Fellatio Gesture", strength: 1,
-        words: ['fellatio gesture', 'fingers around tongue'],
+        words: ['fellatio gesture, fingers around tongue'],
         description: "Fellatio / Blowjob gesture",
         link: "https://civitai.com/models/31850/concept-fellatio-gesture" 
         },
 
     concept-unoreversecard: {lora: "loras/concept/UnoReverseCard.safetensors", name: "Uno Reverse Card", strength: 1.1,
-        words: ['IncrRvrsCard', 'holding', 'card', 'holding card', 'playing card', 'arrow \(symbol\)'],
+        words: ['IncrRvrsCard, holding, card, holding card, playing card, arrow \(symbol\)'],
         description: "character holding uno reverse card",
         link: "https://civitai.com/models/214279/uno-reverse-card-or-concept-lora" 
         },
 
     concept-lowtiergod: { lora: "loras/concept/LowTierMeme.safetensors", name: "Low Tier God KYS Meme", strength: 1,
-        words: ['IncrsLowTier', 'electricity', 'glowing eyes'],
+        words: ['IncrsLowTier, electricity, glowing eyes'],
         description: "LowTierGod, You should kill yourself... NOW",
         link: "https://civitai.com/models/217477?modelVersionId=245091" 
         },
@@ -576,43 +576,43 @@ concept: {
         },
 
     concept-horsepenis: { lora: "loras/concept/Erect Horse Penis v7.7.safetensors", name: "Horse Penis", strength: 1,
-        words: ['erection', 'large penis', 'large testicles', 'cock sheath', 'dark testicles', 'pink penis'],
+        words: ['erection, large penis, large testicles, cock sheath, dark testicles, pink penis'],
         description: "makes the character have a horse penis... not kink shaming, just kink asking, why",
         link: "https://civitai.com/models/52023/erect-horse-penis-concept-lora"
         },
 
     concept-padorupadoru: { lora: "loras/concept/padoru_meme.safetensors", name: "Padoru Padoru!", strength: 1,
-        words: ['padoru meme', 'holding sack', 'chibi', ':d', 'santa hat'],
+        words: ['padoru meme, holding sack, chibi, :d, santa hat'],
         description: "PADORU PADORU",
         link: "https://civitai.com/models/209039?modelVersionId=235437"
         },
 
     concept-mechamusume: { lora: "loras/concept/AMechaSSS[color_theme,mecha musume, mechanical parts,robot joints,headgear].safetensors", name: "Mecha Musume", strength: 1.3,
-        words: ['mecha musume', 'mechanical parts', 'robot joints', 'headgear'],
+        words: ['mecha musume, mechanical parts, robot joints, headgear'],
         description: "makes the character have mechanical joints etc, based off an artist",
         link: "https://civitai.com/models/15464?modelVersionId=97207"
         },
 
     concept-snakecoiling: { lora: "loras/concept/coils_v0.1.safetensors", name: "Snake Coiling", strength: 1,
-        words: ['coils', 'snake', 'tentacles'],
+        words: ['coils, snake, tentacles'],
         description: "snake coiling around character",
         link: "https://civitai.com/models/62937?modelVersionId=67448"
         },
 
     concept-impregnation: { lora: "loras/concept/impregnation2.5.safetensors", name: "Impregnation", strength: 1,
-        words: ['impregnation', 'pregnant', 'cumflation', 'cum inside', 'cum inside pussy', 'cum inside'],
+        words: ['impregnation, pregnant, cumflation, cum inside, cum inside pussy, cum inside'],
         description: "shows a 2d/cartoon view of the impregnation fetish, with cum inside pussy",
         link: "https://civitai.com/models/4022/impregnation-hentai-25-alpha-and-beta-models"
         },
 
     concept-povpanties: { lora: "loras/concept/pov panties.safetensors", name: "POV Panties", strength: 1,
-        words: ['panties', 'from below'],
+        words: ['panties, from below'],
         description: "pov view of panties from below",
         link: "https://civitai.com/models/123163/pov-panties"
         },
 
     concept-hairwithscenery: { lora: "loras/concept/hair_with_scenery.safetensors", name: "Hair with Scenery", strength: 1,
-        words: ['starry sky', 'galaxy', 'sunset', 'snow'],
+        words: ['starry sky, galaxy, sunset, snow'],
         description: "reflects the scenery in the hair of the character, like a galaxy or sunset etc",
         link: "https://civitai.com/models/61053/hair-with-scenery-reflection"
         },
@@ -630,13 +630,13 @@ concept: {
         },
 
     concept-trappedinphone: { lora: "loras/concept/Trapped in Phone V1.safetensors", name: "Trapped in Phone", strength: 1,
-        words: ['in phone', 'against glass', 'breast press', 'breast on glass', 'ass on glass', 'cleaning screen', 'hand on glass'],
+        words: ['in phone, against glass, breast press, breast on glass, ass on glass, cleaning screen, hand on glass'],
         description: "character trapped behind a phone screen",
         link: "https://civitai.com/models/21253/trapped-in-phone"
         },
 
     concept-condominside: { lora: "loras/concept/condom-19.safetensors", name: "Condom Inside", strength: 1,
-        words: ['condom left inside', 'aftersex'],
+        words: ['condom left inside, aftersex'],
         description: "condom left inside characters vagina",
         link: "https://civitai.com/models/72260/condom-left-inside"
         },
@@ -654,7 +654,7 @@ concept: {
         },
 
     concept-robotization: { lora: "loras/concept/Robotization.safetensors", name: "Robotization", strength: 0.7,
-        words: ['robot', 'mecha', 'android', 'mechanical parts', 'colorerd sclera', 'black sclera', 'no mouth', 'no pupils', 'robot joints', 'shiny skin', 'metal skin'],
+        words: ['robot, mecha, android, mechanical parts, colorerd sclera, black sclera, no mouth, no pupils, robot joints, shiny skin, metal skin'],
         description: "robotization lora by kitsune_sage, based off Sonic the Hedgehog's eggmans plan of robotization",
         link: "https://civitai.com/models/259585/robotization"
         },
@@ -666,19 +666,19 @@ concept: {
         },
 
     concept-inwormhole: { lora: "loras/concept/inWormhole.safetensors", name: "In Wormhole", strength: 1,
-        words: ['wormhole', 'galaxy', 'sparkle', 'glowing', 'reaching towards viewer', 'outstretched arm', 'outstretched hand', 'floating', 'flying', 'full body'],
+        words: ['wormhole, galaxy, sparkle, glowing, reaching towards viewer, outstretched arm, outstretched hand, floating, flying, full body'],
         description: "character in a wormhole, reaching out to the viewer",
         link: "https://civitai.com/models/260076/in-wormhole"
         },
 
     concept-playboycover: { lora: "loras/concept/quiron_PlayboyCoverStyle_v3_lora.safetensors", name: "Playboy Cover", strength: 0.1,
-        words: ['PlayboyCoverQuiron style', 'playboy cover', 'text focus', 'text', 'magazine'],
+        words: ['PlayboyCoverQuiron style, playboy cover, text focus, text, magazine'],
         description: "Mimics the style of a playboy magazine cover",
         link: "https://civitai.com/models/230112/playboy-magazine-cover-style-lora"
         },
 
     concept-largeinsertions: { lora: "loras/concept/Concept-Large-insertion-NAi-text1.0.safetensors", name: "Large Insertion", strength: 0.8,
-        words: ['large insertion', 'large penis', 'thick penis'],
+        words: ['large insertion, large penis, thick penis'],
         description: "large insertions inside vagina / ass",
         link: "https://civitai.com/models/44276?modelVersionId=48917"
         },
@@ -690,7 +690,7 @@ concept: {
         },
 
     concept-xraydeepthroat: { lora: "loras/concept/deepthroat1.8.safetensors", name: "X-Ray Deepthroat", strength: 0.7,
-        words: ['deepthroat', 'x-ray'],
+        words: ['deepthroat, x-ray'],
         description: "character deepthroating with the penis visible with an x-ray view",
         link: "https://civitai.com/models/4346/deepthroat-x-rray-hentai-18" 
         },
@@ -714,7 +714,7 @@ concept: {
         },
 
     concept-glowingtattoosuccubus: { lora: "loras/concept/GTSuccubus_v12.safetensors", name: "Glowing Tattoo Succubus", strength: 1,
-        words: ['glowing_heart', 'succubus'],
+        words: ['glowing_heart, succubus'],
         description: "creates a glowing succubus tattoo on the character",
         link: "https://civitai.com/models/242554?modelVersionId=273681"
         },
@@ -726,43 +726,43 @@ concept: {
         },
 
     concept-romanticgothmakeup: { lora: "loras/concept/r0m4nt1cg0th.safetensors", name: "Romantic Goth Makeup", strength: 0.4,
-        words: ['r0m4nt1cg0th', 'red/purple makeup', 'close-up', 'portrait', 'gothic makeup', 'dark red/purple/black lipstick'],
+        words: ['r0m4nt1cg0th, red/purple makeup, close-up, portrait, gothic makeup, dark red/purple/black lipstick'],
         description: "makes the character have romantic goth makeup",
         link: "https://civitai.com/models/258261?modelVersionId=291201"
         },
 
     concept-povstranglingchoking: { lora: "loras/concept/strangling-03.safetensors", name: "POV Strangling / Choking", strength: 1,
-        words: ['strangling', 'asphyxiation'],
+        words: ['strangling, asphyxiation'],
         description: "helps with creating images of characters being strangled or choked",
         link: "https://civitai.com/models/265059?modelVersionId=298874"
         },
 
     concept-shortstackhelper: { lora: "loras/concept/shortstackheaven1696476661800668403.safetensors", name: "Short Stack (Helper)", strength: 0.7,
-        words: ['Shortstack', 'huge breasts', 'curvy', 'goblin girl', 'demon girl', 'chibi', 'colored skin'],
+        words: ['Shortstack, huge breasts, curvy, goblin girl, demon girl, chibi, colored skin'],
         description: "Helps with generating shortstack characters",
         link: "https://civitai.com/models/244341?modelVersionId=275788"
         },
 
     concept-pagetearreveal: { lora: "loras/concept/page_tear_C3_dlion_001_512.safetensors", name: "Revealing Page Tear", strength: 1,
-        words: ['revealing layer', 'page tear'],
+        words: ['revealing layer, page tear'],
         description: "page tear revealing clothes underneath, or nudity",
         link: "https://civitai.com/models/248192?modelVersionId=280051"
         },
 
     concept-penisovereyes: { lora: "loras/concept/PenisOvereyes10000-000016.safetensors", name: "Penis Over Eyes", strength: 1,
-        words: ['penis over eyes', 'penis on face', 'penis on head', 'penis over one eye'],
+        words: ['penis over eyes, penis on face, penis on head, penis over one eye'],
         description: "Penis covering their eyes",
         link: "https://civitai.com/models/140792?modelVersionId=156050"
         },
 
     concept-bbulge: { lora: "loras/concept/bbulge0.3.safetensors", name: "Ball Bulge", strength: 1,
-        words: ['bbulge', 'ass focus'],
+        words: ['bbulge, ass focus'],
         description: "ball bulge through clothes",
         link: "https://civitai.com/models/50030?modelVersionId=55734"
         },
 
     concept-gothgirl: { lora: "loras/concept/Goth_girl-v2.safetensors", name: "Gothic Girl", strength: 0.8,
-        words: ['Goth girl', '1girl'],
+        words: ['Goth girl, 1girl'],
         description: "Helps with generating goth girls",
         link: "https://civitai.com/models/248965/gothic-girl"
         },
@@ -774,7 +774,11 @@ concept: {
         },
 
     concept-succubus: { lora: "loras/concept/Concepts_Succubus.safetensors", name: "Succubus", strength: 1,
-        words: ['skin-covered horns, oni horns, oni, red skin, red oni;', 'demon girl, tail, succubus tail, heart tail, demon tail, wings, demon wings, pointy ears;', 'demon girl, wings, demon wings, breasts, head wings;'],
+        words: [
+            'skin-covered horns, oni horns, oni, red skin, red oni',
+            'demon girl, tail, succubus tail, heart tail, demon tail, wings, demon wings, pointy ears',
+            'demon girl, wings, demon wings, breasts, head wings'
+            ],
         description: "helps with generating succubus / demon characters",
         link: "https://civitai.com/models/241194/lora-concept-or-demon-girl-succubus"
         },
@@ -791,7 +795,7 @@ concept: {
         link: "https://civitai.com/models/5004/lottalewds-penisshadow" },
 
     concept-hyperpenetrationstomachbulge: { lora: "loras/concept/hyper_penetration_stomach_bulge_v8all-000004.safetensors", name: "Hyper Penetration Stomach Bulge", strength: 0.8,
-        words: ['STOMACH BULGE','VAGINAL', 'ANAL'],
+        words: ['STOMACH BULGE, VAGINAL, ANAL'],
         description: "Makes the image contain 'x' character having a massive belly bulge from a cock.",
         link: "https://civitai.com/models/9651/hyper-penetration-stomach-bulge" },
 
@@ -821,22 +825,22 @@ concept: {
       link: "amogus - https://civitai.com/models/13093/among-us-lora-v1" },
 
     concept-bubbleteachallenge: { lora: "loras/concept/concept_bubbleteachallenge-16.safetensors", name: "Bubble Tea Challenge", strength: 1,
-      words: ['bubble tea challenge', 'drinking straw', 'crossed arms'], 
+      words: ['bubble tea challenge, drinking straw, crossed arms'], 
       description: "Character holding a bubble tea cup with their breasts, having crossed arms.",
       link: "https://civitai.com/models/73761/bubble-tea-challenge-or-meme" },
 
     concept-glowingredeyes: { lora: "loras/concept/GlowingRedEyeMeme.safetensors", name: "Glowing Red Eyes", strength: 0.8,
-      words: ['glowing eyes', 'glowing', 'epic'], 
+      words: ['glowing eyes, glowing, epic'], 
       description: "Makes the character have glowing red eyes",
       link: "https://civitai.com/models/78921/glowing-red-eyes-meme-or-1-mb-concept-lora" },
 
     concept-icedlattewithbreastmilk: { lora: "loras/concept/MEME_iced_latte_with_breast_milk_ownwaifu-10.safetensors", name: "Iced Latte With Breast Milk", strength: 1,
-      words: ['meme_iced_latte_with_breast_milk_ownwaifu', 'ownwaifu', 'meme',  '1girl','green apron', 'starbucks','naked apron', 'cafe','apron', 'barista', 'breasts', 'cleavage', 'sideboob','collarbone','cup', 'coffee','holding', 'holding cup','disposable cup','logo parody','sparkle',  'iced latte with breast milk (meme)', 'looking at viewer', 'meme', 'sideboob', 'solo', 'curvy', 'narrow waist', 'suggestive fluid'], 
+      words: ['meme_iced_latte_with_breast_milk_ownwaifu, ownwaifu, meme, 1girl, green apron, starbucks, naked apron, cafe, apron, barista, breasts, cleavage, sideboob, collarbone, cup, coffee, holding, holding cup, disposable cup, logo parody, sparkle, iced latte with breast milk (meme), looking at viewer, meme, sideboob, solo, curvy, narrow waist, suggestive fluid'], 
       description: "Iced Latte with Breast Milk Meme Concept",
       link: "https://civitai.com/models/148147/meme-iced-latte-with-breast-milk-meme-concept-or-ownwaifu" },
 
     concept-defloration: { lora: "loras/concept/defloration.safetensors", name: "Defloration", strength: 1,
-        words: ['defloration', 'virgin', 'first time', 'blood', 'pussy blood', 'vaginal blood', 'vaginal bleeding'],
+        words: ['defloration, virgin, first time, blood, pussy blood, vaginal blood, vaginal bleeding'],
         description: "Defloration / Virginity loss",
         link: "https://civitai.com/models/202849/defloration" },
 
@@ -844,6 +848,11 @@ concept: {
         words: ['quick sand, mud, partially submerged'], 
         description: "Character submerged in quicksand or mud",
         link: "https://civitai.com/models/119824?modelVersionId=130228" },
+
+    concept-gamingchairegirls: { lora: "loras/concept/gaming_girl_v2.safetensors", name: "Gaming Chair (E-Girls)", strength: 0.75,
+        words: ['gaming chair, pink and white, headphones'],
+        description: "Gaming chair with pink and white colors, and headphones",
+        link: "https://civitai.com/models/73705/gaming-chair-egirls" },
     
     # concept-nanana: { lora: "lora", name: "Name", strength: 1,
     #   words: [''], 
@@ -1113,179 +1122,181 @@ clothing: {
         description: "Velvet leather jacket and shorts",
         link: "https://civitai.com/models/196841/black-leather-shorts-by-stable-yogi" },
 
-    # clothing-sheerbodysuit: { lora: "loras/clothing/Sheer Bodysuit.safetensors", name: "Sheer Bodysuit", strength: 0.8,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-sheerbodysuit: { lora: "loras/clothing/Sheer Bodysuit.safetensors", name: "Sheer Bodysuit", strength: 0.8,
+        words: ['sh44r, see-through, bodysuit'],
+        description: "See-through bodysuit",
+        link: "https://civitai.com/models/263188/sheer-bodysuit" },
 
-    # clothing-teddyonesie: { lora: "loras/clothing/t3ddy.safetensors", name: "Teddy Onesie", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-teddyonesie: { lora: "loras/clothing/t3ddy.safetensors", name: "Teddy Onesie", strength: 0.7,
+        words: ['t3ddy, brown fluffy onsie with bear ears,'],
+        description: "Teddy Bear Onesie, very cute",
+        link: "https://civitai.com/models/255638/teddy-onesie" },
 
-    # clothing-bikinistrapless: { lora: "loras/clothing/strapless_bikini.safetensors", name: "Bikini Strapless", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-bikinistrapless: { lora: "loras/clothing/strapless_bikini.safetensors", name: "Bikini Strapless", strength: 0.7,
+        words: ['strapless_bikini, o-ring'],
+        description: "Straightless Bikini with an O-Ring",
+        link: "https://civitai.com/models/266251/outfit-o-ring-strapless-bikini" },
 
-    # clothing-lightpinkdress: { lora: "loras/clothing/l1ghtp1nk.safetensors", name: "Light Pink Dress", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-lightpinkdress: { lora: "loras/clothing/l1ghtp1nk.safetensors", name: "Light Pink Dress", strength: 0.7,
+        words: ['l1ghtp1nk, long dress, light pink dress, dress, cleavage, bare shoulders,'],
+        description: "Light Pink Reflective Dress",
+        link: "https://civitai.com/models/237458/light-pink-dress" },
 
-    # clothing-latexschooluniform: { lora: "loras/clothing/lat3xsch00l.safetensors", name: "Latex School Uniform", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-latexschooluniform: { lora: "loras/clothing/lat3xsch00l.safetensors", name: "Latex School Uniform", strength: 0.7,
+        words: ['lat3xsch00l, midriff, black/pink/purple/white pleated miniskirt, knee boots, tied shirt'],
+        description: "Latex, tied shirt, school uniform",
+        link: "https://civitai.com/models/258204/latex-school-girl" },
 
-    # clothing-jong: { lora: "loras/clothing/j0ng.safetensors", name: "Jong", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
-
+    clothing-jong: { lora: "loras/clothing/j0ng.safetensors", name: "Jong", strength: 0.7,
+        words: ['j0ng, denim shorts, cutoffs, micro shorts,'],
+        description: "Jean/Denim Thong",
+        link: "https://civitai.com/models/248760/jong-jean-thong" },
 
     clothing-metaltassel: { lora: "loras/clothing/0040 metal tassel_v3.safetensors", name: "Metal Tassels", strength: 0.4,
-    words: ['ruanyi0040', 'pelvic curtain', 'nude', 'bracelet', 'chain', 'no panties'],
-    description: "Adds metal tassels to the character's outfit.",
-    link: "https://civitai.com/models/251628?modelVersionId=317267" },
+        words: ['ruanyi0040, pelvic curtain, nude, bracelet, chain, no panties'],
+        description: "Adds metal tassels to the character's outfit.",
+        link: "https://civitai.com/models/251628?modelVersionId=317267" },
 
-    # clothing-fishnetpantyhose: { lora: "loras/clothing/FishnetPantyhose-000014.safetensors", name: "Fishnet Pantyhose", strength: 1,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-fishnetpantyhose: { lora: "loras/clothing/FishnetPantyhose-000014.safetensors", name: "Fishnet Pantyhose", strength: 1,
+        words: ['fishnet  pantyhose'],
+        description: "Fishnet pantyhose/tights/stockings",
+        link: "https://civitai.com/models/242695/fishnet-pantyhose" },
 
-    # clothing-thighhighs: { lora: "loras/clothing/s0cks.safetensors", name: "Thighhighs", strength: 0.9,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-thighhighs: { lora: "loras/clothing/s0cks.safetensors", name: "Thighhighs", strength: 0.9,
+        words: ['s0cks, sneakers'],
+        description: "Thigh High Socks",
+        link: "https://civitai.com/models/254168/thigh-high-socks" },
 
-    # clothing-translucenttemptation: { lora: "loras/clothing/0064 translucent temptation_v1.safetensors", name: "Translucent Temptation", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-translucenttemptation: { lora: "loras/clothing/0064 translucent temptation_v1.safetensors", name: "Translucent Temptation", strength: 0.85,
+        words: ['ruanyi0064,fishnet,bodysuit,panties,nipples,stiletto heels,nude,'],
+        description: "This is a hollow one-piece, with a fishnet pattern",
+        link: "https://civitai.com/models/256120?modelVersionId=288746" },
 
-    # clothing-pastelgoth: { lora: "loras/clothing/edgPastelGothFashionv1.safetensors", name: "Pastel Goth", strength: 1,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-pastelgoth: { lora: "loras/clothing/edgPastelGothFashionv1.safetensors", name: "Pastel Goth", strength: 1,
+        words: ['edgPastelGoth, pink outfit, chain skirt, wearing edgPastelGoth'],
+        description: "Pastel Goth Attire, Sexy & Cute!",
+        link: "https://civitai.com/models/237895/pastel-goth-by-edg" },
 
-    # clothing-maidattire: { lora: "loras/clothing/m4id0utf1t.safetensors", name: "Maid Attire", strength: 1,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-maidattire: { lora: "loras/clothing/m4id0utf1t.safetensors", name: "Maid Attire", strength: 1,
+        words: ['m4id0utf1t, 1girl'],
+        description: "Maid Uniform",
+        link: "https://civitai.com/models/251449/maid-uniform" },
 
-    # clothing-glowdress: { lora: "loras/clothing/Gl0wW3dd.safetensors", name: "Glow Dress", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-glowinggownsdress: { lora: "loras/clothing/Gl0wW3dd.safetensors", name: "Glowing Gown/Dress", strength: 0.8,
+        words: ['Gl0wW3dd, sparkle, glowing wedding dress,'],
+        description: "Glowing / Light uo wedding dress",
+        link: "https://civitai.com/models/247726/glowing-gowns" },
 
-    # clothing-silverdress: { lora: "loras/clothing/s1lv3rdr3ss.safetensors", name: "Silver Dress", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-silverdress: { lora: "loras/clothing/s1lv3rdr3ss2.safetensors", name: "Silver Dress", strength: 0.75,
+        words: ['s1lv3rdr3ss,full body,sleeveless dress,long dress, silver dress'],
+        description: "Silver Dress",
+        link: "https://civitai.com/models/263635/silver-dress-deep-v" },
 
-    # clothing-pinkhighheelshoes: { lora: "loras/clothing/p1nkL0l1sh03s.safetensors", name: "Pink Highheel Shoes", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-pinkhighheelshoes: { lora: "loras/clothing/p1nkL0l1sh03s.safetensors", name: "Pink Highheel Shoes", strength: 0.7,
+        words: ['p1nkL0l1sh03s, bows, frills, shoes, pink high heels,'],
+        description: "Pink high heel shoes with bows and frills",
+        link: "https://civitai.com/models/250893/pink-chunky-high-heels" },
 
-    # clothing-lolabunnycostume: { lora: "loras/clothing/l0lac0stum3.safetensors", name: "Lola Bunny Costume", strength: 0.8,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-lolabunnycostume: { lora: "loras/clothing/l0lac0stum3.safetensors", name: "Lola Bunny Costume", strength: 0.8,
+        words: ['l0la, socks, midriff, crop top, kneehighs, short shorts, white tank top, wristband, white shorts,'],
+        description: "Lola Bunny Costume",
+        link: "https://civitai.com/models/242281/lola-costume" },
 
-    # clothing-acrylicheartdress: { lora: "loras/clothing/h3arts.safetensors", name: "Acrylic Heart Dress", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-acrylicheartdress: { lora: "loras/clothing/h3arts.safetensors", name: "Acrylic Heart Dress", strength: 0.7,
+        words: ['h3arts, dress, cleavage, dress made of plastic hearts, see-through'],
+        description: "Acrylic Heart Dress",
+        link: "https://civitai.com/models/241243/acrylic-heart-dress" },
 
-    # clothing-virgindestroyersweater: { lora: "loras/clothing/virgin_destroyer_sweater_v0.4.safetensors", name: "Virgin Destroyer Sweater", strength: 1,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-virgindestroyersweater: { lora: "loras/clothing/virgin_destroyer_sweater_v0.4.safetensors", name: "Virgin Destroyer Sweater", strength: 1.2,
+        words: ['virgin destroyer sweater, navel, thighhighs, color sweater, color thighhighs, ribbed only'],
+        description: "EPIC Virgin Destroyer Sweater!",
+        link: "https://civitai.com/models/18933/virgin-destroyer-sweater" },
 
-    # clothing-heartshapedlingerie: { lora: "loras/clothing/h34rtt0p.safetensors", name: "Heart Shaped Lingerie", strength: 0.75,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-heartshapedlingerie: { lora: "loras/clothing/h34rtt0p.safetensors", name: "Heart Shaped Lingerie", strength: 0.75,
+        words: ['h34rtt0p, cleavage,bare shoulders,heart bra,red panties'],
+        description: "Heart Shaped Lingerie (Panties & Bra!)",
+        link: "https://civitai.com/models/264485/heart-shaped-lingerie" },
 
-    # clothing-bikinigura: { lora: "loras/clothing/Gura_bikini_v1.safetensors", name: "Bikini Gura", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-bikinigura: { lora: "loras/clothing/Gura_bikini_v1.safetensors", name: "Bikini Gura", strength: 0.7,
+        words: ['gurabikiniv1, white thighhighs, twintails, streaked hair, sleeves past wrists, skindentation, shark hair ornament, multicolored bikini, medium hair, long sleeves, blue cropped jacket, hood down, grey hair, crop top, blunt bangs,'],
+        description: "Popular VTuber Gura's Bikini Outfit",
+        link: "https://civitai.com/models/254999/cosplaygawr-gura-bikini-ver-or-hololive" },
 
-    # clothing-ramhorns: { lora: "loras/clothing/R4mh0rns.safetensors", name: "Ram Horns", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-ramhorns: { lora: "loras/clothing/R4mh0rns.safetensors", name: "Ram Horns", strength: 0.7,
+        words: ['R4mh0rns,portrait,curled horns,sheep horns'],
+        description: "Helps when creating Ram Horns",
+        link: "https://civitai.com/models/262485/ram-horns" },
 
-    # clothing-pelviccurtain: { lora: "loras/clothing/Pelvic_Curtain.safetensors", name: "Pelvic Curtain", strength: 1,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-pelviccurtain: { lora: "loras/clothing/pelvic_curtain_dress.safetensors", name: "Pelvic Curtain Dress", strength: 1,
+        words: ['pelvic_curtain dress,wearing a pelvic_curtain dress, multiple straps around the waist,'],
+        description: "Pelvic Curtain Dress",
+        link: "https://civitai.com/models/52430/pelvic-curtain-dresses" },
 
-    # clothing-bikinicowprint: { lora: "loras/clothing/Cow Print Bikini By Stable Yogi.safetensors", name: "Bikini Cow Print", strength: 1,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-bikinicowprint: { lora: "loras/clothing/Cow Print Bikini By Stable Yogi.safetensors", name: "Bikini Cow Print", strength: 1,
+        words: ['cow print bikini'],
+        description: "Cow Print Bikini",
+        link: "https://civitai.com/models/226551/cow-print-bikini-by-stable-yogi" },
 
-    # clothing-braless: { lora: "loras/clothing/bralessv2.safetensors", name: "Braless", strength: 0.5,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-braless: { lora: "loras/clothing/bralessv2.safetensors", name: "Braless", strength: 0.5,
+        words: ['braless, covered nipples'],
+        description: "Makes the character braless, with covered nipples.",
+        link: "https://civitai.com/models/7271/lora-braless" },
 
-    # clothing-adjustingclothesass: { lora: "loras/clothing/adjusting_clothes_ass_v0.1.safetensors", name: "Adjusting Clothes (ass)", strength: 1,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-adjustingclothesass: { lora: "loras/clothing/adjusting_clothes_ass_v0.1.safetensors", name: "Adjusting Clothes (ass)", strength: 1,
+        words: ['adjusting clothes, ass, from behind'],
+        description: "Character adjusting their clothes, focus on ass",
+        link: "https://civitai.com/models/93524/adjusting-clothes" },
 
-    # clothing-latexcutoutdress: { lora: "loras/clothing/lat3tch3stcut0ut.safetensors", name: "Latex Cutout Dress", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-latexcutoutdress: { lora: "loras/clothing/lat3tch3stcut0ut.safetensors", name: "Latex Cutout Dress", strength: 0.7,
+        words: ['lat3tch3stcut0ut, black dress, short latex dress, red pasties,, lat3tch3stcut0ut, pink dress, short latex dress, pasties'],
+        description: "Latex Dress with a chest cutout and heart pasties on nipples",
+        link: "https://civitai.com/models/258003/latex-cutout-dress" },
 
-    # clothing-corset: { lora: "loras/clothing/c0rs3t.safetensors", name: "Corsets", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-corset: { lora: "loras/clothing/c0rs3t.safetensors", name: "Corsets", strength: 0.7,
+        words: ['c0rs3t, cleavage, bare shoulders, underbust corset, overbust corset, spikes, nude, naked'],
+        description: "Corsets, laced, spiked etc",
+        link: "https://civitai.com/models/250028/corsets" },
 
-    # clothing-latexbodysuit: { lora: "loras/clothing/lat3xb0dysu1t.safetensors", name: "Latex Body Suit", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-latexbodysuit: { lora: "loras/clothing/lat3xb0dysu1t.safetensors", name: "Latex Body Suit", strength: 0.7,
+        words: ['lat3xb0dysu1t, high heels, skin tight, latex bodysuit, shiny latex, lat3xb0dysu1t, high heels, skin tight, latex bodysuit, shiny latex, ass, from behind, lat3xb0dysu1t, skin tight, see-through latex bodysuit, shiny latex, full face mask'],
+        description: "Tight Latex Bodysuit",
+        link: "https://civitai.com/models/258090/latex-body-suit" },
 
-    # clothing-croppedzippersweater: { lora: "loras/clothing/z1pp3rsw3at3r.safetensors", name: "Cropped Zipper Sweater", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-croppedzippersweater: { lora: "loras/clothing/z1pp3rsw3at3r.safetensors", name: "Cropped Zipper Sweater", strength: 0.7,
+        words: ['z1pp3rsw3at3r, bare shoulders, midriff, off shoulder, sleeves past wrists, zipper sweater'],
+        description: "Cropped Zipper Sweater",
+        link: "https://civitai.com/models/248444/zipper-cropped-sweater" },
 
-    # clothing-butterflydress: { lora: "loras/clothing/Butterfly_Bodycon_Dress_By_Stable_Yogi.safetensors", name: "Butterfly Dress", strength: 0.8,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-butterflydress: { lora: "loras/clothing/Butterfly_Bodycon_Dress_By_Stable_Yogi.safetensors", name: "Butterfly Dress", strength: 0.8,
+        words: ['bodycon short dress, butterfly print, cleavage'],
+        description: "Butterfly Dress",
+        link: "https://civitai.com/models/200489/butterfly-dress-collection-by-stable-yogi" },
 
-    # clothing-pastiesheart: { lora: "loras/clothing/Concept_Patch.safetensors", name: "Pasties & Hearts", strength: 0.8,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-pastiesheart: { lora: "loras/clothing/Concept_Patch.safetensors", name: "Pasties & Hearts", strength: 0.8,
+        words: [
+            'PatchDef, pasties, bandaids on nipples, covered nipples',
+            'PastiesHeartDef, heart pasties, pasties, covered nipples'
+            ],
+        description: "Helps with creating pasties and heart pasties.",
+        link: "https://civitai.com/models/247101/lora-concept-or-pasties-and-heart-pasties" },
 
-    # clothing-makeupgalaxy: { lora: "loras/clothing/GalaxyMakeup.safetensors", name: "Makeup Galaxy", strength: 0.7,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-makeupgalaxy: { lora: "loras/clothing/GalaxyMakeup.safetensors", name: "Makeup Galaxy", strength: 0.7,
+        words: ['galaxma'],
+        description: "A lora for generating galaxy makeup. At lower levels it focuses mostly on a dusting on the nose and cheeks, but the higher up you turn it the more it tends to cover.",
+        link: "https://civitai.com/models/85466/galaxy-makeup" },
 
-    # clothing-cosplayrougethebat: { lora: "loras/clothing/rougecosplay-10.safetensors", name: "Cosplay Rouge the Bat", strength: 0.6,
-    #     words: [''],
-    #     description: "",
-    #     link: "" },
+    clothing-rougethebatcosplay: { lora: "loras/clothing/Rouge_the_Bat_Cosplay.safetensors", name: "Rouge the Bat Cosplay", strength: 0.6,
+        words: ['rouge_the_bat_(cosplay), bat wings, white elbow gloves, bare shoulders,'],
+        description: "Rouge The Bat Cosplay from Sonic the Hedgehog",
+        link: "https://civitai.com/models/299703/rouge-the-bat-cosplay-sonic" },
     
     clothing-bikiniwatermelonprint: { lora: "loras/clothing/attire_watermelonprint-10.safetensors", name: "Bikini Watermelon Print", strength: 1,
-        words: ['watermelon print', 'bikini'], 
+        words: ['watermelon print, bikini'], 
         description: "Bikini with a watermelon print.",
         link: "https://civitai.com/models/166583/watermelon-print-bikini-or-attire" },
 
     clothing-bodypaint: { lora: "loras/clothing/bodypaint.safetensors", name: "Body Paint", strength: 1,
-        words: ['bodypaint', 'shink skin', 'shiny', 'covered nipples', 'covered navels'], 
+        words: ['bodypaint, shink skin, shiny, covered nipples, covered navels'], 
         description: "Adds body paint to the character",
         link: "https://civitai.com/models/260791/bodypaint?modelVersionId=294146" },
 
@@ -1308,6 +1319,11 @@ clothing: {
         words: ['CONCEPT_princess_leia_gold_bikini_ownwaifu, pelvic curtain, cleavage, loincloth, armlet, bikini armor, collar, bracelet, bikini, gold chain, cosplay, alternate costume'], 
         description: "Princess Leia's Gold / Slave Bikini from Star Wars",
         link: "https://civitai.com/models/158017/princess-leias-bikini-concept-lora-or-ownwaifu" },
+
+    clothing-heartprintsweater: { lora: "loras/clothing/h3artsw3at3r.safetensors", name: "Heart Print Sweater", strength: 0.7,
+        words: ['h3artsw3at3r, heart print sweater,'], 
+        description: "Sweater with a heart print",
+        link: "https://civitai.com/models/251964/heart-print-sweater" },
     
     # clothing-nanana: { lora: "lora", name: "Name", strength: 1,
     #   words: [''], 
@@ -1317,22 +1333,22 @@ clothing: {
 
 character: {
     character-eggmaamsonic: { lora: "loras/character/eggmaam-000005.safetensors", name: "Eggmaam (Sonic the Hedgehog)", strength: 0.8,
-        words: ['eggmaam', 'large breasts', 'wide hips', 'narrow waist', '1girl', 'solo', 'orange hair', 'long hair', 'red jacket', 'black skirt', 'black thighhigh boots', 'white gloves', 'round eyewear', 'blue-tinted eyewear', 'goggles on head'],
+        words: ['eggmaam, large breasts, wide hips, narrow waist, 1girl, solo, orange hair, long hair, red jacket, black skirt, black thighhigh boots, white gloves, round eyewear, blue-tinted eyewear, goggles on head'],
         description: "Genderbent version of Dr Eggman from Sonic the Hedgehog",
         link: "https://civitai.com/models/267793/dr-eggman-rule63eggmaam" },
 
     character-sticksthebadgersonic: { lora: "loras/character/sticks-the-badger-v1-locon.safetensors", name: "Sticks the Badget (Sonic the Hedgehog)", strength: 0.7,
-        words: ['sticks the badger', 'grey bandeau', 'grey skirt', 'boots', 'necklace', 'silver bracelet', 'gold armlet', 'boomerang', 'badger girl', 'orange body', 'blue eyes', 'twintails', 'pigtails'],
+        words: ['sticks the badger, grey bandeau, grey skirt, boots, necklace, silver bracelet, gold armlet, boomerang, badger girl, orange body, blue eyes, twintails, pigtails'],
         description: "Sticks the Badger from the Sonic the Hedgehog TV Series called Sonic Boom & its game counterparts",
         link: "https://civitai.com/models/115078/sticks-the-badger-sonic" },
 
     character-soniathehedgehogsonic: { lora: "loras/character/soniathehedgehog.safetensors", name: "Sonia the Hedgehog (Sonic the Hedgehog)",
-        words: ['sonia', 'sleeveless', 'black skirt', 'red shirt', 'gloves', 'belt', 'sonic \(series\)', '1girl', 'pink hair', 'furry female', 'animal ears', 'furry', 'body fur', 'animal nose', 'two-tone fur', 'elbow gloves', 'pink fur', 'short hair'],
+        words: ['sonia, sleeveless, black skirt, red shirt, gloves, belt, sonic \(series\), 1girl, pink hair, furry female, animal ears, furry, body fur, animal nose, two-tone fur, elbow gloves, pink fur, short hair'],
         description: "Sonia from the Sonic the Hedgehog show called Sonic Underground (Which is pure 🔥 btw)",
         link: "https://civitai.com/models/153091/sonia-the-hedgehog-sonic-underground-commision" },
 
     character-blazethecatsonic: { lora: "loras/character/b1aze.safetensors", name: "Blaze the Cat (Sonic the Hedgehog)", strength: 0.7,
-        words: ['blazecat', 'NEGATIVE PROMPTS: two tails, multiple tails, floating tails, stray tails'],
+        words: ['blazecat, NEGATIVE PROMPTS: two tails, multiple tails, floating tails, stray tails'],
         description: "Blaze the Cat from Sonic the Hedgehog, first appeared in Sonic 06, a game which is suprisingly not buggy compared to moder releases XD",
         link: "https://civitai.com/models/25869/blaze-the-cat-sonic" },
 
@@ -1342,67 +1358,67 @@ character: {
         link: "https://civitai.com/models/115108/vanilla-the-rabbit-sonic" },
 
     character-nicolewattersonamazinggumball: { lora: "loras/character/NicoleWatterson_v2_retrain_85_clip2.safetensors", name: "Nicole Watterson (The Amazing World of Gumball)", strength: 1,
-        words: ['blue skin', 'blue fur', 'cat girl', 'tail', 'NEGATIVE PROMPTS: muscular, monochrome, simple background, pink skin'], 
+        words: ['blue skin, blue fur, cat girl, tail, NEGATIVE PROMPTS: muscular, monochrome, simple background, pink skin'], 
         description: "Nicole Watterson from The Amazing World of Gumball",
         link: "https://civitai.com/models/18299/nicole-watterson" },
 
     character-nicolethelynxsonic: { lora: "loras/character/nicolethelynx-v1-locon.safetensors", name: "Nicole the Lynx (Sonic the Hedgehog)", strength: 1,
-        words: ['nicolethelynx','lynx girl', 'green eyes', 'black hair', 'facial markings', 'hair beads'], 
+        words: ['nicolethelynx, lynx girl, green eyes, black hair, facial markings, hair beads'], 
         description: "Nicole the Lynx from Sonic the Hedgehog",
         link: "https://civitai.com/models/114522/nicole-the-lynx-sonic" },
 
     character-wavetheswallowsonic: { lora: "loras/character/waveswallow-v1-locon.safetensors", name: "Wave the Swallow (Sonic the Hedgehog)", strength: 1,
-        words: ['waveswallow', 'bird girl', 'purple body/fur', 'blue eyes', 'beak', 'long purple hair', 'sunglasses', 'white bandana', 'white gloves', 'gold bracelet', 'white tube top', 'flame print pants', 'necklace'], 
+        words: ['waveswallow, bird girl, purple body/fur, blue eyes, beak, long purple hair, sunglasses, white bandana, white gloves, gold bracelet, white tube top, flame print pants, necklace'], 
         description: "Wave the Swallow from Sonic the Hedgehog, first appearance is Sonic Riders",
         link: "https://civitai.com/models/118896/wave-the-swallow-sonic" },
 
     character-princesselisesonic: { lora: "loras/character/princess_elise.safetensors", name: "Princess Elise (Sonic the Hedgehog)", strength: 1,
-        words: ['princesselise', 'short hair'], 
+        words: ['princesselise, short hair'], 
         description: "Princess Elise from Sonic the Hedgehog, First introduced in the infamous Sonic 06'",
         link: "https://civitai.com/models/55497/princess-elise-iii-of-soleanna" },
 
     character-sallyacornsonic: { lora: "loras/character/sally-v1-locon.safetensors", name: "Sally Acorn (Sonic the Hedgehog)", strength: 1,
-        words: ['sally', 'chipmunk girl', 'red/brown hair', 'short hair', 'animal ears', 'blue eyes', 'black animal nose', 'short tail', 'blue vest', 'open vest', 'blue boots', 'white gloves', 'blue bracelet'], 
+        words: ['sally, chipmunk girl, red/brown hair, short hair, animal ears, blue eyes, black animal nose, short tail, blue vest, open vest, blue boots, white gloves, blue bracelet'], 
         description: "Sally Acorn from Sonic the Hedgehog, First introduced in the Sonic SatAM TV Show!",
         link: "https://civitai.com/models/115048/sally-acorn-sonic" },
 
     character-shadowthehedgehogsonic: { lora: "loras/character/ShadowTheHedgehogSonic1.safetensors", name: "Shadow the Hedgehog (Sonic the Hedgehog)", strength: 0.7,
-        words: ['shadow the hedgehog', 'shadow', 'red eyes'], 
+        words: ['shadow the hedgehog, shadow, red eyes'], 
         description: "Shadow the Hedgehog from Sonic the Hedgehog",
         link: "https://civitai.com/models/33137/shadow-the-hedgehog-sonic-series" },
 
     character-amyrosesonic: { lora: "loras/character/AmyRose1.safetensors", name: "Amy Rose (Sonic the Hedgehog)", strength: 0.7,
-        words: ['AMY ROSE', 'RED HEADBAND', 'SHORT HAIR', 'SONIC THE HEDGEHOG \(SERIES\)'], 
+        words: ['AMY ROSE, RED HEADBAND, SHORT HAIR, SONIC THE HEDGEHOG \(SERIES\)'], 
         description: "Amy Rose from Sonic the Hedgehog",
         link: "https://civitai.com/models/145671/amy-rose" },
 
     character-sagesonic: { lora: "loras/character/sage-v6.safetensors", name: "Sage (Sonic the Hedgehog)", strength: 1,
-        words: ['sthsage', 'short hair', 'white hair', 'multicolored hair', 'hair over one eye', 'red eyes', 'black dress', 'black pantyhose'], 
+        words: ['sthsage, short hair, white hair, multicolored hair, hair over one eye, red eyes, black dress, black pantyhose'], 
         description: "Sage from Sonic the Hedgehog, first shown in Sonic Frontiers",
         link: "https://civitai.com/models/42487/sage-sonic-the-hedgehog" },
 
     character-cosmotheseedriansonic: { lora: "loras/character/cosmo.safetensors", name: "Cosmo the Seedrian (Sonic the Hedgehog)", strength: 0.7,
-        words: ['sthcosmo', 'seedrian', 'blue eyes', 'cone hair bun', 'green hair', 'short hair', 'green dress', 'red gemstone'], 
+        words: ['sthcosmo, seedrian, blue eyes, cone hair bun, green hair, short hair, green dress, red gemstone'], 
         description: "Cosmo the Seedrian from Sonic the Hedgehog, First appearance is in Sonic X (Which is fire af ngl gl 🔥🗿🗿🗿🔥)",
         link: "https://civitai.com/models/65546/cosmo-sonic-x" },
 
     character-tikaltheechidnasonic: { lora: "loras/character/Tikal-10.safetensors", name: "Tikal the Echidna (Sonic the Hedgehog)", strength: 0.7,
-        words: ['Tikal', 'blue eyes', 'animal nose', 'orange hair', 'orange fur', 'tail', 'furry', 'TikAttire', 'white gloves', 'bracelet', 'armlet', 'circlet', 'gem', 'skirt', 'bandages', 'white shirt'], 
+        words: ['Tikal, blue eyes, animal nose, orange hair, orange fur, tail, furry, TikAttire, white gloves, bracelet, armlet, circlet, gem, skirt, bandages, white shirt'], 
         description: "Tikal the Echidna from Sonic the Hedgehog",
         link: "https://civitai.com/models/113295/tikal-sonic-the-hedgehog" },
 
     character-surgethetenrecsonic: { lora: "loras/character/Surge022BB95.safetensors", name: "Surge the Tenrec (Sonic the Hedgehog)", strength: 0.4,
-        words: ['surge the tenrec', 'blue eyes', 'sleeveless shirt', 'yellow pants', 'gloves', 'shoes', 'sharp teeth'], 
+        words: ['surge the tenrec, blue eyes, sleeveless shirt, yellow pants, gloves, shoes, sharp teeth'], 
         description: "Surge the Tenrec from Sonic the Hedgehog",
         link: "https://civitai.com/models/269572/surge-the-tenrec" },
 
     character-soniquesonic: { lora: "loras/character/sonique-10.safetensors", name: "Sonique (Sonic the Hedgehog)", strength: 0.7,
-        words: ['Sonique', 'green eyes', 'blue hair', 'animal nose', 'blue fur', 'two-tone fur', 'small tail', 'half-closed eyes', 'animal ears', 'red buckled shoes', 'white gloves,'], 
+        words: ['Sonique, green eyes, blue hair, animal nose, blue fur, two-tone fur, small tail, half-closed eyes, animal ears, red buckled shoes, white gloves,'], 
         description: "Genderbent version of Sonic the Hedgehog from Sonic the Hedgehog! UwU",
         link: "https://civitai.com/models/113997/sonique-sonic-the-hedgehog-rule-63" },
 
     character-lupethewolfsonic: { lora: "loras/character/lupe-v1.safetensors", name: "Lupe the Wolf (Sonic the Hedgehog)", strength: 1,
-        words: ['lupe', 'wolf'], 
+        words: ['lupe, wolf'], 
         description: "Lupe the Wolf from Sonic the Hedgehog.",
         link: "https://civitai.com/models/114465/lupe-the-wolf-sonic" },
 
@@ -1412,12 +1428,12 @@ character: {
         link: "https://civitai.com/models/55873/senator-armstrong-mgrr-character" },
 
     character-queenalfa995: { lora: "loras/character/Queen_alfa995.safetensors", name: "Queen (alfa995)", strength: 1,
-        words: ['animal ears', 'bell', 'blue jacket', 'breasts', 'cat ears', 'cat tail', 'choker', 'cleavage', 'collar', 'furry female', 'glasses', 'jingle bell', 'navel', 'neck bell', 'red-framed eyewear', 'semi-rimless eyewear', 'short hair', 'one tail', 'under-rim eyewear', 'orange hair'], 
+        words: ['animal ears, bell, blue jacket, breasts, cat ears, cat tail, choker, cleavage, collar, furry female, glasses, jingle bell, navel, neck bell, red-framed eyewear, semi-rimless eyewear, short hair, one tail, under-rim eyewear, orange hair'], 
         description: "Queen by Alfa995",
         link: "https://civitai.com/models/200013/queen-alfa995" },
 
     character-lumuruseiyatsura: { lora: "loras/character/urusei yatsura lum s1-lora-nochekaiser.safetensors", name: "Lum (Urusei Yatsura)", strength: 0.4,
-        words: ['lum', 'long hair', 'bangs', 'blue hair', '(orange eyes:1.5)', 'horns', 'pointy ears', 'aqua hair', 'oni horns', 'eyeshadow', 'navel', 'cleavage', 'swimsuit', 'bikini', 'strapless', 'animal print', '(yellow bikini:1.5)', 'tiger print', 'strapless bikini'], 
+        words: ['lum, long hair, bangs, blue hair, (orange eyes:1.5), horns, pointy ears, aqua hair, oni horns, eyeshadow, navel, cleavage, swimsuit, bikini, strapless, animal print, (yellow bikini:1.5), tiger print, strapless bikini'], 
         description: "Lum from Urusei Yatsura",
         link: "https://civitai.com/models/235540/lum-urusei-yatsura" },
 
@@ -1432,17 +1448,17 @@ character: {
         link: "https://civitai.com/models/184667/jirachi" },
 
     character-tailsdollsonic: { lora: "loras/character/Tails_Doll.safetensors", name: "Tails Doll (Sonic the Hedgehog)", strength: 1,
-        words: ['Tails Doll', 'antenna', 'black eyes', 'red gem', 'no mouth'], 
+        words: ['Tails Doll, antenna, black eyes, red gem, no mouth'], 
         description: "Tails Doll from Sonic the Hedgehog",
         link: "https://discord.gg/mobians" },
 
     character-makotonanayablazblue: { lora: "loras/character/makoto_nanaya-10.safetensors", name: "Makoto Nanaya", strength: 1,
-        words: ['makoto_nanaya', 'animal ears', 'squirrel girl', 'squirrel ears', 'short hair', 'squirrel tail', 'tail', 'antenna hair', 'large breasts', 'crop top', 'underboob', 'gloves', 'navel', 'midriff', 'skirt', 'fingerless gloves', 'revealing clothes', 'orange skirt', 'bare shoulders', 'black thighhighs', 'thighhighs'],
+        words: ['makoto_nanaya, animal ears, squirrel girl, squirrel ears, short hair, squirrel tail, tail, antenna hair, large breasts, crop top, underboob, gloves, navel, midriff, skirt, fingerless gloves, revealing clothes, orange skirt, bare shoulders, black thighhighs, thighhighs'],
         description: "Makoto Nanaya from BlazBlue",
         link: "https://civitai.com/models/250292/makoto-nanaya-blazblue-lora-commission" },
 
     character-kokonoeblazblue: { lora: "loras/character/KokonoeMS.safetensors", name: "Kokonoe", strength: 1,
-        words: ['kokonoems', 'animal ears', 'cat ears', 'pince-nez', 'tail', 'cat tail', 'multiple tails', 'solo', 'pants', 'navel', 'belt', 'capri pants'],
+        words: ['kokonoems, animal ears, cat ears, pince-nez, tail, cat tail, multiple tails, solo, pants, navel, belt, capri pants'],
         description: "Kokonoe from BlazBlue",
         link: "https://civitai.com/models/43832/kokonoe-mercury-blazblue-lora" },
 
@@ -1453,22 +1469,22 @@ character: {
         link: "https://civitai.com/models/158984/boykisser-lora?modelVersionId=178740" },
 
     character-aishaclanoutlawstar: { lora: "loras/character/Aisha_ClanV2.safetensors", name: "Aisha Clan Clan", strength: 1,
-        words: ['Aisha', 'dark-skinned', female', 'green outfit', 'bell', 'pointy ears', 'blue eyes', 'collar', 'circlet', 'neck bell',  'detatched sleeves', 'facial mark', 'single braid', 'lion tail', 'cleavage', 'skirt suit', 'jewelry', 'bandaged leg', 'bracelet'],
+        words: ['Aisha, dark-skinned', female, green outfit, bell, pointy ears, blue eyes, collar, circlet, neck bell, detatched sleeves, facial mark, single braid, lion tail, cleavage, skirt suit, jewelry, bandaged leg, bracelet'],
         description: "Aisha Clan Clan from Outlaw Star",
         link: "https://civitai.com/models/94601/aishaclan" },
 
     character-gadgetthewolfsonic: { lora: "loras/character/SonicDiff_Mobians_Gadget_the_wolf.safetensors", name: "Gadget the Wolf (Sonic)", strength: 0.6,
-        words: ['gadget the wolf', 'red wolf'], 
+        words: ['gadget the wolf, red wolf'], 
         description: "Gadget the Wolf from Sonic Forces",
         link: "https://discord.gg/mobians" },
 
     character-princesspeachmariomovie: { lora: "loras/character/PrincessPeachMovie.safetensors", name: "Princess Peach (Mario Movie)", strength: 1,
-        words: ['PrincessPeach', 'wedding dress', 'jumpsuit'], 
+        words: ['PrincessPeach, wedding dress, jumpsuit'], 
         description: "Princess Peach from the Super Mario Bros Movie",
         link: "https://civitai.com/models/74119/princess-peach-nintendo-the-super-mario-bros-movie-illumination-entertainment-animation-style?modelVersionId=78842" },
 
     character-ilulumisskobayashi: { lora: "loras/character/IluluV2_epoch11.safetensors", name: "Ilulu (Miss Kobayashi's Dragon Maid)", strength: 1,
-        words: ['ilulu', 'dragon girl'], 
+        words: ['ilulu, dragon girl'], 
         description: "Ilulu from Miss Kobayashi's Dragon Maid",
         link: "https://civitai.com/models/22031/ilulu-miss-kobayashis-dragon-maid?modelVersionId=28115" },
 
@@ -1478,27 +1494,27 @@ character: {
         link: "https://civitai.com/models/58012/renamon-digimon?modelVersionId=62459" },
 
     character-chelroadtoeldorado: { lora: "loras/character/chel_eldorado-11.safetensors", name: "Chel (Road to El Dorado)", strength: 1,
-        words: ['chel_eldorado', 'tube top', 'midriff', 'loincloth:1.2'], 
+        words: ['chel_eldorado, tube top, midriff, loincloth:1.2'], 
         description: "Chel from the Road to El Dorado dreamworks movie",
         link: "https://civitai.com/models/85571/chel-the-road-to-el-dorado-or-character-lora?modelVersionId=90987" },
 
     character-midnazelda: { lora: "loras/character/tloz_midna-10.safetensors", name: "Midna Imp/True (Zelda)", strength: 1,
-        words: ['midnaimp, fang, helmet, colored sclera, yellow sclera, one eye covered', 'midnatrue, long hair, front ponytail, hood, colored sclera, yellow sclera, jewelry'], 
+        words: ['midnaimp, fang, helmet, colored sclera, yellow sclera, one eye covered, midnatrue, long hair, front ponytail, hood, colored sclera, yellow sclera, jewelry'], 
         description: "Imp and Human form of Midna from The Legend of Zelda: Twilight Princess",
         link: "https://civitai.com/models/64598/midna-or-the-legend-of-zelda-twilight-princess?modelVersionId=69230" },
 
     character-raidenmeihonkai: { lora: "loras/character/Char-Honkai-Raiden_Mei-v3.safetensors", name: "Raiden Mei (Honkai)", strength: 0.9,
-        words: ['raiden mei', 'pantyhose', 'high heel boots', 'single glove', 'earrings', 'layered dress', 'ribbon choker', 'tank top', 'detached sleeves'], 
+        words: ['raiden mei, pantyhose, high heel boots, single glove, earrings, layered dress, ribbon choker, tank top, detached sleeves'], 
         description: "Raiden Mei from Honkai Impact 3rd",
         link: "https://civitai.com/models/13023/raiden-mei-adult-ver?modelVersionId=293365" },
 
     character-ramrezero: { lora: "loras/character/ram_rezero_v1.safetensors", name: "Ram (Re:Zero)", strength: 0.6,
-        words: ['ram1', '1girl', 'solo', 'ram \(re:zero\)', 'pink hair', 'white thighhighs', 'short hair', 'red eyes', 'hair over one eye', 'hair ribbon', 'x hair ornament', 'maid headdress', 'waist apron', 'garter straps', 'black ribbon', 'small breasts', 'detached sleeves', 'neck ribbon', 'hair flower'], 
+        words: ['ram1, 1girl, solo, ram \(re:zero\), pink hair, white thighhighs, short hair, red eyes, hair over one eye, hair ribbon, x hair ornament, maid headdress, waist apron, garter straps, black ribbon, small breasts, detached sleeves, neck ribbon, hair flower'], 
         description: "Ram from Re:Zero",
         link: "https://civitai.com/models/28782/ram-rezero?modelVersionId=34532" },
 
-    character-tsuyuasuimha: { lora: "loras/character/Tsuyu Asui.safetensors", name: "Tsuyu Asui (MHA)", strength: 0.8,
-        words: ['asui tsuyu', 'green bodysuit', 'goggles', 'low-tied long hair', 'hair rings', 'white gloves', ':p'], 
+    character-tsuyuasuimyheroacademia: { lora: "loras/character/Tsuyu Asui.safetensors", name: "Tsuyu Asui (My Hero Academia)", strength: 0.8,
+        words: ['asui tsuyu, green bodysuit, goggles, low-tied long hair, hair rings, white gloves, :p'], 
         description: "Tsuyu Asui from My Hero Academia",
         link: "https://civitai.com/models/21096/tsuyu-asui-hero-lora-72mb?modelVersionId=25109" },
 
@@ -1508,12 +1524,12 @@ character: {
         link: "https://civitai.com/models/61568/naruto-uzumaki?modelVersionId=66114" },
 
     character-lopunnypokemon: { lora: "loras/character/Lopunny-08.safetensors", name: "Lopunny (Pokemon)", strength: 0.7,
-        words: ['Lopunny', 'furry', 'rabbit ears', 'black sclera', 'brown fur', 'body fur', 'fluff', 'fur cuffs'], 
+        words: ['Lopunny, furry, rabbit ears, black sclera, brown fur, body fur, fluff, fur cuffs'], 
         description: "LoPunny from Pokemon",
         link: "https://civitai.com/models/96669/lopunny-pokemon-or-pocket-monsters" },
 
     character-meridabrave: { lora: "loras/character/MeridaBrave_character-20.safetensors", name: "Merida (Brave)", strength: 0.8,
-        words: ['MeridaWaifu', 'dress'], 
+        words: ['MeridaWaifu, dress'], 
         description: "Merida from Brave",
         link: "https://civitai.com/models/39097/merida-brave-disney-princess-by-yeiyeiart?modelVersionId=45024" },
 
@@ -1523,22 +1539,22 @@ character: {
         link: "https://civitai.com/models/117520/velma-scooby-doo?modelVersionId=254176" },
 
     character-mirichubna: { lora: "loras/character/MichiruTestNAI.safetensors", name: "Michiru (BNA)", strength: 1,
-        words: ['michiru', 'furry', 'animal'], 
+        words: ['michiru, furry, animal'], 
         description: "Michiru from BNA",
         link: "https://civitai.com/models/8399?modelVersionId=21805" },
 
-    character-mirkomha: { lora: "loras/character/MirkoMHA-v1.safetensors", name: "Mirko (MHA)", strength: 1,
-        words: ['mirkomha', 'boku no hero academia'], 
+    character-mirkomyheroacademia: { lora: "loras/character/MirkoMy Hero Academia-v1.safetensors", name: "Mirko (My Hero Academia)", strength: 1,
+        words: ['mirkomha, boku no hero academia'], 
         description: "Mirko from My Hero Academia",
         link: "https://civitai.com/models/33149/mirko-my-hero-academia-character-lora?modelVersionId=39495" },
 
     character-meguminkonosuba: { lora: "loras/character/Megumin_V1.0-000006.safetensors", name: "Megumin (Konosuba)", strength: 1,
-        words: ['Megumin', 'megumins style', 'cape', 'hat'], 
+        words: ['Megumin, megumins style, cape, hat'], 
         description: "Megumin from Konosuba",
         link: "https://civitai.com/models/47911/konosuba-meguminor?modelVersionId=52508" },
 
-    character-camieutsushimimha: { lora: "loras/character/mha_utsushimi-09.safetensors", name: "Camie Utsushimi (MHA)", strength: 1,
-        words: ['utsushimi camie', 'peaked cap', 'black bodysuit', 'unzipped', 'cleavage'], 
+    character-camieutsushimimyheroacademia: { lora: "loras/character/mha_utsushimi-09.safetensors", name: "Camie Utsushimi (My Hero Academia)", strength: 1,
+        words: ['utsushimi camie, peaked cap, black bodysuit, unzipped, cleavage'], 
         description: "Camie Utsushimi from My Hero Academia",
         link: "https://civitai.com/models/46359/camie-utsushimi-or-my-hero-academia?modelVersionId=89386" },
 
@@ -1548,7 +1564,7 @@ character: {
         link: "https://civitai.com/models/139535/hex-maniac-pokemon?modelVersionId=154553" },
 
     character-lolabunnyspacejam: { lora: "loras/character/lola1.safetensors", name: "Lola Bunny (Space Jam)", strength: 0.7,
-        words: ['lola', 'lola bunny'], 
+        words: ['lola, lola bunny'], 
         description: "LoLa Bunny from Space Jam",
         link: "https://civitai.com/models/19125/lola-bunny?modelVersionId=22696" },
 
@@ -1563,7 +1579,7 @@ character: {
         link: "https://civitai.com/models/71471/mememe?modelVersionId=348529" },
 
     character-ventigenshin: { lora: "loras/character/venti.safetensors", name: "Venti (Genshin)", strength: 1,
-        words: ['venti (genshin impact)', '1boy, male focus, venti (genshin impact), lyre, black hair, hat, smile, braid, long sleeves, twin braids, gradient hair, multicolored hair, instrument, pantyhose, vision (genshin impact), bow, shorts, blue hair, green headwear, beret, white pantyhose, green shorts, collared cape, bangs, butterfly, holding instrument, white flower, shirt, jewelry, looking at viewer, white shirt, brooch, cape, androgynous, frilled sleeves, outdoors, frills, holding, leaf, corset, short hair with long locks'], 
+        words: ['venti (genshin impact), 1boy, male focus, venti (genshin impact), lyre, black hair, hat, smile, braid, long sleeves, twin braids, gradient hair, multicolored hair, instrument, pantyhose, vision (genshin impact), bow, shorts, blue hair, green headwear, beret, white pantyhose, green shorts, collared cape, bangs, butterfly, holding instrument, white flower, shirt, jewelry, looking at viewer, white shirt, brooch, cape, androgynous, frilled sleeves, outdoors, frills, holding, leaf, corset, short hair with long locks'], 
         description: "Venti from Genshin Impact",
         link: "https://civitai.com/models/14953/venti-genshin-impact?modelVersionId=17612" },
 
@@ -1617,8 +1633,8 @@ character: {
         description: "Pecorine from Princess Connect! Re:Dive",
         link: "https://civitai.com/models/101079?modelVersionId=108211" },
 
-    character-ladynagantmha: { lora: "loras/character/LadyNagantMHAv1.safetensors", name: "Lady Nagant (MHA)", strength: 1,
-        words: ['lady nagant', 'boku no hero academia'], 
+    character-ladynagantmyheroacademia: { lora: "loras/character/LadyNagantMy Hero Academiav1.safetensors", name: "Lady Nagant (My Hero Academia)", strength: 1,
+        words: ['lady nagant, boku no hero academia'], 
         description: "Lady Nagant from My Hero Academia",
         link: "https://civitai.com/models/17393/lady-nagant-my-hero-academia-character-lora?modelVersionId=20561" },
 
@@ -1638,7 +1654,7 @@ character: {
         link: "https://civitai.com/models/58722/toy-chica-character-lora-or-fnaf-five-nights-at-freddys-or?modelVersionId=103180" },
 
     character-zerotwo: { lora: "loras/character/zerotwo-10.safetensors", name: "Zero Two (Darling in the FRANXX)", strength: 1,
-        words: ['zerotwo', 'hairband', 'horns', 'red horns'], 
+        words: ['zerotwo, hairband, horns, red horns'], 
         description: "Zero Two from Darling in the FRANXX",
         link: "https://civitai.com/models/97236/zero-two?modelVersionId=103913" },
 
@@ -1653,7 +1669,7 @@ character: {
         link: "https://civitai.com/models/42994/doaxvv-tamaki?modelVersionId=210498" },
 
     character-nicodoa: { lora: "loras/character/doa_nico-v2.safetensors", name: "Nico (DoA)", strength: 1,
-        words: ['nico', 'glasses'], 
+        words: ['nico, glasses'], 
         description: "Nico from Dead or Alive",
         link: "https://civitai.com/models/57368/doa-nico?modelVersionId=206284" },
 
@@ -1668,12 +1684,15 @@ character: {
         link: "https://civitai.com/models/37539/rebecca-cyberpunk-edgerunners?modelVersionId=43521" },
 
     character-yaemikogenshin: { lora: "loras/character/yaemiko1-000008.safetensors", name: "Yae Miko (Genshin)", strength: 1,
-        words: ['yaemikodef', 'yaemikornd'], 
+        words: ['yaemikodef, yaemikornd'], 
         description: "Yae Miko from Genshin Impact",
         link: "https://civitai.com/models/42778/yae-miko-genshin-impact-or-character-lora-1200?modelVersionId=47455" },
 
     character-rosapokemon: { lora: "loras/character/rosa_(pokemon)_v10.safetensors", name: "Rosa (Pokemon)", strength: 0.7,
-        words: ['ro1, hair bun, blue eyes, twintails, visor cap, pantyhose, raglan sleeves, yellow shorts, shirt, pink bow, wristwatch;', 'ro1, hair bun, blue eyes, twintails, belt, black thighhighs, gloves, christmas, cleavage, red capelet, santa hat, dress'], 
+        words: [
+            'ro1, hair bun, blue eyes, twintails, visor cap, pantyhose, raglan sleeves, yellow shorts, shirt, pink bow, wristwatch',
+            'ro1, hair bun, blue eyes, twintails, belt, black thighhighs, gloves, christmas, cleavage, red capelet, santa hat, dress'
+        ], 
         description: "Rosa from Pokemon",
         link: "https://civitai.com/models/78033/rosa-pokemon?modelVersionId=82809" },
 
@@ -1688,7 +1707,7 @@ character: {
         link: "https://civitai.com/models/19980/misty-pokemon?modelVersionId=24766" },
 
     character-jessiepokemon: { lora: "loras/character/jessie-v2.safetensors", name: "Jessie (Pokemon)", strength: 0.9,
-        words: ['jessie pokemon', 'hair slicked back, long hair,purple hair,blue eyes', 'team rocket ,team rocket uniform ,white skirt,crop top,thighhighs,elbow gloves'], 
+        words: ['jessie pokemon, hair slicked back, long hair,purple hair,blue eyes, team rocket ,team rocket uniform ,white skirt,crop top,thighhighs,elbow gloves'], 
         description: "Jessie from Pokemon",
         link: "https://civitai.com/models/20648/jessie-pokemon-or-goofy-ai?modelVersionId=155998" },
 
@@ -1698,17 +1717,21 @@ character: {
         link: "https://civitai.com/models/104526/hayase-nagatoro-oror-dont-toy-with-me-miss-nagatoro?modelVersionId=220528" },
 
     character-monagenshinimpact: { lora: "loras/character/Monav3.safetensors", name: "Mona", strength: 0.7,
-        words: ['Mona', 'witch hat, bodystocking, choker, hair ribbon, capelet, hair ornament, detached sleeves, high heels,'], 
+        words: ['Mona, witch hat, bodystocking, choker, hair ribbon, capelet, hair ornament, detached sleeves, high heels,'], 
         description: "Mona from Genshin Impact",
         link: "https://civitai.com/models/14621/mona-genshin-impact-character?modelVersionId=279983" },
 
     character-yorforgerspyxfamily: { lora: "loras/character/yor_forger_v1.safetensors", name: "Yor Forger (Spy x Family)", strength: 0.8,
-        words: ['aayorf, sidelocks, gold hairband, hair ornament, red eyes, gold earring, large breasts, choker, bare shoulders, black dress, two-sided dress, fingerless gloves, thigh boots', 'bbyorf, short hair with long locks, white hairband, red eyes, gold earrings, large breasts, jewelry, off shoulder, red sweater, sweater dress, long sleeves, black pantyhose;'], 
+        words: ['aayorf, sidelocks, gold hairband, hair ornament, red eyes, gold earring, large breasts, choker, bare shoulders, black dress, two-sided dress, fingerless gloves, thigh boots, bbyorf, short hair with long locks, white hairband, red eyes, gold earrings, large breasts, jewelry, off shoulder, red sweater, sweater dress, long sleeves, black pantyhose'], 
         description: "Yor Forger from Spy x Family",
         link: "https://civitai.com/models/117073/yor-forger-yor-briar-spy-family?modelVersionId=126823" },
 
     character-traceroverwatch: { lora: "loras/character/tracerLast-000020.safetensors", name: "Tracer (Overwatch)", strength: 0.8,
-        words: ['tracer, bomber jacket, orange leggings, goggles;', 'tracer, orange goggles, bomber jacket, chest harness, vambraces, orange bodysuit, orange leggings, shoes;', 'tracer, cadet uniform, beret, earpiece, armor;', 'vambraces, ear piercing, sleeves rolled up, handgun, dual wielding'], 
+        words: ['tracer, bomber jacket, orange leggings, goggles',
+        'tracer, orange goggles, bomber jacket, chest harness, vambraces, orange bodysuit, orange leggings, shoes',
+        'tracer, cadet uniform, beret, earpiece, armor',
+        'vambraces, ear piercing, sleeves rolled up, handgun, dual wielding'
+        ], 
         description: "Tracer from Overwatch",
         link: "https://civitai.com/models/22574/tracer-overwatch-lora?modelVersionId=26951" },
 
@@ -1718,7 +1741,7 @@ character: {
         link: "https://civitai.com/models/27909/tatsumaki-one-punch-man?modelVersionId=33446" },
 
     character-mercyoverwatch: { lora: "loras/character/mercy.safetensors", name: "Mercy (Overwatch)", strength: 0.7,
-        words: ['mercy, high ponytail, hair tie', 'mechanical halo, bodysuit, long sleeves, gloves, loincloth, brown legwear, armored boots;', 'yellow wings, glowing wings'], 
+        words: ['mercy, high ponytail, hair tie, mechanical halo, bodysuit, long sleeves, gloves, loincloth, brown legwear, armored boots, yellow wings, glowing wings'], 
         description: "Mercy from Overwatch",
         link: "https://civitai.com/models/20465/mercy-overwatch-lora?modelVersionId=24332" },
 
@@ -1728,7 +1751,7 @@ character: {
         link: "https://civitai.com/models/85221/sailor-jupiter-sailor-moon?modelVersionId=90579" },
 
     character-bowsettemario: { lora: "loras/character/bows1-000015.safetensors", name: "Bowsette (Mario)", strength: 1,
-        words: ['bowsette', 'spikes, horns, crown'], 
+        words: ['bowsette, spikes, horns, crown'], 
         description: "Bowsette from Mario",
         link: "https://civitai.com/models/16186/bowsette-or-character-lora-1860?modelVersionId=19114" },
 
@@ -1767,13 +1790,13 @@ character: {
         description: "Judy Hopps from Zootopia",
         link: "https://civitai.com/models/75947/judyhopps?modelVersionId=80682" },
 
-    character-ochakourarakamha: { lora: "loras/character/Ochakodim8.safetensors", name: "Ochako Uraraka", strength: 1,
+    character-ochakourarakamyheroacademia: { lora: "loras/character/Ochakodim8.safetensors", name: "Ochako Uraraka", strength: 1,
         words: ['ochako'], 
         description: "Ochaoko Uraraka from My Hero Academia, Best Girl!",
         link: "https://civitai.com/models/16509/ochako-uraraka-mha?modelVersionId=19484" },
 
     character-hutaogenshinimpact: { lora: "loras/character/hutao1-000009.safetensors", name: "Hu Tao (Genshin)", strength: 1,
-        words: ['hutaodef', 'hutaornd'], 
+        words: ['hutaodef, hutaornd'], 
         description: "Hu Tao from Genshin Impact",
         link: "https://civitai.com/models/33953/hu-tao-genshin-impact-or-character-lora-2293?modelVersionId=40250" },
 
@@ -1792,33 +1815,49 @@ character: {
         description: "Son Goku from Dragon Ball",
         link: "https://civitai.com/models/18279/son-goku-dragon-ball-all-series-lora?modelVersionId=21654" },
 
-    character-momoyaoyorozumha: { lora: "loras/character/yaoyorozu_momo_v1.safetensors", name: "Momo Yaoyorozu", strength: 0.8,
-        words: ['1girl, yaoyorozu momo, black hair, ponytail, hair pulled back, black eyes, large breasts, red leotard, navel cutout, bare arms, bare legs, belt;', '1girl, yaoyorozu momo, black hair, ponytail, hair pulled back, black eyes, large breasts, school uniform, white shirt, collared shirt, short sleeves, red necktie, green skirt'], 
+    character-momoyaoyorozumyheroacademia: { lora: "loras/character/yaoyorozu_momo_v1.safetensors", name: "Momo Yaoyorozu (My Hero Academia)", strength: 0.8,
+        words: [
+            '1girl, yaoyorozu momo, black hair, ponytail, hair pulled back, black eyes, large breasts, red leotard, navel cutout, bare arms, bare legs, belt',
+            '1girl, yaoyorozu momo, black hair, ponytail, hair pulled back, black eyes, large breasts, school uniform, white shirt, collared shirt, short sleeves, red necktie, green skirt'
+            ], 
         description: "Momo Yaoyorozu from My Hero Academia",
         link: "https://civitai.com/models/98416/yaoyorozu-momo-my-hero-academia?modelVersionId=105250" },
 
     character-lisagenshinimpact: { lora: "loras/character/lisa1-000010.safetensors", name: "Lisa (Genshin)", strength: 1,
-        words: ['lisadef', 'lisasobriquet', 'lisarnd'], 
+        words: ['lisadef, lisasobriquet, lisarnd'], 
         description: "Lisa from Genshin Impact",
         link: "https://civitai.com/models/42775/lisa-genshin-impact-or-character-lora-1245?modelVersionId=47452" },
 
     character-suzumiyaharuhi: { lora: "loras/character/suzumiya_haruhi_v10.safetensors", name: "Suzumiya Haruhi", strength: 0.7,
-        words: ['1girl, suzumiya haruhi, solo, kita high school uniform, blue sailor collar, blue skirt, brown hair, short hair, brown eyes, armband, hairband, medium hair, ribbon, socks, medium breasts;', '1girl, suzumiya haruhi, solo, pantyhose, animal ears, rabbit ears, playboy bunny, brown hair, hairband, hair hair ribbon, short hair, medium breasts'], 
+        words: [
+            '1girl, suzumiya haruhi, solo, kita high school uniform, blue sailor collar, blue skirt, brown hair, short hair, brown eyes, armband, hairband, medium hair, ribbon, socks, medium breasts',
+            '1girl, suzumiya haruhi, solo, pantyhose, animal ears, rabbit ears, playboy bunny, brown hair, hairband, hair hair ribbon, short hair, medium breasts'
+            ], 
         description: "Haruhi Suzumiya from Suzumiya Haruhi",
         link: "https://civitai.com/models/22510/suzumiya-haruhi-suzumiya-haruhi-series?modelVersionId=26876" },
 
     character-chikafujiwara: { lora: "loras/character/fujiwara_chika_v1.safetensors", name: "Chika Fujiwara (Kaguya-sama)", strength: 1,
-        words: ['chika1, fujiwara chika, blunt bangs, black bow, neck ribbon, large breasts, school uniform, black dress, red ribbon, long sleeves, collared dress;', 'chika1, fujiwara chika, school uniform, black bow, hair_bow black dress, red ribbon, short sleeves, white shirt, blunt bangs, neck ribbon, collarbone, collared dress, large breasts'], 
+        words: [
+            'chika1, fujiwara chika, blunt bangs, black bow, neck ribbon, large breasts, school uniform, black dress, red ribbon, long sleeves, collared dress',
+            'chika1, fujiwara chika, school uniform, black bow, hair_bow black dress, red ribbon, short sleeves, white shirt, blunt bangs, neck ribbon, collarbone, collared dress, large breasts'
+            ], 
         description: "Chika Fujiwara from Kaguya-sama: Love is War",
         link: "https://civitai.com/models/39164/fujiwara-chika-kaguya-sama-wa-kokurasetai?modelVersionId=45084" },
 
     character-lanapokemon: { lora: "loras/character/Lana-10.safetensors", name: "Lana (Pokemon)", strength: 0.7,
-        words: ['Lana, white shirt, sleeveless shirt, yellow hairpiece, sailor collar, blue pants, baggy pants, flip-flops;', 'lana, pink dress, gem hairband, pink headband, dreamcatcher, bracelet, anklet, sandals'], 
+        words: [
+            'Lana, white shirt, sleeveless shirt, yellow hairpiece, sailor collar, blue pants, baggy pants, flip-flops',
+            'Lana, pink dress, gem hairband, pink headband, dreamcatcher, bracelet, anklet, sandals'
+            ], 
         description: "Lana from Pokemon",
         link: "https://civitai.com/models/30658/pokemon-lana?modelVersionId=232245" },
 
     character-remrezero: { lora: "loras/character/rem_v1.safetensors", name: "Rem (Re:Zero)", strength: 0.8,
-        words: ['aarem, short hair, maid headdress, x hair ornament, hair ribbon, hair over one eye, large breasts, frills, neck ribbon, cleavage, dress, detached sleeves, white apron, waist apron, white pantyhose;', 'bbrem, short hair, x hair ornament, japanese clothes, white kimono, short kimono, detached sleeves, wide sleeves, sash, white thighhighs, aged down;', 'aarem, short hair, hair flower, bridal veil, x hair ornament, hair over one eye, large breasts, necklace, collarbone, cleavage, white bra, detached sleeves, white skirt, miniskirt, thigh gap'], 
+        words: [
+            'aarem, short hair, maid headdress, x hair ornament, hair ribbon, hair over one eye, large breasts, frills, neck ribbon, cleavage, dress, detached sleeves, white apron, waist apron, white pantyhose',
+            'bbrem, short hair, x hair ornament, japanese clothes, white kimono, short kimono, detached sleeves, wide sleeves, sash, white thighhighs, aged down',
+            'aarem, short hair, hair flower, bridal veil, x hair ornament, hair over one eye, large breasts, necklace, collarbone, cleavage, white bra, detached sleeves, white skirt, miniskirt, thigh gap'
+            ], 
         description: "Rem from Re:Zero",
         link: "https://civitai.com/models/137267/rem-rezero?modelVersionId=151467" },
 
@@ -1833,17 +1872,17 @@ character: {
         link: "https://civitai.com/models/27247/usada-pekora-hololive-or-9-outfits-or-character-lora-1892?modelVersionId=32617" },
 
     character-dvaoverwatch: { lora: "loras/character/d.va_v1.safetensors", name: "D.va (Overwatch)", strength: 0.8,
-        words: ['aahana, long hair, brown hair, headphones, whisker markings, shoulder pads, blue bodysuit, ribbed bodysuit, animal print, clothes writing, long sleeves, white gloves;', 'bbhana, long hair, brown hair, single braid, hair ornament, whisker markings, korean clothes, hanbok, long sleeves, striped sleeves, pink skirt;', 'cchana, long hair, brown hair, whisker markings, police hat, white headwear, police uniform, striped necktie, blue shirt, collared shirt, breast pocket, long sleeves, white gloves, belt, black pants;', 'ddhana, blonde hair, twintails, hair bow, animal ears, whisker markings, heart earrings, cat tail, bowtie, pink bow, cleavage, gothic, black dress, short sleeves, puffy sleeves, black gloves, purple skirt, argyle, pantyhose'], 
+        words: ['aahana, long hair, brown hair, headphones, whisker markings, shoulder pads, blue bodysuit, ribbed bodysuit, animal print, clothes writing, long sleeves, white gloves;, bbhana, long hair, brown hair, single braid, hair ornament, whisker markings, korean clothes, hanbok, long sleeves, striped sleeves, pink skirt;, cchana, long hair, brown hair, whisker markings, police hat, white headwear, police uniform, striped necktie, blue shirt, collared shirt, breast pocket, long sleeves, white gloves, belt, black pants;, ddhana, blonde hair, twintails, hair bow, animal ears, whisker markings, heart earrings, cat tail, bowtie, pink bow, cleavage, gothic, black dress, short sleeves, puffy sleeves, black gloves, purple skirt, argyle, pantyhose'], 
         description: "D.va from Overwatch, 4 Outfits",
         link: "https://civitai.com/models/141046/dva-song-hana-overwatch?modelVersionId=156347" },
 
     character-gwentotaldramaisland: { lora: "loras/character/gwentd-guy-v501.safetensors", name: "Gwen (Total Drama Island)", strength: 1,
-        words: ['gwentd', 'two-tone hair, makeup, green lips, choker, crop top, long sleeves, midriff, skirt, pantyhose'], 
+        words: ['gwentd, two-tone hair, makeup, green lips, choker, crop top, long sleeves, midriff, skirt, pantyhose'], 
         description: "Gwen from Total Drama Island",
         link: "https://civitai.com/models/17658/gwen-total-drama-island-character-lora?modelVersionId=321181" },
 
     character-astolfofate: { lora: "loras/character/Astolfo.safetensors", name: "Astolfo (Fate Series)", strength: 1,
-        words: ['Astolfo, long braid, white hair, purple eyes, short sleeves, hair bow, black bow, pleated skirt, pink hair, serafuku, white thighhighs, pink skirt, single braid, navel, skirt, long hair, sailor collar, hair intakes, streaked hair, 1boy, school uniform;', 'Astolfo, black skirt, long braid, braid, purple eyes, hair between eyes, striped, collarbone, hooded jacket, hair bow, 1boy, shirt, open clothes, black bow, pink hair, miniskirt, single braid, jacket, long hair, long sleeves, black pantyhose, purple jacket, hair intakes, streaked hair, striped shirt'], 
+        words: ['Astolfo, long braid, white hair, purple eyes, short sleeves, hair bow, black bow, pleated skirt, pink hair, serafuku, white thighhighs, pink skirt, single braid, navel, skirt, long hair, sailor collar, hair intakes, streaked hair, 1boy, school uniform;, Astolfo, black skirt, long braid, braid, purple eyes, hair between eyes, striped, collarbone, hooded jacket, hair bow, 1boy, shirt, open clothes, black bow, pink hair, miniskirt, single braid, jacket, long hair, long sleeves, black pantyhose, purple jacket, hair intakes, streaked hair, striped shirt'], 
         description: "Astolfo from Fate Series",
         link: "https://civitai.com/models/53552/astolfo-fate-series?modelVersionId=57908" },
 
@@ -1858,7 +1897,7 @@ character: {
         link: "https://civitai.com/models/6081/ann-takamaki?modelVersionId=115624" },
 
     character-ambergenshinimpact: { lora: "loras/character/amber1-000008.safetensors", name: "Amber (Genshin)", strength: 1,
-        words: ['amber5star', 'amberrnd', 'amberpizza'], 
+        words: ['amber5star, amberrnd, amberpizza'], 
         description: "Amber from Genshin Impact",
         link: "https://civitai.com/models/33972/amber-genshin-impact-or-character-lora-782?modelVersionId=40265" },
 
@@ -1971,27 +2010,27 @@ character: {
 
 pose: {
     pose-suspendedcongress: { lora: "loras/pose/SuspendedCongressMS.safetensors", name: "Suspended Congress", strength: 1,
-        words: ['suspended congress', 'vaginal', 'anal', 'ass', 'ass focus', 'ass grab', 'standing', 'hug', 'leg lock', 'breast press', 'straddling', 'arms around neck', 'lifting person'],
+        words: ['suspended congress, vaginal, anal, ass, ass focus, ass grab, standing, hug, leg lock, breast press, straddling, arms around neck, lifting person'],
         description: "Suspended Congress sex position",
         link: "https://civitai.com/models/18751/murkys-suspended-congress-carrying-sex-lora" },
     pose-grabownass: { lora: "loras/pose/GrabOwnAss-DIM1.safetensors", name: "Grab Own Ass", strength: 1,
-        words: ['(hands on own ass)', '(grabbing own ass)', 'ass stretch', 'ass spread'],
+        words: ['(hands on own ass), (grabbing own ass), ass stretch, ass spread'],
         description: "Character grabbing their own ass",
         link: "https://civitai.com/models/8179/grabbing-own-ass" },
     pose-standingdoggystyle: { lora: "loras/pose/fixStandingDoggyStyle-000017.safetensors", name: "Standing Doggystyle", strength: 0.8,
-        words: ['1girl', '1boy', 'sex'],
+        words: ['1girl, 1boy, sex'],
         description: "Standing Doggystyle sex position",
         link: "https://civitai.com/models/12682/standing-doggystyle" },
     pose-povspitroast: { lora: "loras/pose/pov_spitroast_v0.2.safetensors", name: "POV Spitroast", strength: 1,
-        words: ['pov', 'top-down bottom-up', 'spitroast', 'sex', '2boys'],
+        words: ['pov, top-down bottom-up, spitroast, sex, 2boys'],
         description: "Character in spitroast position from a POV camera view",
         link: "https://civitai.com/models/89925/pov-spitroast" },
     pose-standingspitroast: { lora: "loras/pose/StandingSpitRoastMS.safetensors", name: "Standing Spitroast", strength: 1,
-        words: ['group sex', 'spitroast', 'fellatio', 'oral', 'sex', 'threesome', '2boys', 'sex from behind', 'mmf threesome', 'double penetration', 'bent over', 'standing', 'from side'],
+        words: ['group sex, spitroast, fellatio, oral, sex, threesome, 2boys, sex from behind, mmf threesome, double penetration, bent over, standing, from side'],
         description: "Character inbetween two guys, throat and vaginal sex, commonly a side view",
         link: "https://civitai.com/models/24954?modelVersionId=29854" },
     pose-split: { lora: "loras/pose/lora_split_32_v1.safetensors", name: "Split", strength: 1,
-        words: ['split', 'standing split', 'lef lift', 'standing sex', 'leg up'],
+        words: ['split, standing split, lef lift, standing sex, leg up'],
         description: "Character with their legs split whilst balancing on one leg",
         link: "https://civitai.com/models/6104/split" },
     pose-breastspressed: { lora: "loras/pose/Breast Press V2-000011.safetensors", name: "Breasts Pressed", strength: 1,
@@ -1999,39 +2038,39 @@ pose: {
         description: "2 Characters pressing their breasts together, side view",
         link: "https://civitai.com/models/26274/breast-press-lora" },
     pose-sidewaysass: { lora: "loras/pose/SidewayAssMS.safetensors", name: "Sideways Ass", strength: 1,
-        words: ['sidewayassms', 'spread pussy', 'spread ass', 'hand on own ass'],
+        words: ['sidewayassms, spread pussy, spread ass, hand on own ass'],
         description: "Character lying, showing their ass",
         link: "https://civitai.com/models/15038/murkys-sideway-ass-lora" },
     pose-multiplepenises: { lora: "loras/pose/multiple_penises_v0.4.safetensors", name: "Multiple Penises Surrounding", strength: 1,
-        words: ['multiple penises', 'multiple boys', 'surrounded', 'too many', 'gangbang'],
+        words: ['multiple penises, multiple boys, surrounded, too many, gangbang'],
         description: "Character surrounded by penises",
         link: "https://civitai.com/models/104245/multiple-penises" },
     pose-povpinching: { lora: "loras/pose/PinchingPOV.safetensors", name: "POV Pinching", strength: 1,
-        words: ['PinchingPOV', 'pov', 'cheek pull'],
+        words: ['PinchingPOV, pov, cheek pull'],
         description: "Character having their cheeks pinched and/or pulled",
         link: "https://civitai.com/models/114881/pinching-pov-or-concept-lora" },
     pose-masturbationwithdildo: { lora: "loras/pose/Masturbation with Dildo v1.1.safetensors", name: "Masturbation with Dildo", strength: 1,
-        words: ['dildomasturbation', 'vaginal object insertion', 'female masturbation', 'object insertion', 'masturbation'],
+        words: ['dildomasturbation, vaginal object insertion, female masturbation, object insertion, masturbation'],
         description: "Character Masturbating with dildo",
         link: "" },
     pose-analdildositting: { lora: "loras/pose/Anal dildo sittingOne_395969.safetensors", name: "Anal Dildo Sitting", strength: 1,
-        words: ['anal dildo sitting', 'dildo', 'anal', 'anal object insertion'],
+        words: ['anal dildo sitting, dildo, anal, anal object insertion'],
         description: "Character sitting on a dildo, anally",
         link: "https://civitai.com/models/230016/anal-dildo-sitting" },
     pose-legsupmissionary: { lora: "loras/pose/legs_up_missionary_v1.0.safetensors", name: "Legs up Missionary", strength: 1,
-        words: ['1girl', 'nsfw', 'pov', 'missionary', 'legs up', 'legs grab', 'from above', 'wide spread legs', 'reaching'],
+        words: ['1girl, nsfw, pov, missionary, legs up, legs grab, from above, wide spread legs, reaching'],
         description: "Character with their legs up in missionary sex position",
         link: "https://civitai.com/models/212708/legs-up-missionary" },
     pose-frontviewallfoursdoggystyle: { lora: "loras/pose/front_view_all_fours_doggystyle_v1.0.safetensors", name: "Frontview All-fours Doggystyle", strength: 0.5,
-        words: ['doggystyle', 'all fours', 'sex from behind', 'facing viewer'],
+        words: ['doggystyle, all fours, sex from behind, facing viewer'],
         description: "Character on all fours in doggystyle sex position",
         link: "https://civitai.com/models/131172/front-view-all-fours-doggystyle" },
     pose-multipleviewblowjob: { lora: "loras/pose/concept-multiple_views-hiiro_h-v1.safetensors", name: "Multiple Views Blowjob", strength: 1,
-        words: ['multiple veiws', 'pov', 'from side', 'fellatio'],
+        words: ['multiple veiws, pov, from side, fellatio'],
         description: "Character giving a blowjob from multiple camera views",
         link: "https://civitai.com/models/56224/multipleviews-fellatio-fromside-pov-concept" },
     pose-horseriding: { lora: "loras/pose/horse-riding-1653567839711646282.safetensors", name: "Horse Riding (position)", strength: 1,
-        words: ['folded anal sex', 'sex', 'folded', 'sex from behind', 'reverse suspended congress', 'full nelson', 'cum', 'cumshot'],
+        words: ['folded anal sex, sex, folded, sex from behind, reverse suspended congress, full nelson, cum, cumshot'],
         description: "Character with their legs folded, in reverson suspended congress position/full nelson, anal sex",
         link: "https://civitai.com/models/137435/horse-riding" },
     pose-presentass: { lora: "loras/pose/presentass.safetensors", name: "Present Ass", strength: 0.7,
@@ -2039,11 +2078,11 @@ pose: {
         description: "Character presenting their ass to the camera",
         link: "https://civitai.com/models/61316/present-ass" },
     pose-standingsplitsex: { lora: "loras/pose/StandingSplit_27867.safetensors", name: "Standing Split Sex", strength: 1,
-        words: ['standing split', 'standing on one leg', 'sex', '1boy', '1girl', 'penis'],
+        words: ['standing split, standing on one leg, sex, 1boy, 1girl, penis'],
         description: "Character doing standing splits whilst having sex",
         link: "https://civitai.com/models/210282/standing-split-sex" },
     pose-matingpress: { lora: "loras/pose/MatingPress4-000014.safetensors", name: "Mating Press", strength: 1,
-        words: ['MATINGPRESS', '1BOY', 'PENIS', 'SEX', 'LYING', 'ON BACK', 'SPREAD LEGS', 'VAGINAL', 'MATING PRESS'],
+        words: ['MATINGPRESS, 1BOY, PENIS, SEX, LYING, ON BACK, SPREAD LEGS, VAGINAL, MATING PRESS'],
         description: "Character in mating press position",
         link: "https://civitai.com/models/27996/mating-press-experimental" },
     pose-impliedfellatio: { lora: "loras/pose/implied_fellatio_v2_b.safetensors", name: "Implied Fellatio", strength: 1,
@@ -2051,7 +2090,7 @@ pose: {
         description: "Character in a position that implies they are giving a blowjob, without directly showing that they are",
         link: "https://civitai.com/models/34383/implied-fellatio-or-lora" },
     pose-breastgrabfrombehind: { lora: "loras/pose/qqq-grabbing_from_behind-v2-000006.safetensors", name: "Breast Grab From Behind", strength: 0.8,
-        words: ['grabbing from behind','breast grab'],
+        words: ['grabbing from behind, breast grab'],
         description: "Character having their breasts grabbed from behind",
         link: "https://civitai.com/models/42515/breast-grab-from-behind" },
     pose-reversefellatio: { lora: "loras/pose/reverse fellatio lion2-000012.safetensors", name: "Reverse Fellatio", strength: 0.7,
@@ -2063,7 +2102,7 @@ pose: {
         description: "Character being throat fucked whilst kneeling",
         link: "https://civitai.com/models/65342/sword-swallowing-position-throat-fuck-or-concept" },
     pose-disinterestedpronesexgaming: { lora: "loras/pose/gamer1-000005.safetensors", name: "Disinterested Prone Sex Gaming", strength: 1,
-        words: ['holding handheld gaming console', 'nintendo switch', 'emotionless sex', 'distracted'],
+        words: ['holding handheld gaming console, nintendo switch, emotionless sex, distracted'],
         description: "Character playing on their games console, lying on bed, getting railed from behind",
         link: "https://civitai.com/models/24525/disinterested-prone-sex-gaming-or-sex-act-lora-66" },
     pose-legsuptogether: { lora: "loras/pose/ltup1-000022.safetensors", name: "Legs Up Together", strength: 1,
@@ -2075,23 +2114,23 @@ pose: {
         description: "Character giving a blowjob underneath some form of covers",
         link: "https://civitai.com/models/15506/under-covers-pov-or-sex-act-lora-219" },
     pose-missionaryraisedlegs: { lora: "loras/pose/missionary_raised_legs.safetensors", name: "Missionary Raised Legs", strength: 0.7,
-        words: ['missionary', 'vaginal', 'sex'],
+        words: ['missionary, vaginal, sex'],
         description: "Character in missionary position with raised legs having sex",
         link: "https://civitai.com/models/170287/pov-missionary-raised-legs-or-lora" },
     pose-handholdingarmbehind: { lora: "loras/pose/arm grab hands behind-000007.safetensors", name: "Hand Holding Arm Behind", strength: 0.8,
-        words: ['arms behind back', '1girl'],
+        words: ['arms behind back, 1girl'],
         description: "Character holding their other arm behind their back, cute",
         link: "https://civitai.com/models/255033/arm-hold-hands-behind" },
     pose-povgroupsex: { lora: "loras/pose/PovGroupSex_v10.safetensors", name: "POV Group Sex", strength: 1,
-        words: ['multiple girls', '1boy', 'pov', 'sex', '3girls'],
+        words: ['multiple girls, 1boy, pov, sex, 3girls'],
         description: "Characters having sex with 1 guy, POV from the guys view",
         link: "https://civitai.com/models/114843/pov-group-sex-or-sex-with-multiple-girls" },
     pose-multipleassesbehind: { lora: "loras/pose/MultipleAsses_v1.safetensors", name: "Multiple Asses Behind", strength: 1,
-        words: ['ass', 'from behind', 'multiple girls'],
+        words: ['ass, from behind, multiple girls'],
         description: "Characters showing off their asses, all fours, from behind",
         link: "https://civitai.com/models/21856/multiple-asses" },
     pose-povassgrab: { lora: "loras/pose/POVAssGrab.safetensors", name: "POV Ass Grab", strength: 0.7,
-        words: ['povag', 'ass grab'],
+        words: ['povag, ass grab'],
         description: "Character having their ass grabbed from POV",
         link: "https://civitai.com/models/19310/pov-ass-grab" },
     pose-buttlifthands: { lora: "loras/pose/ButtLiftV14-000060.safetensors", name: "Butt Lift", strength: 0.8,
@@ -2103,19 +2142,19 @@ pose: {
         description: "Character in Amazon sex position",
         link: "https://civitai.com/models/21817/amazon-position-or-sex-act-lora-297" },
     pose-doublepenetrationfrombehind: { lora: "loras/pose/dp_from_behind_v0.1b.safetensors", name: "Double Penetration From Behind", strength: 1,
-        words: ['1girl', '2boys', 'double penetration', 'multiple penises'],
+        words: ['1girl, 2boys, double penetration, multiple penises'],
         description: "Character getting fucked in their ass and pussy",
         link: "https://civitai.com/models/99930/double-penetration-from-behind" },
     pose-kissing: { lora: "loras/pose/AnimeKiss.safetensors", name: "Kissing", strength: 1,
-        words: ['kiss', 'tongue kiss', 'kissing'],
+        words: ['kiss, tongue kiss, kissing'],
         description: "Characters kissing, side view",
         link: "https://civitai.com/models/21458/anime-kisses" },
     pose-facesitting: { lora: "loras/pose/Facesitting8-000012.safetensors", name: "Face Sitting", strength: 0.8,
-        words: ['1boy', '1girl', 'sitting on face', 'sitting on person'],
+        words: ['1boy, 1girl, sitting on face, sitting on person'],
         description: "Character sittiong on someones face",
         link: "https://civitai.com/models/264893/facesitting" },
     pose-bouncingbreastssexfrombehind: { lora: "loras/pose/sex from behind.safetensors", name: "Bouncing Breasts Sex From Behind", strength: 0.8,
-        words: ['sex from behind', 'bouncing breast'],
+        words: ['sex from behind, bouncing breast'],
         description: "Character having sex from behind, with bouncing breasts",
         link: "https://civitai.com/models/264565/bouncing-breast-sexnsfw" },
     pose-wallslamsideview: { lora: "loras/pose/kabedon_from_side_retry.safetensors", name: "Wall Slam Side View", strength: 1,
@@ -2124,52 +2163,52 @@ pose: {
         link: "https://civitai.com/models/247375/kabedon-wall-slam-side-view-or-or" },
 
     pose-againstwallsex: { lora: "loras/pose/akiyama_against_the_wall.safetensors", name: "Against Wall Sex", strength: 0.7,
-        words: ['AGAINST WALL', 'SIDE VIEW', 'GIRL PINNED TO THE WALL', 'GIRL PINNED AGAINST WALL', 'HAND PUSHING AGAINST WALL', 'BREAST GRAB', 'STANDING SEX', 'SEX FROM BEHIND'],
+        words: ['AGAINST WALL, SIDE VIEW, GIRL PINNED TO THE WALL, GIRL PINNED AGAINST WALL, HAND PUSHING AGAINST WALL, BREAST GRAB, STANDING SEX, SEX FROM BEHIND'],
         description: "Character having sex against a wall",
         link: "https://civitai.com/models/237835/against-the-wall" },
 
     pose-matingpress1: { lora: "loras/pose/mating_press_v0.3.safetensors", name: "Mating Press", strength: 1,
-        words: ['mating press', 'ass', 'penis'],
+        words: ['mating press, ass, penis'],
         description: "Character laying on their back whilst betting railed from above",
         link: "https://civitai.com/models/90532/mating-press" },
 
     pose-povskirtlift: { lora: "loras/pose/skirt_lift_pov.safetensors", name: "POV Skirt Lift", strength: 1,
-        words: ['skirt lift pov', 'from below', 'lifted by self'], 
+        words: ['skirt lift pov, from below, lifted by self'], 
         description: "Character lifts their skirt to show their panties from a pov angle",
         link: "https://civitai.com/models/189169/skirt-lift-bottom-pov-or-goofy-ai?modelVersionId=212467" },
 
     pose-povdeepthroat: { lora: "loras/pose/pov_deepthroat_v0.1.safetensors", name: "POV Deepthroat", strength: 1,
-        words: ['deepthroat', 'pov hands', 'head grab', "grabbing another's head", 'penis', 'fellatio'], 
+        words: ['deepthroat, pov hands, head grab', "grabbing another's head", 'penis, fellatio'], 
         description: "Character deepthroating from a POV Angle",
         link: "https://civitai.com/models/94912/deepthroat-pov?modelVersionId=101249" },
 
     pose-handinpanties: { lora: "loras/pose/hand_in_panties_v0.82.safetensors", name: "Hand in Panties", strength: 1,
-        words: ['hand in panties', 'crotch', 'covering crotch', 'masturbation', 'female masturbation'], 
+        words: ['hand in panties, crotch, covering crotch, masturbation, female masturbation'], 
         description: "Character with hand in panties masturbating",
         link: "https://civitai.com/models/152230/hand-in-panties?modelVersionId=170310" },
 
     pose-breastssqueezedtogether: { lora: "loras/pose/breasts_squeezed_together_v0.2.safetensors", name: "Breasts Squeezed Together", strength: 1,
-        words: ['breasts squeezed together', 'v arms', 'hands on own chest'], 
+        words: ['breasts squeezed together, v arms, hands on own chest'], 
         description: "Character squeezing their breasts together",
         link: "https://civitai.com/models/118697/breasts-squeezed-together?modelVersionId=128813" },
 
     pose-refusestoelaborate: { lora: "loras/pose/RefusesToElaborateFurther.safetensors", name: "Refuses to Elaborate", strength: 1,
-    words: ['Incursiogigarefusestoelaboratefurther', 'monochrome', 'greyscale', 'pants'], 
+    words: ['Incursiogigarefusestoelaboratefurther, monochrome, greyscale, pants'], 
     description: "Gigachad Pose",
     link: "https://civitai.com/models/134298/refuses-to-elaborate-further-meme-or-pose-lora?modelVersionId=147898" },
 
     pose-winkandsmile: { lora: "loras/pose/ddw_v1.safetensors", name: "Wink & Smile", strength: 0.75,
-    words: ['wink', 'one eye closed', 'tongue out'], 
+    words: ['wink, one eye closed, tongue out'], 
     description: "Character winking with one eye closed and tongue out",
     link: "https://civitai.com/models/211647/dd-wink-and-smile-expression?modelVersionId=238424" },
 
     pose-memepiperperrimeme: { lora: "loras/pose/piperperrimeme_v2.0.safetensors", name: "Meme Piper Perri", strength: 1,
-    words: ['blacked', '1girl', 'blonde hair', 'blue eyes', 'short twintails', 'solo', 'sitting', 'couch', 'multiple boys', '6+boys', 'facing viewer', 'indian style', 'sports bra', 'thong', 'full body,'], 
+    words: ['blacked, 1girl, blonde hair, blue eyes, short twintails, solo, sitting, couch, multiple boys, 6+boys, facing viewer, indian style, sports bra, thong, full body,'], 
     description: "Character sitting on a couch with multiple people around them",
     link: "https://civitai.com/models/37131/piper-perri-meme-concept?modelVersionId=45799" },
 
     pose-doggystylefromside: { lora: "loras/pose/DoggystyleFromside1.safetensors", name: "Doggystyle From Side", strength: 0.8,
-    words: ['doggystyle', 'from side', '1girl', '1boy', 'sex from behind', 'on all fours'], 
+    words: ['doggystyle, from side, 1girl, 1boy, sex from behind, on all fours'], 
     description: "Character having doggystyle sex, with us looking from a side view",
     link: "https://civitai.com/models/158435/doggystyle-from-side?modelVersionId=240507" },
 
@@ -2179,27 +2218,27 @@ pose: {
     link: "https://civitai.com/models/161824/shirtlifthent-pulling-up-a-t-shirt-with-your-mouth?modelVersionId=182170" },
 
     pose-tablehump: { lora: "loras/pose/table_humping_v0.1.safetensors", name: "Table Hump", strength: 1,
-    words: ['table humping', 'crotch rub'], 
+    words: ['table humping, crotch rub'], 
     description: "Character humping their crotch onto a table corner",
     link: "https://civitai.com/models/147299/table-humping?modelVersionId=164243" },
 
     pose-fullnelson: { lora: "loras/pose/FullNelsonWeight0.01-000014.safetensors", name: "Full Nelson", strength: 1,
-    words: ['Full nelson', 'penis', 'sex', '1boy', '1girl', 'reverse suspended congress'], 
+    words: ['Full nelson, penis, sex, 1boy, 1girl, reverse suspended congress'], 
     description: "Character in Full Nelson sex position",
     link: "https://civitai.com/models/162251/full-nelson?modelVersionId=265030" },
 
     pose-assistedpaizuri: { lora: "loras/pose/assistedPaizuriV2-000130.safetensors", name: "Assisted Paizuri", strength: 1,
-    words: ['assistedPaizuri', '2girls', '1boy', 'penis'], 
+    words: ['assistedPaizuri, 2girls, 1boy, penis'], 
     description: "2 Characters, with 1 helping the other with paizuri/boobjob",
     link: "https://civitai.com/models/78337/assisted-paizuri?modelVersionId=83137" },
 
     pose-pussysandwich: { lora: "loras/pose/puss_sandwich_v0.2.safetensors", name: "Pussy Sandwich", strength: 1,
-    words: ['pussy sandwich', '2girls', 'looking back', 'from behind', 'ass', 'pussy', 'lying', 'yuri',], 
+    words: ['pussy sandwich, 2girls, looking back, from behind, ass, pussy, lying, yuri',], 
     description: "2 Girls lying on their stomachs, with their pussies touching each other",
     link: "https://civitai.com/models/57836/pussy-sandwich?modelVersionId=62276" },
 
     pose-mememyhonestreaction: { lora: "loras/pose/My Honest Reaction.safetensors", name: "Meme My Honest Reaction", strength: 1,
-    words: ['myhonest reaction', 'hands on head'], 
+    words: ['myhonest reaction, hands on head'], 
     description: "Character doing le funny My Honest Reaction meme (hands on head)",
     link: "https://civitai.com/models/90291/meme-my-honest-reaction-v2?modelVersionId=113216" },
 
@@ -2214,47 +2253,47 @@ pose: {
     link: "https://civitai.com/models/103623/dd-true-kneeling-reupload?modelVersionId=110993" },
 
     pose-memegigachadsitting: { lora: "loras/pose/GigaIncursioSitting.safetensors", name: "Meme GIGAchad Sitting", strength: 1,
-    words: ['IncursioGigaSitting', 'monochrome', 'greyscale'], 
+    words: ['IncursioGigaSitting, monochrome, greyscale'], 
     description: "Character imitating the gigachad sitting pose",
     link: "https://civitai.com/models/135066/gigachad-sitting-or-pose-lora?modelVersionId=148802" },
 
     pose-cardoggy: { lora: "loras/pose/CARDOGGY.safetensors", name: "CarDoggy", strength: 0.75,
-    words: ['cardoggy', 'passpose', '1girl', 'drivepose'], 
+    words: ['cardoggy, passpose, 1girl, drivepose'], 
     description: "Character doggystyle pose in car",
     link: "https://civitai.com/models/119269/car-doggy-pose-concept?modelVersionId=129517" },
 
     pose-mirrorselfie: { lora: "loras/pose/MirrorSelfieLora.safetensors", name: "Mirror Selfie", strength: 1,
-    words: ['mirror selfie', 'holding phone'], 
+    words: ['mirror selfie, holding phone'], 
     description: "Character taking a selfie in the mirror",
     link: "https://civitai.com/models/81648/mirror-selfie-holding-phone?modelVersionId=86649" },
 
     pose-frenchkiss: { lora: "loras/pose/KISSING_V1.safetensors", name: "French Kiss", strength: 0.8,
-    words: ['standing', 'french kiss', 'hug'], 
+    words: ['standing, french kiss, hug'], 
     description: "Characters french kissing",
     link: "https://civitai.com/models/122013?modelVersionId=132818" },
 
     pose-hearthands: { lora: "loras/pose/heart-hands.safetensors", name: "Heart Hands", strength: 1,
-      words: ['heart hands', 'own hands together'], 
+      words: ['heart hands, own hands together'], 
       description: "Character with their hands in a heart shape",
       link: "https://civitai.com/models/131294/heart-hands-pose?modelVersionId=144301" },
 
     pose-memegigachadlookingleft: { lora: "loras/pose/GigaChad_Looking_Left.safetensors", name: "Meme GIGAchad looking left", strength: 1,
-      words: ['IncursioGigaLookingLeft', 'monochrome', 'greyscale'], 
+      words: ['IncursioGigaLookingLeft, monochrome, greyscale'], 
       description: "Character imitating the gigachad looking left pose",
       link: "https://civitai.com/models/138561/gigachad-looking-left-or-pose-lora?modelVersionId=153120" },
 
     pose-backview: { lora: "loras/pose/back_view.safetensors", name: "Back View", strength: 0.9,
-      words: ['back view', 'photo from behind'], 
+      words: ['back view, photo from behind'], 
       description: "Character from the back, looking back",
       link: "https://civitai.com/models/62448/back-view-perspective?modelVersionId=67000" },
 
     pose-tiptoesstandingdoggystyle: { lora: "loras/pose/TTF_5.safetensors", name: "Tiptoes Standing Doggystyle", strength: 1,
-      words: ['standing sex', 'tiptoesFuck', 'from side', 'from front', 'from behind', 'bent', 'standing', 'penis'], 
+      words: ['standing sex, tiptoesFuck, from side, from front, from behind, bent, standing, penis'], 
       description: "Character on their tiptoes getting fucked doggystyle",
       link: "https://civitai.com/models/20824/dd-tiptoes-standing-doggy?modelVersionId=199761" },
 
     pose-suckingownnipples: { lora: "loras/pose/SHONXplicitContent.safetensors", name: "Sucking Own Nipples", strength: 1,
-        words: ['suckingherownnipple', 'holding her breasts'], 
+        words: ['suckingherownnipple, holding her breasts'], 
         description: "Character sucking their own nipples",
         link: "https://civitai.com/models/154469/sucking-her-own-nipple-or-xplicit-content-beta-lora?modelVersionId=173103" },
 
@@ -2264,22 +2303,22 @@ pose: {
         link: "https://civitai.com/models/89729/between-breasts?modelVersionId=95522" },
 
     pose-pillowhumping: { lora: "loras/pose/pillow_humping_v0.3.safetensors", name: "Pillow Humping", strength: 1,
-        words: ['crotch rub', 'pillow humping'], 
+        words: ['crotch rub, pillow humping'], 
         description: "Character humping a pillow",
         link: "https://civitai.com/models/151195/pillow-humping?modelVersionId=169059" },
 
     pose-memebrolyculo: { lora: "loras/pose/BrolyCuloMeme.safetensors", name: "Meme Broly Culo", strength: 0.75,
-        words: ['BrolyCuloMeme', 'squatting', 'ass', 'muscular'],
+        words: ['BrolyCuloMeme, squatting, ass, muscular'],
         description: "OmniMan Squatting CHEEKS meme",
         link: "https://civitai.com/models/86435/broly-culo-meme-position-or-1mb-concept-lora" },
 
     pose-memetradeoffer: { lora: "loras/pose/TradeOfferMeme.safetensors", name: "Meme Trade Offer", strength: 1,
-        words: ['TradeOfferMeme', 'own hands together'], 
+        words: ['TradeOfferMeme, own hands together'], 
         description: "Trade Offer: You Receive: Lora, I receive: Nothing",
         link: "https://civitai.com/models/112503/trade-offer-meme-or-concept-lora" },
 
     pose-memelaurenphillipslift: { lora: "loras/pose/MEME_lauren_phillips_lifting_alice_merchesi_ownwaifu-15.safetensors", name: "Meme Lauren Phillips Lift", strength: 1,
-        words: ['MEME_lauren_phillips_lifting_alice_merchesi_ownwaifu', 'lauren phillips lifting alice merchesi \(meme\)', 'multiple girls', '2girls', 'looking at another', 'blush', 'yuri', 'eye contact', 'height difference', 'smile', 'ass', 'kabedon', 'standing', 'against wall', 'open mouth', 'tall female', 'thighs', 'full body', 'indoors'], 
+        words: ['MEME_lauren_phillips_lifting_alice_merchesi_ownwaifu, lauren phillips lifting alice merchesi \(meme\), multiple girls, 2girls, looking at another, blush, yuri, eye contact, height difference, smile, ass, kabedon, standing, against wall, open mouth, tall female, thighs, full body, indoors'], 
         description: "Lauren Phillips Lifing Alice Merchesi MEME Lora",
         link: "https://civitai.com/models/191099/lauren-phillips-lifting-alice-merchesi-meme-or-ownwaifu" },
 
@@ -2304,7 +2343,7 @@ background: {
         link: "https://civitai.com/models/10010/rei-no-pool-shinjuku-tokyo-japan-sd15" },
     
     background-infirmary: { lora: "loras/background/infirmary_v0.1.safetensors", name: "Infirmary", strength: 1,
-        words: ['Infirmary', 'curtains', 'hospital bed'],
+        words: ['Infirmary, curtains, hospital bed'],
         description: "infirmary background, hospital room",
         link: "https://civitai.com/models/70433/infirmary" },
     
@@ -2329,7 +2368,7 @@ background: {
         words: ["konbini", "shop"]},
     
     background-japanesegamecenter: { lora: "loras/background/gamecenter_SD15_V1.safetensors", name: "Japanese Game Center", strength: 1,
-        words: ['game_center', 'scenery', 'japan', 'arcade cabinet', 'chair', 'poster \(object\)', 'indoors', 'realistic'],
+        words: ['game_center, scenery, japan, arcade cabinet, chair, poster \(object\), indoors, realistic'],
         description: "A japanese game center / arcade",
         link: "https://civitai.com/models/154299/sd15" },
     

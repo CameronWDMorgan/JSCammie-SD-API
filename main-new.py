@@ -578,7 +578,7 @@ def get_openpose_model(name, data):
         model_info = dpm_openpose_models[name]
     
     if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_controlnet_model(model_info['model_path'], name, model_info['scheduler'], data['request_type'], data)
+        model_info['loaded'] = create_and_load_controlnet_model(model_info['model_path'], name, data['request_type'], data)
     else:
         if data['scheduler'] == "eulera":
             model_info = eulera_openpose_models[name]
