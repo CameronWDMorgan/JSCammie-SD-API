@@ -995,28 +995,6 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
         # Simplify accountId handling
         accountId_string = "" if data.get('accountId') == "0" else data.get('accountId', '')
 
-        if data.get('upscale', False) and model_type != "txt2video":
-            
-            # save image as "og_image.png"
-            output_image.save("og_image.png")
-           
-            import subprocess
-
-            # Define the command to run as a list of arguments
-            command = ["./esrganvulkan/realesrgan-ncnn-vulkan.exe", "-n", "realesrgan-x4plus-anime", "-i", "og_image.png", "-o", "upscaled_image.png", "-f", "png"]
-            # python Real-ESRGAN/inference_realesrgan.py -n realesrgan-x4plus-anime -i og_image.png -o upscaled_image.png -f png
-
-            # Run the command and wait for it to complete, capturing the output
-            result = subprocess.run(command, capture_output=True, text=True)
-            
-            print(result.returncode)
-            print(result.stdout)
-
-            # Now, open the file
-            with open("upscaled_image.png", "rb") as file:
-                output_image = Image.open(file)
-                output_image.load()
-
         # Generate metadata
         metadata = {
             "request_id": request_id,
@@ -1404,6 +1382,41 @@ def process_request(queue_item):
                     model_outputs = [all_frames[0]]
                     
                 timeBeforeSave = time.time()
+                
+                if data.get('upscale', False) and model_type != "txt2video":
+                    
+                    # make the directories if they don't exist:
+                    if not os.path.exists("toupscale"):
+                        os.makedirs("toupscale")
+                        
+                    if not os.path.exists("upscaled"):
+                        os.makedirs("upscaled")
+            
+                    # save image as "og_image.png"
+                    for index, img in enumerate(model_outputs):
+                        img.save(f"toupscale/og-image-{index}.png")
+                
+                    import subprocess
+
+                    # Define the command to run as a list of arguments
+                    command = ["./esrganvulkan/realesrgan-ncnn-vulkan.exe", "-n", "realesrgan-x4plus-anime", "-i", "toupscale", "-o", "upscaled", "-f", "png"]
+                    # python Real-ESRGAN/inference_realesrgan.py -n realesrgan-x4plus-anime -i og_image.png -o upscaled_image.png -f png
+
+                    # Run the command and wait for it to complete, capturing the output
+                    result = subprocess.run(command, capture_output=True, text=True)
+                    
+                    print(result.returncode)
+                    print(result.stdout)
+
+                    # create array with the upscaled images:
+                    upscaled_images = []
+                    
+                    # load the upscaled images into memory:
+                    for index, img in enumerate(model_outputs):
+                        img = Image.open(f"upscaled/og-image-{index}.png")
+                        upscaled_images.append(img)
+                        
+                    model_outputs = upscaled_images
                                     
                 for index, img in enumerate(model_outputs):
                     image_data = save_image(request_id, img, model_type, data, index)
@@ -1615,6 +1628,21 @@ def randomize_string(input_string):
     
     
     
+def update_settings():
+    global global_settings
+    while True:
+        try:
+            with open('./global_settings.yaml', 'r', encoding='utf-8') as f:
+                settings_content = f.read()
+            # print("Lora Weights Content:", lora_weights_content)  # Debugging line
+            global_settings = yaml.safe_load(settings_content)
+
+        except Exception as e:
+            print(f"Error reading the settings yaml file: {e}")
+        time.sleep(1)
+    
+# Start a separate thread that updates the settings:
+threading.Thread(target=update_settings, daemon=True).start()
     
 def update_banned_map():
     global banned_users_map
@@ -1629,7 +1657,7 @@ def update_banned_map():
             print(f"Error reading the fast pass yaml file: {e}")
         time.sleep(1)
         
-# Start a separate thread that updates the lora_weights_map
+# Start a separate thread that update_banned_map
 threading.Thread(target=update_banned_map, daemon=True).start()
 
 def check_banned_users(userid, request_type):
@@ -1668,6 +1696,11 @@ def check_banned_users(userid, request_type):
 @app.route('/generate', methods=['POST'])
 def generate_image():
     try:
+        if global_settings.get('maintenance', False):
+            error_message = "Any new Requests are paused as Maintenance Mode is currently enabled."
+            print(error_message)
+            return generate_error_response(error_message, 503)
+        
         data = request.json
         
         true_prompt = data['prompt']
@@ -1995,7 +2028,7 @@ generateTestJson2 = {
     "width": 512,
     "height": 512,
     "seed": -1,
-    "quantity": 1,
+    "quantity": 4,
     "request_type": "txt2img",
     "lora": [],
     "upscale": True,
