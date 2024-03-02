@@ -1991,6 +1991,11 @@ character: {
         words: ['drossel, twintail, no mouth'], 
         description: "Drossel from Fireball",
         link: "https://civitai.com/models/73157/drossel-von-flugel" },
+    
+    character-ariemsonicthehedgehog: { lora: "loras/character/Ariemv4.safetensors", name: "Ariem (Sonic the Hedgehog)", strength: 1,
+        words: ['ariem'], 
+        description: "Ariem from Sonic the Hedgehog",
+        link: "N/A" },
 
     # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
     #     words: [''], 
