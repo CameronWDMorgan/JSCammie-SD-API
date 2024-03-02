@@ -31,14 +31,8 @@ slice0.png
 slice1.png
 slice2.png
 slice3.png
-txt2img.png
-upscaled_image copy.png
-upscaled_image.png
-vaes/kl-f8-anime.ckpt
-vaes/klF8Anime2.safetensors
-vaes/vae-ft-mse-840000-ema-pruned_fp16.safetensors
+vaes/
 main.py
-__pycache__/lpw_pipeline.cpython-312.pyc
 lbp.txt
 fast_passes.yaml
 blockedwords.yaml
@@ -48,44 +42,4 @@ base1.png
 base0.png
 base0 copy.png
 animation.mp4
-animation.gif
-animation copy.gif
-animation copy 4.gif
-animation copy 3.gif
-animation copy 2.gif
-venv/Lib/site-packages/pip/_internal/__pycache__/self_outdated_check.cpython-311.pyc
-venv/Lib/site-packages/pip/_internal/__pycache__/wheel_builder.cpython-311.pyc
-venv/Lib/site-packages/pip/_internal/cli/__init__.py
-venv/Lib/site-packages/pip/_internal/cli/autocompletion.py
-venv/Lib/site-packages/pip/_internal/cli/base_command.py
-venv/Lib/site-packages/pip/_internal/cli/cmdoptions.py
-venv/Lib/site-packages/pip/_internal/cli/command_context.py
-venv/Lib/site-packages/pip/_internal/cli/main_parser.py
-venv/Lib/site-packages/pip/_internal/cli/parser.py
-venv/Lib/site-packages/pip/_internal/cli/progress_bars.py
-venv/Lib/site-packages/pip/_internal/cli/req_command.py
-venv/Lib/site-packages/pip/_internal/cli/spinners.py
-venv/Lib/site-packages/pip/_internal/cli/status_codes.py
-venv/Lib/site-packages/pip/_internal/cli/__pycache__/__init__.cpython-311.pyc
-venv/Lib/site-packages/pip/_internal/cli/__pycache__/autocompletion.cpython-311.pyc
-venv/Lib/site-packages/pip/_internal/cli/__pycache__/base_command.cpython-311.pyc
-venv/Lib/site-packages/pip/_internal/cli/__pycache__/cmdoptions.cpython-311.pyc
-og_image copy 2.png
-upscaled_image copy 2.png
-esrganvulkan/input.jpg
-esrganvulkan/input2.jpg
-esrganvulkan/README_windows.md
-esrganvulkan/onepiece_demo.mp4
-esrganvulkan/realesrgan-ncnn-vulkan.exe
-esrganvulkan/vcomp140.dll
-esrganvulkan/vcomp140d.dll
-esrganvulkan/models/realesr-animevideov3-x2.bin
-esrganvulkan/models/realesr-animevideov3-x2.param
-esrganvulkan/models/realesr-animevideov3-x3.bin
-esrganvulkan/models/realesr-animevideov3-x3.param
-esrganvulkan/models/realesr-animevideov3-x4.bin
-esrganvulkan/models/realesr-animevideov3-x4.param
-esrganvulkan/models/realesrgan-x4plus-anime.bin
-esrganvulkan/models/realesrgan-x4plus-anime.param
-esrganvulkan/models/realesrgan-x4plus.bin
-esrganvulkan/models/realesrgan-x4plus.param
+esrganvulkan/
