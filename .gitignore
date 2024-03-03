@@ -5,7 +5,9 @@
 /loras
 /main copy 2.py
 /models
-/myenv
+venv/
+/toupscale
+/upscaled
 /prompt-mimi.txt
 /stable_fast-1.0.0+torch211cu118-cp39-cp39-win_amd64.whl
 /stable_fast-1.0.0+torch211cu121-cp310-cp310-win_amd64.whl
@@ -29,14 +31,8 @@ slice0.png
 slice1.png
 slice2.png
 slice3.png
-txt2img.png
-upscaled_image copy.png
-upscaled_image.png
-vaes/kl-f8-anime.ckpt
-vaes/klF8Anime2.safetensors
-vaes/vae-ft-mse-840000-ema-pruned_fp16.safetensors
+vaes/
 main.py
-__pycache__/lpw_pipeline.cpython-312.pyc
 lbp.txt
 fast_passes.yaml
 blockedwords.yaml
@@ -46,10 +42,4 @@ base1.png
 base0.png
 base0 copy.png
 animation.mp4
-animation.gif
-animation copy.gif
-animation copy 4.gif
-animation copy 3.gif
-animation copy 2.gif
-venv/
-__pycache__/
+esrganvulkan/
