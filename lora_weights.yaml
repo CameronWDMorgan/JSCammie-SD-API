@@ -1997,6 +1997,25 @@ character: {
         description: "Ariem from Sonic the Hedgehog",
         link: "N/A" },
 
+    character-shylilyvtuber: { lora: "loras/character/Shylily.safetensors", name: "Shy Lily (Vtuber)", strength: 1,
+        words: [
+            'shylilyfirst, large breasts, cleavage, skirt, shirt, bikini, bikini under clothes, off-shoulder, see-through, see-through shirt, thigh strap, navel, sailor collar, school uniform, halterneck, criss-cross halter, facial mark, tattoo, cetacean tail,',
+            'shylilythird, large breasts, cleavage,one-piece swimsuit, swimsuit, covered navel, cetacean tail, bell, facial mark,',
+            'shylilybikini, large breasts, cleavage, bikini, thigh strap, navel, halterneck, criss-cross halter, facial mark, tattoo, cetacean tail,'
+            ], 
+        description: "Shy Lily, Vtuber",
+        link: "https://civitai.com/models/82222/shylily-three-outfits" },
+
+    character-elizabethpersona3: { lora: "loras/character/persona3_elizabeth-10.safetensors", name: "Elizabeth (Persona 3)", strength: 1,
+        words: ['elizabeth, hat, sleeveless dress, gloves, white hair, yellow eyes'], 
+        description: "Elizabeth from Persona 3",
+        link: "https://civitai.com/models/74713/elizabeth-or-persona-3" },
+
+    character-gwyndolindarksould: { lora: "loras/character/Gwyndolin-10DSv9.safetensors", name: "Gwyndolin (Dark Souls)", strength: 1,
+        words: ['Gwyndolin, white hair, lips, gold jewelry, white dress, long sleeves, gold mask, white thighhighs, elbow sleeves'], 
+        description: "Gwyndolin from Dark Souls",
+        link: "https://civitai.com/models/97596/gwyndolin-dark-souls-femby-nsfw" },
+
     # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
     #     words: [''], 
     #     description: "",
