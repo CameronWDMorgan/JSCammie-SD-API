@@ -7,3 +7,6 @@ tomesd
 transformers
 omegaconf
 accelerate
+psycopg[binary]
+python-dotenv
+imagehash
