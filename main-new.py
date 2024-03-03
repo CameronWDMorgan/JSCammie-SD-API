@@ -1000,7 +1000,7 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
             "request_id": request_id,
             "model_type": model_type,
             "prompt": data['true_prompt'],
-            "loras": [],  # Placeholder for lora_metadata_list, assuming it's defined elsewhere
+            "loras": lora_metadata_list,  
             "steps": data['steps'],
             "CFG": data['guidance'],
             "model": data['model'],
