@@ -33,7 +33,7 @@ async def insert_image_hashes(image_hashes, metadata):
             metadata['model'],
             datetime.now(),
         )
-        for i in range(4)
+        for i in range(int(metadata['quantity']))
     ]
 
     async with await psycopg.AsyncConnection.connect(DSN) as aconn:

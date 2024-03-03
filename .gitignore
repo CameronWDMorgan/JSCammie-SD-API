@@ -43,4 +43,6 @@ base0.png
 base0 copy.png
 animation.mp4
 esrganvulkan/
+debug/
+__pycache__/
 env

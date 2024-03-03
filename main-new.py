@@ -911,9 +911,6 @@ def process_image(current_model, model_type, data, request_id, save_image=False)
                     num_frames=data['video_length'],
                 )
 
-        # Async calc the hash and send the prompt info to the DB
-        asyncio.create_task(process_images_and_store_hashes(outputs, data))
-
         return outputs
                 
             
@@ -1025,7 +1022,6 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
             img_str = base64.b64encode(buffered.getvalue()).decode()
         else:
             img_str = data['video_string']
-
 
         return {
             "width": output_image.width,
@@ -1427,6 +1423,19 @@ def process_request(queue_item):
                 for index, img in enumerate(model_outputs):
                     image_data = save_image(request_id, img, model_type, data, index)
                     image_data_list.append(image_data)
+                    
+                PIL_Images = []
+
+                # create list of images in PIL format from the base64 strings:
+                for img in image_data_list:
+                    PIL_Images.append(Image.open(io.BytesIO(base64.b64decode(img['base64']))))
+                    
+                # save all images as debug/index:
+                os.makedirs("debug", exist_ok=True)
+                for index, img in enumerate(PIL_Images):
+                    img.save(f"debug/{index}.png")
+                    
+                threading.Thread(target=process_images_and_store_hashes, args=(PIL_Images, data), daemon=True).start()
                     
                 print("Time to save images: " + str(time.time() - timeBeforeSave))
 
@@ -2037,7 +2046,7 @@ generateTestJson2 = {
     "quantity": 4,
     "request_type": "txt2img",
     "lora": [],
-    "upscale": True,
+    "upscale": False,
 }
 
 generateTestJson22 = {
