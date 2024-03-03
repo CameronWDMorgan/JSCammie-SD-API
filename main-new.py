@@ -1424,18 +1424,19 @@ def process_request(queue_item):
                     image_data = save_image(request_id, img, model_type, data, index)
                     image_data_list.append(image_data)
                     
-                PIL_Images = []
+                if model_type != "txt2video":
+                    PIL_Images = []
 
-                # create list of images in PIL format from the base64 strings:
-                for img in image_data_list:
-                    PIL_Images.append(Image.open(io.BytesIO(base64.b64decode(img['base64']))))
-                    
-                # save all images as debug/index:
-                os.makedirs("debug", exist_ok=True)
-                for index, img in enumerate(PIL_Images):
-                    img.save(f"debug/{index}.png")
-                    
-                threading.Thread(target=process_images_and_store_hashes, args=(PIL_Images, data), daemon=True).start()
+                    # create list of images in PIL format from the base64 strings:
+                    for img in image_data_list:
+                        PIL_Images.append(Image.open(io.BytesIO(base64.b64decode(img['base64']))))
+                        
+                    # save all images as debug/index:
+                    os.makedirs("debug", exist_ok=True)
+                    for index, img in enumerate(PIL_Images):
+                        img.save(f"debug/{index}.png")
+                        
+                    threading.Thread(target=process_images_and_store_hashes, args=(PIL_Images, data), daemon=True).start()
                     
                 print("Time to save images: " + str(time.time() - timeBeforeSave))
 
