@@ -8,6 +8,11 @@ import psycopg
 from dotenv import load_dotenv
 import imagehash
 
+import time
+
+# load the .env file using the load_dotenv() method:
+load_dotenv(dotenv_path=".env")
+
 # DB Connection
 DBHOST = os.environ.get("DBHOST")
 DBNAME = os.environ.get("DBNAME")
@@ -15,7 +20,10 @@ DBUSER = os.environ.get("DBUSER")
 DBPASS = os.environ.get("DBPASS")
 DSN = f"host={DBHOST} dbname='{DBNAME}' user={DBUSER} password={DBPASS}"
 
+print(DSN)
+
 session = None
+
 
 
 async def insert_image_hashes(image_hashes, metadata):
@@ -26,14 +34,14 @@ async def insert_image_hashes(image_hashes, metadata):
     values = [
         (
             image_hashes[i],
-            metadata['prompt'],
-            metadata['negative_prompt'],
-            metadata['seed'],
-            metadata['guidance'],
-            metadata['model'],
-            datetime.now(),
+            str(metadata['prompt']),
+            str(metadata['negative_prompt']),
+            str(metadata['seedNumber']),
+            str(metadata['guidance']),
+            str(metadata['model']),
+            datetime.datetime.fromtimestamp(int(time.time())).strftime('%Y-%m-%d %H:%M:%S')
         )
-        for i in range(int(metadata['quantity']))
+        for i in range(int(metadata['image_count']))
     ]
 
     async with await psycopg.AsyncConnection.connect(DSN) as aconn:
@@ -41,6 +49,7 @@ async def insert_image_hashes(image_hashes, metadata):
             # Use executemany to insert multiple records
             await acur.executemany(insert_query, values)
             await aconn.commit()  # Commit the transaction
+            return True
 
 
 async def twos_complement(hexstr, bits):
@@ -53,6 +62,7 @@ async def twos_complement(hexstr, bits):
 
 
 async def process_images_and_store_hashes(image_results, metadata):
+    print("Processing images and storing hashes")
     image_hashes = []
     for image in image_results:
         image_hash = imagehash.average_hash(image, 8)

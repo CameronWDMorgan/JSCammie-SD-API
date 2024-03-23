@@ -64,140 +64,76 @@ fluffysonic_model_path = config["fluffysonic_model_path"]
 furryblend_model_path = config["furryblend_model_path"]
 ponydiffusion_model_path = config["ponydiffusion_model_path"]
 anything_model_path = config["anything_model_path"]
+sonicsdxl_model_path = config["sonicsdxl_model_path"]
 # xl_pony_model_path = config["xl_pony_model_path"]
 
 global lora_metadata_list
 lora_metadata_list = []
 try:
     
-    eulera_upscale_model = {
+    upscale_model = {
         '4x': {'loaded':None, 'model_path': 'stabilityai/stable-diffusion-x4-upscaler'}
     }
     
-    eulera_inpainting_models = {
+    inpainting_models = {
         'inpainting': {'loaded':None, 'model_path': './models/inpainting/SonicDiffusionV4-inpainting.inpainting.safetensors'},
         'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
         'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
         'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
         'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
         'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+        'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
         'anything': {'loaded':None, 'model_path': anything_model_path},
     }
 
-    eulera_txt2img_models = {
+    txt2img_models = {
         'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
         'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
         'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
         'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
         'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+        'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
         'anything': {'loaded':None, 'model_path': anything_model_path},
     }
     
-    eulera_img2img_models = {
+    img2img_models = {
         'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
         'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
         'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
         'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
         'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+        'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
         'anything': {'loaded':None, 'model_path': anything_model_path},
     }
     
-    eulera_txt2video_models = {
+    # txt2video_models = {
+    #     'sonic': {'loaded':None, 'model_path': sonic_model_path},
+    #     'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
+    #     'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
+    #     'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
+    #     'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
+    #     'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+    #     'anything': {'loaded':None, 'model_path': anything_model_path},
+    # }
+    
+    openpose_models = {
         'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
         'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
         'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
         'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
         'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
-        'anything': {'loaded':None, 'model_path': anything_model_path},
-    }
-    
-    eulera_openpose_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
-        'anything': {'loaded':None, 'model_path': anything_model_path},
-    }
-    
-    
-    
-    
-    
-    dpm_upscale_model = {
-        '4x': {'loaded':None, 'model_path': 'stabilityai/stable-diffusion-x4-upscaler'}
-    }
-    
-    dpm_inpainting_models = {
-        'inpainting': {'loaded':None, 'model_path': './models/inpainting/SonicDiffusionV4-inpainting.inpainting.safetensors'},
-        'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
-        'anything': {'loaded':None, 'model_path': anything_model_path},
-    }
-
-    dpm_txt2img_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
-        'anything': {'loaded':None, 'model_path': anything_model_path},
-    }
-    
-    dpm_img2img_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
-        'anything': {'loaded':None, 'model_path': anything_model_path},
-    }
-    
-    dpm_txt2video_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
-        'anything': {'loaded':None, 'model_path': anything_model_path},
-    }
-    
-    dpm_openpose_models = {
-        'sonic': {'loaded':None, 'model_path': sonic_model_path},
-        'aing': {'loaded':None, 'model_path': aing_model_path},
-        'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-        'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
-        'furryblend': {'loaded':None, 'model_path': furryblend_model_path},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': ponydiffusion_model_path},
+        'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
         'anything': {'loaded':None, 'model_path': anything_model_path},
     }
     
     
         
     # for each model in txt2img_models that doesnt have a save_pretrained folder, create one by using StableDiffusionPipeline, loading the model and using the name as the final folder:
-    for model_name, model_info in eulera_txt2img_models.items():
+    for model_name, model_info in txt2img_models.items():
         if not os.path.exists('./models/' + model_name):
             print("Creating folder for " + model_name)
             try:
@@ -233,6 +169,24 @@ try:
 except Exception as e:
     print(f"Failed to load the model: {e}")
     raise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -293,7 +247,7 @@ def create_and_load_inpainting_model(model_path, name, model_type, data):
         
     pipeline = load_embeddings(pipeline, name)
     
-    pipeline.enable_model_cpu_offload(gpu_id=0)
+    pipeline.to("cpu")
     
     return pipeline
 
@@ -327,13 +281,7 @@ def create_and_load_model(model_path, name, model_type, data):
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
     pipeline = load_embeddings(pipeline, name)
     
-    if data['scheduler'] == "eulera":
-        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
-    if data['scheduler'] == "dpm":
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
-        pipeline.scheduler.use_karras_sigmas = True
-    
-    pipeline.to("cuda:0")
+    pipeline.to("cpu")
 
     return pipeline
 
@@ -359,16 +307,8 @@ def create_and_load_img2img_model(model_path, name, model_type, data):
     print("before load embeddings")
     # pipeline = load_embeddings(pipeline, name)
     print("after load embeddings")
-    
-    print("before scheduler")
-    if data['scheduler'] == "eulera":
-        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
-    if data['scheduler'] == "dpm":
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
-        pipeline.scheduler.use_karras_sigmas = True
-    print("after scheduler")
 
-    pipeline.enable_model_cpu_offload(gpu_id=0)
+    pipeline.to("cpu")
     
     return pipeline
 
@@ -377,42 +317,42 @@ def create_and_load_img2img_model(model_path, name, model_type, data):
 
 
 
-adapter = MotionAdapter.from_pretrained("guoyww/animatediff-motion-adapter-v1-5-2")
+# adapter = MotionAdapter.from_pretrained("guoyww/animatediff-motion-adapter-v1-5-2")
 
-def create_and_load_txt2video_model(model_path, name, model_type, data):
+# def create_and_load_txt2video_model(model_path, name, model_type, data):
     
-    pipeline = AnimateDiffPipeline.from_pretrained(
-        './models/' + name,
-        motion_adapter=adapter,
-        torch_dtype=torch.float16,
-    )
+#     pipeline = AnimateDiffPipeline.from_pretrained(
+#         './models/' + name,
+#         motion_adapter=adapter,
+#         torch_dtype=torch.float16,
+#     )
     
-    if data['scheduler'] == "eulera":
-        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_pretrained(
-            './models/' + name,
-            subfolder="scheduler",
-            clip_sample=False,
-            timestep_spacing="linspace",
-            beta_schedule="linear",
-            steps_offset=1,
-        )
-    if data['scheduler'] == "dpm":
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_pretrained(
-            './models/' + name,
-            subfolder="scheduler",
-            clip_sample=False,
-            timestep_spacing="linspace",
-            beta_schedule="linear",
-            steps_offset=1,
-        )
+#     if data['scheduler'] == "eulera":
+#         pipeline.scheduler = EulerAncestralDiscreteScheduler.from_pretrained(
+#             './models/' + name,
+#             subfolder="scheduler",
+#             clip_sample=False,
+#             timestep_spacing="linspace",
+#             beta_schedule="linear",
+#             steps_offset=1,
+#         )
+#     if data['scheduler'] == "dpm":
+#         pipeline.scheduler = DPMSolverMultistepScheduler.from_pretrained(
+#             './models/' + name,
+#             subfolder="scheduler",
+#             clip_sample=False,
+#             timestep_spacing="linspace",
+#             beta_schedule="linear",
+#             steps_offset=1,
+#         )
     
-    pipeline.unet.set_attn_processor(AttnProcessor2_0())
-    pipeline = load_embeddings(pipeline, name)
+#     pipeline.unet.set_attn_processor(AttnProcessor2_0())
+#     pipeline = load_embeddings(pipeline, name)
 
-    pipeline.enable_vae_slicing()
-    pipeline.enable_model_cpu_offload(gpu_id=0)
+#     pipeline.enable_vae_slicing()
+#     pipeline.enable_model_cpu_offload(gpu_id=0)
 
-    return pipeline
+#     return pipeline
 
 
 def create_and_load_controlnet_model(model_path, name, model_type, data):
@@ -434,131 +374,90 @@ def create_and_load_controlnet_model(model_path, name, model_type, data):
     pipeline.unet.set_attn_processor(AttnProcessor2_0())
     pipeline = load_embeddings(pipeline, name)
     
-    if data['scheduler'] == "eulera":
-        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
-    if data['scheduler'] == "dpm":
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
-        pipeline.scheduler.use_karras_sigmas = True
-    
     pipeline.enable_vae_tiling()
     
     components = pipeline.components
     components['safety_checker'] = None
-    pipeline.enable_model_cpu_offload(gpu_id=0)
+    
+    pipeline.to("cpu")
 
     return pipeline
     
-def create_and_load_upscale_model(model_path, model_type, data):
-    pipeline = StableDiffusionUpscalePipeline.from_pretrained(
-        model_path,
-        revision="fp16",
-    )
-    pipeline.unet.set_attn_processor(AttnProcessor2_0())
-    pipeline.enable_attention_slicing("max")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+  
+
+    
+    
+def get_txt2img_model(name, data):
+    model_info = txt2img_models[name]
+    
+    if model_info['loaded'] is None:
+        model_info['loaded'] = create_and_load_model(model_info['model_path'], name, data['request_type'], data)
+    else:
+        model_info = txt2img_models[name]
+        
+    pipeline = model_info['loaded']
+        
     if data['scheduler'] == "eulera":
         pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
     if data['scheduler'] == "dpm":
         pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
         pipeline.scheduler.use_karras_sigmas = True
-    pipeline.enable_model_cpu_offload(gpu_id=0)
-    
-    return pipeline
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-def get_upscale_model(name, data):
-    global eulera_upscale_model
-    global dpm_upscale_model
-    if data['scheduler'] == "eulera":
-        model_info = eulera_upscale_model[name]
-    if data['scheduler'] == "dpm":
-        model_info = dpm_upscale_model[name]
-    
-    # print("Upscale Model Info: ", model_info)
-    
-    if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_upscale_model(model_info['model_path'], data['request_type'], data)
-    else:
-        if data['scheduler'] == "eulera":
-            model_info = eulera_upscale_model[name]
-        if data['scheduler'] == "dpm":
-            model_info = dpm_upscale_model[name]
-    
-    return model_info['loaded']
-    
-    
-    
-    
-    
-    
-def get_txt2img_model(name, data):
-    if data['scheduler'] == "eulera":
-        model_info = eulera_txt2img_models[name]
-    if data['scheduler'] == "dpm":
-        model_info = dpm_txt2img_models[name]
-    
-    if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_model(model_info['model_path'], name, data['request_type'], data)
-    else:
-        if data['scheduler'] == "eulera":
-            model_info = eulera_txt2img_models[name]
-        if data['scheduler'] == "dpm":
-            model_info = dpm_txt2img_models[name]
-
                 
-    return model_info['loaded']
+    return pipeline
 
 
 
 def get_img2img_model(name, data):
-    if data['scheduler'] == "eulera":
-        model_info = eulera_img2img_models[name]
-    if data['scheduler'] == "dpm":
-        model_info = dpm_img2img_models[name]
+    model_info = img2img_models[name]
     
     if model_info['loaded'] is None:
         model_info['loaded'] = create_and_load_img2img_model(model_info['model_path'], name, data['request_type'], data)
     else:
-        if data['scheduler'] == "eulera":
-            model_info = eulera_img2img_models[name]
-        if data['scheduler'] == "dpm":
-            model_info = dpm_img2img_models[name]
-
-                
-    return model_info['loaded']
-
-
-
-def get_txt2video_model(name, data):
+        model_info = img2img_models[name]
+        
+    pipeline = model_info['loaded']
+        
     if data['scheduler'] == "eulera":
-        model_info = eulera_txt2video_models[name]
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
     if data['scheduler'] == "dpm":
-        model_info = dpm_txt2video_models[name]
-    
-    if model_info['loaded'] is None:
-        model_info['loaded'] = create_and_load_txt2video_model(model_info['model_path'], name, data['request_type'], data)
-    else:
-        if data['scheduler'] == "eulera":
-            model_info = eulera_txt2video_models[name]
-        if data['scheduler'] == "dpm":
-            model_info = dpm_txt2video_models[name]
-
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
                 
     return model_info['loaded']
+
+
+
+# def get_txt2video_model(name, data):
+#     if data['scheduler'] == "eulera":
+#         model_info = eulera_txt2video_models[name]
+#     if data['scheduler'] == "dpm":
+#         model_info = dpm_txt2video_models[name]
+    
+#     if model_info['loaded'] is None:
+#         model_info['loaded'] = create_and_load_txt2video_model(model_info['model_path'], name, data['request_type'], data)
+#     else:
+#         if data['scheduler'] == "eulera":
+#             model_info = eulera_txt2video_models[name]
+#         if data['scheduler'] == "dpm":
+#             model_info = dpm_txt2video_models[name]
+
+                
+#     return model_info['loaded']
 
 
 
@@ -570,18 +469,20 @@ def get_txt2video_model(name, data):
 def get_inpainting_model(name, data):
     if data['inpainting_original_option'] == False:
         name = "inpainting"
-    if data['scheduler'] == "eulera":
-        model_info = eulera_inpainting_models[name]
-    if data['scheduler'] == "dpm":
-        model_info = dpm_inpainting_models[name]
+    model_info = inpainting_models[name]
     
     if model_info['loaded'] is None:
         model_info['loaded'] = create_and_load_inpainting_model(model_info['model_path'], name, data['request_type'], data)
     else:
-        if data['scheduler'] == "eulera":
-            model_info = eulera_inpainting_models[name]
-        if data['scheduler'] == "dpm":
-            model_info = dpm_inpainting_models[name]
+        model_info = inpainting_models[name]
+        
+    pipeline = model_info['loaded']
+        
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
                    
     return model_info['loaded']
 
@@ -605,18 +506,21 @@ def get_inpainting_model(name, data):
 
 
 def get_openpose_model(name, data):
-    if data['scheduler'] == "eulera":
-        model_info = eulera_openpose_models[name]
-    if data['scheduler'] == "dpm":
-        model_info = dpm_openpose_models[name]
+    
+    model_info = openpose_models[name]
     
     if model_info['loaded'] is None:
         model_info['loaded'] = create_and_load_controlnet_model(model_info['model_path'], name, data['request_type'], data)
     else:
-        if data['scheduler'] == "eulera":
-            model_info = eulera_openpose_models[name]
-        if data['scheduler'] == "dpm":
-            model_info = dpm_openpose_models[name]
+        model_info = openpose_models[name]
+        
+    pipeline = model_info['loaded']
+        
+    if data['scheduler'] == "eulera":
+        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    if data['scheduler'] == "dpm":
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        pipeline.scheduler.use_karras_sigmas = True
         
     return model_info['loaded']
 
@@ -664,7 +568,7 @@ def monitor_yaml_file():
                 last_modified_time = current_modified_time
         except Exception as e:
             print(f"Error monitoring the YAML file: {e}")
-        time.sleep(1)
+        time.sleep(5)
 
 # Start the thread to update the lora_weights_map
 threading.Thread(target=update_lora_weights_map, daemon=True).start()
@@ -683,13 +587,20 @@ from PIL import Image, ImageDraw, ImageFont, PngImagePlugin
 def add_watermark(image, text, data):
     draw = ImageDraw.Draw(image)
     
+    # create a font size based on the width and height of the image:
+    data_height = image.height
+    data_width = image.width
     
-    if data.get('upscale', True):
-        with open('upscale-settings.yaml', 'r') as file:
-            upscaleSettings = yaml.safe_load(file)
-            font_size = upscaleSettings.get('font-size', 96)
-    else:
-        font_size = 24
+    font_scale = data_height + data_width
+    font_size = int(font_scale / 50)
+    
+    
+    # if data.get('upscale', True):
+    #     with open('upscale-settings.yaml', 'r') as file:
+    #         upscaleSettings = yaml.safe_load(file)
+    #         font_size = upscaleSettings.get('font-size', 96)
+    # else:
+    #     font_size = 24
         
         
     try:
@@ -719,6 +630,9 @@ def add_watermark(image, text, data):
     # Text itself
     text_color = "white"
     draw.text((x, y), text, font=font, fill=text_color)
+    
+    # save image as saved_image.png:
+    # image.save('saved_image.png')
 
     return image
 
@@ -844,14 +758,20 @@ def load_loras(request_id, current_model, lora_items, data):
     global lora_metadata_list
     start_time = time.time()
     lora_metadata_list = []
-
-    # Parse the prompt for Lora settings and strengths
-    prompt = data.get('prompt', '')
-    lora_settings = {f"{match[0]}-{match[1]}": float(match[2]) for match in loraPattern.findall(prompt)}
     
-    # Remove the matched patterns from the prompt
-    cleaned_prompt = re.sub(loraPattern, '', prompt)
-    data['prompt'] = cleaned_prompt.strip()  # Remove leading/trailing whitespace if any
+    try:
+        # Parse the prompt for Lora settings and strengths
+        prompt = data.get('prompt', '')
+        lora_settings = {f"{match[0]}-{match[1]}": float(match[2]) for match in loraPattern.findall(prompt)}
+        
+        # Remove the matched patterns from the prompt
+        cleaned_prompt = re.sub(loraPattern, '', prompt)
+        data['prompt'] = cleaned_prompt.strip()  # Remove leading/trailing whitespace if any
+    except Exception as e:
+        print(f"Error parsing prompt for Lora settings: {e}")
+        lora_settings = {}
+
+    
     
     print(f"Cleaned Prompt: {data['prompt']}\n")
     
@@ -859,6 +779,7 @@ def load_loras(request_id, current_model, lora_items, data):
     adapter_weights_list = []
 
     for item in lora_items:
+        time.sleep(0.1)
         try:
             category, key = item.split('-', 1)
             lora_data = lora_weights_map.get(category, {}).get(item)
@@ -907,8 +828,10 @@ def load_loras(request_id, current_model, lora_items, data):
 
 def process_image(current_model, model_type, data, request_id, save_image=False):
     try:
+        
+        current_model.to("cuda:0")
 
-        generator = torch.Generator(device="cuda:0")
+        generator = torch.Generator(device="cuda")
         data['seed'] = generator.manual_seed(data['seedNumber'])
         
         if model_type == 'txt2img':
@@ -985,34 +908,18 @@ def process_image(current_model, model_type, data, request_id, save_image=False)
             
 
     except Exception as e:
+        current_model.to("cpu")
         error_message = str(e)
         error_message = error_message.replace("'", '"')
         if error_message == '"LayerNormKernelImpl" not implemented for "Half"':
             if data['request_type'] == 'txt2img':
-                if data['scheduler'] == "eulera":
-                    eulera_txt2img_models[data['model']]['loaded'] = None
-                if data['scheduler'] == "dpm":
-                    dpm_txt2img_models[data['model']]['loaded'] = None
+                txt2img_models[data['model']]['loaded'] = None
             elif data['request_type'] == 'img2img':
-                if data['scheduler'] == "eulera":
-                    eulera_img2img_models[data['model']]['loaded'] = None
-                if data['scheduler'] == "dpm":
-                    dpm_img2img_models[data['model']]['loaded'] = None
+                img2img_models[data['model']]['loaded'] = None
             elif data['request_type'] == 'inpainting':
-                if data['scheduler'] == "eulera":
-                    eulera_inpainting_models[data['model']]['loaded'] = None
-                if data['scheduler'] == "dpm":
-                    dpm_inpainting_models[data['model']]['loaded'] = None
+                inpainting_models[data['model']]['loaded'] = None
             elif data['request_type'] == 'openpose':
-                if data['scheduler'] == "eulera":
-                    eulera_openpose_models[data['model']]['loaded'] = None
-                if data['scheduler'] == "dpm":
-                    dpm_openpose_models[data['model']]['loaded'] = None
-            elif data['request_type'] == 'txt2video':
-                if data['scheduler'] == "eulera":
-                    eulera_txt2video_models[data['model']]['loaded'] = None
-                if data['scheduler'] == "dpm":
-                    dpm_txt2video_models[data['model']]['loaded'] = None
+                openpose_models[data['model']]['loaded'] = None
             error_message = error_message + " | Model Reloaded"
         
         error_message = error_message + " | Reset Model"
@@ -1064,6 +971,7 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
             "request_id": request_id,
             "model_type": model_type,
             "prompt": data['true_prompt'],
+            "negative_prompt": str(data['negative_prompt']),
             "loras": lora_metadata_list,  
             "steps": data['steps'],
             "seed": data['seedNumber'],
@@ -1193,8 +1101,6 @@ def process_request(queue_item):
             data['inpainting_original_option'] = True
             inpainting_model = get_inpainting_model(model_name, data)
             img2img_model = get_img2img_model(model_name, data)
-        elif model_type == 'txt2video':
-            model = get_txt2video_model(model_name, data)
             
         current_model = model
             
@@ -1207,6 +1113,7 @@ def process_request(queue_item):
                 print("loras loaded successfully")
             if model_type != 'latent_couple':
                 model_outputs = process_image(current_model, model_type, data, request_id)
+                current_model.to("cpu")
             else:
                 inpainting_model.unfuse_lora()
                 inpainting_model.unload_lora_weights()
@@ -1221,6 +1128,8 @@ def process_request(queue_item):
                 load_loras(request_id, inpainting_model, lora, data)
                 
                 base_images = process_image(current_model, 'txt2img', data, request_id)  
+                
+                current_model.to("cpu")
                 
                 for i, base_image in enumerate(base_images):
                     base_image.save(f"base{i}.png")
@@ -1283,6 +1192,8 @@ def process_request(queue_item):
 
                         processed_image = output[0] if isinstance(output, list) else output
                         processed_images_for_this_mask.append(processed_image)
+                        
+                    inpainting_model.to("cpu")
 
                     # Update base_images for the next iteration of mask slices
                     base_images = processed_images_for_this_mask
@@ -1315,7 +1226,8 @@ def process_request(queue_item):
                     load_loras(request_id, img2img_model, lora, data)
                     print("Loras loaded for img2img model")
 
-                    model_outputs = process_image(img2img_model, 'img2img', data, request_id)            
+                    model_outputs = process_image(img2img_model, 'img2img', data, request_id)
+                    img2img_model.to("cpu")
                 # get the type of model_outputs:
                 
                 promptString = ""
@@ -1371,6 +1283,8 @@ def process_request(queue_item):
                         output = process_image(img2img_model_video, "img2img", data, request_id)
                         improved_frames.append(output[0])
                         
+                    img2img_model_video.to("cpu")
+                        
                     model_outputs = improved_frames
                         
                         
@@ -1416,15 +1330,15 @@ def process_request(queue_item):
                     model_outputs = upscaled_images
                     
                     
-                if model_type == 'txt2video':
-                    processed_frames = []
-                    for frame in model_outputs:
-                        frame = add_watermark(frame, "JSCammie.com", data)
-                        processed_frames.append(frame)
+                # if model_type == 'txt2video':
+                #     processed_frames = []
+                #     for frame in model_outputs:
+                #         frame = add_watermark(frame, "JSCammie.com", data)
+                #         processed_frames.append(frame)
                         
-                    data['video_string'] = export_to_mp4(processed_frames, "animation.mp4")
+                #     data['video_string'] = export_to_mp4(processed_frames, "animation.mp4")
                     
-                    model_outputs = [model_outputs[0]]
+                #     model_outputs = [model_outputs[0]]
                 
                 timeBeforeSave = time.time()
                                     
@@ -1746,30 +1660,46 @@ def validate_input_data(data):
     data['prompt'] = data['prompt'].replace('\r', '').replace('\n', '')
     
     if data.get('aspect_ratio', None) is not None:
-    
         if data['aspect_ratio'] == "portrait":
             data['width'] = 512
             data['height'] = 768
             
-        if data['aspect_ratio'] == "landscape":
+        elif data['aspect_ratio'] == "landscape":
             data['width'] = 768
             data['height'] = 512
             
-        if data['aspect_ratio'] == "square":
+        elif data['aspect_ratio'] == "square":
             data['width'] = 512
             data['height'] = 512
             
-        if data['aspect_ratio'] == "square++":
+        elif data['aspect_ratio'] == "square++":
             data['width'] = 768
             data['height'] = 768
             
-        if data['aspect_ratio'] == "bannerHorizontal":
+        elif data['aspect_ratio'] == "bannerHorizontal":
             data['width'] = 1024
             data['height'] = 512
             
-        if data['aspect_ratio'] == "bannerVertical":
+        elif data['aspect_ratio'] == "bannerVertical":
             data['width'] = 512
             data['height'] = 1024
+            
+        elif data['aspect_ratio'] == "16:9":
+            data['width'] = 1024
+            data['height'] = 576
+            
+        elif data['aspect_ratio'] == "9:16":
+            data['width'] = 576
+            data['height'] = 1024
+            
+        if data['model'].startswith("sdxl-"):
+            data['width'] = data['width'] * 1.4
+            data['height'] = data['height'] * 1.4
+            
+            data['width'] = round_to_multiple_of_eight(data['width'])
+            data['height'] = round_to_multiple_of_eight(data['height'])
+    
+        
 
     # remove all numbers and () brackets from the prompt string
     filter_prompt = ''.join([i for i in data['prompt'] if not i.isdigit()])
@@ -1783,7 +1713,7 @@ def validate_input_data(data):
     sus_word = bool(words_in_prompt.intersection(set(blockedwords['blocked-nsfw'])))
     nsfw_word = bool(words_in_prompt.intersection(set(blockedwords['nsfw-words'])))
     
-    data['strength'] = float(data.get("strength", 0.75))
+    data['strength'] = float(data.get("strength", 0.85))
 
     if sus_word and nsfw_word:
         return None, "Your prompt contains words that are not allowed, please remove them and try again."
@@ -1800,12 +1730,10 @@ def validate_input_data(data):
     if str(data['prompt']) == "{'status': 'error', 'message': 'Mismatched brackets'}":
         return None, "Mismatched brackets ('{}' brackets are used to denote a random choice, and must be used in pairs, here is an example of a correct usage: '{woman|man} with {long|short} hair')"
 
-    if int(data['width']) > 512 and int(data['height']) > 512:
-        if data['request_type'] == "txt2video":
-            data['width'] = 512
-            data['height'] = 512
-        elif not data['model'].startswith("xl-"):
-            data['steps'] = 20
+    # if int(data['width']) > 512 and int(data['height']) > 512:
+    #     if data['request_type'] == "txt2video":
+    #         data['width'] = 512
+    #         data['height'] = 512
 
     if data['request_type'] == 'latent_couple':
         if 'AND' in data['prompt']:
@@ -1842,9 +1770,9 @@ def validate_input_data(data):
                 data['steps'] += 1
                 data['steps'] = round(data['steps'])
 
-    if not data['model'].startswith("xl-"):
-        if data['height'] > 1024 or data['width'] > 1024:
-            return None, "Image dimensions are too large. Please use an image with a maximum resolution of 1024x1024."
+    # if not data['model'].startswith("sdxl-"):
+    #     if data['height'] > 1024 or data['width'] > 1024:
+    #         return None, "Image dimensions are too large. Please use an image with a maximum resolution of 1024x1024."
 
     if data['steps'] > 126:
         return None, "You have reached the limit of 126 steps per request. Please reduce the number of steps and try again."
@@ -1897,10 +1825,12 @@ def validate_input_data(data):
             img_bytes = io.BytesIO(image_data)
             data['image'] = Image.open(img_bytes)
             
+            print("Image width height before")
+            
             # Determine the scaling factor to ensure both sides are at least 512px
             scale_factor = max(512 / data['image'].width, 512 / data['image'].height)
             
-
+            print("Image width height after")
 
             # Calculate new dimensions
             new_width = round_to_multiple_of_eight(data['image'].width * scale_factor)
@@ -1942,6 +1872,9 @@ def validate_input_data(data):
         data['seedNumber'] = int(data['seed'])
         
     data['seed'] = data['seedNumber']
+    
+    if data.get("model").startswith("sdxl-") and data['steps'] > 50:
+            data['steps'] = 50
 
     validated_data = {
         'model': data.get('model'),
@@ -2044,7 +1977,7 @@ def generate_image():
 
         # Check if the model is valid
         model_name = validated_data['model']
-        if model_name not in eulera_txt2img_models:
+        if model_name not in txt2img_models:
             return generate_error_response("Invalid model name", 400)
 
         # Prepare the data for the request
@@ -2113,7 +2046,7 @@ generateTestJson1 = {
 
 
 generateTestJsonSDXL = {
-    "model": "xl-pony",
+    "model": "sdxl-pony",
     "prompt": "1girl, amy rose, sexy,",
     "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
     "steps": 20,
@@ -2136,8 +2069,10 @@ generateTestJson2 = {
     "height": 768,
     "seed": -1,
     "quantity": 1,
+    "aspect_ratio": "portrait",
     "request_type": "txt2img",
-    "lora": [],
+    "scheduler": "dpm",  # "eulera" or "dpm"
+    "lora": ['character-cocobandicoot', 'style-afrobull', 'effect-furthermore'],
     "upscale": True,
 }
 

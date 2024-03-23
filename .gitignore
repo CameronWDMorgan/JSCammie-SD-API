@@ -45,4 +45,4 @@ animation.mp4
 esrganvulkan/
 debug/
 __pycache__/
-env
+.env

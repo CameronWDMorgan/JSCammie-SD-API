@@ -136,11 +136,6 @@ style: {
       description: "Emulates the look of old Playboy centerfolds in the 1950s-2010s",
       link: "https://civitai.com/models/264134/playboy-centerfolds" },
       
-    style-wamudraws: { lora: "loras/style/wamudraws.safetensors", name: "Wamudraws", strength: 0.5,
-      words: ['Wamudraws'], 
-      description: "Emulates the style of Wamudraws",
-      link: "N/A" },
-      
     style-nekoarc: { lora: "loras/style/Neco-Arc.safetensors", name: "Necoarc", strength: 1,
       words: ['neco-arc, necopose, 1girl, full body, :3, cat ears, chibi, cat girl, cat tail, solo, slit pupils'], 
       description: "Emulates the style of Neko-Arc characters",
@@ -196,7 +191,37 @@ style: {
         description: "Pochincoff's style, a robot/android style | Useful Negatives: human, pink skin, tail, border",
         link: "https://civitai.com/models/22786/pochincoff-style" },
 
-    # style-nanana: { lora: "lora", name: "Name", strength: 1,
+    style-jscminecraft: { lora: "loras/style/JSC-MinecraftStyle-v0-1.safetensors", name: "JSC Minecraft", strength: 0.5,
+        words: ['minecraft_style'],
+        description: "Emulates the style of 3d Minecraft artists",
+        link: "N/A" },
+
+    style-splatoon: { lora: "loras/style/HerrscherAGGA2023_SD_Splatoon_Inkling_LORA_V1.safetensors", name: "Splatoon", strength: 1,
+        words: ['splatoon, inkling, squid, octoling'],
+        description: "Emulates the style of Splatoon & its characters",
+        link: "https://civitai.com/models/305806/sd-splatoon-inkling-lora" },
+
+    style-jscwamudraws: { lora: "loras/style/JSC-WamudrawsStyle-v0-1.safetensors", name: "JSC Wamudraws", strength: 0.6,
+        words: ['wamudraws_style'], 
+        description: "Emulates the style of Wamudraws an artist",
+        link: "https://civitai.com/models/332837/wamudraws-style" },
+
+    style-jscringsel: { lora: "loras/style/JSC-ringsel-v0-1.safetensors", name: "JSC Ringsel", strength: 0.55,
+        words: ['ringsel_style'], 
+        description: "Mimics the style of Ringsel, a NSFW artist",
+        link: "https://civitai.com/models/334238/ringsel-style" },
+
+    style-sdxlsmoothanime2: { lora: "loras/style/Smooth Anime 2 Style SDXL_LoRA_Pony Diffusion V6 XL.safetensors", name: "SDXL Smooth Anime 2", strength: 0.8,
+        words: ['N/A'], 
+        description: "Style that smooths out the image, making it look more anime-like",
+        link: "https://civitai.com/models/264290?modelVersionId=333607" },
+
+    # style-nanana: { lora: "loras/style/", name: "Name", strength: 1,
+        # words: [''], 
+        # description: "",
+        # link: "" },
+
+    # style-nanana: { lora: "loras/style/", name: "Name", strength: 1,
         # words: [''], 
         # description: "",
         # link: "" },
@@ -305,10 +330,22 @@ effect: {
         link: "https://civitai.com/models/208016/broken-glass-or-concept-lora" 
         },
 
-  # effect-nanana: { lora: "lora", name: "Name", strength: 1,
-  #   words: [''], 
-  #   description: "",
-  #   link: "" },
+    effect-clothingdetailshelper: { lora: "loras/effect/clothing details_v1.2_lbw.safetensors", name: "Clothing Details", strength: 1,
+        words: ['N/A'],
+        description: "Helps the model to add more details to the clothing in the image",
+        link: "https://civitai.com/models/191477/or-adjusting-clothing-details" 
+        },
+
+    # effect-nanana: { lora: "loras/effect/", name: "Name", strength: 1,
+    #     words: [''], 
+    #     description: "",
+    #     link: "" },
+
+    # effect-nanana: { lora: "loras/effect/", name: "Name", strength: 1,
+    #     words: [''], 
+    #     description: "",
+    #     link: "" },
+    
 }
 
 concept: {
@@ -853,8 +890,28 @@ concept: {
         words: ['gaming chair, pink and white, headphones'],
         description: "Gaming chair with pink and white colors, and headphones",
         link: "https://civitai.com/models/73705/gaming-chair-egirls" },
+
+    concept-protogen: { lora: "loras/concept/protogenv2-medium.safetensors", name: "Protogen", strength: 0.7,
+        words: ['protogen, protogen visor, protogen face'],
+        description: "Protogen furry character type",
+        link: "https://civitai.com/models/15798?modelVersionId=18652" },
+
+    concept-tapegagbondage: { lora: "loras/concept/TAPEvFINAL.safetensors", name: "Tape Gag/Bondage", strength: 1.2,
+        words: ['tape gag, tape bondage'], 
+        description: "Tape Gag / Tape Bondage",
+        link: "https://civitai.com/models/107592/tape-gag-tape-bondage" },
+
+    concept-tattooedgirl: { lora: "loras/concept/tattooedgirlv1.safetensors", name: "Tattooed Girl", strength: 0.8,
+      words: ['tattooedgirl'], 
+      description: "Helps with creating body tattoos on characters",
+      link: "https://civitai.com/models/191536/tattooed-girl-or-olaz" },
+
+    # concept-nanana: { lora: "loras/concept/", name: "Name", strength: 1,
+    #   words: [''], 
+    #   description: "",
+    #   link: "" },
     
-    # concept-nanana: { lora: "lora", name: "Name", strength: 1,
+    # concept-nanana: { lora: "loras/concept/", name: "Name", strength: 1,
     #   words: [''], 
     #   description: "",
     #   link: "" },
@@ -1324,8 +1381,13 @@ clothing: {
         words: ['h3artsw3at3r, heart print sweater,'], 
         description: "Sweater with a heart print",
         link: "https://civitai.com/models/251964/heart-print-sweater" },
+
+    clothing-ballgag: { lora: "loras/clothing/ballgag-10.safetensors", name: "Ballgag", strength: 1,
+        words: ['ballgag'], 
+        description: "Ballgag BDSM gear. A ball gag is usually a rubber or silicone ball that is placed in the mouth and strapped in place, preventing the wearer from speaking.",
+        link: "https://civitai.com/models/132293/ballgag" },
     
-    # clothing-nanana: { lora: "lora", name: "Name", strength: 1,
+    # clothing-nanana: { lora: "loras/clothing/", name: "Name", strength: 1,
     #   words: [''], 
     #   description: "",
     #   link: "" },
@@ -1785,10 +1847,10 @@ character: {
         description: "Chun Li from Street Fighter",
         link: "https://civitai.com/models/57006/street-fighter-chun-li?modelVersionId=61422" },
 
-    character-judyhoppszootopia: { lora: "loras/character/Judy (lora).safetensors", name: "Judy Hopps (Zootopia)", strength: 1,
-        words: ['JudyHopps'], 
+    character-judyhoppszootopia: { lora: "loras/character/Judy_V2.4.safetensors", name: "Judy Hopps (Zootopia)", strength: 0.4,
+        words: ['female, (Detailed face), (solo:1.1), (more details:1.1), ((anthro, humanoid)), [(thin:1.1) : small petite : (Judy rabbit:1.2):4], (Detailed face), (anthropomorphic legs, anthropomorphic hands:1.1), (solo)'], 
         description: "Judy Hopps from Zootopia",
-        link: "https://civitai.com/models/75947/judyhopps?modelVersionId=80682" },
+        link: "https://civitai.com/models/93201/judy" },
 
     character-ochakourarakamyheroacademia: { lora: "loras/character/Ochakodim8.safetensors", name: "Ochako Uraraka", strength: 1,
         words: ['ochako'], 
@@ -1882,7 +1944,8 @@ character: {
         link: "https://civitai.com/models/17658/gwen-total-drama-island-character-lora?modelVersionId=321181" },
 
     character-astolfofate: { lora: "loras/character/Astolfo.safetensors", name: "Astolfo (Fate Series)", strength: 1,
-        words: ['Astolfo, long braid, white hair, purple eyes, short sleeves, hair bow, black bow, pleated skirt, pink hair, serafuku, white thighhighs, pink skirt, single braid, navel, skirt, long hair, sailor collar, hair intakes, streaked hair, 1boy, school uniform;, Astolfo, black skirt, long braid, braid, purple eyes, hair between eyes, striped, collarbone, hooded jacket, hair bow, 1boy, shirt, open clothes, black bow, pink hair, miniskirt, single braid, jacket, long hair, long sleeves, black pantyhose, purple jacket, hair intakes, streaked hair, striped shirt'], 
+        words: ['Astolfo, long braid, white hair, purple eyes, short sleeves, hair bow, black bow, pleated skirt, pink hair, serafuku, white thighhighs, pink skirt, single braid, navel, skirt, long hair, sailor collar, hair intakes, streaked hair, 1boy, school uniform;',
+        'Astolfo, black skirt, long braid, braid, purple eyes, hair between eyes, striped, collarbone, hooded jacket, hair bow, 1boy, shirt, open clothes, black bow, pink hair, miniskirt, single braid, jacket, long hair, long sleeves, black pantyhose, purple jacket, hair intakes, streaked hair, striped shirt'], 
         description: "Astolfo from Fate Series",
         link: "https://civitai.com/models/53552/astolfo-fate-series?modelVersionId=57908" },
 
@@ -1921,7 +1984,7 @@ character: {
     character-keqinggenshinimpact: { lora: "loras/character/keqing_lion_optimizer_dim64_loraModel_5e-3noise_token1_4-3-2023.safetensors", name: "Keqing (Genshin)", strength: 1,
         words: [
             'keqing (piercing thunderbolt) (genshin impact), keqing (genshin impact), pantyhose, hair bun, purple hair, gloves, twintails, long hair, purple eyes, diamond-shaped pupils, bare shoulders, hair ornament, black pantyhose, cone hair bun, detached sleeves,dress, jewelry, medium breasts, earrings, bangs, frills, purple dress, black gloves, braid, skirt;',
-            'keqing (opulent splendor) (genshin impact), keqing (genshin impact), official alternate costume, dress, cone hair bun, night, strapless dress, looking at viewer, long hair, cleavage, black dress, hair bun, strapless, bare shoulders, purple hair, bangs, bow, detached collar, purple eyes, diamond-shaped pupils, ribbon, double bun, twintails, two-tone dress, medium breasts, hair ornament, black bow, hair ribbon, blue dress, bowtie, hair between eyes,',
+            'keqing (opulent splendor) (genshin impact), keqing (genshin impact), official alternate costume, dress, cone hair bun, night, strapless dress, looking at viewer, long hair, cleavage, black dress, hair bun, strapless, bare shoulders, purple hair, bangs, bow, detached collar, purple eyes, diamond-shaped pupils, ribbon, double bun, twintails, two-tone dress, medium breasts, hair ornament, black bow, hair ribbon, blue dress, bowtie, hair between eyes;',
             'keqing (lantern rite) (genshin impact), keqing (genshin impact), hair bun, skirt, scarf, purple sweater, white skirt, purple hair, sweater, twintails, purple eyes, diamond-shaped pupils, hair ornament, bare shoulders, smile, breasts, cone hair bun, long hair, belt, double bun, long sleeves, bangs, bow, hair flower, hair bow,ribbon, hair ribbon, braid, plaid scarf, plaid, off shoulder'
         ], 
         description: "Keqing from Genshin Impact",
@@ -2016,20 +2079,116 @@ character: {
         description: "Gwyndolin from Dark Souls",
         link: "https://civitai.com/models/97596/gwyndolin-dark-souls-femby-nsfw" },
 
-    # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
-    #     words: [''], 
-    #     description: "",
-    #     link: "" },
+    
 
-    # character-sonicthewerehog: { lora: "loras/character/Sonic_The_Werehog.safetensors", name: "Sonic the Werehog", strength: 0.5,
-    #   words: ['sonicthewerehog'], 
-    #   description: "Sonic the Werehog from Sonic the Hedgehog",
-    #   link: "https://civitai.com/models/293994/sonic-the-werehog" },
+    character-skiversplatoon: { lora: "loras/character/shiver_splatoon.safetensors", name: "Shiver (Splatoon)", strength: 1,
+        words: ['1girl, shiver, default'], 
+        description: "Shiver from Splatoon 3",
+        link: "https://civitai.com/models/212899/shiver-splatoon3" },
+
+    character-pearlsplatoon: { lora: "loras/character/pearlv2-lora-nochekaiser.safetensors", name: "Pearl (Splatoon)", strength: 1,
+        words: ['pearl, tentacle hair, chromatic aberration, long hair, mole, mole under mouth, multicolored hair, pointy ears, (symbol-shaped pupils:1.5), two-tone hair, white hair, (yellow eyes:1.5)',
+        'bare arms, bare shoulders, boots, crown, dress, fingerless gloves, gloves, pantyhose, pink pantyhose, sleeveless, sleeveless dress, zipper'], 
+        description: "Pearl from Splatoon",
+        link: "https://civitai.com/models/149824/pearl-splatoon-commission" },
+
+    character-calliesplatoon: { lora: "loras/character/callie_(splatoon).safetensors", name: "Callie (Splatoon)", strength: 1,
+        words: ['callie_(splatoon)'], 
+        description: "Callie from Splatoon",
+        link: "https://civitai.com/models/218686/callie-splatoon" },
+
+    character-marinasplatoon: { lora: "loras/character/splatoon_marina-09.safetensors", name: "Marina (Splatoon)", strength: 1,
+        words: ['marina, dark skin, dark-skinned female, tentacle hair, crop top, vest, shorts, green pantyhose, gloves, cleavage'], 
+        description: "Marina from Splatoon",
+        link: "https://civitai.com/models/72556/marina-or-splatoon" },
+
+    character-mariesplatoon: { lora: "loras/character/splatoon_marie-10.safetensors", name: "Marie (Splatoon)", strength: 1,
+        words: ['marie, tentacle hair, symbol-shaped pupils, dress, green pantyhose, white gloves'], 
+        description: "Marie from Splatoon",
+        link: "https://civitai.com/models/73767/marie-or-splatoon" },
+
+    character-achtsplatoon: { lora: "loras/character/acht-10.safetensors", name: "Acht (Splatoon)", strength: 1,
+        words: ['acht, octarian, tentacle hair, gradient hair, colored skin, baseball cap, headphones, tinted eyewear, bandages, wristband, off shoulder, black boots'], 
+        description: "Acht from Splatoon",
+        link: "https://civitai.com/models/146309/achtdedf1sh-or-splatoon" },
+
+    character-agent8splatoon: { lora: "loras/character/agent8-12.safetensors", name: "Agent 8 (Splatoon)", strength: 1,
+        words: ['agent_8'], 
+        description: "Agent 8 from Splatoon",
+        link: "https://civitai.com/models/146042/agent-8-octo-expansion-side-order-or-splatoon" },
+
+    character-jscreggiewhygena: { lora: "loras/character/JSC-reggiewhygena-v0-1.safetensors", name: "JSC Reggie (Whygena)", strength: 0.8,
+        words: ['reggie_character, 1boy, mouse, pale pink mouse tail, green eyes, turquoise shirt, black pleated skirt, looking at viewer'], 
+        description: "Reggie the femboy mouse by Whygena",
+        link: "https://civitai.com/models/333280/reggie-whygenadraws" },
+
+    character-clovetheproghornsonic: { lora: "loras/character/Clove_the_pronghorn.safetensors", name: "Clove the Pronghorn", strength: 1,
+        words: ['Clove the Pronghorn'], 
+        description: "Clove the Pronghorn from Sonic the Hedgehog",
+        link: "N/A" },
+
+    character-yokolittner: { lora: "loras/character/yoko_littner_v1.safetensors", name: "Yoko Littner (Gurren Lagann)", strength: 0.7,
+        words: [
+            'yl1, ponytail, scarf, bikini top only, short shorts, midriff, belt, fingerless gloves, skull hair ornament, elbow gloves, pink thighhighs;',
+            'yl1, ponytail, underboob, cape, bandeau, hair ornament, strapless, tube top, midriff, white gloves, star (symbol), thighhighs'], 
+        description: "Yoko Littner from Gurren Lagann",
+        link: "https://civitai.com/models/17631/yoko-littner-tengen-toppa-gurren-lagann" },
+
+    character-lindsaytotaldramaisland: { lora: "loras/character/Lindsay_Total_Drama.safetensors", name: "Lindsay (Total Drama Island)", strength: 0.8,
+        words: ['Lindsay_Total_Drama, 1girl, solo, blue eyes, long hair, blonde hair, large breasts, cleavage, bandana, skirt'], 
+        description: "Lindsay from Total Drama Island",
+        link: "https://civitai.com/models/138264/lindsay-total-drama" },
+
+    character-courtneytotaldramaisland: { lora: "loras/character/courtneytd.safetensors", name: "Courtney (Total Drama Island)", strength: 1,
+        words: ['courtneytd, freckles, dark skin, pants, shirt'], 
+        description: "Courtney from Total Drama Island",
+        link: "https://civitai.com/models/30927/courtney-total-drama-island-character-lora" },
+
+    character-administratorquinellaswordartonline: { lora: "loras/character/quinella_(sao)_v10.safetensors", name: "Administrator Quinella (Swort Art Online)", strength: 1,
+        words: ['1girl, solo, very long hair, light purple hair, swept bangs, purple eyes, white dress, long dress, floating hair, short sleeves, large breasts, quinella, quinella_(SAO)','1girl, hair censor, purple eyes, nude, very long hair, hair over breasts, large breasts, convenient censoring, swept bangs, light purple hair, quinella, quinella_(SAO)'], 
+        description: "Quinella / Administrator from Sword Art Online",
+        link: "https://civitai.com/models/25780/administrator-quinella-sword-art-online?modelVersionId=30864" },
+
+    character-lanolinthesheepsonicthehedgehog: { lora: "loras/character/Lanolin Sheep.safetensors", name: "Lanolin the Sheep (Sonic The Hedgehog)", strength: 1,
+        words: ['Lanolin the sheep, animal ears, sonic the hedgehog \(series\)'], 
+        description: "Lanolin the Sheep from Sonic the Hedgehog",
+        link: "https://civitai.com/models/95450?modelVersionId=101888" },
+
+    character-jennybelleslipperyt: { lora: "loras/character/jennybeta.safetensors", name: "Jenny Belle (SlipperyT)", strength: 1,
+        words: ['jenny'], 
+        description: "Jenny Belle from Jennys Odd Adventures",
+        link: "https://civitai.com/models/127483?modelVersionId=141419" },
 
     # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
-    #     words: [''], 
-    #     description: "",
-    #     link: "" },
+        # words: [''], 
+        # description: "",
+        # link: "" },
+
+    # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
+        # words: [''], 
+        # description: "",
+        # link: "" },
+
+    # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
+        # words: [''], 
+        # description: "",
+        # link: "" },
+
+    # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
+        # words: [''], 
+        # description: "",
+        # link: "" },
+
+    character-sdxlbelledelphine: { lora: "loras/character/DI_belle_delphine_sdxl_v1.safetensors", name: "SDXL Belle Delphine", strength: 1,
+        words: ['belle_delphine'], 
+        description: "Belle Delphine SDXL LORA",
+        link: "https://civitai.com/models/118989/belle-delphine-xl?modelVersionId=129142" },
+
+    # character-nanana: { lora: "loras/character/", name: "Name", strength: 1,
+        # words: [''], 
+        # description: "",
+        # link: "" },
+
 }
 
 pose: {
@@ -2346,11 +2505,15 @@ pose: {
         description: "Lauren Phillips Lifing Alice Merchesi MEME Lora",
         link: "https://civitai.com/models/191099/lauren-phillips-lifting-alice-merchesi-meme-or-ownwaifu" },
 
+    pose-povbreastgrab: { lora: "loras/pose/POVBGV2.safetensors", name: "POV Breast Grab", strength: 1,
+        words: ['povbreastgrab, pov hands, breast grab'], 
+        description: "Grabbing breasts from a Front POV",
+        link: "https://civitai.com/models/15815/pov-breast-grab" },
 
-    # pose-nanana: { lora: "lora", name: "Name", strength: 1,
-      # words: [''], 
-      # description: "",
-      # link: "" },
+    # pose-nanana: { lora: "loras/pose/", name: "Name", strength: 1,
+        # words: [''], 
+        # description: "",
+        # link: "" },
   
 }
 
