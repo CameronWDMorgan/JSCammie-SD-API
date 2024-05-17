@@ -1,0 +1,6 @@
+{
+  "steps": 70,
+  "strength": 0.2,
+  "prompt_override": True,
+  "enabled": True,
+}

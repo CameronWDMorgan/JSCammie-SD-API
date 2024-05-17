@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./onediff/onediff_diffusers_extensions"
+    ]
+}

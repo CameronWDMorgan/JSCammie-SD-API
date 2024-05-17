@@ -1,0 +1,16 @@
+Flask
+flask-cors
+diffusers
+PyYAML
+numpy
+tomesd
+transformers
+omegaconf
+accelerate
+psycopg[binary]
+python-dotenv
+imagehash
+torchvision
+moviepy
+open-clip-torch
+compel

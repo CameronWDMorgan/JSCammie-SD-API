@@ -1,0 +1,10 @@
+{
+    "maintenance": False,
+    "sdxl": False,
+    "sdxl_max_steps": 100,
+    "max_loras": 3,
+    "max_loras_sdxl": 3,
+    "sdxl_resolution_multiplier": 0.8,
+    "sd15_resolution_multiplier": 1,
+    "upscale": True,
+}
