@@ -1,0 +1,239 @@
+{
+  "64": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "84": {
+    "inputs": {
+      "width": 768,
+      "height": 1024,
+      "batch_size": 4
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "116": {
+    "inputs": {
+      "seed": 123123123,
+      "steps": 40,
+      "cfg": 5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "117",
+        0
+      ],
+      "positive": [
+        "205",
+        0
+      ],
+      "negative": [
+        "204",
+        0
+      ],
+      "latent_image": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "117": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "lora_1": {
+        "on": false,
+        "lora": "lcm\\LCM_SDXL.safetensors",
+        "strength": 1
+      },
+      "lora_2": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "197",
+        0
+      ],
+      "clip": [
+        "127",
+        1
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  },
+  "127": {
+    "inputs": {
+      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "141": {
+    "inputs": {
+      "samples": [
+        "116",
+        0
+      ],
+      "vae": [
+        "127",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "142": {
+    "inputs": {
+      "images": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "156": {
+    "inputs": {
+      "enabled": true,
+      "model_type": "SDXL",
+      "res_mode": "low (1024 or lower)",
+      "upscale_mode": "default",
+      "ca_upscale_mode": "default",
+      "model": [
+        "201",
+        0
+      ]
+    },
+    "class_type": "ApplyRAUNetSimple",
+    "_meta": {
+      "title": "ApplyRAUNetSimple"
+    }
+  },
+  "157": {
+    "inputs": {
+      "model_type": "SDXL",
+      "model": [
+        "156",
+        0
+      ]
+    },
+    "class_type": "ApplyMSWMSAAttentionSimple",
+    "_meta": {
+      "title": "ApplyMSWMSAAttentionSimple"
+    }
+  },
+  "197": {
+    "inputs": {
+      "cache_interval": 3,
+      "cache_depth": 3,
+      "start_step": 0,
+      "end_step": 1000,
+      "model": [
+        "157",
+        0
+      ]
+    },
+    "class_type": "DeepCache",
+    "_meta": {
+      "title": "Deep Cache"
+    }
+  },
+  "201": {
+    "inputs": {
+      "downsample_factor_depth_1": 2,
+      "downsample_factor_depth_2": 1,
+      "model": [
+        "127",
+        0
+      ]
+    },
+    "class_type": "ToDoPatchModel",
+    "_meta": {
+      "title": "ToDo: Token Dowsampling"
+    }
+  },
+  "204": {
+    "inputs": {
+      "text": "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)",
+      "parser": "compel",
+      "mean_normalization": false,
+      "multi_conditioning": true,
+      "use_old_emphasis_implementation": false,
+      "with_SDXL": false,
+      "ascore": 6,
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": "",
+      "text_l": "",
+      "smZ_steps": 1,
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "smZ CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode++"
+    }
+  },
+  "205": {
+    "inputs": {
+      "text": "(score_9, score_8_up), 2d, 1girl, solo, big breasts, thick thighs, sonic \\(series\\), Amy Rose \\(sonic)\\",
+      "parser": "compel",
+      "mean_normalization": false,
+      "multi_conditioning": true,
+      "use_old_emphasis_implementation": false,
+      "with_SDXL": false,
+      "ascore": 6,
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": "",
+      "text_l": "",
+      "smZ_steps": 1,
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "smZ CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode++"
+    }
+  }
+}

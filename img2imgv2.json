@@ -1,0 +1,251 @@
+{
+  "64": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "116": {
+    "inputs": {
+      "seed": 647143163501762,
+      "steps": 40,
+      "cfg": 5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 0.74,
+      "model": [
+        "117",
+        0
+      ],
+      "positive": [
+        "225",
+        0
+      ],
+      "negative": [
+        "222",
+        0
+      ],
+      "latent_image": [
+        "229",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "117": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "233",
+        0
+      ],
+      "clip": [
+        "127",
+        1
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  },
+  "127": {
+    "inputs": {
+      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "141": {
+    "inputs": {
+      "samples": [
+        "116",
+        0
+      ],
+      "vae": [
+        "127",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "142": {
+    "inputs": {
+      "images": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "212": {
+    "inputs": {
+      "string": "score_9, score_8_up, score_7_up, flat color, source_cartoon, cel shading, highres, digital art, 2d, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\)"
+    },
+    "class_type": "Primitive string multiline [Crystools]",
+    "_meta": {
+      "title": "🪛 Primitive string multiline"
+    }
+  },
+  "213": {
+    "inputs": {
+      "string": "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm)"
+    },
+    "class_type": "Primitive string multiline [Crystools]",
+    "_meta": {
+      "title": "🪛 Primitive string multiline"
+    }
+  },
+  "222": {
+    "inputs": {
+      "text": [
+        "213",
+        0
+      ],
+      "parser": "compel",
+      "mean_normalization": true,
+      "multi_conditioning": true,
+      "use_old_emphasis_implementation": false,
+      "with_SDXL": false,
+      "ascore": 6,
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": "",
+      "text_l": "",
+      "smZ_steps": 1,
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "smZ CLIPTextEncode",
+    "_meta": {
+      "title": "Negative: CLIP Text Encode++"
+    }
+  },
+  "225": {
+    "inputs": {
+      "text": [
+        "212",
+        0
+      ],
+      "parser": "compel",
+      "mean_normalization": true,
+      "multi_conditioning": true,
+      "use_old_emphasis_implementation": false,
+      "with_SDXL": false,
+      "ascore": 6,
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": "",
+      "text_l": "",
+      "smZ_steps": 1,
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "smZ CLIPTextEncode",
+    "_meta": {
+      "title": "Positive: CLIP Text Encode++"
+    }
+  },
+  "226": {
+    "inputs": {
+      "image": "example.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "227": {
+    "inputs": {
+      "pixels": [
+        "226",
+        0
+      ],
+      "vae": [
+        "127",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "229": {
+    "inputs": {
+      "amount": 4,
+      "samples": [
+        "227",
+        0
+      ]
+    },
+    "class_type": "RepeatLatentBatch",
+    "_meta": {
+      "title": "Repeat Latent Batch"
+    }
+  },
+  "230": {
+    "inputs": {
+      "downsample_factor_depth_1": 2,
+      "downsample_factor_depth_2": 1,
+      "model": [
+        "127",
+        0
+      ]
+    },
+    "class_type": "ToDoPatchModel",
+    "_meta": {
+      "title": "ToDo: Token Dowsampling"
+    }
+  },
+  "233": {
+    "inputs": {
+      "cache_interval": 3,
+      "cache_depth": 2,
+      "start_step": 0,
+      "end_step": 1000,
+      "model": [
+        "230",
+        0
+      ]
+    },
+    "class_type": "DeepCache",
+    "_meta": {
+      "title": "Deep Cache"
+    }
+  }
+}

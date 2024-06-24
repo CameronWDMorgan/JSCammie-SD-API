@@ -65,4 +65,10 @@ lpw_stable_diffusion_xl.py
 .venv/
 lora-gui/
 gui-gui/
+logs/
+.venv/
+request_jsons/
+process_images/
+generations/
+vaes/
 embeddings/

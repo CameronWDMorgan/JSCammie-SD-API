@@ -22,10 +22,12 @@ print(f"Max Memory Allocated: {torch.cuda.max_memory_allocated() / 1024 ** 3:.2f
 print(f"Memory Cached: {torch.cuda.memory_reserved() / 1024 ** 3:.2f} GB")
 print(f"Max Memory Cached: {torch.cuda.max_memory_reserved() / 1024 ** 3:.2f} GB")
 
-torch.cuda.empty_cache()
-torch.cuda.reset_peak_memory_stats()
-torch.cuda.reset_max_memory_allocated()
-torch.cuda.reset_max_memory_cached()
+model_move_manual = True
+
+# torch.cuda.empty_cache()
+# torch.cuda.reset_peak_memory_stats()
+# torch.cuda.reset_max_memory_allocated()
+# torch.cuda.reset_max_memory_cached()
 
 import tomesd
 from diffusers import AutoencoderKL, AutoPipelineForInpainting, AutoPipelineForImage2Image, AutoPipelineForText2Image, StableDiffusionXLPipeline, StableDiffusionXLInpaintPipeline, AnimateDiffPipeline, MotionAdapter, ControlNetModel, StableDiffusionUpscalePipeline, StableDiffusionPipeline, DiffusionPipeline, StableDiffusionImg2ImgPipeline, DPMSolverMultistepScheduler, EulerAncestralDiscreteScheduler, StableDiffusionInpaintPipeline, StableDiffusionControlNetPipeline
@@ -71,8 +73,6 @@ processor_busy_0 = False
 processor_queue_0_last = None
 processor_queue_0_next = None
 
-queue_0_lora_metadata = []
-
 
 
 processor_busy_1 = False
@@ -80,15 +80,13 @@ processor_busy_1 = False
 processor_queue_1_last = None
 processor_queue_1_next = None
 
-queue_1_lora_metadata = []
-
 def generate_error_response(message, status_code):
     response = jsonify({"status": "error", 'message': message})
     response.status_code = status_code
     return response
 
 # Configuration Loading
-with open('config.json', 'r') as f:
+with open('config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 
 def log_error(error_message, data=None):
@@ -97,7 +95,7 @@ def log_error(error_message, data=None):
     if not os.path.exists("logs"):
         os.makedirs("logs")
     
-    with open(f"logs/{datetime.datetime.now().strftime('%Y-%m-%d')}.log", "a") as f:
+    with open(f"logs/{datetime.datetime.now().strftime('%Y-%m-%d')}.log", "a", encoding='utf-8') as f:
         f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {error_message}\n {data}\n\n")
         
 def load_blockedwords():
@@ -116,94 +114,73 @@ def load_blockedwords():
 # Start a separate thread that updates the blockedwords:
 threading.Thread(target=load_blockedwords, daemon=True).start()
 
-global lora_metadata_list
-lora_metadata_list = []
+average_queue_times = []
+
 try:
     
     # Model Loading
     
     inpainting_models = {
-        'inpainting': {'loaded':None, 'model_path': './models/inpainting/SonicDiffusionV4-inpainting.inpainting.safetensors'},
         'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        # 'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"]},
+        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
         'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
         'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["autismmix_model_path"]},
-        # 'sdxl-zonkey': {'loaded':None, 'model_path': config["zonkey_model_path"]},
-        # 'sdxl-autismmixlightning': {'loaded':None, 'model_path': config["autismmixlightning_model_path"]},
-        # 'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
-        # 'anything': {'loaded':None, 'model_path': anything_model_path},
-        # 'sdxl-everclear': {'loaded':None, 'model_path': everclear_model_path},
-        # 'abyssorangemix': {'loaded':None, 'model_path': abyssorangemix_model_path},
+        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
+        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
+        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
+        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
     }
 
     txt2img_models = {
         'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        # 'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        # 'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
+        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
         'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
         'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["autismmix_model_path"]},
-        # 'sdxl-zonkey': {'loaded':None, 'model_path': config["zonkey_model_path"]},
-        # 'sdxl-autismmixlightning': {'loaded':None, 'model_path': config["autismmixlightning_model_path"]},
-        # 'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
-        # 'anything': {'loaded':None, 'model_path': anything_model_path},
-        # 'sdxl-everclear': {'loaded':None, 'model_path': everclear_model_path},
-        # 'abyssorangemix': {'loaded':None, 'model_path': abyssorangemix_model_path},
+        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
+        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
+        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
+        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
     }
     
     img2img_models = {
         'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        # 'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        # 'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"]},
+        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
         'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
         'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["autismmix_model_path"]},
-        # 'sdxl-zonkey': {'loaded':None, 'model_path': config["zonkey_model_path"]},
-        # 'sdxl-autismmixlightning': {'loaded':None, 'model_path': config["autismmixlightning_model_path"]},
-        # 'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
-        # 'anything': {'loaded':None, 'model_path': anything_model_path},
-        # 'sdxl-everclear': {'loaded':None, 'model_path': everclear_model_path},
-        # 'abyssorangemix': {'loaded':None, 'model_path': abyssorangemix_model_path},
+        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
+        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
+        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
+        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
     }
     
     txt2video_models = {
         'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        # 'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        # 'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"]},
+        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
         'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
         'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["autismmix_model_path"]},
-        # 'sdxl-zonkey': {'loaded':None, 'model_path': config["zonkey_model_path"]},
-        # 'sdxl-autismmixlightning': {'loaded':None, 'model_path': config["autismmixlightning_model_path"]},
-        # 'sdxl-autismmix': {'loaded':None, 'model_path': autismmix_model_path},
-        # 'anything': {'loaded':None, 'model_path': anything_model_path},
+        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
+        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
+        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
+        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
     }
     
     openpose_models = {
         'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        # 'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-        # 'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-        # 'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"]},
+        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
         'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
         'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["autismmix_model_path"]},
-        # 'sdxl-zonkey': {'loaded':None, 'model_path': config["zonkey_model_path"]},
-        # 'sdxl-autismmixlightning': {'loaded':None, 'model_path': config["autismmixlightning_model_path"]},
-        # 'sdxl-autismmix': {'loaded':None, 'model_path': autismmix_model_path},
-        # 'sdxl-sonic': {'loaded':None, 'model_path': sonicsdxl_model_path},
-        # 'anything': {'loaded':None, 'model_path': anything_model_path},
-        # 'sdxl-everclear': {'loaded':None, 'model_path': everclear_model_path},
-        # 'abyssorangemix': {'loaded':None, 'model_path': abyssorangemix_model_path},
+        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
+        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
+        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
+        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
     }
     
+    # pre-load all the models on startup:
     
+    # model_info = txt2img_models[name]
+    
+    # if model_info['loaded'] is None:
+    #     model_info['loaded'] = load_models.txt2img(name, data, model_info['model_path'])
         
     # for each model in txt2img_models that doesnt have a save_pretrained folder, create one by using StableDiffusionPipeline, loading the model and using the name as the final folder:
     # for model_name, model_info in txt2img_models.items():
@@ -282,14 +259,6 @@ except Exception as e:
 
 
     
-  
-
-    
-    
-
-
-
-
 
 
 
@@ -440,14 +409,6 @@ loraPattern = re.compile(r"(style|effect|concept|clothing|character|pose|backgro
 
 def load_loras(request_id, current_model, lora_items, data):
     
-    global queue_0_lora_metadata
-    global queue_1_lora_metadata
-    
-    if data['gpu_id'] == 0:
-        queue_0_lora_metadata = []
-    else:
-        queue_1_lora_metadata = []
-    
     start_time = time.time()
     
     try:
@@ -481,7 +442,7 @@ def load_loras(request_id, current_model, lora_items, data):
             lora_data = lora_weights_map.get(category, {}).get(item)
 
             if lora_data:
-                # print(f"data['lora_strengths'] = {data['lora_strengths']}")
+                print(f"data['lora_strengths'] = {data['lora_strengths']}")
                 if data['lora_strengths'] and len(data['lora_strengths']) == len(lora_items):
                     # print(f"data['lora_strengths'] = {data['lora_strengths']}")
                     # set the strength to the value in the data['lora_strengths'] list if it exists, else set it to the value in the lora_data dict:
@@ -489,17 +450,13 @@ def load_loras(request_id, current_model, lora_items, data):
                     strength = data['lora_strengths'][lora_strengths_index]
                 else:
                     strength = lora_settings.get(item, lora_data.get('strength', 1.0))
+                    data['lora_strengths'].append(strength)
                 
                 
                     
                 # print(f"Strength for {item}: {strength}")
 
                 if strength:  # This checks for strength != 0; it will work with negative numbers as well
-                    lora_metadata = f"{lora_data['name']} {strength}"
-                    if data['gpu_id'] == 0:
-                        queue_0_lora_metadata.append(lora_metadata)
-                    else:
-                        queue_1_lora_metadata.append(lora_metadata)
 
                     current_model.load_lora_weights(
                         lora_data['lora'], 
@@ -539,12 +496,14 @@ def process_image(current_model, model_type, data, request_id):
     try:
         
         # check if the model is on the GPU or CPU and move it to the correct device:
+        
+        generator = torch.Generator(device="cuda:1")
 
         # generator = torch.Generator(device=f"cuda:{data['gpu_id']}")
-        if data['gpu_id'] == 1:
-            generator = torch.Generator("cuda:1")
-        else:
-            generator = torch.Generator("cuda:0")
+        # if data['gpu_id'] == 1:
+        #     generator = torch.Generator("cuda:1")
+        # else:
+        #     generator = torch.Generator("cuda:0")
         
         data['seed'] = generator.manual_seed(data['seedNumber'])
         
@@ -754,27 +713,10 @@ def is_image_nearly_black(image, threshold=10):
 
 def add_metadata(image, metadata, data):
     meta = PngImagePlugin.PngInfo()
-    aiData = {
-        "prompt": str(data['prompt']),
-        "negativeprompt": str(data['negative_prompt']),
-        "aspectRatio": str(data['aspect_ratio']),
-        "model": str(data['model']),
-        "loras": str(data['lora']),
-        "lora_strengths": str(data['lora_strengths']),
-        "steps": str(data['steps']),
-        "quantity": str(data['image_count']),
-        "cfg": str(data['guidance']),
-        "seed": str(data['og_seed']),
-    }
-
-    # convert aiData to a yaml string like this javascript code:
-    # let yamlString = `prompt: ${aiData.prompt}\nnegativeprompt: ${aiData.negativeprompt}\naspectRatio: ${aiData.aspectRatio}\nmodel: ${aiData.model}\nloras: ${aiData.loras}\nlora_strengths: ${aiData.lora_strengths}\nsteps: ${aiData.steps}\nquantity: ${aiData.quantity}\ncfg: ${aiData.cfg}\nseed: ${aiData.seed}`
-    
-    yamlString = f"prompt: {aiData['prompt']}\nnegativeprompt: {aiData['negativeprompt']}\naspectRatio: {aiData['aspectRatio']}\nmodel: {aiData['model']}\nloras: {aiData['loras']}\nlora_strengths: {aiData['lora_strengths']}\nsteps: {aiData['steps']}\nquantity: {aiData['quantity']}\ncfg: {aiData['cfg']}\nseed: {aiData['seed']}"
+   
     for key, value in metadata.items():
         meta.add_text(str(key), str(value))
-        
-    meta.add_text("aiData", yamlString)
+
     
     return meta
 
@@ -789,16 +731,9 @@ def add_metadata(image, metadata, data):
 
 
 def save_image(request_id, output_image, model_type, data, image_index=0, font_size=20):
-    global queue_0_lora_metadata
-    global queue_1_lora_metadata
     try:
         # Simplify accountId handling
         accountId_string = "" if data.get('accountId') == "0" else data.get('accountId', '')
-        
-        if data['gpu_id'] == 0:
-            lora_metadata_list = queue_0_lora_metadata
-        else:
-            lora_metadata_list = queue_1_lora_metadata
 
         # Generate metadata
         metadata = {
@@ -806,7 +741,8 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
             "model_type": model_type,
             "prompt": data['true_prompt'],
             "negative_prompt": str(data['negative_prompt']),
-            "loras": lora_metadata_list,  
+            "loras": data['lora'],
+            "lora_strengths": data['lora_strengths'],
             "steps": data['steps'],
             "seed": data['seedNumber'],
             "CFG": data['guidance'],
@@ -846,6 +782,8 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
             else:
                 with open(f"./output_images/{request_id}.mp4", "wb") as file:
                     file.write(base64.b64decode(data['video_string']))
+                    
+        
 
         return {
             "width": output_image.width,
@@ -963,16 +901,18 @@ def process_request(queue_item):
             
         if current_model is not None:
 
-            if data['gpu_id'] == 1:
-                current_model.to("cuda:1")
-            if data['gpu_id'] == 0:
-                current_model.to("cuda:0")
+            if model_move_manual:
+                if data['gpu_id'] == 1:
+                    current_model.to("cuda:1")
+                if data['gpu_id'] == 0:
+                    current_model.to("cuda:0")
 
             current_model.unfuse_lora()
             current_model.unload_lora_weights()
             # print(model_type)
 
-            
+            if data['lora_strengths'] == [] or data['lora_strengths'] is None:
+                data['lora_strengths'] = []
             
             if data['lora'] is not None and model_type != 'latent_couple':
                 current_model = load_loras(request_id, current_model, lora, data)
@@ -980,10 +920,11 @@ def process_request(queue_item):
             if model_type != 'latent_couple':
                 model_outputs = process_image(current_model, model_type, data, request_id)
                 
-            if data['gpu_id'] == 1:
-                current_model.to("cpu")
-            if data['gpu_id'] == 0:
-                current_model.to("cpu")
+            if model_move_manual:
+                if data['gpu_id'] == 1:
+                    current_model.to("cpu")
+                if data['gpu_id'] == 0:
+                    current_model.to("cpu")
 
             # else:
             #     inpainting_model.unfuse_lora()
@@ -1120,7 +1061,7 @@ def process_request(queue_item):
             #         inpainting_model.unfuse_lora()
             #         inpainting_model.unload_lora_weights()
             #         if loopback_data['enabled'] is True:
-            #             img2img_model.unfuse_lora()
+                        # img2img_model.unfuse_lora()
             #             img2img_model.unload_lora_weights()
                         
             if model_outputs is not None:
@@ -1221,16 +1162,27 @@ def process_request(queue_item):
                     "status": "pending"
                 }
                 hash_queue.append(hash_object)
-                    
+                
+                saving_object = {
+                    "data": data,
+                    "images": PIL_Images,
+                    "status": "pending"
+                }                    
                     
                 print("Time to save images: " + str(time.time() - timeBeforeSave))
+                
+                
+            time_added_to_queue = data['queued_time']
+            total_time = time.time() - time_added_to_queue
+            
+            average_queue_times.append(total_time)
 
             results[request_id] = {
                 "images": image_data_list,
                 "additionalInfo": {
                     "seed": data['seedNumber'],
                     "executiontime": time.time() - start_time,
-                    "loras": lora_metadata_list,
+                    "totaltime": total_time,
                     "timestamp": time.time()
                 }
             }
@@ -1276,8 +1228,7 @@ async def process_hash_queue():
             
 def process_queue_0():
     global processor_busy_0
-    global processor_queue_0_last
-    global processor_queue_0_next
+
     
     while True:
         time.sleep(0.01)  # Short sleep to prevent CPU overutilization
@@ -1297,53 +1248,15 @@ def process_queue_0():
                     queue_item.status = "waiting"
                     processor_busy_0 = True
                     
-                    queue_item.data['prev_same_lora'] = False
-                    queue_item.data['prev_same_strengths'] = False
-                    queue_item.data['prev_same_model'] = False
-                    
-                    queue_item.data['next_same_lora'] = False
-                    queue_item.data['next_same_strengths'] = False
-                    queue_item.data['next_same_model'] = False
-                    
-                    if processor_queue_0_last is None:
-                        processor_queue_0_last = queue_item.data
-                    else:
-                        
-                        if processor_queue_0_last['lora'] == queue_item.data['lora']:
-                            queue_item.data['prev_same_lora'] = True
-                            
-                        if processor_queue_0_last['lora_strengths'] == queue_item.data['lora_strengths']:
-                            queue_item.data['prev_same_strengths'] = True
-                            
-                        if processor_queue_0_last['model'] == queue_item.data['model']:
-                            queue_item.data['prev_same_model'] = True
-                            
-                        
-                        
-                    if len(request_queue_0) > 2:
-                        processor_queue_0_next = request_queue_0[1].data
-                    else:
-                        if processor_queue_0_next is not None:
-                            if processor_queue_0_next['lora'] == queue_item.data['lora']:
-                                queue_item.data['next_same_lora'] = True
-                                
-                            if processor_queue_0_next['lora_strengths'] == queue_item.data['lora_strengths']:
-                                queue_item.data['next_same_strengths'] = True
-                                
-                            if processor_queue_0_next['model'] == queue_item.data['model']:
-                                queue_item.data['next_same_model'] = True
-
-                            
-                            
-                    
-                    processor_queue_0_last = queue_item.data
                     result = process_request(queue_item)
                     
                     # print results count:
                     print("0 | Results Count: " + str(len(results)))
                     print("0 | Queue Count: " + str(len(request_queue_0)))
-                    # print(f"Queue 1 Memory: {torch.cuda.memory_summary(device='cuda:1')}")
-                    # print(f"Queue 0 Memory: {torch.cuda.memory_summary(device='cuda:0')}")
+                    if len(average_queue_times) > 100:
+                        average_queue_times.pop(0)
+                    if len(average_queue_times) > 0:
+                        print(f"Average Queue Time: {sum(average_queue_times) / len(average_queue_times)}")
                     if result == "processed":
                         processor_busy_0 = False
                         request_queue_0.remove(queue_item)  # Remove the item from the queue
@@ -1358,70 +1271,26 @@ def process_queue_0():
 
 def process_queue_1():
     global processor_busy_1
-    global processor_queue_1_last
-    global processor_queue_1_next
     
     while True:
         time.sleep(0.01)  # Short sleep to prevent CPU overutilization
         if not processor_busy_1:
             
-            if len(results) > 0:
-                # remove any items from the results that have a timestamp that is over 10 minutes old (600 seconds):
-                current_time = time.time()
-                        
             if request_queue_1:  # Check if the queue is not empty
                 queue_item = request_queue_1[0]  # Get the first item
                 if queue_item.status == "queued":
                     queue_item.status = "waiting"
                     processor_busy_1 = True
-                    
-                    queue_item.data['prev_same_lora'] = False
-                    queue_item.data['prev_same_strengths'] = False
-                    queue_item.data['prev_same_model'] = False
-                    
-                    queue_item.data['next_same_lora'] = False
-                    queue_item.data['next_same_strengths'] = False
-                    queue_item.data['next_same_model'] = False
-                    
-                    if processor_queue_1_last is None:
-                        processor_queue_1_last = queue_item.data
-                    else:
-                        
-                        if processor_queue_1_last['lora'] == queue_item.data['lora']:
-                            queue_item.data['prev_same_lora'] = True
-                            
-                        if processor_queue_1_last['lora_strengths'] == queue_item.data['lora_strengths']:
-                            queue_item.data['prev_same_strengths'] = True
-                            
-                        if processor_queue_1_last['model'] == queue_item.data['model']:
-                            queue_item.data['prev_same_model'] = True
-                            
-                        
-                        
-                    if len(request_queue_1) > 2:
-                        processor_queue_1_next = request_queue_1[1].data
-                    else:
-                        if processor_queue_1_next is not None:
-                            if processor_queue_1_next['lora'] == queue_item.data['lora']:
-                                queue_item.data['next_same_lora'] = True
-                                
-                            if processor_queue_1_next['lora_strengths'] == queue_item.data['lora_strengths']:
-                                queue_item.data['next_same_strengths'] = True
-                                
-                            if processor_queue_1_next['model'] == queue_item.data['model']:
-                                queue_item.data['next_same_model'] = True
 
-                            
-                            
-                    
-                    processor_queue_1_last = queue_item.data
                     result = process_request(queue_item)
                     
                     # print results count:
                     print("1 | Results Count: " + str(len(results)))
                     print("1 | Queue Count: " + str(len(request_queue_1)))
-                    # print(f"Queue 1 Memory: {torch.cuda.memory_summary(device='cuda:1')}")
-                    # print(f"Queue 0 Memory: {torch.cuda.memory_summary(device='cuda:0')}")
+                    if len(average_queue_times) > 100:
+                        average_queue_times.pop(0)
+                    if len(average_queue_times) > 0:
+                        print(f"Average Queue Time: {sum(average_queue_times) / len(average_queue_times)}")
                     if result == "processed":
                         processor_busy_1 = False
                         request_queue_1.remove(queue_item)  # Remove the item from the queue
@@ -1432,9 +1301,6 @@ def process_queue_1():
         # Sleep if no unprocessed request is found
         if not any(item.status == "queued" for item in request_queue_1):
             time.sleep(0.5)
-
-
-
 
 def update_fast_passes_map():
     global fast_passes_map
@@ -1647,6 +1513,31 @@ def token_length():
     # print(f"Prompt: {len(prompt_tokens)}, Negative Prompt: {len(negative_prompt_tokens)}")
     
     return jsonify({"prompt": len(prompt_tokens), "negative_prompt": len(negative_prompt_tokens)})
+
+# Define a helper function to check JSON serializability
+def serializable(obj):
+    try:
+        json.dumps(obj)
+        return True
+    except (TypeError, OverflowError):
+        return False
+
+@app.route('/get-all-queue', methods=['GET'])
+def get_all_queue():
+
+    queue_0 = []
+    queue_1 = []
+
+    # Process each item in the queue, only keeping serializable parts
+    for item in request_queue_0:
+        item_dict = {k: v for k, v in item.__dict__.items() if serializable(v)}
+        queue_0.append(item_dict)
+
+    for item in request_queue_1:
+        item_dict = {k: v for k, v in item.__dict__.items() if serializable(v)}
+        queue_1.append(item_dict)
+
+    return jsonify({"queue_0": queue_0, "queue_1": queue_1})
                 
 @app.route('/generate', methods=['POST'])
 def generate_image():
@@ -1662,13 +1553,13 @@ def generate_image():
             
         if data['request_type'] == "txt2video":
             return generate_error_response("Text to video is currently disabled.", 503)
-            
-        data['gpu_id'] = 0
         
-        if data['model'].startswith("sdxl-"):
-            data['gpu_id'] = 0
-        else:
-            data['gpu_id'] = 1
+        data['gpu_id'] = 0
+                    
+        # if data['model'].startswith("sdxl-"):
+        #     data['gpu_id'] = 0
+        # else:
+        #     data['gpu_id'] = 1
             
         # cap the steps to global_settings['sdxl_max_steps']:
         if data['model'].startswith("sdxl-"):
@@ -1738,11 +1629,11 @@ def generate_image():
                 return generate_error_response(f"Maximum number of Lora options is {global_settings['max_loras']}", 400)
             
         # if data['request_type'] == "inpainting": and the data['model'] doesnt start with sdxl- return error:
-        if data['request_type'] == "inpainting" or data['request_type'] == "img2img":
-            if data['request_type'] == "inpainting":
-                return generate_error_response("Inpainting is currently disabled.", 503)
-            if data['request_type'] == "img2img":
-                return generate_error_response("Image to image is currently disabled.", 503)
+        # if data['request_type'] == "inpainting" or data['request_type'] == "img2img":
+        #     if data['request_type'] == "inpainting":
+        #         return generate_error_response("Inpainting is currently disabled.", 503)
+        #     if data['request_type'] == "img2img":
+        #         return generate_error_response("Image to image is currently disabled.", 503)
                  
         
         data['width'] = round_to_multiple_of_eight(data['width'])
@@ -1817,6 +1708,61 @@ def generate_image():
                                 return generate_error_response(f"User {account_id} already has a request in the queue, retry {3 - item.data['generate_retries']} more times to cancel the request", 400)
                         else:
                             return generate_error_response(f"User {account_id} already has a request in the queue", 400) 
+                        
+        # check if the ip is already in the queue and cancel after 3 retries:
+        if data['ip'] is not None:
+            if data['ip'] != "123123123":
+                for item in request_queue_0:
+                    if item.data['ip'] == data['ip']:
+                        index = request_queue_0.index(item)
+                        if index > 2:
+                            # set the generate_retries to 0 if it doesn't exist:
+                            if 'generate_retries' not in item.data:
+                                item.data['generate_retries'] = 0
+
+                            if item.data['generate_retries'] == 3:
+                                # cancel the request:
+                                item.status = "cancelled"
+                                request_queue_0.remove(item)
+                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, the request has been cancelled", 400)
+                            else:
+                                item.data['generate_retries'] += 1
+                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, retry {3 - item.data['generate_retries']} more times to cancel the request", 400)
+                        else:
+                            return generate_error_response(f"IP {data['ip']} already has a request in the queue", 400)
+                for item in request_queue_1:
+                    if item.data['ip'] == data['ip']:
+                        index = request_queue_1.index(item)
+                        if index > 2:
+                            # set the generate_retries to 0 if it doesn't exist:
+                            if 'generate_retries' not in item.data:
+                                item.data['generate_retries'] = 0
+
+                            if item.data['generate_retries'] == 3:
+                                # cancel the request:
+                                item.status = "cancelled"
+                                request_queue_1.remove(item)
+                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, the request has been cancelled", 400)
+                            else:
+                                item.data['generate_retries'] += 1
+                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, retry {3 - item.data['generate_retries']} more times to cancel the request", 400)
+                        else:
+                            return generate_error_response(f"IP {data['ip']} already has a request in the queue", 400)
+        
+        # if the ip is already in the queue, return an error:
+        if data['ip'] is not None:
+            if data['ip'] != "123123123":
+                for item in request_queue_0:
+                    if item.data['ip'] == data['ip']:
+                        print("IP is in the queue")
+                        print(f"IP: {data['ip']}, Request IP: {item.data['ip']}")
+                        return generate_error_response("You are already in the queue", 400)
+                for item in request_queue_1:
+                    if item.data['ip'] == data['ip']:
+                        print("IP is in the queue")
+                        print(f"IP: {data['ip']}, Request IP: {item.data['ip']}")
+                        return generate_error_response("You are already in the queue", 400)
+        
             
 
         fastpass_enabled, error_message = check_fast_pass(fastpass, validated_data)
@@ -1825,7 +1771,13 @@ def generate_image():
         
         if global_settings.get('upscale', False):
             if validated_data['upscale']:
+                # if validated_data['model'].startswith("sdxl-"):
+                #     return generate_error_response("Upscaling is currently disabled for SDXL models!", 503)
                 return generate_error_response("Upscaling is currently disabled.", 503)
+            
+        if validated_data['model'].startswith("sdxl-"):
+            if validated_data['upscale']:
+                return generate_error_response("Upscaling is currently disabled for SDXL models!", 503)
                 
         # Check if the model is valid
         model_name = validated_data['model']
@@ -1836,6 +1788,7 @@ def generate_image():
         data = validated_data
 
         request_id = str(uuid.uuid4())
+        data['request_id'] = request_id
         queue_item = QueueRequest(request_id, data)
 
         # Check for duplicate requests
@@ -2167,6 +2120,7 @@ generateTestJsontxt2imgLandscape = {
     "lora": [],
     "upscale": False,
     "save_image": True,
+    "ip": "123123123"
 }
     
     
@@ -2201,6 +2155,34 @@ async def main():
     await process_hash_queue()
 
 if __name__ == '__main__':
+    # if model_move_manual == False:
+        
+        # for model_name, model_info in txt2img_models.items():
+        #     if model_name.startswith("sdxl-"):
+        #         data = {'gpu_id': 0}
+        #     else:
+        #         data = {'gpu_id': 0}
+        #     if model_info['loaded'] is None:
+        #         model_info['loaded'] = load_models.txt2img(model_name, data, model_info['model_path'])
+        #         print(f"Loaded {model_name}, txt2img")
+                
+        # for model_name, model_info in img2img_models.items():
+        #     if model_name.startswith("sdxl-"):
+        #         data = {'gpu_id': 0}
+        #     else:
+        #         data = {'gpu_id': 0}
+        #     if model_info['loaded'] is None:
+        #         model_info['loaded'] = load_models.img2img(model_name, data, model_info['model_path'])
+        #         print(f"Loaded {model_name}, img2img")
+                
+        # for model_name, model_info in inpainting_models.items():
+        #     if model_name.startswith("sdxl-"):
+        #         data = {'gpu_id': 0}
+        #     else:
+        #         data = {'gpu_id': 0}
+        #     if model_info['loaded'] is None:
+        #         model_info['loaded'] = load_models.inpainting(model_name, data, model_info['model_path'])
+        #         print(f"Loaded {model_name}, inpainting")
     asyncio.run(main())
     print(torch.__version__)
     print("Startup time: " + str(time.time() - program_start_time) + " seconds")

@@ -4,7 +4,9 @@
     "sdxl_max_steps": 100,
     "max_loras": 3,
     "max_loras_sdxl": 3,
-    "sdxl_resolution_multiplier": 0.8,
+    "sd3_resolution_multiplier": 1,
+    "sdxl_resolution_multiplier": 1,
     "sd15_resolution_multiplier": 1,
     "upscale": True,
+    "sd3_users": ['1039574722163249233', '550239177837379594', '966099744202055811', '499046116386406440']
 }

@@ -1,0 +1,332 @@
+{
+  "64": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "117": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "lora_1": {
+        "on": false,
+        "lora": "None",
+        "strength": 1
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "233",
+        0
+      ],
+      "clip": [
+        "260",
+        1
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  },
+  "141": {
+    "inputs": {
+      "samples": [
+        "282",
+        0
+      ],
+      "vae": [
+        "260",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "142": {
+    "inputs": {
+      "images": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "212": {
+    "inputs": {
+      "string": "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt"
+    },
+    "class_type": "Primitive string multiline [Crystools]",
+    "_meta": {
+      "title": "Prompt"
+    }
+  },
+  "213": {
+    "inputs": {
+      "string": "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
+    },
+    "class_type": "Primitive string multiline [Crystools]",
+    "_meta": {
+      "title": "Negative Prompt"
+    }
+  },
+  "222": {
+    "inputs": {
+      "text": [
+        "213",
+        0
+      ],
+      "parser": "compel",
+      "mean_normalization": true,
+      "multi_conditioning": true,
+      "use_old_emphasis_implementation": false,
+      "with_SDXL": false,
+      "ascore": 6,
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": "",
+      "text_l": "",
+      "smZ_steps": 1,
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "smZ CLIPTextEncode",
+    "_meta": {
+      "title": "Negative: CLIP Text Encode++"
+    }
+  },
+  "225": {
+    "inputs": {
+      "text": [
+        "212",
+        0
+      ],
+      "parser": "compel",
+      "mean_normalization": true,
+      "multi_conditioning": true,
+      "use_old_emphasis_implementation": false,
+      "with_SDXL": false,
+      "ascore": 6,
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": "",
+      "text_l": "",
+      "smZ_steps": 1,
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "smZ CLIPTextEncode",
+    "_meta": {
+      "title": "Positive: CLIP Text Encode++"
+    }
+  },
+  "230": {
+    "inputs": {
+      "downsample_factor_depth_1": 2,
+      "downsample_factor_depth_2": 1,
+      "model": [
+        "260",
+        0
+      ]
+    },
+    "class_type": "ToDoPatchModel",
+    "_meta": {
+      "title": "ToDo: Token Dowsampling"
+    }
+  },
+  "233": {
+    "inputs": {
+      "cache_interval": 3,
+      "cache_depth": 2,
+      "start_step": 0,
+      "end_step": 1000,
+      "model": [
+        "230",
+        0
+      ]
+    },
+    "class_type": "DeepCache",
+    "_meta": {
+      "title": "Deep Cache"
+    }
+  },
+  "256": {
+    "inputs": {
+      "int": 4
+    },
+    "class_type": "Primitive integer [Crystools]",
+    "_meta": {
+      "title": "Quantity"
+    }
+  },
+  "260": {
+    "inputs": {
+      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "266": {
+    "inputs": {
+      "float": 5
+    },
+    "class_type": "Primitive float [Crystools]",
+    "_meta": {
+      "title": "CFG"
+    }
+  },
+  "268": {
+    "inputs": {
+      "int": 123123213
+    },
+    "class_type": "Primitive integer [Crystools]",
+    "_meta": {
+      "title": "Seed"
+    }
+  },
+  "270": {
+    "inputs": {
+      "int": 40
+    },
+    "class_type": "Primitive integer [Crystools]",
+    "_meta": {
+      "title": "Steps"
+    }
+  },
+  "276": {
+    "inputs": {
+      "amount": [
+        "256",
+        0
+      ],
+      "samples": [
+        "280",
+        0
+      ]
+    },
+    "class_type": "RepeatLatentBatch",
+    "_meta": {
+      "title": "Repeat Latent Batch"
+    }
+  },
+  "277": {
+    "inputs": {
+      "image": "example.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Base Image"
+    }
+  },
+  "279": {
+    "inputs": {
+      "image": "example.png",
+      "channel": "red",
+      "upload": "image"
+    },
+    "class_type": "LoadImageMask",
+    "_meta": {
+      "title": "Inpainting Mask"
+    }
+  },
+  "280": {
+    "inputs": {
+      "grow_mask_by": 16,
+      "pixels": [
+        "277",
+        0
+      ],
+      "vae": [
+        "260",
+        2
+      ],
+      "mask": [
+        "279",
+        0
+      ]
+    },
+    "class_type": "VAEEncodeForInpaint",
+    "_meta": {
+      "title": "VAE Encode (for Inpainting)"
+    }
+  },
+  "282": {
+    "inputs": {
+      "seed": [
+        "268",
+        0
+      ],
+      "steps": [
+        "270",
+        0
+      ],
+      "cfg": [
+        "266",
+        0
+      ],
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": [
+        "283",
+        0
+      ],
+      "model": [
+        "117",
+        0
+      ],
+      "positive": [
+        "225",
+        0
+      ],
+      "negative": [
+        "222",
+        0
+      ],
+      "latent_image": [
+        "276",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "283": {
+    "inputs": {
+      "float": 1
+    },
+    "class_type": "Primitive float [Crystools]",
+    "_meta": {
+      "title": "Strength"
+    }
+  }
+}

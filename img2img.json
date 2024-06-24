@@ -1,0 +1,215 @@
+{
+  "28": {
+    "inputs": {
+      "ratio": 0.25,
+      "model": [
+        "99",
+        0
+      ]
+    },
+    "class_type": "TomePatchModel",
+    "_meta": {
+      "title": "TomePatchModel"
+    }
+  },
+  "37": {
+    "inputs": {
+      "cache_interval": 3,
+      "cache_depth": 2,
+      "start_step": 0,
+      "end_step": 1000,
+      "model": [
+        "28",
+        0
+      ]
+    },
+    "class_type": "DeepCache",
+    "_meta": {
+      "title": "Deep Cache"
+    }
+  },
+  "64": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "100",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "70": {
+    "inputs": {
+      "images": [
+        "100",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "84": {
+    "inputs": {
+      "width": 768,
+      "height": 1024,
+      "batch_size": 4
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "94": {
+    "inputs": {
+      "lora_01": "None",
+      "strength_01": 1,
+      "lora_02": "None",
+      "strength_02": 1,
+      "lora_03": "None",
+      "strength_03": 1,
+      "lora_04": "None",
+      "strength_04": 1,
+      "model": [
+        "37",
+        0
+      ],
+      "clip": [
+        "99",
+        1
+      ]
+    },
+    "class_type": "Lora Loader Stack (rgthree)",
+    "_meta": {
+      "title": "Lora Loader Stack (rgthree)"
+    }
+  },
+  "99": {
+    "inputs": {
+      "ckpt_name": "zonkeyRealism_v40.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "100": {
+    "inputs": {
+      "samples": [
+        "116",
+        0
+      ],
+      "vae": [
+        "99",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "101": {
+    "inputs": {
+      "text": "(source_anime, source_cartoon, panels, score_1, hands, daz_studio, blender, source_filmmaker, 3d, sfm, winking)+++, logo, (gpo, aca, aer, api, fla, gcx, hll, hnj, gpc, fii, fey, fbv, evg, iew, ifl, igh, iwj, iwp, ixb, ixe, ixz, jaf, jbm, jfb, jsf, jyk, kmz, ksh, kxg, kzg, lbv, zac, yle, zmj, szw, uiw, vfe, par, pdl, qdl, mbo, mtd, gor, bhz, dit, frw, fnaf, bmo, zbi)---",
+      "token_normalization": "length+mean",
+      "weight_interpretation": "compel",
+      "clip": [
+        "94",
+        1
+      ]
+    },
+    "class_type": "BNK_CLIPTextEncodeAdvanced",
+    "_meta": {
+      "title": "CLIP Text Encode (Advanced)"
+    }
+  },
+  "102": {
+    "inputs": {
+      "text": "(real life)+++, cinematic still, solo, 1girl, big breasts, nude+++",
+      "token_normalization": "length+mean",
+      "weight_interpretation": "compel",
+      "clip": [
+        "94",
+        1
+      ]
+    },
+    "class_type": "BNK_CLIPTextEncodeAdvanced",
+    "_meta": {
+      "title": "CLIP Text Encode (Advanced)"
+    }
+  },
+  "112": {
+    "inputs": {
+      "amount": 4,
+      "samples": [
+        "130",
+        0
+      ]
+    },
+    "class_type": "RepeatLatentBatch",
+    "_meta": {
+      "title": "Repeat Latent Batch"
+    }
+  },
+  "116": {
+    "inputs": {
+      "seed": 948280133841285,
+      "steps": 40,
+      "cfg": 5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 0.6,
+      "model": [
+        "94",
+        0
+      ],
+      "positive": [
+        "102",
+        0
+      ],
+      "negative": [
+        "101",
+        0
+      ],
+      "latent_image": [
+        "112",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "129": {
+    "inputs": {
+      "image": "image0.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "130": {
+    "inputs": {
+      "pixels": [
+        "129",
+        0
+      ],
+      "vae": [
+        "99",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import load_models
-from diffusers import EulerAncestralDiscreteScheduler, DPMSolverMultistepScheduler
+from diffusers import EulerAncestralDiscreteScheduler, DPMSolverMultistepScheduler, DDIMScheduler
 from main import txt2img_models, img2img_models, txt2video_models, inpainting_models, openpose_models
 
 from DeepCache import DeepCacheSDHelper
@@ -12,6 +12,29 @@ from DeepCache import DeepCacheSDHelper
 #     )
 #     model_dict[data['model']]['helper'].enable()
 
+schedulers = {
+    "eulera": {"scheduler": EulerAncestralDiscreteScheduler, "use_karras_sigmas": False},
+    "eulera_karras": {"scheduler": EulerAncestralDiscreteScheduler, "use_karras_sigmas": True},
+    "dpm": {"scheduler": DPMSolverMultistepScheduler, "use_karras_sigmas": False},
+    "dpm_karras": {"scheduler": DPMSolverMultistepScheduler, "use_karras_sigmas": True},
+    "ddim": {"scheduler": DDIMScheduler, "use_karras_sigmas": False},
+    "ddim_karras": {"scheduler": DDIMScheduler, "use_karras_sigmas": True},
+}
+
+def set_scheduler(pipeline, data):
+    # if the scheduler isnt in the schedulers, use the default scheduler (eulera):
+    if data['scheduler'] not in schedulers:
+        data['scheduler'] = "eulera"
+        
+    scheduler = schedulers[data['scheduler']]
+    
+    pipeline.scheduler = scheduler['scheduler'].from_config(pipeline.scheduler.config)
+    if scheduler['use_karras_sigmas']:
+        pipeline.scheduler.use_karras_sigmas = True
+        
+    return pipeline
+    
+
 def txt2img(name, data):
     model_info = txt2img_models[name]
     
@@ -23,12 +46,15 @@ def txt2img(name, data):
         model_info = txt2img_models[name]
         
     pipeline = model_info['loaded']
+    
+    # set the scheduler:
+    pipeline = set_scheduler(pipeline, data)
         
-    if data['scheduler'] == "eulera":
-        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
-    if data['scheduler'] == "dpm":
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
-        pipeline.scheduler.use_karras_sigmas = True
+    # if data['scheduler'] == "eulera":
+    #     pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+    # if data['scheduler'] == "dpm":
+    #     pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+    #     pipeline.scheduler.use_karras_sigmas = True
                     
     return pipeline
 
@@ -45,11 +71,7 @@ def img2img(name, data):
         
     pipeline = model_info['loaded']
         
-    if data['scheduler'] == "eulera":
-        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
-    if data['scheduler'] == "dpm":
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
-        pipeline.scheduler.use_karras_sigmas = True
+    pipeline = set_scheduler(pipeline, data)
                 
     return model_info['loaded']
 
@@ -66,11 +88,7 @@ def inpainting(name, data):
         
     pipeline = model_info['loaded']
         
-    if data['scheduler'] == "eulera":
-        pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
-    if data['scheduler'] == "dpm":
-        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
-        pipeline.scheduler.use_karras_sigmas = True
+    pipeline = set_scheduler(pipeline, data)
                    
     return model_info['loaded']
 

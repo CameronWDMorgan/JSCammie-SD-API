@@ -30,7 +30,7 @@ collection = db.userGenerations
 
 
 
-async def insert_image_hashes(image_hashes, metadata):
+async def insert_image_hashes(image_hashes, metadata, image_hash_mongo, image_results):
     insert_query = """ INSERT INTO hashes (hash, prompt, negative_prompt, seed, cfg, model, created_date) VALUES (%s, %s, %s, %s, %s, %s, %s) """
     values = [
         (
@@ -51,55 +51,58 @@ async def insert_image_hashes(image_hashes, metadata):
                 # Insert into PostgreSQL
                 await acur.executemany(insert_query, values)
                 await aconn.commit()
-                
-        aiData = {
-            "prompt": str(metadata['prompt']),
-            "negativeprompt": str(metadata['negative_prompt']),
-            "aspectRatio": str(metadata['aspect_ratio']),
-            "model": str(metadata['model']),
-            "loras": str(metadata['lora']),
-            "lora_strengths": str(metadata['lora_strengths']),
-            "steps": str(metadata['steps']),
-            "quantity": str(metadata['image_count']),
-            "cfg": str(metadata['guidance']),
-            "seed": str(metadata['og_seed']),
-        }
+    except Exception as e:
+        logging.error(str(e))
+        
+    try:
 
         # convert aiData to a yaml string like this javascript code:
-        # let yamlString = `prompt: ${aiData.prompt}\nnegativeprompt: ${aiData.negativeprompt}\naspectRatio: ${aiData.aspectRatio}\nmodel: ${aiData.model}\nloras: ${aiData.loras}\nlora_strengths: ${aiData.lora_strengths}\nsteps: ${aiData.steps}\nquantity: ${aiData.quantity}\ncfg: ${aiData.cfg}\nseed: ${aiData.seed}`
-        
-        yamlString = f"prompt: {aiData['prompt']}\nnegativeprompt: {aiData['negativeprompt']}\naspectRatio: {aiData['aspectRatio']}\nmodel: {aiData['model']}\nloras: {aiData['loras']}\nlora_strengths: {aiData['lora_strengths']}\nsteps: {aiData['steps']}\nquantity: {aiData['quantity']}\ncfg: {aiData['cfg']}\nseed: {aiData['seed']}"
-
         # Insert into MongoDB
         documents = [
             {
-                "hash": str(image_hashes[i]),
+                "hash": str(image_hash_mongo[i]),
                 "request_type": str(metadata['request_type']),
                 "prompt": str(metadata['prompt']),
                 "negative_prompt": str(metadata['negative_prompt']),
+                "aspectRatio": str(metadata['aspect_ratio']),
                 "seed": str(metadata['seedNumber']),
                 "loras": str(metadata['lora']),
                 "lora_strengths": str(metadata['lora_strengths']),
                 "cfg": str(metadata['guidance']),
                 "model": str(metadata['model']),
                 "timestamp": time.time(),
-                "aiData": yamlString
             }
             for i in range(int(metadata['image_count']))
         ]
         result = await collection.insert_many(documents)
         print(f"Inserted {len(result.inserted_ids)} documents into MongoDB.")
     except Exception as e:
-        logging.error(str(e))
-        
-        
-        
-        
-        
-        
-        
-        
+        logging.error(str(e)) 
 
+
+import numpy as np
+
+async def process_images_and_store_hashes(image_results, metadata):
+    print("Processing images and storing hashes")
+    image_hashes_mongo = []
+    image_hashes = []
+    for image in image_results:
+        # Extracting hashes
+        image_hash = imagehash.average_hash(image, 8)
+        image_hash = await twos_complement(str(image_hash), 64)
+        
+        image_hash_mongo = imagehash.average_hash(image, 64).hash
+
+        # Converting numpy array of booleans to integer
+        image_hash_mongo = int(''.join(map(str, image_hash_mongo.flatten().astype(int))), 2)
+
+        image_hashes.append(image_hash)
+        image_hashes_mongo.append(image_hash_mongo)
+
+    try:
+        await insert_image_hashes(image_hashes, metadata, image_hashes_mongo, image_results)
+    except Exception as e:
+        logging.error(str(e))
 
 async def twos_complement(hexstr, bits):
     value = int(hexstr, 16)  # convert hexadecimal to integer
@@ -108,17 +111,3 @@ async def twos_complement(hexstr, bits):
     if value & (1 << (bits - 1)):
         value -= 1 << bits
     return value
-
-
-async def process_images_and_store_hashes(image_results, metadata):
-    print("Processing images and storing hashes")
-    image_hashes = []
-    for image in image_results:
-        image_hash = imagehash.average_hash(image, 8)
-        image_hash = await twos_complement(str(image_hash), 64)
-        image_hashes.append(image_hash)
-
-    try:
-        await insert_image_hashes(image_hashes, metadata)
-    except Exception as e:
-        logging.error(str(e))

@@ -5,7 +5,7 @@ import hidiffusion
 import torch
 import tomesd
 
-from main import txt2img_models, img2img_models, txt2video_models, inpainting_models, openpose_models
+from main import model_move_manual
 
 from hidiffusion import apply_hidiffusion
 
@@ -44,19 +44,37 @@ def txt2img(name, data, model_path):
     if name.startswith("sdxl-"):
         pipeline = diffusers.StableDiffusionXLPipeline.from_single_file(
             model_path,
-            torch_dtype=torch_dtype
+            torch_dtype=torch_dtype,
         )
     else:
         pipeline = diffusers.StableDiffusionPipeline.from_single_file(
             model_path,
             torch_dtype=torch_dtype,
-            safety_checker=None
+            safety_checker=None,
         )
+    
+    # if name.startswith("sdxl-"):
+    #     pipeline = diffusers.DiffusionPipeline.from_pretrained(
+    #         'models/saved/' + name,
+    #         torch_dtype=torch_dtype
+    #     )
+    # else:
+    #     pipeline = diffusers.DiffusionPipeline.from_pretrained(
+    #         'models/saved/' + name,
+    #         torch_dtype=torch_dtype,
+    #         safety_checker=None
+    #     )
 
-    if data['gpu_id'] == 1:
-        pipeline.to('cuda:1')
-    if data['gpu_id'] == 0:
-        pipeline.to('cuda:0')
+    if model_move_manual:
+        if data['gpu_id'] == 1:
+            pipeline.to('cuda:1')
+        if data['gpu_id'] == 0:
+            pipeline.to('cuda:0')
+    else:
+        if data['gpu_id'] == 1:
+            pipeline.enable_model_cpu_offload(gpu_id=1)
+        if data['gpu_id'] == 0:
+            pipeline.enable_model_cpu_offload(gpu_id=0)
 
     enable_deep_cache(pipeline)
                 
@@ -99,16 +117,27 @@ def img2img(name, data, model_path):
     if name.startswith("sdxl-"):
         pipeline = diffusers.StableDiffusionXLImg2ImgPipeline.from_single_file(
             model_path,
-            torch_dtype=torch_dtype
+            torch_dtype=torch_dtype,
         )
     else:
         pipeline = diffusers.StableDiffusionImg2ImgPipeline.from_single_file(
             model_path,
             torch_dtype=torch_dtype,
-            safety_checker=None
+            safety_checker=None,
         )
 
-    pipeline.enable_model_cpu_offload(gpu_id=int(data['gpu_id']))
+    if model_move_manual:
+        if data['gpu_id'] == 1:
+            pipeline.to('cuda:1')
+        if data['gpu_id'] == 0:
+            pipeline.to('cuda:0')
+    else:
+        if data['gpu_id'] == 1:
+            pipeline.enable_model_cpu_offload(gpu_id=1)
+        if data['gpu_id'] == 0:
+            pipeline.enable_model_cpu_offload(gpu_id=0)
+
+    enable_deep_cache(pipeline)
                 
     pipeline = load_embeddings(pipeline, name)
     
@@ -131,16 +160,29 @@ def inpainting(name, data, model_path):
     if name.startswith("sdxl-"):
         pipeline = diffusers.StableDiffusionXLInpaintPipeline.from_single_file(
             model_path,
-            torch_dtype=torch_dtype
+            torch_dtype=torch_dtype,
+            num_in_channels=4,
         )
     else:
         pipeline = diffusers.StableDiffusionInpaintPipeline.from_single_file(
             model_path,
             torch_dtype=torch_dtype,
-            safety_checker=None
+            safety_checker=None,
+            num_in_channels=4,
         )
 
-    pipeline.enable_model_cpu_offload(gpu_id=int(data['gpu_id']))
+    if model_move_manual:
+        if data['gpu_id'] == 1:
+            pipeline.to('cuda:1')
+        if data['gpu_id'] == 0:
+            pipeline.to('cuda:0')
+    else:
+        if data['gpu_id'] == 1:
+            pipeline.enable_model_cpu_offload(gpu_id=1)
+        if data['gpu_id'] == 0:
+            pipeline.enable_model_cpu_offload(gpu_id=0)
+
+    enable_deep_cache(pipeline)
                 
     pipeline = load_embeddings(pipeline, name)
     
