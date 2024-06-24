@@ -72,3 +72,6 @@ process_images/
 generations/
 vaes/
 embeddings/
+lora_weights copy 2.yaml
+lora_weights copy 3.yaml
+lora_weights copy.yaml
