@@ -64,4 +64,5 @@ processed_slice0-4.png
 lpw_stable_diffusion_xl.py
 .venv/
 lora-gui/
+gui-gui/
 embeddings/
