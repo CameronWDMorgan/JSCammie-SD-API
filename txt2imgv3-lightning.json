@@ -18,8 +18,13 @@
         "type": "PowerLoraLoaderHeaderWidget"
       },
       "lora_1": {
-        "on": false,
-        "lora": "sdxl\\style\\cutestylemix.safetensors",
+        "on": true,
+        "lora": "lightning\\sdxl_lightning_8step_lora.safetensors",
+        "strength": 1
+      },
+      "lora_2": {
+        "on": true,
+        "lora": "sdxl\\style\\Akami_Mirai_Pony.safetensors",
         "strength": 1
       },
       "➕ Add Lora": "",
@@ -28,7 +33,7 @@
         0
       ],
       "clip": [
-        "288",
+        "260",
         1
       ]
     },
@@ -44,7 +49,7 @@
         0
       ],
       "vae": [
-        "288",
+        "260",
         2
       ]
     },
@@ -67,7 +72,7 @@
   },
   "212": {
     "inputs": {
-      "string": "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt, at beach"
+      "string": "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), large breasts, thick thighs, blue slingshot bikini, looking at viewer, by akami mirai, at beach"
     },
     "class_type": "Primitive string multiline [Crystools]",
     "_meta": {
@@ -150,7 +155,7 @@
       "downsample_factor_depth_1": 2,
       "downsample_factor_depth_2": 1,
       "model": [
-        "288",
+        "260",
         0
       ]
     },
@@ -161,16 +166,25 @@
   },
   "256": {
     "inputs": {
-      "int": 1
+      "int": 4
     },
     "class_type": "Primitive integer [Crystools]",
     "_meta": {
       "title": "Quantity"
     }
   },
+  "260": {
+    "inputs": {
+      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
   "266": {
     "inputs": {
-      "float": 4
+      "float": 3
     },
     "class_type": "Primitive float [Crystools]",
     "_meta": {
@@ -188,7 +202,7 @@
   },
   "270": {
     "inputs": {
-      "int": 20
+      "int": 10
     },
     "class_type": "Primitive integer [Crystools]",
     "_meta": {
@@ -226,7 +240,7 @@
         0
       ],
       "sampler_name": "euler_ancestral",
-      "scheduler": "normal",
+      "scheduler": "simple",
       "denoise": [
         "283",
         0
@@ -271,17 +285,6 @@
     "class_type": "EmptyLatentImage",
     "_meta": {
       "title": "Empty Latent Image"
-    }
-  },
-  "288": {
-    "inputs": {
-      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors",
-      "key_opt": "",
-      "mode": "Auto"
-    },
-    "class_type": "CheckpointLoaderSimpleShared //Inspire",
-    "_meta": {
-      "title": "Shared Checkpoint Loader (Inspire)"
     }
   }
 }

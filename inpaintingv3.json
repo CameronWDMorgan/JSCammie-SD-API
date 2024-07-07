@@ -19,16 +19,16 @@
       },
       "lora_1": {
         "on": false,
-        "lora": "None",
+        "lora": "sdxl\\style\\cutestylemix.safetensors",
         "strength": 1
       },
       "➕ Add Lora": "",
       "model": [
-        "233",
+        "230",
         0
       ],
       "clip": [
-        "260",
+        "288",
         1
       ]
     },
@@ -44,7 +44,7 @@
         0
       ],
       "vae": [
-        "260",
+        "288",
         2
       ]
     },
@@ -67,7 +67,7 @@
   },
   "212": {
     "inputs": {
-      "string": "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt"
+      "string": "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt, at beach"
     },
     "class_type": "Primitive string multiline [Crystools]",
     "_meta": {
@@ -150,7 +150,7 @@
       "downsample_factor_depth_1": 2,
       "downsample_factor_depth_2": 1,
       "model": [
-        "260",
+        "288",
         0
       ]
     },
@@ -159,43 +159,18 @@
       "title": "ToDo: Token Dowsampling"
     }
   },
-  "233": {
-    "inputs": {
-      "cache_interval": 3,
-      "cache_depth": 2,
-      "start_step": 0,
-      "end_step": 1000,
-      "model": [
-        "230",
-        0
-      ]
-    },
-    "class_type": "DeepCache",
-    "_meta": {
-      "title": "Deep Cache"
-    }
-  },
   "256": {
     "inputs": {
-      "int": 4
+      "int": 1
     },
     "class_type": "Primitive integer [Crystools]",
     "_meta": {
       "title": "Quantity"
     }
   },
-  "260": {
-    "inputs": {
-      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors"
-    },
-    "class_type": "CheckpointLoaderSimple",
-    "_meta": {
-      "title": "Load Checkpoint"
-    }
-  },
   "266": {
     "inputs": {
-      "float": 5
+      "float": 4
     },
     "class_type": "Primitive float [Crystools]",
     "_meta": {
@@ -213,7 +188,7 @@
   },
   "270": {
     "inputs": {
-      "int": 40
+      "int": 20
     },
     "class_type": "Primitive integer [Crystools]",
     "_meta": {
@@ -227,55 +202,13 @@
         0
       ],
       "samples": [
-        "280",
+        "292",
         0
       ]
     },
     "class_type": "RepeatLatentBatch",
     "_meta": {
       "title": "Repeat Latent Batch"
-    }
-  },
-  "277": {
-    "inputs": {
-      "image": "example.png",
-      "upload": "image"
-    },
-    "class_type": "LoadImage",
-    "_meta": {
-      "title": "Base Image"
-    }
-  },
-  "279": {
-    "inputs": {
-      "image": "example.png",
-      "channel": "red",
-      "upload": "image"
-    },
-    "class_type": "LoadImageMask",
-    "_meta": {
-      "title": "Inpainting Mask"
-    }
-  },
-  "280": {
-    "inputs": {
-      "grow_mask_by": 16,
-      "pixels": [
-        "277",
-        0
-      ],
-      "vae": [
-        "260",
-        2
-      ],
-      "mask": [
-        "279",
-        0
-      ]
-    },
-    "class_type": "VAEEncodeForInpaint",
-    "_meta": {
-      "title": "VAE Encode (for Inpainting)"
     }
   },
   "282": {
@@ -292,7 +225,7 @@
         "266",
         0
       ],
-      "sampler_name": "euler",
+      "sampler_name": "euler_ancestral",
       "scheduler": "normal",
       "denoise": [
         "283",
@@ -327,6 +260,59 @@
     "class_type": "Primitive float [Crystools]",
     "_meta": {
       "title": "Strength"
+    }
+  },
+  "288": {
+    "inputs": {
+      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors",
+      "key_opt": "",
+      "mode": "Auto"
+    },
+    "class_type": "CheckpointLoaderSimpleShared //Inspire",
+    "_meta": {
+      "title": "Shared Checkpoint Loader (Inspire)"
+    }
+  },
+  "289": {
+    "inputs": {
+      "image": "4aeee032a98b6b03a21ba09723b21897.mp4",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "291": {
+    "inputs": {
+      "image": "4aeee032a98b6b03a21ba09723b21897.mp4",
+      "channel": "red",
+      "upload": "image"
+    },
+    "class_type": "LoadImageMask",
+    "_meta": {
+      "title": "Load Image (as Mask)"
+    }
+  },
+  "292": {
+    "inputs": {
+      "grow_mask_by": 16,
+      "pixels": [
+        "289",
+        0
+      ],
+      "vae": [
+        "288",
+        2
+      ],
+      "mask": [
+        "291",
+        0
+      ]
+    },
+    "class_type": "VAEEncodeForInpaint",
+    "_meta": {
+      "title": "VAE Encode (for Inpainting)"
     }
   }
 }

@@ -1,5 +1,4 @@
 import base64
-import math
 from flask import Flask, request, jsonify, send_file
 import logging
 from flask_cors import CORS
@@ -7,62 +6,25 @@ import io
 import random
 import json
 import threading
-import imageio
+import requests
 import yaml
 import uuid
-import torch
-
-print(f"Number of CUDA devices: {torch.cuda.device_count()}")
-
-print(f"Clearing CUDA cache")
-
-# print memory usage before clearing cache:
-print(f"Memory Allocated: {torch.cuda.memory_allocated() / 1024 ** 3:.2f} GB")
-print(f"Max Memory Allocated: {torch.cuda.max_memory_allocated() / 1024 ** 3:.2f} GB")
-print(f"Memory Cached: {torch.cuda.memory_reserved() / 1024 ** 3:.2f} GB")
-print(f"Max Memory Cached: {torch.cuda.max_memory_reserved() / 1024 ** 3:.2f} GB")
-
-model_move_manual = True
-
-# torch.cuda.empty_cache()
-# torch.cuda.reset_peak_memory_stats()
-# torch.cuda.reset_max_memory_allocated()
-# torch.cuda.reset_max_memory_cached()
-
-import tomesd
-from diffusers import AutoencoderKL, AutoPipelineForInpainting, AutoPipelineForImage2Image, AutoPipelineForText2Image, StableDiffusionXLPipeline, StableDiffusionXLInpaintPipeline, AnimateDiffPipeline, MotionAdapter, ControlNetModel, StableDiffusionUpscalePipeline, StableDiffusionPipeline, DiffusionPipeline, StableDiffusionImg2ImgPipeline, DPMSolverMultistepScheduler, EulerAncestralDiscreteScheduler, StableDiffusionInpaintPipeline, StableDiffusionControlNetPipeline
-from diffusers.utils import load_image, export_to_gif
-from diffusers.models.attention_processor import AttnProcessor2_0
 import time
 from io import BytesIO
-import accelerate
-
-from compel import Compel, ReturnedEmbeddingsType
-
 from moviepy.editor import ImageSequenceClip
-
-
 from concurrent.futures import ThreadPoolExecutor
-
-from controlnet_aux import OpenposeDetector
-
+from PIL import Image, ImageDraw, ImageFont, PngImagePlugin
 import numpy as np
-
 import os
 import datetime
 import asyncio
-
 import DB
-
+from pathlib import Path
 
 global hash_queue_busy
 global hash_queue
 
 hash_queue = []
-
-os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
-# os.environ['PYTORCH_CUDA_ALLOC_CONF'] = "expandable_segments:True "
-# os.environ['CUDA_VISIBLE_DEVICES'] = "0,1"
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -118,157 +80,20 @@ average_queue_times = []
 
 try:
     
-    # Model Loading
-    
-    inpainting_models = {
-        'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
-        'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
-        'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
-        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
-        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
+    # Model settings
+    diffusion_models = {
+        'realisticVision': {'model_path': config["realisticVision_model_path"]},
+        'fluffysonic': {'model_path': config["fluffysonic_model_path"]},
+        'furryblend': {'model_path': config["furryblend_model_path"]},
+        'sdxl-ponydiffusion': {'model_path': config["sdxl_ponydiffusion_model_path"]},
+        'sdxl-autismmix': {'model_path': config["sdxl_autismmix_model_path"]},
+        'sdxl-sonichasautismmix': {'model_path': config["sdxl_sonichasautismmix_model_path"]},
+        'sdxl-ponyrealism': {'model_path': config["sdxl_ponyrealism_model_path"]},
+        'sd3-medium': {'model_path': config["sd3_medium_model_path"]},
     }
-
-    txt2img_models = {
-        'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
-        'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
-        'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
-        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
-        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
-    }
-    
-    img2img_models = {
-        'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
-        'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
-        'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
-        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
-        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
-    }
-    
-    txt2video_models = {
-        'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
-        'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
-        'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
-        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
-        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
-    }
-    
-    openpose_models = {
-        'sonicdiffusion': {'loaded':None, 'model_path': config['sonicdiffusion_model_path']},
-        'realisticVision': {'loaded':None, 'model_path': config["realisticVision_model_path"], 'helper':None},
-        'fluffysonic': {'loaded':None, 'model_path': config["fluffysonic_model_path"]},
-        'furryblend': {'loaded':None, 'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'loaded':None, 'model_path': config["sdxl_ponydiffusion_model_path"]},
-        'sdxl-autismmix': {'loaded':None, 'model_path': config["sdxl_autismmix_model_path"]},
-        'sdxl-zonkey': {'loaded':None, 'model_path': config["sdxl_zonkey_model_path"]},
-        'sdxl-sonicdiffusion': {'loaded':None, 'model_path': config["sdxl_sonicdiffusion_model_path"]},
-    }
-    
-    # pre-load all the models on startup:
-    
-    # model_info = txt2img_models[name]
-    
-    # if model_info['loaded'] is None:
-    #     model_info['loaded'] = load_models.txt2img(name, data, model_info['model_path'])
-        
-    # for each model in txt2img_models that doesnt have a save_pretrained folder, create one by using StableDiffusionPipeline, loading the model and using the name as the final folder:
-    # for model_name, model_info in txt2img_models.items():
-    #     if not os.path.exists('./models/' + model_name):
-    #         print("Creating folder for " + model_name)
-    #         try:
-    #             if model_name.startswith("sdxl-"):
-    #                 pipeline = StableDiffusionXLPipeline.from_single_file(
-    #                     model_info['model_path'],
-    #                     torch_dtype=torch.float16,
-    #                     revision="fp16",
-    #                     # feature_extractor=None,
-    #                     # requires_safety_checker=False,
-    #                     # cache_dir="",
-    #                     # load_safety_checker=False,
-    #                 )
-    #                 pipeline.save_pretrained('./models/' + model_name)
-    #             else:
-    #                 pipeline = StableDiffusionPipeline.from_single_file(
-    #                     model_info['model_path'],
-    #                     torch_dtype=torch.float16,
-    #                     revision="fp16",
-    #                     safety_checker=None,
-    #                     feature_extractor=None,
-    #                     requires_safety_checker=False,
-    #                     cache_dir="",
-    #                     load_safety_checker=False,
-    #                 )
-    #                 pipeline.save_pretrained('./models/' + model_name)
-    #         except Exception as e:
-    #             print(f"Failed to load the model: {e}")
-    #             raise
-
-    # updated model preloading and saving:
-    # for model_name, model_info in txt2img_models.items():
-    #     if not os.path.exists('./models/saved/' + model_name):
-    #         print("Creating folder for " + model_name)
-    #         try:
-    #             if model_name.startswith("sdxl-"):
-    #                 pipeline = StableDiffusionXLPipeline.from_single_file(
-    #                     model_info['model_path'],
-    #                     torch_dtype=torch.float16,
-    #                     revision="fp16",
-    #                 )
-    #                 pipeline.save_pretrained('./models/saved/' + model_name)
-    #             else:
-    #                 pipeline = StableDiffusionPipeline.from_single_file(
-    #                     model_info['model_path'],
-    #                     torch_dtype=torch.float16,
-    #                     revision="fp16",
-    #                     safety_checker=None,
-    #                 )
-    #                 pipeline.save_pretrained('./models/saved/' + model_name)
-
-    #             # delete the pipeline to free up memory and clear caches:
-    #             del pipeline
-    #             torch.cuda.empty_cache()
-    #             torch.cuda.reset_peak_memory_stats()
-    #             torch.cuda.reset_max_memory_allocated()
-    #             torch.cuda.reset_max_memory_cached()
-
-    #         except Exception as e:
-    #             print(f"Failed to load the model: {e}")
-    #             raise
-                
-    torch.backends.cuda.matmul.allow_tf32 = True
-    torch.set_float32_matmul_precision("high")
-    torch.backends.cudnn.allow_tf32 = True
-    torch.backends.cudnn.benchmark = True
-    
-    import load_models
-    import get_models
 
 except Exception as e:
     raise
-
-
-    
-
-
-
-
-
-
-
-
-
-from pathlib import Path
 
 def load_yaml():
     global lora_weights_map
@@ -306,17 +131,17 @@ def monitor_yaml_file():
 # Start the thread to update the lora_weights_map
 threading.Thread(target=update_lora_weights_map, daemon=True).start()
 
+def round_to_multiple_of_eight(number):
+    """Round a number to the nearest multiple of 8."""
+    # print("Rounding to multiple of 8: ", number)
+    return round(number / 8) * 8
+
 app = Flask(__name__)
 CORS(app)
-
-from flask import jsonify
 
 @app.route('/get-lora-yaml', methods=['GET'])
 def get_lora_yaml():
     return jsonify(lora_weights_map)
-
-
-from PIL import Image, ImageDraw, ImageFont, PngImagePlugin
 
 def add_watermark(image, text, data):
     
@@ -407,7 +232,7 @@ import re
 # Updated pattern to include optional minus sign before the number
 loraPattern = re.compile(r"(style|effect|concept|clothing|character|pose|background)-([a-zA-Z0-9]+):(-?[0-9.]+)")
 
-def load_loras(request_id, current_model, lora_items, data):
+def load_loras(request_id, lora_items, data):
     
     start_time = time.time()
     
@@ -427,13 +252,8 @@ def load_loras(request_id, current_model, lora_items, data):
         print(f"Error parsing prompt for Lora settings: {e}")
         log_error(f"Error parsing prompt for Lora settings: {e}", data)
         lora_settings = {}
-
-    
-    
-    # print(f"Cleaned Prompt: {data['prompt']}\n")
-    
-    adapter_name_list = []
-    adapter_weights_list = []
+        
+    data['loras_data'] = {}
 
     for item in lora_items:
         time.sleep(0.01)
@@ -443,6 +263,7 @@ def load_loras(request_id, current_model, lora_items, data):
 
             if lora_data:
                 print(f"data['lora_strengths'] = {data['lora_strengths']}")
+                # append [key, strength] to the lora_strengths list:
                 if data['lora_strengths'] and len(data['lora_strengths']) == len(lora_items):
                     # print(f"data['lora_strengths'] = {data['lora_strengths']}")
                     # set the strength to the value in the data['lora_strengths'] list if it exists, else set it to the value in the lora_data dict:
@@ -452,20 +273,12 @@ def load_loras(request_id, current_model, lora_items, data):
                     strength = lora_settings.get(item, lora_data.get('strength', 1.0))
                     data['lora_strengths'].append(strength)
                 
-                
-                    
                 # print(f"Strength for {item}: {strength}")
 
                 if strength:  # This checks for strength != 0; it will work with negative numbers as well
-
-                    current_model.load_lora_weights(
-                        lora_data['lora'], 
-                        low_cpu_mem_usage=False,
-                        ignore_mismatched_sizes=True,
-                        adapter_name=item
-                    )
-                    adapter_name_list.append(item)
-                    adapter_weights_list.append(strength)
+                    # replace any / with \:
+                    data['loras_data'][item] = lora_data['lora'], strength
+                    
             else:
                 print(f"No data found for {item}")
                 log_error(f"No data found for {item}", data)
@@ -473,264 +286,16 @@ def load_loras(request_id, current_model, lora_items, data):
             print(f"Error processing item '{item}': {e}")
             log_error(f"Error processing item '{item}': {e}", data)
             
-    # print(f"Time taken to fetch loras: {time.time() - start_time:.2f} seconds")
-        
-    set_adapters_start_time = time.time()
-
-    try:
-        print(f"current_model.set_adapters({adapter_name_list}, adapter_weights={adapter_weights_list})")
-        log_error(f"current_model.set_adapters({adapter_name_list}, adapter_weights={adapter_weights_list})", data)
-        current_model.set_adapters(adapter_name_list, adapter_weights=adapter_weights_list)
-        current_model.fuse_lora()
-        
-        # print(f"Time taken to set adapters: {time.time() - set_adapters_start_time:.2f} seconds")
-        
-        return current_model
-    
-    
-    except Exception as e:
-        print(f"Error during model configuration: {e}")
-        log_error(f"Error during model configuration: {e}", data)
-
-def process_image(current_model, model_type, data, request_id):
-    try:
-        
-        # check if the model is on the GPU or CPU and move it to the correct device:
-        
-        generator = torch.Generator(device="cuda:1")
-
-        # generator = torch.Generator(device=f"cuda:{data['gpu_id']}")
-        # if data['gpu_id'] == 1:
-        #     generator = torch.Generator("cuda:1")
-        # else:
-        #     generator = torch.Generator("cuda:0")
-        
-        data['seed'] = generator.manual_seed(data['seedNumber'])
-        
-        with torch.no_grad():
-            if data['model'].startswith("sdxl-"):
-                compel = Compel(tokenizer=[current_model.tokenizer, current_model.tokenizer_2] , text_encoder=[current_model.text_encoder, current_model.text_encoder_2], returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED, requires_pooled=[False, True], truncate_long_prompts=False)
-                conditioning, pooled = compel(data['prompt'])
-                negative_conditioning, negative_pooled = compel(data['negative_prompt'])
-                [conditioning, negative_conditioning] = compel.pad_conditioning_tensors_to_same_length([conditioning, negative_conditioning])
-            else:
-                compel = Compel(tokenizer=current_model.tokenizer, text_encoder=current_model.text_encoder, truncate_long_prompts=False)
-                conditioning = compel(data['prompt'])
-                negative_conditioning = compel(data['negative_prompt'])
-                [conditioning, negative_conditioning] = compel.pad_conditioning_tensors_to_same_length([conditioning, negative_conditioning])
-        
-        if model_type == 'txt2img':
-            if data['model'].startswith("sdxl-"):
-                with torch.no_grad():
-                    outputs = current_model(
-                        prompt_embeds=conditioning,
-                        pooled_prompt_embeds=pooled,
-                        negative_prompt_embeds=negative_conditioning,
-                        negative_pooled_prompt_embeds=negative_pooled,
-                        num_inference_steps=data['steps'],
-                        width=data['width'],
-                        height=data['height'],
-                        guidance_scale=data['guidance'],
-                        generator=data['seed'],
-                        strength=data['strength'],
-                        num_images_per_prompt=data['image_count'],
-                    ).images
-            else:
-                with torch.no_grad():
-                    outputs = current_model(
-                        prompt_embeds=conditioning,
-                        negative_prompt_embeds=negative_conditioning,
-                        num_inference_steps=data['steps'],
-                        width=data['width'],
-                        height=data['height'],
-                        guidance_scale=data['guidance'],
-                        generator=data['seed'],
-                        strength=data['strength'],
-                        num_images_per_prompt=data['image_count'],
-                    ).images
-        elif model_type == 'img2img':
-            if data['model'].startswith("sdxl-"):
-                with torch.no_grad():
-                    outputs = current_model(
-                        prompt_embeds=conditioning,
-                        pooled_prompt_embeds=pooled,
-                        negative_prompt_embeds=negative_conditioning,
-                        negative_pooled_prompt_embeds=negative_pooled,
-                        image=data['image_data'],
-                        num_inference_steps=data['steps'],
-                        width=data['width'],
-                        height=data['height'],
-                        guidance_scale=data['guidance'],
-                        generator=data['seed'],
-                        strength=data['strength'],
-                        num_images_per_prompt=data['image_count'],
-                    ).images
-            else:
-                with torch.no_grad():
-                    outputs = current_model(
-                        prompt_embeds=conditioning,
-                        negative_prompt_embeds=negative_conditioning,
-                        num_inference_steps=data['steps'],
-                        width=data['width'],
-                        height=data['height'],
-                        guidance_scale=data['guidance'],
-                        generator=data['seed'],
-                        strength=data['strength'],
-                        image=data['image_data'],
-                        num_images_per_prompt=data['image_count'],
-                    ).images
-        elif model_type == 'inpainting':
-            if data['model'].startswith("sdxl-"):
-                with torch.no_grad():
-                    outputs = current_model(
-                        prompt_embeds=conditioning,
-                        pooled_prompt_embeds=pooled,
-                        negative_prompt_embeds=negative_conditioning,
-                        negative_pooled_prompt_embeds=negative_pooled,
-                        image=data['image_data'],
-                        mask_image=data['mask_data'],
-                        width=data['width'],
-                        height=data['height'],
-                        guidance_scale=data['guidance'],
-                        generator=data['seed'],
-                        num_images_per_prompt=data['image_count'],
-                        num_inference_steps=data['steps'],
-                        strength=data['strength'],
-                    ).images
-            else:
-                with torch.no_grad():
-                    outputs = current_model(
-                        prompt_embeds=conditioning,
-                        negative_prompt_embeds=negative_conditioning,
-                        image=data['image_data'],
-                        mask_image=data['mask_data'],
-                        width=data['width'],
-                        height=data['height'],
-                        guidance_scale=data['guidance'],
-                        generator=data['seed'],
-                        num_images_per_prompt=data['image_count'],
-                        num_inference_steps=data['steps'],
-                        strength=data['strength'],
-                        ).images
-        # elif model_type == 'controlnet_img2img' or model_type == 'openpose':
-        #     with torch.no_grad():
-        #         outputs = current_model(
-        #             prompt_embeds=conditioning,
-        #             negative_prompt_embeds=negative_conditioning,
-        #             num_inference_steps=data['steps'],
-        #             width=data['width'],
-        #             height=data['height'],
-        #             guidance_scale=data['guidance'],
-        #             generator=data['seed'],
-        #             strength=data['strength'],
-        #             image=data['image_data'],
-        #             num_images_per_prompt=data['image_count'],
-        #         ).images
-        elif model_type == 'txt2video':
-            with torch.no_grad():
-                outputs = current_model(
-                    prompt_embeds=conditioning,
-                    negative_prompt_embeds=negative_conditioning,
-                    width=data['width'],
-                    height=data['height'],
-                    num_inference_steps=data['steps'],
-                    guidance_scale=data['guidance'],
-                    generator=data['seed'],
-                    num_frames=data['video_length'],
-                )
-                
-        # return the model to the CPU if it was on the GPU:
-    
-        return outputs
-                
-            
-
-    except Exception as e:
-
-        if data['gpu_id'] == 1:
-            current_model.to("cpu")
-        if data['gpu_id'] == 0:
-            current_model.to("cpu")
-
-        error_message = str(e)
-        error_message = error_message.replace("'", '"')
-
-        log_error(f"Error processing request: {error_message}", data)
-
-        # check if error message has anywhere in it "is not in list":
-        error_aaaa = False
-        if "is not in list" in error_message:
-            error_aaaa = True
-        if error_message == '"LayerNormKernelImpl" not implemented for "Half"' or error_aaaa:
-            current_model.unload_lora_weights()
-            current_model.unfuse_lora()
-            if data['request_type'] == 'txt2img':
-                txt2img_models[data['model']]['loaded'] = None
-            elif data['request_type'] == 'img2img':
-                img2img_models[data['model']]['loaded'] = None
-            elif data['request_type'] == 'inpainting':
-                inpainting_models[data['model']]['loaded'] = None
-            elif data['request_type'] == 'openpose':
-                openpose_models[data['model']]['loaded'] = None
-            error_message = error_message + " | Model Reloaded"
-        # if the error has "Cannot generate a"
-        if "Cannot generate a" in error_message:
-            current_model.unload_lora_weights()
-            current_model.unfuse_lora()
-            if data['request_type'] == 'txt2img':
-                txt2img_models[data['model']]['loaded'] = None
-            elif data['request_type'] == 'img2img':
-                img2img_models[data['model']]['loaded'] = None
-            elif data['request_type'] == 'inpainting':
-                inpainting_models[data['model']]['loaded'] = None
-            elif data['request_type'] == 'openpose':
-                openpose_models[data['model']]['loaded'] = None
-            error_message = error_message + " | Model Reloaded"
-            
-        print("Error processing request:", error_message)
-        log_error(f"Error processing request: {error_message}", data)
-        results[request_id] = {"status": "error", "message": error_message}
-        
-        return "CONTINUE"
-    
-# model_instance = get_txt2img_model('furry')
-# process_image(model_instance, 'txt2img', {'prompt': '1girl, amy rose, glossy skin, shiny skin, (masterpiece, soft lighting, studio lighting, high quality, high detail, detailed background), in city, neon, glowing, rainging, bright, cute, fluffy, furry, wearing thigh highs, wearing croptop, looking at viewer, tan belly, bloom, bokeh, lens flare, sunlight, rainbow, crowded street path, street light, ', 'negative_prompt': '', 'image_count': 1, 'steps': 20, 'width': 512, 'height': 512, 'guidance': 6, 'seed': generator.manual_seed(69420) }, 'test', save_image=True)
-        
-        
-def is_image_nearly_black(image, threshold=10):
-    """
-    Check if the given image is nearly black.
-    Args:
-    - image (PIL.Image): The image to check.
-    - threshold (int): The threshold for average pixel value to consider as nearly black.
-    Returns:
-    - bool: True if the image is nearly black, else False 
-    """
-    grayscale_image = image.convert("L")
-    np_image = np.array(grayscale_image)
-    avg_pixel_value = np_image.mean()
-    return avg_pixel_value < threshold
-
 def add_metadata(image, metadata, data):
     meta = PngImagePlugin.PngInfo()
    
     for key, value in metadata.items():
         meta.add_text(str(key), str(value))
 
-    
     return meta
 
 
-
-
-
-
-
-
-
-
-
-def save_image(request_id, output_image, model_type, data, image_index=0, font_size=20):
+def save_image(request_id, output_image, model_type, data):
     try:
         # Simplify accountId handling
         accountId_string = "" if data.get('accountId') == "0" else data.get('accountId', '')
@@ -746,44 +311,27 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
             "steps": data['steps'],
             "seed": data['seedNumber'],
             "CFG": data['guidance'],
-            "model": data['model'],
+            "model": data['og_model'],
             "upscaled": data['upscale'],
             "generation_date": datetime.datetime.now().isoformat(),
             "accountId": str(data['accountId']),
             "scheduler": data['scheduler']
         }
 
-        # Add watermark, if applicable
-        if model_type != "txt2video":
-            # watermarks = ["JSCammie.com", "Cammie.ai", "Check out mobians.ai!", "In femboys we trust", "NeverSFW.gg"]
-            # watermarks_chances = [0.5, 0.1, 0.1, 0.1, 0.1]
-            # watermark_text = random.choices(watermarks, watermarks_chances)[0]
-            watermark_text = "JSCammie.com"
-            watermarked_image = add_watermark(output_image, watermark_text, data)
-            meta = add_metadata(watermarked_image, metadata, data)
-            buffered = io.BytesIO()
-            watermarked_image.save(buffered, format="PNG", pnginfo=meta)
-            img_str = base64.b64encode(buffered.getvalue()).decode()
-        else:
-            img_str = data['video_string']
+        # watermarks = ["JSCammie.com", "Cammie.ai", "Check out mobians.ai!", "In femboys we trust", "NeverSFW.gg"]
+        # watermarks_chances = [0.5, 0.1, 0.1, 0.1, 0.1]
+        # watermark_text = random.choices(watermarks, watermarks_chances)[0]
+        watermark_text = "JSCammie.com"
+        watermarked_image = add_watermark(output_image, watermark_text, data)
+        meta = add_metadata(watermarked_image, metadata, data)
+        buffered = io.BytesIO()
+        watermarked_image.save(buffered, format="PNG", pnginfo=meta)
+        img_str = base64.b64encode(buffered.getvalue()).decode()
             
         if data['save_image'] == True:
             # create dir if you need to:
             os.makedirs("./output_images", exist_ok=True)
-            if model_type != "txt2video":
-                # check if image already exists, if it does, add a number to the end of the filename:
-                # if os.path.exists(f"./output_images/{request_id}.png"):
-                #     i = 1
-                #     while os.path.exists(f"./output_images/{request_id}_{i}.png"):
-                #         i += 1
-                #     watermarked_image.save(f"./output_images/{request_id}_{i}.png", pnginfo=meta)
-                # else:
-                watermarked_image.save(f"./output_images/{request_id}.png", pnginfo=meta)
-            else:
-                with open(f"./output_images/{request_id}.mp4", "wb") as file:
-                    file.write(base64.b64decode(data['video_string']))
-                    
-        
+            watermarked_image.save(f"./output_images/{request_id}.png", pnginfo=meta)
 
         return {
             "width": output_image.width,
@@ -796,414 +344,343 @@ def save_image(request_id, output_image, model_type, data, image_index=0, font_s
         log_error(f"Error saving image: {e}", data)
         return None
 
-
-
-
-
-
-
-
-
-
-
-
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
-def round_to_multiple_of_eight(number):
-    """Round a number to the nearest multiple of 8."""
-    # print("Rounding to multiple of 8: ", number)
-    return round(number / 8) * 8
+# create websocket client:
+import websocket
+server_address = "127.0.0.1:8188"
+
+images_dir = 'C:/Users/anime/Documents/Coding/Stability Matrix/Data/Packages/ComfyUI/output'
 
 
 
+def check_for_image(prompt_id, data):
+    previous_comfyui_response = None
+    
+    def print_response_if_changed(message, comfyui_response):
+        nonlocal previous_comfyui_response
+        if comfyui_response != previous_comfyui_response:
+            print(message, comfyui_response)
+            previous_comfyui_response = comfyui_response
+    
+    while True:
+        time.sleep(0.1)  # Delay to prevent too frequent requests
+        try:
+            # Fetch history or current status of the image generation using the prompt_id
+            response = requests.get(f"http://{server_address}/history/{prompt_id}")
+            comfyui_response = response.json()
+
+            if not comfyui_response:
+                continue
+
+            main_data = comfyui_response.get(prompt_id)
+            if not main_data:
+                continue
+            
+            # Check for status and error messages
+            if main_data['status']['status_str'] == 'error':
+                # log the error:
+                log_error(f"Error detected in response: {comfyui_response}", data)
+                print_response_if_changed("Error detected in response: ", comfyui_response)
+                return None
+            
+            print_response_if_changed("ComfyUI Response: ", comfyui_response)
+
+            # Check if the process is completed
+            status_info = main_data.get('status', {})
+            if status_info.get('completed', False):
+                output_images = []
+                image_data = main_data.get('outputs', {})
+
+                # Assume '64' is the key where image data is stored
+                image_info_64 = image_data.get('64', {}).get('images', [])
+                print("Image Info 64: ", image_info_64)
+
+                for image_info in image_info_64:
+                    image_filename = image_info.get('filename')
+                    if image_filename:
+                        image_path = os.path.join(images_dir, image_filename)
+                        try:
+                            with Image.open(image_path) as img:
+                                output_images.append(img.copy())
+                            print(f"Loaded image {image_path}")
+                        except IOError as img_error:
+                            print(f"Failed to open image {image_path}: {img_error}")
+                
+                if output_images:
+                    print("Images fetched successfully.")
+                    return output_images
+                else:
+                    print("No images were loaded.")
+                    return None
+
+        except Exception as e:
+            print(f"Error checking for image: {e}")
+            return None
+
+    
+    
+    
 
 
-
-def export_to_mp4(pil_images, output_filename, fps=10):
-    """
-    Converts a list of PIL images to an MP4 video file.
-
-    Args:
-    - pil_images: List of PIL Image objects.
-    - output_filename: The name of the output MP4 video file.
-    - fps: Frames per second for the output video.
-    """
-    # Convert PIL images to NumPy arrays
-    image_arrays = [np.array(img) for img in pil_images]
-    
-    # Create a video clip from the image arrays
-    clip = ImageSequenceClip(image_arrays, fps=fps)
-    
-    # Write the video clip to a file
-    clip.write_videofile(output_filename, codec='libx264')
-    
-    # load the video file into memory and return it as a base64 string
-    with open(output_filename, "rb") as file:
-        video_data = file.read()
-        video_base64 = base64.b64encode(video_data).decode("utf-8")
-        
-    return video_base64
-    
-    
-    
-    
-    
 
 def process_request(queue_item):
-    # print("Processing request:", queue_item.request_id)
     try:
-        start_time = time.time()
-        request_id = queue_item.request_id
         data = queue_item.data
+        request_id = queue_item.request_id
         
-        promptString = str(data['prompt'])
+        print("Processing request:", request_id)
         
-        # if prompt is a list then join it into a string:
-        if isinstance(data['prompt'], list):
-            promptString = ' '.join(data['prompt'])
+        start_time = time.time()
+    
+        # comfui generation code here, call localhost:8188/prompt, with data= the custom template with user values:
+        # print("Data: ", data)
         
-        # data on multiple print lines for easier debugging
-        # print("Request Type: " + str(data['request_type']) + " | Model: " + str(data['model']) + " Scheduler: " + str(data['scheduler']) + "\nSteps: " + str(data['steps']) + " | Width: " + str(data['width']) + "px | Height: " + str(data['height']) + "px\nSeed: " + str(data['seedNumber']) + " | Strength: " + str(data['strength']) + " | CFGuidance: " + str(data['guidance']) + " | Image Count: " + str(data['image_count'] )  + "\nPrompt: " + str(promptString) + "\nNegative Prompt: " + str(data['negative_prompt']) + "\nLora: " + str(data['lora']))
-
-        printString = f"""
-            Request Type: {data['request_type']} | Model: {data['model']} | Scheduler: {data['scheduler']} | Steps: {data['steps']} | Width: {data['width']}px | Height: {data['height']}px
-            Seed: {data['seedNumber']} | Strength: {data['strength']} | CFGuidance: {data['guidance']} | Image Count: {data['image_count']} | Aspect Ratio: {data['aspect_ratio']} | Account ID: {data['accountId']}
-        """
+        ckpt_name = diffusion_models[data['model']]['model_path']
         
-        print(printString)
-
-        model_name = data['model']
-        lora = data.get('lora', "NO")
-        model_type = data['request_type']
+        # remove models/ from the ckpt_name:
+        ckpt_name = ckpt_name.replace("models/", "")
         
+        # load it from the json:
+        if data['request_type'] == "txt2img":
+            if data['model'].startswith("sd3"):
+                with open ('SD3-txt2imgv2-1.json', 'r') as f:
+                    # make it a dict:
+                    request_json = json.load(f)
+            else:
+                with open('txt2imgv3.json', 'r') as f:
+                    # make it a dict:
+                    request_json = json.load(f)
+        elif data['request_type'] == "img2img":
+            with open('img2imgv3.json', 'r') as f:
+                # make it a dict:
+                request_json = json.load(f)
+        elif data['request_type'] == "inpainting":
+            with open('inpaintingv3.json', 'r') as f:
+                # make it a dict:
+                request_json = json.load(f)
                 
-        # if model_type is txt2img or img2img, get the model, else get the inpainting model:
-        if model_type == 'txt2img':
-            model = get_models.txt2img(model_name, data)
-        elif model_type == 'img2img':
-            model = get_models.img2img(model_name, data)
-        elif model_type == 'inpainting':
-            model = get_models.inpainting(model_name, data)
-        elif model_type == 'txt2video':
-            model = get_models.txt2video(model_name, data)
-        # elif model_type == 'controlnet_img2img':
-        #     model = get_controlnet_img2img_model(model_name, data)
-        elif model_type == 'openpose':
-            model = get_models.openpose(model_name, data)
-        # elif model_type == 'latent_couple':
-        #     model = get_txt2img_model(model_name, data)
-        #     data['inpainting_original_option'] = True
-        #     inpainting_model = get_inpainting_model(model_name, data)
-        #     img2img_model = get_img2img_model(model_name, data)
-            
-        current_model = model
-            
-        if current_model is not None:
-
-            if model_move_manual:
-                if data['gpu_id'] == 1:
-                    current_model.to("cuda:1")
-                if data['gpu_id'] == 0:
-                    current_model.to("cuda:0")
-
-            current_model.unfuse_lora()
-            current_model.unload_lora_weights()
-            # print(model_type)
-
-            if data['lora_strengths'] == [] or data['lora_strengths'] is None:
-                data['lora_strengths'] = []
-            
-            if data['lora'] is not None and model_type != 'latent_couple':
-                current_model = load_loras(request_id, current_model, lora, data)
-                print("loras loaded successfully")
-            if model_type != 'latent_couple':
-                model_outputs = process_image(current_model, model_type, data, request_id)
+        print("Request JSON 288: ", request_json['288'])
+        request_json['288']['inputs']['ckpt_name'] = ckpt_name
                 
-            if model_move_manual:
-                if data['gpu_id'] == 1:
-                    current_model.to("cpu")
-                if data['gpu_id'] == 0:
-                    current_model.to("cpu")
-
-            # else:
-            #     inpainting_model.unfuse_lora()
-            #     inpainting_model.unload_lora_weights()
-            #     print("Latent Couple Generation Process Started")
-                
-            #     data['quantity'] = 1
-                
-            #     prompt_og = data['prompt']
-                
-            #     data['prompt'] = prompt_og[0]
-                
-            #     load_loras(request_id, inpainting_model, lora, data)
-                
-            #     base_images = process_image(current_model, 'txt2img', data, request_id)  
-                                
-            #     for i, base_image in enumerate(base_images):
-            #         base_image.save(f"base{i}.png")
-            
-            #     if data['steps'] > 50:
-            #         data['steps'] = 50
-                               
-            #     slices = []
-                
-            #     base_image = base_images[0]
-
-            #     for i in range(data['splits']):
-            #         if data['splitType'] == "horizontal":
-            #             slice_width = base_image.width / data['splits']
-            #             overlap_width = slice_width * data['splitOverlap']
-            #             slice_width = round_to_multiple_of_eight(slice_width + overlap_width)
-
-            #             left = i * (base_image.width / data['splits']) - (overlap_width if i > 0 else 0)
-            #             right = left + slice_width
-            #             sliceImageMask = Image.new('RGB', (int(base_image.width), int(base_image.height)), (0, 0, 0))
-            #             round_to_multiple_of_eight(left)
-            #             round_to_multiple_of_eight(right)
-            #             sliceImageMask.paste((255, 255, 255), (int(left), 0, int(right), int(base_image.height)))
-            #             slices.append(sliceImageMask)
-            #         else:  # for vertical split
-            #             slice_height = base_image.height / data['splits']
-            #             overlap_height = slice_height * data['splitOverlap']
-            #             slice_height = round_to_multiple_of_eight(slice_height + overlap_height)
-
-            #             top = i * (base_image.height / data['splits']) - (overlap_height if i > 0 else 0)
-            #             bottom = top + slice_height
-                        
-            #             sliceImageMask = Image.new('RGB', (int(base_image.width), int(base_image.height)), (0, 0, 0))
-            #             round_to_multiple_of_eight(top)
-            #             round_to_multiple_of_eight(bottom)
-            #             sliceImageMask.paste((255, 255, 255), (0, int(top), int(base_image.width), int(bottom)))
-            #             slices.append(sliceImageMask)
-                                                        
-            #     model_outputs = []
-                        
-            #     # Save all the mask slices with random names and process each base image with each mask
-            #     for i, mask_slice in enumerate(slices):
-            #         mask_slice.save(f"slice{i}.png")
-            #         data['mask_data'] = mask_slice
-                    
-            #         data['prompt'] = prompt_og[i + 1]
-            #         print("Prompt: ", data['prompt'])
-                    
-            #         inpainting_model.unfuse_lora()
-            #         inpainting_model.unload_lora_weights()
-                    
-            #         load_loras(request_id, inpainting_model, lora, data)
-
-            #         processed_images_for_this_mask = []
-            #         for j, base_image in enumerate(base_images):
-            #             data['image_data'] = base_image
-            #             output = process_image(inpainting_model, 'inpainting', data, request_id)
-                        
-            #             output[0].save(f"processed_slice{j}-{i}.png")
-
-            #             processed_image = output[0] if isinstance(output, list) else output
-            #             processed_images_for_this_mask.append(processed_image)
-                        
-            #         # Update base_images for the next iteration of mask slices
-            #         base_images = processed_images_for_this_mask
-                    
-            #     data['image_data'] = base_images[0]
-                
-            #     promptString = ""
-                
-            #     for prompt in prompt_og:
-            #         promptString += prompt + " "
-
-            #     with open('latent-loopback-settings.yaml', 'r') as file:
-            #         loopback_data = yaml.safe_load(file)
-                    
-            #     if loopback_data['prompt_override'] is not None:
-            #         data['prompt'] = prompt_og[0]
-            #     else:
-            #         data['prompt'] = promptString
-
-            #     # Access the data
-            #     data['steps'] = loopback_data['steps']
-            #     data['strength'] = loopback_data['strength']
-                
-            #     print("BEFORE IMG2IMG PASS")
-                
-            #     if loopback_data['enabled'] is True:
-            #         img2img_model.unfuse_lora()
-            #         img2img_model.unload_lora_weights()
-            #         print("Unfused and unloaded loras for img2img model")
-            #         load_loras(request_id, img2img_model, lora, data)
-            #         print("Loras loaded for img2img model")
-
-            #         model_outputs = process_image(img2img_model, 'img2img', data, request_id)
-            #     # get the type of model_outputs:
-                
-            #     promptString = ""
-                
-            #     for prompt in prompt_og:
-            #         promptString += prompt + " "
-
-            #     data['prompt'] = promptString       
-            #     data['image_data'] = None      
-
-            if model_outputs == "CONTINUE":
-                error_message = "INPAINTING FAILED"
-                # convert ' to " in the error_message: 
-                print("Error processing request:", error_message)
-                results[request_id] = {"status": "error", "message": error_message}
-                queue_item.status = "error"
-                return "skipped"
-            print("\n")
-            if data['lora'] is not None:
-                current_model.unfuse_lora()
-                current_model.unload_lora_weights()
-            # if model_type == 'latent_couple':
-            #     if data['lora'] is not None:
-            #         inpainting_model.unfuse_lora()
-            #         inpainting_model.unload_lora_weights()
-            #         if loopback_data['enabled'] is True:
-                        # img2img_model.unfuse_lora()
-            #             img2img_model.unload_lora_weights()
-                        
-            if model_outputs is not None:
-                image_data_list = []
-                
-                if model_type == 'txt2video':
-                    model_outputs = model_outputs.frames[0]
-                    
-                # if model_type == 'txt2video':
-                    
-                #     img2img_model_video = get_img2img_model(model_name, data)
-                    
-                #     steps_before = data['steps']
-                #     strength_before = data['strength']
-                    
-                #     data['steps'] = 30
-                #     data['strength'] = 0.1
-                    
-                #     improved_frames = []
-                    
-                #     for img in model_outputs:
-                #         data['image_data'] = img
-                #         output = process_image(img2img_model_video, "img2img", data, request_id)
-                #         improved_frames.append(output[0])
-                        
-                #     # img2img_model_video.to("cpu")
-                        
-                #     model_outputs = improved_frames
-                        
-                        
-                #     data['steps'] = steps_before
-                #     data['strength'] = strength_before
-            
-            
-                
-                if data.get('upscale', False) and model_type != 'txt2video':
-                    
-                    # make the directories if they don't exist:
-                    if not os.path.exists(f"{data['gpu_id']}-toupscale"):
-                        os.makedirs(f"{data['gpu_id']}-toupscale")
-                        
-                    if not os.path.exists(f"{data['gpu_id']}-upscaled"):
-                        os.makedirs(f"{data['gpu_id']}-upscaled")
-                        
-                    # remove the toupscale images:
-                    for files in os.listdir(f"{data['gpu_id']}-toupscale"):
-                        os.remove(f"{data['gpu_id']}-toupscale/{files}")
-            
-                    # save image as "og_image.png"
-                    for index, img in enumerate(model_outputs):
-                        img.save(f"{data['gpu_id']}-toupscale/og-image-{index}.png")
-                
-                    import subprocess
-
-                    # Define the command to run as a list of arguments
-                    command = ["./esrganvulkan/realesrgan-ncnn-vulkan.exe", "-n", "realesrgan-x4plus-anime", "-i", f"{data['gpu_id']}-toupscale", "-o", f"{data['gpu_id']}-upscaled", "-f", "png", "-s", "4", "-t", "256"]
-                    # python Real-ESRGAN/inference_realesrgan.py -n realesrgan-x4plus-anime -i og_image.png -o upscaled_image.png -f png
-
-                    # Run the command and wait for it to complete, capturing the output
-                    result = subprocess.run(command, capture_output=True, text=True)
-
-                    # create array with the upscaled images:
-                    upscaled_images = []
-                    
-                    # load the upscaled images into memory:
-                    for index, img in enumerate(model_outputs):
-                        img = Image.open(f"{data['gpu_id']}-upscaled/og-image-{index}.png")
-                        upscaled_images.append(img)
-                        
-                    model_outputs = upscaled_images
-                    
-                    
-                if model_type == 'txt2video':
-                    processed_frames = []
-                    for frame in model_outputs:
-                        frame = add_watermark(frame, "JSCammie.com", data)
-                        processed_frames.append(frame)
-                        
-                    data['video_string'] = export_to_mp4(processed_frames, "animation.mp4")
-                    
-                    model_outputs = [model_outputs[0]]
-                
-                timeBeforeSave = time.time()
-                
-                PIL_Images = []
-                                    
-                for index, img in enumerate(model_outputs):
-                    image_data = save_image(request_id, img, model_type, data, index)
-                    image_data_list.append(image_data)
-
-                    if model_type != "txt2video":
-                        img_bytes = base64.b64decode(image_data['base64'])
-                        PIL_Images.append(Image.open(io.BytesIO(img_bytes)))
-
-                hash_object = {
-                    "data": data,
-                    "images": PIL_Images,
-                    "status": "pending"
-                }
-                hash_queue.append(hash_object)
-                
-                saving_object = {
-                    "data": data,
-                    "images": PIL_Images,
-                    "status": "pending"
-                }                    
-                    
-                print("Time to save images: " + str(time.time() - timeBeforeSave))
-                
-                
-            time_added_to_queue = data['queued_time']
-            total_time = time.time() - time_added_to_queue
-            
-            average_queue_times.append(total_time)
-
-            results[request_id] = {
-                "images": image_data_list,
-                "additionalInfo": {
-                    "seed": data['seedNumber'],
-                    "executiontime": time.time() - start_time,
-                    "totaltime": total_time,
-                    "timestamp": time.time()
-                }
-            }
-            
-            queue_item.status = "completed"
-            return "processed"
-            
+        if data['request_type'] == "img2img" or data['request_type'] == "inpainting":
+            request_json['283']['inputs']['float'] = data['strength']
+            # convert the PIL Image to a base64 string:
+            # print type:
+            # make sure the directory exists:
+            os.makedirs("process_images/image", exist_ok=True)
+            request_json['289']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png"
         else:
-            error_message = "Invalid model name"
-            print("Error processing request:", error_message)
-            results[request_id] = {"status": "error", "message": error_message}
+            # txt2img, so set the strength to 1:
+            request_json['283']['inputs']['float'] = 1
+            
+        if data['request_type'] == "inpainting":
+            # make sure the dir exists:
+            os.makedirs("process_images/inpainting", exist_ok=True)
+            request_json['291']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\inpainting\\inpainting{request_id}{data['gpu_id']}.png"
+        
+        if data['lora_strengths'] is None or data['lora_strengths'] == []:
+            data['lora_strengths'] = []
+        
+        load_loras(request_id, data['lora'], data)
+        
+        for key in data['loras_data']:
+            print(key, data['loras_data'][key])
+            
+        if not data['model'].startswith("sd3"):
+            for i in range(1, 10):
+                # remove all 117 "inputs" "lora_1", "lora_2", etc. values if they exist:
+                if f"lora_{i}" in request_json['117']['inputs']:
+                    request_json['117']['inputs'].pop(f"lora_{i}", None)
+                
+            print(f"Data['loras_data']: {data['loras_data']}")
+            
+            if data['model'].startswith("sdxl") and data['lightning_mode'] == True:
+                request_json['117']['inputs'][f"lora_1"] = {
+                    "on": True,
+                    "lora": "lightning\\sdxl_lightning_8step_lora.safetensors",
+                    "strength": 1.0
+                }
+            
+            # for each lora in the data['loras_data'] dict, add it to the request_json:
+            for i, key in enumerate(data['loras_data']):
+                
+                # lora_data = data['loras_data'][key]
+                # request_json['117']['inputs'][f"lora_{i+1}"] = {
+                #     "on": True,
+                #     "lora": lora_data[0],
+                #     "strength": lora_data[1]
+                # }
+                
+                # check if sdxl and lightning mode, if so, add the lora to the 117 inputs with the 1 offset:
+                
+                if data['model'].startswith("sdxl") and data['lightning_mode'] == True:
+                    request_json['117']['inputs'][f"lora_{i+2}"] = {
+                        "on": True,
+                        "lora": data['loras_data'][key][0],
+                        "strength": data['loras_data'][key][1]
+                    }
+                else:
+                    request_json['117']['inputs'][f"lora_{i+1}"] = {
+                        "on": True,
+                        "lora": data['loras_data'][key][0],
+                        "strength": data['loras_data'][key][1]
+                    }
+                            
+        # Prompt
+        request_json['212']['inputs']['string'] = data['prompt']
+        
+        # Negative Prompt
+        request_json['213']['inputs']['string'] = data['negative_prompt']
+        
+        # Steps
+        request_json['270']['inputs']['int'] = data['steps']
+        request_json['266']['inputs']['float'] = data['guidance']
+        request_json['268']['inputs']['int'] = data['seed']
+        
+        if data['request_type'] == "txt2img":
+            request_json['285']['inputs']['width'] = data['width']
+            request_json['285']['inputs']['height'] = data['height']
+            
+        request_json['256']['inputs']['int'] = data['image_count']
+            
+            
+            
+        request_json['64']['inputs']['filename_prefix'] = request_id
+            
+        if not data['model'].startswith("sdxl") and not data['model'].startswith("sd3"):
+            request_json['213']['inputs']['string'] = f"{request_json['213']['inputs']['string']} embedding:boring_e621_v4.pt embedding:fluffynegative.pt embedding:badyiffymix41.safetensors embedding:gnarlysick-neg.pt embedding:negative_hand-neg.pt"
+                    
+        print(f"LIGHNING MODE: {data['lightning_mode']}")
+                    
+        if data['model'].startswith("sdxl") and data['lightning_mode']:
+            if data['scheduler'] == "eulera":
+                request_json['282']['inputs']['sampler_name'] = "euler_ancestral"
+                request_json['282']['inputs']['scheduler'] = "simple"
+                
+            if data['scheduler'] == "dpm":
+                request_json['282']['inputs']['sampler_name'] = "dpmpp_2m"
+                request_json['282']['inputs']['scheduler'] = "simple"
+                
+            if data['scheduler'] == "ddim":
+                request_json['282']['inputs']['sampler_name'] = "ddim"
+                request_json['282']['inputs']['scheduler'] = "simple"
+                
+            # remove 233 from the request_json, re-route 230 to 117:
+            request_json.pop('233', None)
+            request_json['117']['inputs']['model'] = "230"
+        else:
+            if data['scheduler'] == "eulera":
+                request_json['282']['inputs']['sampler_name'] = "euler_ancestral"
+                request_json['282']['inputs']['scheduler'] = "normal"
+            if data['scheduler'] == "dpm":
+                request_json['282']['inputs']['sampler_name'] = "dpmpp_2m"
+                request_json['282']['inputs']['scheduler'] = "normal"
+            if data['scheduler'] == "ddim":
+                request_json['282']['inputs']['sampler_name'] = "ddim"
+                request_json['282']['inputs']['scheduler'] = "normal"
+            
+        
+        p = {"prompt": request_json}
+        request_json = json.dumps(p).encode('utf-8')
+        
+        # save the request_json to a file that includes the model name:
+        # makedir:
+        # os.makedirs("request_jsons", exist_ok=True)
+        # with open(f"request_jsons/{request_id}_{data['model']}.json", "w") as f:
+        #     f.write(json.dumps(p, indent=4))
+        
+        # print("Request JSON: ", request_json)
+        
+        # remove all files in images_dir:
+        # for filename in os.listdir(images_dir):
+        #     file_path = os.path.join(images_dir, filename)
+        #     try:
+        #         if os.path.isfile(file_path):
+        #             os.unlink(file_path)
+        #     except Exception as e:
+        #         print(f"Error deleting file: {e}")
+        
+        
+        comfyui_response_code = None
+        
+        while comfyui_response_code != 200:
+            comfyui_response = requests.post(f"http://{server_address}/prompt", data=request_json)
+            print("ComfyUI Response Status Code: ", comfyui_response.status_code)
+            comfyui_response_code = comfyui_response.status_code
+            print("ComfyUI Response: ", comfyui_response.text)
+            time.sleep(0.1)
+            
+        prompt_id = comfyui_response.json()['prompt_id']
+        
+        output_images = check_for_image(prompt_id, data)
+        
+        # delete the images from the images_dir that match the request_id:
+        for filename in os.listdir(images_dir):
+            if filename.startswith(f"{request_id}"):
+                file_path = os.path.join(images_dir, filename)
+                try:
+                    if os.path.isfile(file_path):
+                        os.unlink(file_path)
+                except Exception as e:
+                    print(f"Error deleting file: {e}")
+        
+        if output_images is None:
+            results[request_id] = {"status": "error", "message": "Error processing request"}
+            queue_item.status = "error"
+            return "skipped"
+        
+        
+
+        # Watermark all images:
+        # Assume save_image is defined correctly to handle the image processing and saving
+        
+        Base64Images = []
+        for i in range(len(output_images)):
+            img = output_images[i]
+            watermarked_image = save_image(request_id, img, data['request_type'], data)
+            Base64Images.append(watermarked_image)
+            
+        PIL_Images = []
+        
+        # convert the base64 images to PIL images:
+        for i in range(len(Base64Images)):
+            img_str = Base64Images[i]['base64']
+            img_data = base64.b64decode(img_str)
+            img = Image.open(io.BytesIO(img_data))
+            PIL_Images.append(img)
+
+        hash_object = {
+            "data": data,
+            "images": PIL_Images,
+            "status": "pending"
+        }
+        hash_queue.append(hash_object)       
+            
+        time_added_to_queue = data['queued_time']
+        total_time = time.time() - time_added_to_queue
+        
+        average_queue_times.append(total_time)
+
+        results[request_id] = {
+            "images": Base64Images,
+            "additionalInfo": {
+                "seed": data['seed'],
+                "executiontime": time.time() - start_time,
+                "totaltime": total_time,
+                "timestamp": time.time()
+            }
+        }
+        
+        queue_item.status = "completed"
+        return "processed"
 
     except Exception as e:
         error_message = str(e)
         print("Error processing request:", error_message)
+        queue_item.status = "error"
         results[request_id] = {"status": "error", "message": error_message}
-
-
-
-
-import time
 
 hash_queue_busy = False
 
@@ -1213,14 +690,15 @@ async def process_hash_queue():
         await asyncio.sleep(0.1)  # Corrected to use await
         if not hash_queue_busy:
             if hash_queue:  # Check if the queue is not empty
-                queue_item = hash_queue[0]  # Get the first item
-                if queue_item['status'] == "pending":
+                hash_item = hash_queue[0]  # Get the first item
+                if hash_item['status'] == "pending":
                     hash_queue_busy = True
                     # Assuming DB.process_images_and_store_hashes is an async function
-                    await DB.process_images_and_store_hashes(queue_item['images'], queue_item['data'])
+                    # convert queue_item['images'] to a list of PIL images from base 64:
+                    await DB.process_images_and_store_hashes(hash_item['images'], hash_item['data'])
                     # print("Finished processing")
                     hash_queue_busy = False
-                    hash_queue.remove(queue_item)
+                    hash_queue.remove(hash_item)
 
         # Sleep if no unprocessed request is found
         if not any(item['status'] == "pending" for item in hash_queue):
@@ -1267,7 +745,6 @@ def process_queue_0():
         # Sleep if no unprocessed request is found
         if not any(item.status == "queued" for item in request_queue_0):
             time.sleep(0.5)
-
 
 def process_queue_1():
     global processor_busy_1
@@ -1351,9 +828,6 @@ def check_fast_pass(fastpass, validated_data):
     print(f"Fast pass {fastpass} is valid and active.")
     return True, None
     
-    
-    
-    
 def randomize_string(input_string):
     
     if input_string.count("{") == 0:
@@ -1377,10 +851,7 @@ def randomize_string(input_string):
         choice = random.choice(options.split("|"))
         new_string += choice + rest
 
-    return new_string
-    
-    
-    
+    return new_string   
     
 def update_settings():
     global global_settings
@@ -1467,10 +938,10 @@ def check_queue_position(request_id):
     
     for index, item in enumerate(request_queue_0):
         if item.request_id == request_id:
-            return jsonify({"status": "waiting", "request_id": request_id, "position": index + 1, "queue_length": len(request_queue_0)}), 200
+            return jsonify({"status": "waiting", "request_id": request_id, "position": index + 1, "queue_length": f"{len(request_queue_0)} ({len(request_queue_0) + len(request_queue_1)})"}), 200
     for index, item in enumerate(request_queue_1):
         if item.request_id == request_id:
-            return jsonify({"status": "waiting", "request_id": request_id, "position": index + 1, "queue_length": len(request_queue_1)}), 200
+            return jsonify({"status": "waiting", "request_id": request_id, "position": index + 1, "queue_length": f"{len(request_queue_1)} ({len(request_queue_1) + len(request_queue_0)})"}), 200
     if request_id in results:
         if results[request_id].get("status") == "error":
             return jsonify({"status": "error", "message": results[request_id].get("message")}), 200
@@ -1481,6 +952,19 @@ def check_queue_position(request_id):
 @app.route('/result/<request_id>', methods=['GET'])
 def get_result(request_id):
     result = results.get(request_id)
+    # print("Results: ", result)
+    
+    # if the images are PIL then convert them to base64:
+    if result:
+        # if the type is PngImageFile then convert it to base64:
+        if type(result['images'][0]) == PngImagePlugin.PngImageFile:
+            for i in range(len(result['images'])):
+                img = result['images'][i]
+                buffered = io.BytesIO()
+                img.save(buffered, format="PNG")
+                img_str = base64.b64encode(buffered.getvalue()).decode()
+                result['images'][i] = {"base64": img_str, "width": img.width, "height": img.height}
+    
     # remove the result from the results dictionary:
     results.pop(request_id, None)
     if result:
@@ -1547,6 +1031,27 @@ def generate_image():
 
         data = request.json
         
+        # sd3Users = global_settings.get('sd3_users', [])
+        
+        data['og_model'] = data['model']
+        
+        if data['model'] == "sdxl-ponydiffusion":
+            data['model'] = "sdxl-autismmix"
+            
+        if data['model'] == "sdxl-zonkey":
+            return generate_error_response("Zonkey is currently disabled, please use the other models instead.", 503)
+        
+        if data['model'].startswith("sd3-"):
+            return generate_error_response("SD3 models are currently disabled due to stability AI being morons, please use the other models instead!", 503)
+            # if data['accountId'] not in sd3Users:
+            #     return generate_error_response("SD3 models are currently limited to specific users, for more information please contact JSCammie on the discord server!", 400)
+            # if data['quantity'] > 1:
+            #     return generate_error_response("SD3 models are currently limited to generating one image at a time.", 400)
+            # if data['steps'] > 30:
+            #     return generate_error_response("SD3 models are currently limited to 100 steps.", 400)
+            # if data['request_type'] != "txt2img":
+            #     return generate_error_response("SD3 models are currently limited to text to image requests.", 400)
+        
         if global_settings.get('sdxl', False):
             if data['model'].startswith("sdxl-"):
                 return generate_error_response("SDXL is currently disabled, please use the other models instead.", 503)
@@ -1555,13 +1060,13 @@ def generate_image():
             return generate_error_response("Text to video is currently disabled.", 503)
         
         data['gpu_id'] = 0
-                    
-        # if data['model'].startswith("sdxl-"):
-        #     data['gpu_id'] = 0
-        # else:
-        #     data['gpu_id'] = 1
+        # if request_queue_0 has 2 more items than request_queue_1, add the request to request_queue_1 and vice versa:
+        if len(request_queue_0) > len(request_queue_1) + 1:
+            data['gpu_id'] = 1
             
-        # cap the steps to global_settings['sdxl_max_steps']:
+        if len(request_queue_1) > len(request_queue_0) + 1:
+            data['gpu_id'] = 0
+                    
         if data['model'].startswith("sdxl-"):
             if data['steps'] > global_settings['sdxl_max_steps']:
                 data['steps'] = global_settings['sdxl_max_steps']
@@ -1569,6 +1074,9 @@ def generate_image():
         if data.get('aspect_ratio', None) is not None:
             if data['aspect_ratio'] == "portrait":
                 if data['model'].startswith("sdxl-"):
+                    data['width'] = 768
+                    data['height'] = 1024
+                elif data['model'].startswith("sd3-"):
                     data['width'] = 768
                     data['height'] = 1024
                 else:
@@ -1580,6 +1088,9 @@ def generate_image():
                 if data['model'].startswith("sdxl-"):
                     data['width'] = 1024
                     data['height'] = 768
+                elif data['model'].startswith("sd3-"):
+                    data['width'] = 1024
+                    data['height'] = 768
                 else:
                     data['width'] = 768
                     data['height'] = 512
@@ -1589,9 +1100,14 @@ def generate_image():
                 if data['model'].startswith("sdxl-"):
                     data['width'] = 1024
                     data['height'] = 1024
+                elif data['model'].startswith("sd3-"):
+                    data['width'] = 1024
+                    data['height'] = 1024
                 else:
                     data['width'] = 512
                     data['height'] = 512
+            # else:
+            #     return generate_error_response("Invalid aspect ratio, please choose from 'portrait', 'landscape', or 'square'.", 400)
                 
             elif data['aspect_ratio'] == "bannerHorizontal":
                 data['width'] = 1024
@@ -1614,6 +1130,11 @@ def generate_image():
                 data['width'] = data['width'] * global_settings['sdxl_resolution_multiplier']
                 data['height'] = data['height'] * global_settings['sdxl_resolution_multiplier']
                 
+            if data['model'].startswith("sd3-"):
+                # multiply the width and height by the global_settings['sd3_resolution_multiplier']:
+                data['width'] = data['width'] * global_settings['sd3_resolution_multiplier']
+                data['height'] = data['height'] * global_settings['sd3_resolution_multiplier']
+                
                 
                 
             else:
@@ -1630,22 +1151,258 @@ def generate_image():
             
         # if data['request_type'] == "inpainting": and the data['model'] doesnt start with sdxl- return error:
         # if data['request_type'] == "inpainting" or data['request_type'] == "img2img":
-        #     if data['request_type'] == "inpainting":
-        #         return generate_error_response("Inpainting is currently disabled.", 503)
-        #     if data['request_type'] == "img2img":
-        #         return generate_error_response("Image to image is currently disabled.", 503)
+            # if data['request_type'] == "inpainting":
+            #     return generate_error_response("Inpainting is currently disabled.", 503)
                  
         
         data['width'] = round_to_multiple_of_eight(data['width'])
         data['height'] = round_to_multiple_of_eight(data['height'])
-        
-        import process_input_data
 
         # Validate and preprocess the input data
-        validated_data, error_message = process_input_data.validate_input_data(data)
-        if error_message:
-            return generate_error_response(error_message, 400)
+        validate_start_time = time.time()
+        true_prompt = data['prompt']
         
+        # remove excess commas:
+        data['prompt'] = data['prompt'].replace(",,", ",")
+        data['prompt'] = data['prompt'].replace(", ,", ",")
+        data['prompt'] = data['prompt'].replace(",,", ",")
+        data['prompt'] = data['prompt'].replace(", ,", ",")
+        data['prompt'] = data['prompt'].replace(",,", ",")
+        data['prompt'] = data['prompt'].replace(", ,", ",")
+
+        # remove all numbers and () brackets from the prompt string
+        filter_prompt = ''.join([i for i in data['prompt'] if not i.isdigit()])
+        filter_prompt = filter_prompt.replace("(", "").replace(")", "")
+
+        # Split the filter_prompt into a list of words, considering common separators
+        words_in_prompt = set(filter_prompt.lower().split())  # Convert to lowercase for case-insensitive match
+
+        # Check if the set of words in filter_prompt contains any of the blocked words exactly
+        # The intersection will be non-empty if there are common elements
+        sus_word = bool(words_in_prompt.intersection(set(blockedwords['blocked-nsfw'])))
+        nsfw_word = bool(words_in_prompt.intersection(set(blockedwords['nsfw-words'])))
+        
+        data['strength'] = float(data.get("strength", 0.85))
+
+        if sus_word and nsfw_word:
+            return None, "Your prompt contains words that are not allowed, please remove them and try again."
+
+        data['accountId'] = data.get('accountId', 0)
+
+        if data['accountId'] == "":
+            data['accountId'] = 0
+
+        data['accountId'] = int(data['accountId'])
+
+        data['prompt'] = randomize_string(data['prompt'])
+
+        if str(data['prompt']) == "{'status': 'error', 'message': 'Mismatched brackets'}":
+            return None, "Mismatched brackets ('{}' brackets are used to denote a random choice, and must be used in pairs, here is an example of a correct usage: '{woman|man} with {long|short} hair')"
+
+        if data['steps'] > 126:
+            return None, "You have reached the limit of 125 steps per request. Please reduce the number of steps and try again."
+
+        if data['quantity'] > 5:
+            return None, "You have reached the limit of 4 images per request. Please reduce the number of images and try again."
+
+        if len(data['lora']) > 5:
+            return None, "You have reached the limit of 5 Lora options. Please deselect some and try again."
+
+        if data['seed'] is None:
+            data['seed'] = -1
+
+        if int(data['seed']) > 2**32 - 1:
+            return None, "Seed is too large. Please use a seed between -1 and 4294967295."
+
+        if int(data['seed']) < -1:
+            return None, "Seed is too small. Please use a seed between -1 and 4294967295."
+
+        if data['request_type'] == 'txt2video':
+            if int(data['video_length']) > 16 or int(data['video_length']) < 6:
+                return None, "Video length is too long/short. Please use a video length between 6 and 16 frames."
+            
+        if data['request_type'] != 'txt2img' and data['request_type'] != 'inpainting' and data['request_type'] != 'img2img':
+            return None, "Invalid request type. Only txt2img, img2img and inpainting requests are allowed at this time."
+            # if int(data['steps']) > 50:
+            #     return None, "text 2 video is limited to 50 steps! Please reduce the number of steps and try again."
+
+
+        model = data.get("model", "sonic")
+        
+        if model == None:
+            return None, "Model is not specified, please try re-selecting the model and try again."
+
+        if data.get("model", "sonic").startswith("sdxl-"):
+            
+            negative_embedding_words_sdxl = ""
+            
+            # negative_embedding_words_sdxl = "zPDXL-neg, "
+            # positive_embedding_words_sdxl = "zPDXL, "
+            # data['prompt'] = positive_embedding_words_sdxl + data.get("prompt", "")
+            negative_prompt_final = negative_embedding_words_sdxl + data.get("negativeprompt", "")
+            
+        else:
+            
+            negative_embedding_words_sd15 = "boring_e621_v4, fcNeg, fluffynegative, badyiffymix41, gnarlysick-neg, negative_hand-neg, "
+            negative_prompt_final = negative_embedding_words_sd15 + data.get("negativeprompt", "")
+                    
+        data['negative_prompt'] = negative_prompt_final
+        
+        # remove colons from prompt and negative prompt strings:
+        data['prompt'] = data['prompt'].replace(":", "")
+        data['negative_prompt'] = data['negative_prompt'].replace(":", "")
+            
+        if data['strength'] > 1:
+            data['strength'] = data['strength'] / 100
+        
+        if data['strength'] < 0:
+            data['strength'] = 0.01
+            
+        data['image'] = data.get("image", None)
+        data['inpaintingMask'] = data.get("inpaintingMask", None)
+        
+        data['input_image'] = data.get("input_image", None)
+        
+        if data['input_image'] is not None:
+            # load the image from the file specified in the input_image field:
+            try:
+                data['image'] = Image.open(data['input_image'])
+            except Exception as e:
+                return generate_error_response("Failed to identify image file", 400)
+                
+
+        if data['image'] is not None:
+            try:
+                if data['input_image'] is None:
+                    base64_encoded_data = data['image'].split(',', 1)[1]
+                    image_data = base64.b64decode(base64_encoded_data)
+                    img_bytes = io.BytesIO(image_data)
+                    data['image'] = Image.open(img_bytes)
+                
+                # print("Image width height before")
+                
+                # Determine the scaling factor to ensure both sides are at least 512px
+                scale_factor = max(512 / data['image'].width, 512 / data['image'].height)
+                
+                # print("Image width height after")
+
+                # Calculate new dimensions
+                new_width = round_to_multiple_of_eight(data['image'].width * scale_factor)
+                new_height = round_to_multiple_of_eight(data['image'].height * scale_factor)
+
+
+                # Update dimensions in the data dictionary
+                data['width'], data['height'] = new_width, new_height
+
+                # Resize the image
+                data['image'] = data['image'].resize((new_width, new_height))
+                data['image'] = data['image'].convert('RGB')
+
+
+            except Exception as e:
+                return generate_error_response("Failed to identify image file", 400)
+        else:
+            data['image'] = None
+            
+        if data['inpaintingMask'] is not None:
+            try:
+                base64_encoded_data = data['inpaintingMask'].split(',', 1)[1]
+                image_data = base64.b64decode(base64_encoded_data)
+                img_bytes = io.BytesIO(image_data)
+                data['inpaintingMask'] = Image.open(img_bytes)
+            
+                # print("Image width height before")
+                
+                # Determine the scaling factor to ensure both sides are at least 512px
+                scale_factor = max(512 / data['inpaintingMask'].width, 512 / data['inpaintingMask'].height)
+                
+                # print("Image width height after")
+
+                # Calculate new dimensions
+                new_width = round_to_multiple_of_eight(data['inpaintingMask'].width * scale_factor)
+                new_height = round_to_multiple_of_eight(data['inpaintingMask'].height * scale_factor)
+
+
+                # Update dimensions in the data dictionary
+                data['width'], data['height'] = new_width, new_height
+
+                # Resize the inpaintingMask
+                data['inpaintingMask'] = data['inpaintingMask'].resize((new_width, new_height))
+                data['inpaintingMask'] = data['inpaintingMask'].convert('RGB')
+
+
+            except Exception as e:
+                return generate_error_response("Failed to identify inpaintingMask file", 400)
+        else:
+            data['inpaintingMask'] = None
+            
+        og_seed = data['seed']
+
+        if int(data['seed']) == -1:
+            data['seedNumber'] = random.randint(0, 2**32 - 1)
+        else:
+            data['seedNumber'] = int(data['seed'])
+            
+        data['seed'] = data['seedNumber']
+        
+        # get all the red pixels from the inpaintingMask image and place them ontop of a transparent image:
+        if data['inpaintingMask'] is not None:
+            # use the inpaintingMask for width and height:
+            transparent_image = Image.new('RGBA', (data['inpaintingMask'].width, data['inpaintingMask'].height), (0, 0, 0, 0))
+            # get the red pixels from the inpaintingMask image:
+            red_pixels = data['inpaintingMask'].convert("RGBA")
+            red_data = red_pixels.getdata()
+            new_data = []
+            for item in red_data:
+                # get all red pixels:
+                if item[0] == 255 and item[1] == 0 and item[2] == 0:
+                    new_data.append((255, 0, 0, 255))
+                else:
+                    new_data.append((0, 0, 0, 0))
+            transparent_image.putdata(new_data)
+            data['inpaintingMask'] = transparent_image
+            
+
+        validated_data = {
+            'model': data.get('model'),
+            'prompt': data.get('prompt'),
+            'negative_prompt': negative_prompt_final,
+            'image_count': int(data.get("quantity")),
+            'steps': int(data.get("steps", 20)),
+            'width': int(data.get("width", 512)),
+            'height': int(data.get("height", 512)),
+            'aspect_ratio': str(data.get("aspect_ratio")),
+            'seed': int(data.get("seed", -1)),
+            'strength': float(data.get("strength", 0.75)),
+            'guidance': float(data.get("guidance", 5)),
+            'image_data': data.get("image", None),
+            'mask_data': data.get("inpaintingMask", None),
+            'lora': data.get('lora', None),
+            'lora_strengths': data.get('lora_strengths', None),
+            'enhance_prompt': data.get('enhance_prompt', False),
+            'request_type': data['request_type'],
+            'upscale': data.get('upscale', False),
+            'inpainting_original_option': True,
+            'splitType': data.get('splitType', "horizontal"),
+            'splits': int(data.get('splits', 1)),
+            'splitOverlap': float(data.get('splitOverlap', 0.1)),
+            'finalStrength': float(data.get('finalStrength', 0.2)),
+            'video_length': int(data.get('video_length', 16)),
+            'accountId': int(data.get('accountId', 0)),
+            'true_prompt': str(true_prompt),
+            'scheduler': data.get('scheduler', "eulera"),
+            'fastpass': data.get('fastpass', None),
+            'seedNumber': int(data['seedNumber']),
+            'og_seed': int(og_seed),
+            "save_image": bool(data.get("save_image", False)),
+            "gpu_id": int(data.get("gpu_id", 0)),
+            "ip": data.get("ip", ""),
+            "userAgent": data.get("userAgent", ""),
+            "queued_time": validate_start_time,
+            "image": data['image'],
+            "lightning_mode": data.get("lightning_mode", False),
+            "og_model": data['og_model'],
+        }
         
         data['width'] = round_to_multiple_of_eight(data['width'])
         data['height'] = round_to_multiple_of_eight(data['height'])
@@ -1781,13 +1538,26 @@ def generate_image():
                 
         # Check if the model is valid
         model_name = validated_data['model']
-        if model_name not in txt2img_models:
+        if model_name not in diffusion_models:
             return generate_error_response("Invalid model name", 400)
 
-        # Prepare the data for the request
-        data = validated_data
-
         request_id = str(uuid.uuid4())
+        
+        if data['inpaintingMask'] is not None:
+            # check that dir "process_images\inpainting" exists, if not create it:
+            if not os.path.exists("process_images/inpainting"):
+                os.makedirs("process_images/inpainting")
+            data['inpaintingMask'].save(f"process_images/inpainting/inpainting{request_id}{data['gpu_id']}.png")
+            
+        if data['image'] is not None:
+            # check that dir "process_images\image" exists, if not create it:
+            if not os.path.exists("process_images/image"):
+                os.makedirs("process_images/image")
+                
+            data['image'].save(f"process_images/image/image{request_id}{data['gpu_id']}.png")
+            
+        data = validated_data
+        
         data['request_id'] = request_id
         queue_item = QueueRequest(request_id, data)
 
@@ -1811,7 +1581,6 @@ def generate_image():
                 
             position = len(request_queue_0)  # Current position in the queue is its length
         elif data['gpu_id'] == 1:
-            # data['gpu_id'] = 0
             if fastpass and fastpass_enabled:
                 request_queue_1.insert(0, queue_item)
             else:
@@ -1827,191 +1596,18 @@ def generate_image():
         print(data)
         return generate_error_response(error_message, 500)  # Return the error response within the request handler
 
-generateTestJsonLatentCouple = {
-    "model": "sonic",
-    "prompt": "((Masterpiece)), HD, Best Quality, shading, intricate details, (4k, 2d, digital art, airbrush) hyper detailed, high resolution, hyper realistic, 2girls, on-left, on-right, bikini, beach AND 1girl, amy rose, bikini, beach AND 1girl, rouge the bat, bikini, beach",
-    "negativeprompt": "loli, child, monochrome, worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
-    "steps": 20,
-    "width": 768,
-    "height": 512,
-    "seed": -1,
-    "quantity": 1,
-    "request_type": "latent_couple",
-    "splitType": "horizontal",
-    "splits": 2,
-    "splitRatio": 0.2,
-    "splitOverlap": 0,
-    "strength": 0.65,
-    "lora": [],
-    "upscale": False
-}
-
-generateTestJson1 = {
-    "model": "furryblend",
-    "prompt": "((Masterpiece)), high quality, studio quality, intricate details, 4k, solo, (emphasis lines), 2d, Coco Bandicoot, having sex, riding, facing viewer, large breasts, thick thighs, ahegao, saliva, penis stomach bulge, cum",
-    "negativeprompt": "3d, worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective",
-    "steps": 20,
-    "aspect_ratio": "portrait",
-    "seed": 123123123,
-    "quantity": 4,
-    "request_type": "txt2img",
-    "lora": ['character-cocobandicootcrashbandicoot'],
-    "upscale": False,
-    "save_image": True
-}
-
-generateTestJson1video = {
-    "model": "furryblend",
-    "prompt": "((Masterpiece)), high quality, studio quality, intricate details, 4k, solo, (emphasis lines), 2d, Coco Bandicoot, facing viewer, wearing skirt",
-    "negativeprompt": "3d, worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective",
-    "steps": 20,
-    "aspect_ratio": "portrait",
-    "seed": 123123123,
-    "quantity": 1,
-    "request_type": "txt2video",
-    "lora": ['character-cocobandicootcrashbandicoot'],
-    "upscale": True,
-    "video_length": 16
-}
-
-
-generateTestJson1videoSDXL = {
-    "model": "sdxl-ponydiffusion",
-    "prompt": "score_9, score_8_up, 2d, coco bandicoot, large breasts, thick thighs, denim shorts, black crop top, in city",
-    "negativeprompt": "(score_6, score_5, 3d, hyperrealistic, octane renderer, monochrome, black and white, rough sketch)",
-    "steps": 20,
-    "aspect_ratio": "portrait",
-    "seed": 123123123,
-    "quantity": 1,
-    "request_type": "txt2video",
-    "lora": [],
-    "upscale": True,
-    "video_length": 16
-}
-
-
-generateTestJsonSDXL = {
-    "model": "sdxl-ponydiffusion",
-    "prompt": "(score_9, score_8_up, 2d), coco bandicoot, denim shorts, black crop top, in city",
-    "negativeprompt": "(score_6, score_5, 3d, hyperrealistic, monochrome, black and white, rough sketch)",
-    "steps": 20,
-    "aspect_ratio": "portrait",
-    "seed": 123123123,
-    "quantity": 4,
-    "request_type": "txt2img",
-    "lora": [],
-    "upscale": False,
-    "save_image": True
-}
-
-
-generateTestJson2 = {
-    "model": "furryblend",
-    "prompt": "1girl, coco bandicoot, thicc, beach, bikini",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
-    "steps": 20,
-    "width": 512,
-    "height": 768,
-    "seed": -1,
-    "quantity": 1,
-    "aspect_ratio": "portrait",
-    "request_type": "txt2img",
-    "scheduler": "dpm",  # "eulera" or "dpm"
-    "lora": ['character-cocobandicoot', 'style-afrobull', 'effect-furthermore'],
-    "upscale": True,
-}
-
-generateTestJson2a = {
-    "model": "furryblend",
-    "prompt": "1girl, coco bandicoot, thicc, beach, bikini ",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
-    "steps": 20,
-    "width": 512,
-    "height": 512,
-    "seed": -1,
-    "quantity": 1,
-    "request_type": "txt2img",
-    "lora": [],
-    "upscale": False,
-}
-
-generateTestJson22 = {
-    "model": "realisticVision",
-    "prompt": "1girl, coco bandicoot, nude, sexy,",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
-    "steps": 20,
-    "width": 512,
-    "height": 512,
-    "seed": -1,
-    "quantity": 1,
-    "request_type": "txt2img",
-    "lora": ['character-cocobandicoot'],
-    "upscale": False
-}
-
-generateTestJson222 = {
-    "model": "furry",
-    "prompt": "1girl, ochako uraraka, nude, sexy,",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
-    "steps": 20,
-    "width": 512,
-    "height": 512,
-    "seed": -1,
-    "quantity": 1,
-    "request_type": "txt2img",
-    "lora": [],
-    "upscale": False
-}
-
-generateTestJson3 = {
-    "model": "fluffysonic",
-    "prompt": "1girl, {rouge the bat, denim shorts, croptop|amy rose, bikini, beach|vanilla the bunny, apron, kitchen, window}, nude, sexy,",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
-    "steps": 19,
-    "width": 512,
-    "height": 768,
-    "seed": -1,
-    "quantity": 1,
-    "request_type": "txt2img",
-    "lora": [],
-    "upscale": False
-}
-
-
-generateTestJson4 = {
-    "model": "aing",
-    "prompt": "1girl",
-    "steps": 5,
-    "width": 512,
-    "height": 512,
-    "seed": -1,
-    "quantity": 1,
-    "request_type": "txt2img",
-    "lora": []
-}
-
-generateTestJson5 = {
-    "model": "flat2DAnimerge",
-    "prompt": "1girl",
-    "steps": 5,
-    "width": 512,
-    "height": 512,
-    "seed": -1,
-    "quantity": 1,
-    "request_type": "txt2img",
-    "lora": []
-}
-
 generateTestJson6 = {
-    "model": "realisticVision",
-    "prompt": "1girl",
-    "steps": 5,
+    "model": "fluffysonic",
+    "prompt": "((Masterpiece)), high quality, studio quality, intricate details, 4k, solo, (emphasis lines), 2d, cartoon_portrait, 1girl, amy rose, green eyes, pink fur, nude, thick, sexy, at beach, facing viewer, afrobull, by akami mirai",
+    "steps": 25,
     "width": 512,
     "height": 512,
     "seed": -1,
     "quantity": 1,
     "request_type": "txt2img",
-    "lora": []
+    "lora": ['style-afrobull', 'style-akamimirai'],
+    "lora_strengths": [0.5, 1.2],
+    "ip": "123123123"
 }
 
 def test_generate_image(test_data):
@@ -2029,115 +1625,8 @@ def test_token_length(test_data):
         # Additional assertions or checks on the response can be added here
         print(f"Status Code: {status_code}")
         print(response.json)
-        
-token_length_test_data = {
-    "prompt": "1girl, amy rose, nude, sexy",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective"
-}
-        
-# test_token_length(token_length_test_data)
-
-# for every txt2img model, create_and_load_model:
-# txt2img_models = {
-#         'furry': {'loaded':None, 'model_path': furry_model_path},
-#         'sonic': {'loaded':None, 'model_path': sonic_model_path},
-#         'aing': {'loaded':None, 'model_path': aing_model_path},
-#         'flat2DAnimerge': {'loaded':None, 'model_path': flat2DAnimerge_model_path},
-#         'realisticVision': {'loaded':None, 'model_path': realisticVision_model_path},
-#         'fluffysonic': {'loaded':None, 'model_path': fluffysonic_model_path},
-#     }
-
-# use lora_weights_map to create a for loop that runs test_generate_image for each lora in the lora_weights_map:
-
-# def test_all_loras():
     
-#     for lora_name, lora_data in lora_weights_map.items():
-#         if lora_name == "background":
-#             for lora in lora_data:
-#                 generateTest = {
-#                     "model": "fluffysonic",
-#                     "prompt": f"1girl, amy rose, nude, sexy",
-#                     "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective,",
-#                     "steps": 20,
-#                     "width": 512,
-#                     "height": 512,
-#                     "seed": 24682468,
-#                     "accountId": 1039574722163249233,
-#                     "quantity": 1,
-#                     "request_type": "txt2img",
-#                     "lora": [f"{lora}"],
-#                     "upscale": False,
-#                     "loraTest": True
-#                 }
-#                 test_generate_image(generateTest)
-                
-# test_all_loras()
-
-
-test_video_1 = {
-    "model": "fluffysonic",
-    "prompt": "1girl, amy rose, nude, sexy",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective",
-    "steps": 25,
-    "aspect_ratio": "square",
-    "guidance": 7,
-    "seed": 123123123,
-    "quantity": 1,
-    "request_type": "txt2video",
-    "lora": [],
-    "upscale": True,
-    "video_length": 16
-}
-
-
-
-generateTestJsonImg2Img = {
-    "model": "fluffysonic",
-    "prompt": "1girl, amy rose, nude, sexy",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective",
-    "steps": 25,
-    "aspect_ratio": "portrait",
-    "guidance": 7,
-    "seed": 123123123,
-    "quantity": 1,
-    "request_type": "img2img",
-    "lora": [],
-    "input_image": "input.png",
-    "strength": 0.7,
-    "save_image": True,
-}
-
-generateTestJsontxt2imgLandscape = {
-    "model": "fluffysonic",
-    "prompt": "1girl, amy rose, nude, sexy",
-    "negativeprompt": "worst quality, low quality, watermark, signature, bad anatomy, bad hands, deformed limbs, blurry, cropped, cross-eyed, extra arms, extra legs, extra limbs, extra pupils, bad proportions, poorly drawn hands, simple background, bad background, bad lighting, bad perspective",
-    "steps": 25,
-    "aspect_ratio": "landscape",
-    "guidance": 7,
-    "seed": 123123123,
-    "quantity": 1,
-    "request_type": "txt2img",
-    "lora": [],
-    "upscale": False,
-    "save_image": True,
-    "ip": "123123123"
-}
-    
-    
-    
-# test_generate_image(generateTestJsonLatentCouple)
-# test_generate_image(generateTestJsonSDXL)
-# test_generate_image(generateTestJson1)
-# test_generate_image(test_video_1)
-# test_generate_image(generateTestJson1videoSDXL)
-# test_generate_image(generateTestJson2)
-# test_generate_image(generateTestJson2a)
-# test_generate_image(generateTestJson22)
-# test_generate_image(generateTestJson222)
-# test_generate_image(generateTestJson3)
-# test_generate_image(generateTestJsonImg2Img)
-test_generate_image(generateTestJsontxt2imgLandscape)
-
+test_generate_image(generateTestJson6)
 
 
 
@@ -2184,6 +1673,5 @@ if __name__ == '__main__':
         #         model_info['loaded'] = load_models.inpainting(model_name, data, model_info['model_path'])
         #         print(f"Loaded {model_name}, inpainting")
     asyncio.run(main())
-    print(torch.__version__)
     print("Startup time: " + str(time.time() - program_start_time) + " seconds")
     app.run(host='0.0.0.0', port=5003)
