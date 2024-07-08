@@ -11361,13 +11361,13 @@ style:
     rating: safe
     link: N/A
     dateCreated: 1720300528124.8271
-  style-sdxldragoon:
-    lora: sdxl\style\dragoon.safetensors
-    name: SDXL Dragoon86
+  style-sdxljscdragoon86:
+    lora: sdxl\style\jscdragoon86.safetensors
+    name: SDXL JSC Dragoon86
     strength: 1
     words:
       - dragoon86_style
     description: Dragoon86 based lora
     rating: safe
-    link: N/A
+    link: https://civitai.com/models/562996/dragoon86-style?modelVersionId=627423
     dateCreated: 1720361267951.0693
