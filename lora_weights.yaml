@@ -238,6 +238,26 @@ background:
     link: https://civitai.com/models/473507/rei-no-kabe-pony?modelVersionId=526708
     dateCreated: 1718755523284.0176
     rating: safe
+  background-sdxllightrays:
+    lora: sdxl\background\lightrays.safetensors
+    name: SDXL Light Rays
+    strength: 1
+    words:
+      - ruanyi0780, light rays, light, sunlight, sunbeam,
+    description: Light Rays
+    rating: safe
+    link: https://civitai.com/models/570459/0780-light-rays?modelVersionId=635839
+    dateCreated: 1720732831539.5762
+  background-renpyanimegame:
+    lora: background\renpyanimegame.safetensors
+    name: RenPY Anime Game
+    strength: 1
+    words:
+      - animbg
+    description: RenPY Anime Game
+    rating: safe
+    link: https://civitai.com/models/356256
+    dateCreated: 1720735478144.5854
 character:
   character-2bneirautomata:
     dateCreated: 1717352308897.1985
@@ -3711,15 +3731,20 @@ character:
     link: https://civitai.com/models/468833/sabrina-skunk-sabrina-online
     dateCreated: 1718060209509.6355
   character-sdxlnecoarc:
-    rating: safe
     lora: sdxl\character\necoarc.safetensors
     name: SDXL Neco-arc
     strength: 1
     words:
-      - necoarccon, slit pupils, cat ears, chibi
+      - necoarc;
+      - blonde hair, red eyes, slit pupils, cat ears, :3, chibi;
+      - >-
+        turtleneck, white shirt, blue skirt, pleated skirt, pantyhose, brown
+        footwear;
+      - turtleneck, white shirt, purple skirt, pantyhose
     description: Neco-arc
-    link: https://civitai.com/models/431973/neco-arc-ponyxl-concept-lora
-    dateCreated: 1718060238644.6265
+    rating: safe
+    link: https://civitai.com/models/315164?modelVersionId=481234
+    dateCreated: 1720736030551.4453
   character-sdxlcortanahalo:
     rating: safe
     lora: sdxl\character\cortanahalo.safetensors
@@ -4667,6 +4692,439 @@ character:
     rating: safe
     link: https://civitai.com/models/97628/raspberyl-disgaea-3
     dateCreated: 1720286244759.5337
+  character-sdxlerinmoriartystarlighttheboys:
+    lora: sdxl\character\erinmoriartystarlighttheboys.safetensors
+    name: SDXL Erin Moriarty / Starlight (The Boys)
+    strength: 0.8
+    words:
+      - erin_moriarty;
+      - erin_moriarty, starlight_costume
+    description: Erin Moriarty / Starlight (The Boys)
+    rating: safe
+    link: https://civitai.com/models/352495/erin-moriarty-starlight-sdxl
+    dateCreated: 1720697279114.0784
+  character-starlighttheboys:
+    lora: character\starlighttheboys.safetensors
+    name: Starlight (The Boys)
+    strength: 1
+    words:
+      - starlight, starlight outfit
+    description: Starlight from the boys (Lora)
+    rating: safe
+    link: https://civitai.com/models/156872/starlight-from-the-boys-lora
+    dateCreated: 1720698793797.21
+  character-sdxlkatiamanaganprequel:
+    lora: sdxl\character\katiamanaganprequel.safetensors
+    name: SDXL Katia Managan (Prequel)
+    strength: 1
+    words:
+      - katia managan, cat girl, furry, black eyes, solid circle pupils;
+      - brown capelet, green dress;
+      - >-
+        blue pants, jeans, brown boots, knee boots, blue sash, purple shirt,
+        sleeveless
+    description: Katia Managan (Prequel)
+    rating: safe
+    link: https://civitai.com/models/405427/katia-managan-prequel-ponyxl
+    dateCreated: 1720718119282.3518
+  character-sdxlanubiswhisperingfornothing:
+    lora: sdxl\character\anubiswhisperingfornothing.safetensors
+    name: SDXL Anubis (WhisperingForNothing)
+    strength: 1
+    words:
+      - >-
+        1girl, anubis red eyes, furry, animal ears, dark body fur, large
+        breasts, thick thighs, ankh, tail
+    description: Anubis (WhisperingForNothing)
+    rating: nsfw
+    link: https://civitai.com/models/446371/anubis-whisperingfornothing-pdxl-lora
+    dateCreated: 1720718156152.6812
+  character-sdxlrustyrosesonicthehedgehog:
+    lora: sdxl\character\rustyrosesonicthehedgehog.safetensors
+    name: SDXL Rusty Rose (Sonic the Hedgehog)
+    strength: 1
+    words:
+      - >-
+        rustyrose, metal plate in the right eye, robotic ears, robotic spikes,
+        robotic armor
+    description: Rusty Rose (Sonic the Hedgehog)
+    rating: safe
+    link: https://civitai.com/models/563982/rusty-rose-sonic-prime-pony
+    dateCreated: 1720718291297.0352
+  character-sdxljudyanimalcrossing:
+    lora: sdxl\character\judyanimalcrossing.safetensors
+    name: SDXL Judy (Animal Crossing)
+    strength: 1
+    words:
+      - judy_cub_bear, furry,
+    description: Judy_Animal_Crossing
+    rating: safe
+    link: https://civitai.com/models/458507/judyanimalcrossing
+    dateCreated: 1720718329209.411
+  character-sdxlalphysundertaleforponyxl:
+    lora: sdxl\character\alphysundertaleforponyxl.safetensors
+    name: SDXL Alphys (Undertale) for PonyXL
+    strength: 1
+    words:
+      - alphys \(undertale\)
+    description: Alphys (Undertale) for PonyXL
+    rating: safe
+    link: https://civitai.com/models/523895?modelVersionId=582065
+    dateCreated: 1720718348307.9438
+  character-sdxlcombineassassinhalflife:
+    lora: sdxl\character\combineassassinhalflife.safetensors
+    name: SDXL Combine Assassin (Half-Life)
+    strength: 1
+    words:
+      - combineassassin;
+      - helmet, red eyes, one-eyed, white bodysuit, black gloves
+    description: Combine Assassin (Half-Life)
+    rating: safe
+    link: https://civitai.com/models/361674?modelVersionId=404165
+    dateCreated: 1720731186273.3586
+  character-nightmarefredbearfivenightsatfreddys:
+    lora: character\nightmarefredbearfivenightsatfreddys.safetensors
+    name: Nightmare Fredbear (Five Nights at Freddys)
+    strength: 1
+    words:
+      - fredmare
+    description: Nightmare Fredbear (Five Nights at Freddys)
+    rating: safe
+    link: >-
+      https://civitai.com/models/211180/nightmare-fredbear-fnaf-five-nights-at-freddys
+    dateCreated: 1720731546477.8845
+  character-sdxllopstarwars:
+    lora: sdxl\character\lopstarwars.safetensors
+    name: SDXL Lop (Star Wars)
+    strength: 0.8
+    words:
+      - >-
+        1girl, Lopxl, anthro, furry, rabbit ears, rabbit girl, brown fur, fur
+        tuft, blue eyes;
+      - lop_outfit, white shorts;
+      - animal feet, rabbit tail
+    description: Lop (Star Wars)
+    rating: safe
+    link: >-
+      https://civitai.com/models/570876/lop-star-wars-visions-character-lora-pony?modelVersionId=636316
+    dateCreated: 1720732536302.7207
+  character-sdxlkagaminerinvocaloid:
+    lora: sdxl\character\kagaminerinvocaloid.safetensors
+    name: SDXL Kagamine Rin (Vocaloid)
+    strength: 1
+    words:
+      - kagamine rin;
+      - >-
+        short hair,blonde hair,floating hair,white hairband,hair bow,white
+        bow,hairclip,swept bangs,blue eyes;
+      - >-
+        collarbone,bare shoulders,black sailor collar,white shirt,sleeveless
+        shirt,crop top,midriff,yellow neckerchief,black sleeves,detached
+        sleeves,medium breasts,navel,stomach,orange belt,fringe,short
+        shorts,black shorts,leg warmers,white footwear
+    description: Kagamine Rin (Vocaloid)
+    rating: safe
+    link: >-
+      https://civitai.com/models/232867/kagamine-rin-vocaloid?modelVersionId=635673
+    dateCreated: 1720732591625.7722
+  character-sdxlaloeishuzokureviewers:
+    lora: sdxl\character\aloeishuzokureviewers.safetensors
+    name: SDXL Aloe (Ishuzoku Reviewers)
+    strength: 0.8
+    words:
+      - Aloe
+    description: Aloe (Ishuzoku Reviewers)
+    rating: safe
+    link: >-
+      https://civitai.com/models/569941/aloe-or-ishuzoku-reviewers-pdxl?modelVersionId=635270
+    dateCreated: 1720732620621.8086
+  character-sdxlcrimvaelishuzokureviewers:
+    lora: sdxl\character\crimvaelishuzokureviewers.safetensors
+    name: SDXL Crimvael (Ishuzoku Reviewers)
+    strength: 0.8
+    words:
+      - Crimvael
+    description: Crimvael (Ishuzoku Reviewers)
+    rating: safe
+    link: >-
+      https://civitai.com/models/570760/crimvael-or-ishuzoku-reviewers-pdxl?modelVersionId=636189
+    dateCreated: 1720732651903.4773
+  character-sdxlankhaanimalcrossing:
+    lora: sdxl\character\ankhaanimalcrossing.safetensors
+    name: SDXL Ankha (Animal Crossing)
+    strength: 1
+    words:
+      - ankha;
+      - tail, bandages, white dress, egyptian, hieroglyphics
+    description: 'Ankha (Animal Crossing), good negatives: multiple tails, two tailss'
+    rating: safe
+    link: https://civitai.com/models/396503/ankha-animal-crossing-v3
+    dateCreated: 1720733270166.3328
+  character-sdxlshinoanimalcrossing:
+    lora: sdxl\character\shinoanimalcrossing.safetensors
+    name: SDXL Shino (Animal Crossing)
+    strength: 1
+    words:
+      - ShinoSDXL;
+      - >-
+        furry,furry female,horns,body fur,red horns,animal ears, sash,deer
+        ears,orange eyes, hooves,white fur,makeup,eyeshadow;
+      - green kimono,sash,kimono with pattern
+    description: Shino (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/171525/shino-animal-crossing-sd15-and-ponyxl
+    dateCreated: 1720733586523.5
+  character-sdxlflickanimalcrossing:
+    lora: sdxl\character\flickanimalcrossing.safetensors
+    name: SDXL Flick (Animal Crossing)
+    strength: 1
+    words:
+      - FlickPXL;
+      - >-
+        furry, lizard tail, horns,purple eyes, red skin, piercing, yellow
+        horns,tail, anthro chameleon, reptile;
+      - >-
+        pants, jacket, black jacket, shirt, black shirt, sleveless,boots,red
+        pants, tank top, black tank top,choker,black chocker,open vest, boots,
+        black boots, argyle,plaid pants
+    description: Flick (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/282603/flick-animal-crossing-sd15-and-ponyxl
+    dateCreated: 1720733681039.9426
+  character-sdxlcocoanimalcrossing:
+    lora: sdxl\character\cocoanimalcrossing.safetensors
+    name: SDXL Coco (Animal Crossing)
+    strength: 1
+    words:
+      - coco \(animal crossing\), coco, simple eyes, empty eyes, green dress
+    description: Coco (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/436304/coco-animal-crossing-pdxl
+    dateCreated: 1720733743633.4058
+  character-sdxloliviaanimalcrossing:
+    lora: sdxl\character\oliviaanimalcrossing.safetensors
+    name: SDXL Olivia (Animal Crossing)
+    strength: 1
+    words:
+      - ACOliviaPXL;
+      - anthro cat, yellow eyes, white fur, red fur;
+      - purple dress
+    description: Olivia (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/544630/olivia-animal-crossing-furry
+    dateCreated: 1720733791967.1072
+  character-sdxlraymondanimalcrossing:
+    lora: sdxl\character\raymondanimalcrossing.safetensors
+    name: SDXL Raymond (Animal Crossing)
+    strength: 1
+    words:
+      - >-
+        raymond (animal crossing), grey fur, heterochromia, glasses, blonde
+        hair;
+      - cat, furry male
+    description: Raymond (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/516406/raymond-animal-crossing-pony
+    dateCreated: 1720733828930.6658
+  character-sdxlsashaanimalcrossing:
+    lora: sdxl\character\sashaanimalcrossing.safetensors
+    name: SDXL Sasha (Animal Crossing)
+    strength: 1
+    words:
+      - sasha (ac), green fur, blue jacket, blonde hair, rabbit, girly, femboy;
+      - furry male
+    description: Sasha (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/554878/sasha-animal-crossing-pony
+    dateCreated: 1720733884000.6133
+  character-sdxlbonbonanimalcrossing:
+    lora: sdxl\character\bonbonanimalcrossing.safetensors
+    name: SDXL Bonbon (Animal Crossing)
+    strength: 1
+    words:
+      - bonbon_(\animal_crossing);
+      - rabbit, lagomorph, anthro, yellow hair, grey fur, black eyes;
+      - sandals, aqua shirt, polka dot shirt
+    description: Bonbon (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/467203/bonbon-animal-crossing-ponysdxl
+    dateCreated: 1720733919256.2703
+  character-sdxllollyanimalcrossing:
+    lora: sdxl\character\lollyanimalcrossing.safetensors
+    name: SDXL Lolly (Animal Crossing)
+    strength: 1
+    words:
+      - Lolly
+    description: Lolly (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/532864/lolly-animal-crossing
+    dateCreated: 1720733962834.9443
+  character-sdxldigbyanimalcrossing:
+    lora: sdxl\character\digbyanimalcrossing.safetensors
+    name: SDXL Digby (Animal Crossing)
+    strength: 1
+    words:
+      - digby (animal crossing), brown fur, brown hair, freckles, white eyes;
+      - furry male, dog
+    description: Digby (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/508550/digby-animal-crossing-pony
+    dateCreated: 1720734214071.6118
+  character-sdxlelvisanimalcrossing:
+    lora: sdxl\character\elvisanimalcrossing.safetensors
+    name: SDXL Elvis (Animal Crossing)
+    strength: 1
+    words:
+      - Elvis[AC];
+      - King[AC];
+      - >-
+        yellow fur, yellow body, animal ears, X slash on left cheek, lion,
+        anthro lion, brown hair, brown mane, brown lion mane, eyebrows, brown
+        eyebrows, slash on right cheek, brown eyes, animal nose, brown animal
+        nose, anthro, anthro animal, (male anthro lion)+++++
+    description: Elvis (Animal Crossing)
+    rating: suggestive
+    link: https://civitai.com/models/515674/elvis-animal-crossing
+    dateCreated: 1720734269798.65
+  character-sdxlsableableanimalcrossing:
+    lora: sdxl\character\sableableanimalcrossing.safetensors
+    name: SDXL Sable Able (Animal Crossing)
+    strength: 1
+    words:
+      - >-
+        sable able, brown fur, hedgehog, black nose, snout, apron, plaid apron,
+        half-closed eyes;
+      - freckles, striped tail
+    description: Sable Able (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/467466/sable-able-animal-crossing
+    dateCreated: 1720734304156.4392
+  character-sdxldobieanimalcrossing:
+    lora: sdxl\character\dobieanimalcrossing.safetensors
+    name: SDXL Dobie (Animal Crossing)
+    strength: 1
+    words:
+      - Dobie
+    description: Dobie (Animal Crossing)
+    rating: safe
+    link: https://civitai.com/models/554844/dobie-or-animal-crossing-or-pony-xl
+    dateCreated: 1720734340198.2937
+  character-sphealpokemon:
+    lora: character\sphealpokemon.safetensors
+    name: Spheal (Pokemon)
+    strength: 1
+    words:
+      - sphealpk;
+      - no humans, pokemon \(creature\)
+    description: Spheal (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/168231/spheal-pokemon
+    dateCreated: 1720734399429.2104
+  character-ashsing:
+    lora: character\ashsing.safetensors
+    name: Ash (Sing)
+    strength: 1
+    words:
+      - ash porcupine
+    description: Ash (Sing)
+    rating: safe
+    link: https://civitai.com/models/116515/ash
+    dateCreated: 1720734516615.7446
+  character-mudkippokemon:
+    lora: character\mudkippokemon.safetensors
+    name: Mudkip (Pokemon)
+    strength: 0.8
+    words:
+      - Mudkip_Pokemon
+    description: Mudkip (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/132751/mudkip-pokemon-pokedex-0258
+    dateCreated: 1720734626274.412
+  character-male07halflife:
+    lora: character\male07halflife.safetensors
+    name: Male_07 (Half-Life)
+    strength: 1
+    words:
+      - Male07;
+      - Male07, beanie, fingerless gloves, jacket, uniform;
+      - Male07, blue shirt
+    description: Male_07 (Half-Life)
+    rating: safe
+    link: https://civitai.com/models/86667?modelVersionId=92176
+    dateCreated: 1720734984792.4194
+  character-sdxlghostsoapkonigcallofduty:
+    lora: sdxl\character\ghostsoapkonigcallofduty.safetensors
+    name: SDXL Ghost, Soap, Konig (Call of Duty)
+    strength: 1
+    words:
+      - ghost(modern warfare 2);
+      - soap(modern warfare 2);
+      - konig
+    description: Ghost, Soap, Konig (Call of Duty)
+    rating: safe
+    link: >-
+      https://civitai.com/models/501058/call-of-duty-ghostsoapkonig-or-lokr-for-pony-xl-v6
+    dateCreated: 1720735045578.448
+  character-sdxlhoohpokemon:
+    lora: sdxl\character\hoohpokemon.safetensors
+    name: SDXL Ho-oh (Pokemon)
+    strength: 0.7
+    words:
+      - >-
+        pokemon \creature, Ho-oh, anthro, beak, bird, red body, red feather, (no
+        human);
+      - Avian, Yellow feather, white feather, green feather, wings
+    description: Ho-oh (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/458469?modelVersionId=510271
+    dateCreated: 1720735780383.4722
+  character-v1ultrakill:
+    lora: character\v1ultrakill.safetensors
+    name: V1 (ULTRAKILL)
+    strength: 1
+    words:
+      - v1_ultrakill
+    description: V1 (ULTRAKILL)
+    rating: safe
+    link: https://civitai.com/models/25983/v1-ultrakill
+    dateCreated: 1720735862456.7078
+  character-sdxlspacemarinedreadnoughtwarhammer40000:
+    lora: sdxl\character\spacemarinedreadnoughtwarhammer40000.safetensors
+    name: SDXL Space Marine Dreadnought (Warhammer 40,000)
+    strength: 1
+    words:
+      - a four meter tall red drdnght machine
+    description: Space Marine Dreadnought (Warhammer 40,000)
+    rating: safe
+    link: >-
+      https://civitai.com/models/327328/space-marine-dreadnought-warhammer-40000-pony-sdxl
+    dateCreated: 1720735957787.34
+  character-sdxlkerfusvoicesofthevoid:
+    lora: sdxl\character\kerfusvoicesofthevoid.safetensors
+    name: SDXL Kerfus (Voices Of The Void)
+    strength: 1
+    words:
+      - kerfus;
+      - kerfus, kerfuspink;
+      - kerfus, kerfusblue;
+      - kerfus, kerfusred
+    description: >-
+      Kerfus (Voices Of The Void), can try purple body, white body etc for non
+      trained colours
+    rating: safe
+    link: https://civitai.com/models/420596/kerfus-voices-of-the-void
+    dateCreated: 1720736126402.5212
+  character-sdxlisabellaandphineasphineasandferb:
+    lora: sdxl\character\isabellaandphineasphineasandferb.safetensors
+    name: SDXL Isabella and Phineas (Phineas and Ferb)
+    strength: 1
+    words:
+      - PhinBella, 1boy, 1girl
+    description: Isabella and Phineas (Phineas and Ferb)
+    rating: safe
+    link: >-
+      https://civitai.com/models/549797/isabella-and-phineas-together-phineas-and-ferb-ponyxl
+    dateCreated: 1720741567672.0525
 clothing:
   clothing-acrylicheartdress:
     rating: suggestive
@@ -6135,6 +6593,16 @@ clothing:
     rating: safe
     link: https://civitai.com/models/277794/fallout-vault-suit-sdxl
     dateCreated: 1720284833225.9038
+  clothing-sdxldifferentarmor:
+    lora: sdxl\clothing\differentarmor.safetensors
+    name: SDXL Different Armor
+    strength: 0.6
+    words:
+      - full armor, helmet
+    description: Different Armor
+    rating: suggestive
+    link: https://civitai.com/models/571066/gkdifferent-armor?modelVersionId=636534
+    dateCreated: 1720732688039.0718
 concept:
   concept-aftersex:
     rating: nsfw
@@ -8234,6 +8702,116 @@ concept:
     link: >-
       https://civitai.com/models/498638/cooperative-paizuri-titjob-titfuck-lora-or-ponyxl
     dateCreated: 1720285907057.9656
+  concept-sdxlminigiantess:
+    lora: sdxl\concept\minigiantess.safetensors
+    name: SDXL Minigiantess
+    strength: 1
+    words:
+      - macrogts;
+      - mesogts;
+      - minigts;
+      - minigiantess;
+      - tallgts;
+      - size difference, giantess
+    description: "tallgts: Taller than average\r\n\r\nminigiantess: Giantesses 7' to 12' tall\r\n\r\nmesogts: Giantesses 12'to 50' tall\r\n\r\nmacrogts: Giantesses 50' to 500' tall"
+    rating: suggestive
+    link: https://civitai.com/models/148955?modelVersionId=577428
+    dateCreated: 1720698027764.009
+  concept-sdxlbreedingmount:
+    lora: sdxl\concept\breedingmount.safetensors
+    name: SDXL Breeding mount
+    strength: 1
+    words:
+      - x-ray, normal
+    description: Breeding mount
+    rating: nsfw
+    link: https://civitai.com/models/375635/breeding-mount-ponyxl
+    dateCreated: 1720698759750.6296
+  concept-sdxlpresentingpanties:
+    lora: sdxl\concept\presentingpanties.safetensors
+    name: SDXL Presenting Panties
+    strength: 1
+    words:
+      - >-
+        sp, underwear, panties, holding clothes, holding panties, panties
+        removed, holding underwear, white panties;
+      - https://civitai.com/models/394136/presenting-panties-only-for-pony
+    description: Presenting Panties
+    rating: nsfw
+    link: https://civitai.com/models/394136/presenting-panties-only-for-pony
+    dateCreated: 1720731238117.3398
+  concept-sdxlsizedifferencesmalldombigsub:
+    lora: sdxl\concept\sizedifferencesmalldombigsub.safetensors
+    name: SDXL Size difference (small dom big sub)
+    strength: 1
+    words:
+      - smalldombigsub, size difference
+    description: Size difference (small dom big sub)
+    rating: nsfw
+    link: >-
+      https://civitai.com/models/458553/pony-xl-size-difference-small-dom-big-sub-sdxl-lora
+    dateCreated: 1720731318725.4424
+  concept-sdxlbanditgagotngag:
+    lora: sdxl\concept\banditgagotngag.safetensors
+    name: SDXL Bandit Gag / OTN Gag
+    strength: 1
+    words:
+      - otn gag
+    description: Bandit Gag / OTN Gag
+    rating: nsfw
+    link: https://civitai.com/models/346398/bandit-gag-otn-gag-sdxl-pony
+    dateCreated: 1720731374879.6533
+  concept-sdxlsuckingownbreast:
+    lora: sdxl\concept\suckingownbreast.safetensors
+    name: SDXL Sucking own breast
+    strength: 1
+    words:
+      - self breast sucking
+    description: Sucking own breast
+    rating: nsfw
+    link: https://civitai.com/models/396182/sucking-own-breast-ponyxl
+    dateCreated: 1720731402594.244
+  concept-sdxlouterthighjob:
+    lora: sdxl\concept\outerthighjob.safetensors
+    name: SDXL Outer Thighjob
+    strength: 1
+    words:
+      - 0ut3r, penis under clothes
+    description: Outer Thighjob
+    rating: nsfw
+    link: https://civitai.com/models/561503/outer-thighjob?modelVersionId=636010
+    dateCreated: 1720732804757.4102
+  concept-sdxlpovincomingkiss:
+    lora: sdxl\concept\povincomingkiss.safetensors
+    name: SDXL POV/incoming kiss
+    strength: 1
+    words:
+      - >-
+        POV, incoming_kiss, ahoge, detailed eyes, blush, lips, imminent_kiss,
+        incoming kiss, POVkiss, lips;
+      - depth_of_field, solo focus, blurry_background;
+      - tongue, saliva, saliva_trail, POVfrenchkiss;
+      - POVembrace, reaching_out;
+      - POVcowgirl, girl_on_top, POVsex;
+      - POVHJ, POV_handjob;
+      - POVdoggy, POVsex, from_behind;
+      - fellatio, bj, POVblowjob, POVBJ;
+      - kissing, french_kissing, Male_POV
+    description: POV/incoming kiss
+    rating: suggestive
+    link: >-
+      https://civitai.com/models/568173/concept-povincoming-kiss-request?modelVersionId=635547
+    dateCreated: 1720732968068.5205
+  concept-sdxlundressing:
+    lora: sdxl\concept\undressing.safetensors
+    name: SDXL Undressing
+    strength: 1.3
+    words:
+      - undressing
+    description: Undressing
+    rating: nsfw
+    link: https://civitai.com/models/505266/undressing?modelVersionId=565222
+    dateCreated: 1720732994823.4807
 effect:
   effect-animetarot:
     dateCreated: 1717352480512.6746
@@ -8648,6 +9226,28 @@ effect:
     rating: suggestive
     link: https://civitai.com/models/466863/tattoo-slider-pony
     dateCreated: 1720286502801.8418
+  effect-sdxleasyfix:
+    lora: sdxl\effect\easyfix.safetensors
+    name: SDXL EasyFix
+    strength: 1
+    words:
+      - overfit style;
+      - (overfit style)+++;
+      - (overfit style)++++++
+    description: EasyFix, <PUT OVERFIT STYLE IN NEGATIVE PROMPT>
+    rating: safe
+    link: https://civitai.com/models/149316
+    dateCreated: 1720735406905.007
+  effect-sdxldoctordiffusionsnegative:
+    lora: sdxl\effect\doctordiffusionsnegative.safetensors
+    name: SDXL Doctor Diffusion's Negative
+    strength: -1
+    words:
+      - N/A
+    description: Doctor Diffusion's Negative
+    rating: safe
+    link: https://civitai.com/models/186617
+    dateCreated: 1720735345826.525
 pose:
   pose-againstwallsex:
     dateCreated: 1717352483289.705
@@ -9699,6 +10299,51 @@ pose:
     link: >-
       https://civitai.com/models/423398/pov-sex-looking-down-missionary-doggy-style-mating-press
     dateCreated: 1720057784277.767
+  pose-sdxlhearthandsonbreast:
+    lora: sdxl\pose\hearthandsonbreast.safetensors
+    name: SDXL Heart Hands on Breast
+    strength: 1
+    words:
+      - heart hands on breast
+    description: Heart Hands on Breast
+    rating: nsfw
+    link: https://civitai.com/models/528797/heart-hands-on-breast-lora-or-ponyxl
+    dateCreated: 1720731455230.3064
+  pose-sdxltailjobtailaroundpenis:
+    lora: sdxl\pose\tailjobtailaroundpenis.safetensors
+    name: SDXL Tailjob / Tail Around Penis
+    strength: 1
+    words:
+      - tailwrap, cattail, demontail, dragontail
+    description: Tailjob / Tail Around Penis, maybe use "futa" in negatives
+    rating: nsfw
+    link: https://civitai.com/models/486796?modelVersionId=541308
+    dateCreated: 1720731498474.7117
+  pose-sdxlassumetheposition:
+    lora: sdxl\pose\assumetheposition.safetensors
+    name: SDXL Assume The Position
+    strength: 1
+    words:
+      - >-
+        assume the position, assume_the_position, cavity_search,
+        hands_against_wall, hands_on_wall;
+      - >-
+        1woman, from behind, standing, hand_on_wall, against wall, ass_shake,
+        bent_over+++,;
+      - impossible_clothes, ass_focus, looking_back, blush;
+      - sideview;
+      - >-
+        croptop, jeans, pants, cameltoe, impossible_clothes, ass_focus,
+        looking_back, blush,;
+      - >-
+        ahoge, detailed eyes, blush, lips, depth_of_field, solo focus,
+        blurry_background, fully nude, breasts out, nipples, uncensored pussy,
+        anus, female pubic hair, excessive pubic hair, arched back, pussy juice,
+        full-face_blush,
+    description: Assume_the_position
+    rating: suggestive
+    link: https://civitai.com/models/534443/assumetheposition?modelVersionId=636104
+    dateCreated: 1720732762118.4634
 style:
   style-abmayo:
     dateCreated: 1717300572745.176
@@ -11371,3 +12016,182 @@ style:
     rating: safe
     link: https://civitai.com/models/562996/dragoon86-style?modelVersionId=627423
     dateCreated: 1720361267951.0693
+  style-sdxllumpypaca:
+    lora: sdxl\style\lumpypaca..safetensors
+    name: SDXL lumpypaca
+    strength: 1
+    words:
+      - N/A
+    description: lumpypaca
+    rating: safe
+    link: https://civitai.com/models/549079?modelVersionId=610865
+    dateCreated: 1720686011713.4534
+  style-sdxlmalangpunisoft:
+    lora: sdxl\style\malangpunisoft..safetensors
+    name: SDXL Malangpunisoft
+    strength: 1
+    words:
+      - N/A
+    description: Malangpunisoft Style
+    rating: suggestive
+    link: https://civitai.com/models/130690/malangpunisoft-style
+    dateCreated: 1720686252607.7222
+  style-sdxlpantystocking:
+    lora: sdxl\style\panty&stocking..safetensors
+    name: SDXL Panty & Stocking
+    strength: 1
+    words:
+      - Panty & Stocking style, Thick lineart, sharp edges
+    description: Panty & Stocking
+    rating: safe
+    link: https://civitai.com/models/444457/panty-and-stocking-style
+    dateCreated: 1720694864817.9329
+  style-sdxlwamudraws:
+    lora: sdxl\style\wamudraws..safetensors
+    name: SDXL WamuDraws
+    strength: 1
+    words:
+      - N/A
+    description: WamuDraws
+    rating: safe
+    link: https://civitai.com/models/331794/wamudraws-ponydiffusionxlv6
+    dateCreated: 1720696250502.3794
+  style-sdxlpokemonanime:
+    lora: sdxl\style\pokemonanime.safetensors
+    name: SDXL Pokemon Anime
+    strength: 1
+    words:
+      - >-
+        PokemonStyle, pokemon \(anime\), pokemon \(classic anime\), anime
+        screencap,
+    description: Pokemon Anime Style
+    rating: safe
+    link: https://civitai.com/models/469924/pokemon-anime-style
+    dateCreated: 1720698835778.437
+  style-sdxlreiq:
+    lora: sdxl\style\reiq.safetensors
+    name: SDXL Reiq
+    strength: 1
+    words:
+      - N/A
+    description: Reiq
+    rating: suggestive
+    link: https://civitai.com/models/319274/reiq-style-ponyxl
+    dateCreated: 1720698874012.6936
+  style-sdxlthemurderofsonicthehedgehog:
+    lora: sdxl\style\themurderofsonicthehedgehog.safetensors
+    name: SDXL The Murder of Sonic the Hedgehog
+    strength: 1
+    words:
+      - >-
+        (tmosth), (flat color, black shading, sloppy coloring), hatching
+        \(texture\)
+    description: The Murder of Sonic the Hedgehog
+    rating: safe
+    link: https://civitai.com/models/556667/the-murder-of-sonic-the-hedgehog-style
+    dateCreated: 1720698908430.901
+  style-sdxlvs:
+    lora: sdxl\style\vs.safetensors
+    name: SDXL VS
+    strength: 1
+    words:
+      - vs \(artist\)
+    description: VS
+    rating: safe
+    link: https://civitai.com/models/564221
+    dateCreated: 1720718001885.0007
+  style-sdxldragonball:
+    lora: sdxl\style\dragonball.safetensors
+    name: SDXL Dragon Ball
+    strength: 1
+    words:
+      - drgbls1
+    description: Dragon Ball
+    rating: safe
+    link: https://civitai.com/models/474074/dragon-ball-style
+    dateCreated: 1720718037956.9382
+  style-sdxlgsusart2222:
+    lora: sdxl\style\gsusart2222.safetensors
+    name: SDXL Gsusart2222
+    strength: 1
+    words:
+      - N/A
+    description: Gsusart2222
+    rating: suggestive
+    link: >-
+      https://civitai.com/models/570540/gsusart2222-style-lora-for-ponyxl?modelVersionId=635941
+    dateCreated: 1720732381204.271
+  style-sdxlkrekkov:
+    lora: sdxl\style\krekkov.safetensors
+    name: SDXL Krekkov
+    strength: 1
+    words:
+      - N/A
+    description: Krekkov
+    rating: suggestive
+    link: >-
+      https://civitai.com/models/570716/krekkov-style-lora-for-ponyxl?modelVersionId=636139
+    dateCreated: 1720732404569.337
+  style-sdxlretroneon:
+    lora: sdxl\style\retroneon.safetensors
+    name: SDXL Retro Neon
+    strength: 1
+    words:
+      - retro_neon
+    description: Retro Neon
+    rating: safe
+    link: >-
+      https://civitai.com/models/569937/retro-neon-style-sdxlpony?modelVersionId=635256
+    dateCreated: 1720732431393.663
+  style-sdxlsatuyo:
+    lora: sdxl\style\satuyo.safetensors
+    name: SDXL Satuyo
+    strength: 1
+    words:
+      - SatuyoP
+    description: Satuyo
+    rating: safe
+    link: >-
+      https://civitai.com/models/561734/style-satuyo-ponyxl?modelVersionId=625709
+    dateCreated: 1720732453963.7888
+  style-sdxlqueasys:
+    lora: sdxl\style\queasys.safetensors
+    name: SDXL Queasy_S
+    strength: 1
+    words:
+      - N/A
+    description: Queasy_S
+    rating: safe
+    link: >-
+      https://civitai.com/models/570456/queasys-artist-style-or-pony?modelVersionId=635834
+    dateCreated: 1720732488802.068
+  style-yujiuekawasonicadventure:
+    lora: style\yujiuekawasonicadventure.safetensors
+    name: Yuji Uekawa (Sonic Adventure)
+    strength: 0.8
+    words:
+      - yuji uekawa
+    description: Yuji Uekawa (Sonic Adventure)
+    rating: safe
+    link: https://civitai.com/models/292664/yuji-uekawa-sonic-adventure-style
+    dateCreated: 1720734780735.9414
+  style-sdxlheroneisan:
+    lora: sdxl\style\heroneisan.safetensors
+    name: SDXL Hero Neisan
+    strength: 1
+    words:
+      - N/A
+    description: Hero Neisan
+    rating: safe
+    link: https://civitai.com/models/319546?modelVersionId=358320
+    dateCreated: 1720735525077.3184
+  style-sdxlsenshion:
+    lora: sdxl\style\senshion.safetensors
+    name: SDXL Senshion
+    strength: 1
+    words:
+      - Senshion
+    description: Senshion
+    rating: safe
+    link: https://civitai.com/models/563436/senshion-style
+    dateCreated: 1720735590040.6108
