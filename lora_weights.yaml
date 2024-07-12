@@ -6691,7 +6691,7 @@ concept:
     name: Majik Fone
     strength: 1
     words:
-      - majikfone
+      - majikfone, smartphone, cellphone, phone, holding_phone, partial_nudity
   concept-mechamusume:
     rating: safe
     dateCreated: 1717352367071.0295
