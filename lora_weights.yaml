@@ -5113,7 +5113,7 @@ character:
       trained colours
     rating: safe
     link: https://civitai.com/models/420596/kerfus-voices-of-the-void
-    dateCreated: 1720736126402.5212
+    dateCreated: 1720813152023.3108
   character-sdxlisabellaandphineasphineasandferb:
     lora: sdxl\character\isabellaandphineasphineasandferb.safetensors
     name: SDXL Isabella and Phineas (Phineas and Ferb)
@@ -5125,6 +5125,107 @@ character:
     link: >-
       https://civitai.com/models/549797/isabella-and-phineas-together-phineas-and-ferb-ponyxl
     dateCreated: 1720741567672.0525
+  character-sdxlcalamitasterrariacalamity:
+    lora: sdxl\character\calamitasterrariacalamity.safetensors
+    name: SDXL Calamitas (Terraria Calamity)
+    strength: 1
+    words:
+      - calamitas, dark skin, white hair, demon horns;
+      - >-
+        gold trim, red cape, red robe, long sleeves, black gloves, red leggings,
+        gold belt
+    description: Calamitas (Terraria Calamity)
+    rating: safe
+    link: >-
+      https://civitai.com/models/445571/ponyv6-xl-calamitas-or-terraria-calamity-mod
+    dateCreated: 1721337856718.8079
+  character-sdxllilyduolingo:
+    lora: sdxl\character\lilyduolingo.safetensors
+    name: SDXL Lily (Duolingo)
+    strength: 1
+    words:
+      - lily duolingo, purple hair, hair over one eye
+    description: Lily (Duolingo)
+    rating: safe
+    link: https://civitai.com/models/364159
+    dateCreated: 1721337885767.1382
+  character-sdxlhisuianzoroarkpokemon:
+    lora: sdxl\character\hisuianzoroarkpokemon.safetensors
+    name: SDXL Hisuian Zoroark (Pokemon)
+    strength: 1
+    words:
+      - HisuianZeroarkXL, hisuian zeroark
+    description: Hisuian Zoroark (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/525412/zoroark-xl-pokemon
+    dateCreated: 1721337977929.0576
+  character-sdxlfrankiefosterfostershomeforimaginaryfriends:
+    lora: sdxl\character\frankiefosterfostershomeforimaginaryfriends.safetensors
+    name: SDXL Frankie Foster (Foster's Home for Imaginary Friends)
+    strength: 1
+    words:
+      - >-
+        frankiefoster, ponytail, hair ornament, earrings, black choker, shirt,
+        green jacket, midriff, purple skirt, red hair, black eyes
+    description: Frankie Foster (Foster's Home for Imaginary Friends)
+    rating: safe
+    link: >-
+      https://civitai.com/models/372241/frankie-foster-fosters-home-for-imaginary-friends-ponyxl-character-lora
+    dateCreated: 1721338033305.6145
+  character-sdxldotwarneranimaniacs:
+    lora: sdxl\character\dotwarneranimaniacs.safetensors
+    name: SDXL Dot Warner (Animaniacs)
+    strength: 1
+    words:
+      - >-
+        dot warner, purple hair, hair flower, purple eyes, white shirt, pink
+        skirt, tail, furry, animal nose
+    description: Dot Warner (Animaniacs)
+    rating: safe
+    link: https://civitai.com/models/519728?modelVersionId=577492
+    dateCreated: 1721338071786.8086
+  character-sdxlhildrynwarframe:
+    lora: sdxl\character\hildrynwarframe.safetensors
+    name: SDXL Hildryn (Warframe)
+    strength: 0.8
+    words:
+      - HildrynWF, purple body, cyan body, abs
+    description: Hildryn (Warframe)
+    rating: suggestive
+    link: https://civitai.com/models/439559/hildryn-warframe-or-ponyxl
+    dateCreated: 1721338174696.8499
+  character-thepuppetmarionettefivenightsatfreddys:
+    lora: character\thepuppetmarionettefivenightsatfreddys.safetensors
+    name: The Puppet / Marionette (Five Nights at Freddy's)
+    strength: 1
+    words:
+      - puppet;
+      - open mouth
+    description: The Puppet / Marionette (Five Nights at Freddy's)
+    rating: safe
+    link: >-
+      https://civitai.com/models/244204/the-puppet-the-marionette-fnaf-five-nights-at-freddys
+    dateCreated: 1721338488180.9873
+  character-lilyduolingo:
+    lora: character\lilyduolingo.safetensors
+    name: Lily (Duolingo)
+    strength: 1
+    words:
+      - N/A
+    description: Lily (Duolingo)
+    rating: safe
+    link: https://civitai.com/models/293242
+    dateCreated: 1721338521125.1125
+  character-hisuianzoroarkpokemon:
+    lora: character\hisuianzoroarkpokemon.safetensors
+    name: Hisuian Zoroark (Pokemon)
+    strength: 1
+    words:
+      - Hisuian Zoroark
+    description: Hisuian Zoroark (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/154996/hisuian-zoroark
+    dateCreated: 1721338564520.806
 clothing:
   clothing-acrylicheartdress:
     rating: suggestive
@@ -9385,6 +9486,16 @@ effect:
     rating: safe
     link: https://civitai.com/models/186617
     dateCreated: 1720735345826.525
+  effect-sdxlbuckshotroulette:
+    lora: sdxl\effect\buckshotroulette.safetensors
+    name: SDXL Buckshot Roulette
+    strength: 1
+    words:
+      - buckshot roulette
+    description: Buckshot Roulette
+    rating: safe
+    link: https://civitai.com/models/518753/buckshot-roulette-pony-xl
+    dateCreated: 1721338346087.5264
 pose:
   pose-againstwallsex:
     rating: nsfw
@@ -12592,3 +12703,52 @@ style:
     rating: safe
     link: https://civitai.com/models/563436/senshion-style
     dateCreated: 1720735590040.6108
+  style-sdxlxierra099:
+    lora: sdxl\style\xierra099.safetensors
+    name: SDXL Xierra099
+    strength: 1
+    words:
+      - N/A
+    description: Xierra099
+    rating: safe
+    link: https://civitai.com/models/427157/xierra099s-style
+    dateCreated: 1721338116282.1333
+  style-sdxlkovar:
+    lora: sdxl\style\kovar.safetensors
+    name: SDXL Kovar
+    strength: 1
+    words:
+      - kovar
+    description: Kovar
+    rating: safe
+    link: https://civitai.com/models/411952/kovar-style-seaart
+    dateCreated: 1721338200581.9546
+  style-sdxltriplevexx:
+    lora: sdxl\style\triplevexx.safetensors
+    name: SDXL TripleVexx
+    strength: 0.8
+    words:
+      - TVxx Style
+    description: TripleVexx
+    rating: safe
+    link: https://civitai.com/models/519226/triplevexxs-style
+    dateCreated: 1721338406716.6113
+  style-sdxlwyerframezinclcharacters:
+    lora: sdxl\style\wyerframezinclcharacters.safetensors
+    name: SDXL Wyerframez (Incl Characters)
+    strength: 1
+    words:
+      - Princess peach;
+      - Princess daisy;
+      - Rosalina;
+      - Piranha plant;
+      - Chain chomp, black skin;
+      - Chain chomp, gold skin;
+      - Shygal, black skin;
+      - Birdo, red bow;
+      - Wendy o. Koopa, pink bow, polka dot bow;
+      - Bob-omb
+    description: Wyerframez (Incl Characters)
+    rating: nsfw
+    link: https://civitai.com/models/502513/ponyxl-style-characters-wyerframez
+    dateCreated: 1721338304703.3523
