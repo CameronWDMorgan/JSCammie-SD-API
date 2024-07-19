@@ -85,7 +85,8 @@ try:
         'realisticVision': {'model_path': config["realisticVision_model_path"]},
         'fluffysonic': {'model_path': config["fluffysonic_model_path"]},
         'furryblend': {'model_path': config["furryblend_model_path"]},
-        'sdxl-ponydiffusion': {'model_path': config["sdxl_ponydiffusion_model_path"]},
+        'toonify': {'model_path': config["toonify_model_path"]},
+        'flat2danimerge': {'model_path': config["flat2danimerge_model_path"]},
         'sdxl-autismmix': {'model_path': config["sdxl_autismmix_model_path"]},
         'sdxl-sonichasautismmix': {'model_path': config["sdxl_sonichasautismmix_model_path"]},
         'sdxl-ponyrealism': {'model_path': config["sdxl_ponyrealism_model_path"]},
@@ -297,8 +298,6 @@ def add_metadata(image, metadata, data):
 
 def save_image(request_id, output_image, model_type, data):
     try:
-        # Simplify accountId handling
-        accountId_string = "" if data.get('accountId') == "0" else data.get('accountId', '')
 
         # Generate metadata
         metadata = {
@@ -670,7 +669,9 @@ def process_request(queue_item):
                 "executiontime": time.time() - start_time,
                 "totaltime": total_time,
                 "timestamp": time.time()
-            }
+            },
+            "fastqueue": data['fastqueue'],
+            "creditsRequired": str(data['creditsRequired']),
         }
         
         queue_item.status = "completed"
@@ -1402,6 +1403,8 @@ def generate_image():
             "image": data['image'],
             "lightning_mode": data.get("lightning_mode", False),
             "og_model": data['og_model'],
+            "fastqueue": data.get("fastqueue", False),
+            "creditsRequired": data.get("creditsRequired", 0),
         }
         
         data['width'] = round_to_multiple_of_eight(data['width'])
@@ -1572,21 +1575,39 @@ def generate_image():
         
         
         # print(f"Fast pass: {fastpass}, Fast pass enabled: {fastpass_enabled}")
+        
+        fastqueue = None
+        queueNumber = None
 
         if data['gpu_id'] == 0:
+            queueNumber = 0
             if fastpass and fastpass_enabled:
-                request_queue_0.insert(0, queue_item)
-            else:
-                request_queue_0.append(queue_item)
+                fastqueue = True
                 
             position = len(request_queue_0)  # Current position in the queue is its length
         elif data['gpu_id'] == 1:
+            queueNumber = 1
             if fastpass and fastpass_enabled:
-                request_queue_1.insert(0, queue_item)
-            else:
-                request_queue_1.append(queue_item)
+                fastqueue = True
                 
-            position = len(request_queue_1)  # Current position in the queue is its length
+        if data['fastqueue'] is True:
+            fastqueue = True
+            
+                
+
+        if fastqueue == True:
+            if queueNumber == 0:
+                request_queue_0.insert(0, queue_item)
+            elif queueNumber == 1:
+                request_queue_1.insert(0, queue_item)
+        else:
+            if data['gpu_id'] == 0:
+                request_queue_0.append(queue_item)
+            elif data['gpu_id'] == 1:
+                request_queue_1.append(queue_item)
+            
+                
+        position = len(request_queue_1)  # Current position in the queue is its length
 
         return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
 
