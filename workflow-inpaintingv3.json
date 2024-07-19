@@ -1,6 +1,6 @@
 {
-  "last_node_id": 292,
-  "last_link_id": 107,
+  "last_node_id": 293,
+  "last_link_id": 115,
   "nodes": [
     {
       "id": 283,
@@ -85,13 +85,13 @@
         "1": 58
       },
       "flags": {},
-      "order": 13,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 107
+          "link": 115
         },
         {
           "name": "amount",
@@ -143,12 +143,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 88
+          "link": 113
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 87
+          "link": 114
         },
         {
           "name": "latent_image",
@@ -415,132 +415,6 @@
       }
     },
     {
-      "id": 222,
-      "type": "smZ CLIPTextEncode",
-      "pos": [
-        2006,
-        184
-      ],
-      "size": {
-        "0": 235.1999969482422,
-        "1": 158.39999389648438
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 12
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 11,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            87
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Negative: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
-      "id": 225,
-      "type": "smZ CLIPTextEncode",
-      "pos": [
-        2011,
-        -8
-      ],
-      "size": {
-        "0": 235.1999969482422,
-        "1": 158.39999389648438
-      },
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 14
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 36,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            88
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Positive: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
       "id": 213,
       "type": "Primitive string multiline [Crystools]",
       "pos": [
@@ -625,7 +499,7 @@
         "1": 142
       },
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -724,13 +598,13 @@
       "id": 291,
       "type": "LoadImageMask",
       "pos": [
-        1141,
+        1135,
         1037
       ],
-      "size": [
-        315,
-        318.0000047683716
-      ],
+      "size": {
+        "0": 315,
+        "1": 318
+      },
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -739,7 +613,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            104
+            108
           ],
           "shape": 3,
           "slot_index": 0
@@ -773,7 +647,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            105
+            109
           ],
           "shape": 3,
           "slot_index": 0
@@ -831,7 +705,7 @@
           "type": "VAE",
           "links": [
             100,
-            106
+            110
           ],
           "shape": 3,
           "slot_index": 2
@@ -854,53 +728,204 @@
       ]
     },
     {
-      "id": 292,
-      "type": "VAEEncodeForInpaint",
+      "id": 225,
+      "type": "smZ CLIPTextEncode",
       "pos": [
-        1510,
-        1024
+        2000,
+        -35
       ],
       "size": {
-        "0": 315,
-        "1": 98
+        "0": 235.1999969482422,
+        "1": 158.39999389648438
       },
       "flags": {},
-      "order": 11,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
-          "name": "pixels",
-          "type": "IMAGE",
-          "link": 105
+          "name": "clip",
+          "type": "CLIP",
+          "link": 14
         },
         {
-          "name": "vae",
-          "type": "VAE",
-          "link": 106
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": 104
+          "name": "text",
+          "type": "STRING",
+          "link": 36,
+          "widget": {
+            "name": "text"
+          }
         }
       ],
       "outputs": [
         {
-          "name": "LATENT",
-          "type": "LATENT",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
           "links": [
-            107
+            111
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
+      "title": "Positive: CLIP Text Encode++",
       "properties": {
-        "Node name for S&R": "VAEEncodeForInpaint"
+        "Node name for S&R": "smZ CLIPTextEncode"
       },
       "widgets_values": [
-        16
+        "",
+        "compel",
+        true,
+        true,
+        false,
+        false,
+        6,
+        1024,
+        1024,
+        0,
+        0,
+        1024,
+        1024,
+        "",
+        "",
+        1
       ]
+    },
+    {
+      "id": 222,
+      "type": "smZ CLIPTextEncode",
+      "pos": [
+        2006,
+        184
+      ],
+      "size": {
+        "0": 235.1999969482422,
+        "1": 158.39999389648438
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 12
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 11,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            112
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Negative: CLIP Text Encode++",
+      "properties": {
+        "Node name for S&R": "smZ CLIPTextEncode"
+      },
+      "widgets_values": [
+        "",
+        "compel",
+        true,
+        true,
+        false,
+        false,
+        6,
+        1024,
+        1024,
+        0,
+        0,
+        1024,
+        1024,
+        "",
+        "",
+        1
+      ]
+    },
+    {
+      "id": 293,
+      "type": "InpaintModelConditioning",
+      "pos": [
+        1516,
+        1004
+      ],
+      "size": {
+        "0": 216.59999084472656,
+        "1": 106
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 111
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 112
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 110
+        },
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 109
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 108
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            113
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            114
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            115
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "InpaintModelConditioning"
+      }
     }
   ],
   "links": [
@@ -993,22 +1018,6 @@
       "INT"
     ],
     [
-      87,
-      222,
-      0,
-      282,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      88,
-      225,
-      0,
-      282,
-      1,
-      "CONDITIONING"
-    ],
-    [
       89,
       117,
       0,
@@ -1065,33 +1074,65 @@
       "VAE"
     ],
     [
-      104,
+      108,
       291,
       0,
-      292,
-      2,
+      293,
+      4,
       "MASK"
     ],
     [
-      105,
+      109,
       289,
       0,
-      292,
-      0,
+      293,
+      3,
       "IMAGE"
     ],
     [
-      106,
+      110,
       288,
       2,
-      292,
-      1,
+      293,
+      2,
       "VAE"
     ],
     [
-      107,
-      292,
+      111,
+      225,
       0,
+      293,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      112,
+      222,
+      0,
+      293,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      113,
+      293,
+      0,
+      282,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      114,
+      293,
+      1,
+      282,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      115,
+      293,
+      2,
       276,
       0,
       "LATENT"
@@ -1101,10 +1142,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5644739300537777,
+      "scale": 0.9090909090909092,
       "offset": {
-        "0": -579.5593872070312,
-        "1": -59.87745666503906
+        "0": -910.6216743062039,
+        "1": -328.1550534171039
       }
     }
   },

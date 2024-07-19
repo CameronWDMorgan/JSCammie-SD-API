@@ -202,8 +202,8 @@
         0
       ],
       "samples": [
-        "292",
-        0
+        "293",
+        2
       ]
     },
     "class_type": "RepeatLatentBatch",
@@ -236,12 +236,12 @@
         0
       ],
       "positive": [
-        "225",
+        "293",
         0
       ],
       "negative": [
-        "222",
-        0
+        "293",
+        1
       ],
       "latent_image": [
         "276",
@@ -294,25 +294,32 @@
       "title": "Load Image (as Mask)"
     }
   },
-  "292": {
+  "293": {
     "inputs": {
-      "grow_mask_by": 16,
-      "pixels": [
-        "289",
+      "positive": [
+        "225",
+        0
+      ],
+      "negative": [
+        "222",
         0
       ],
       "vae": [
         "288",
         2
       ],
+      "pixels": [
+        "289",
+        0
+      ],
       "mask": [
         "291",
         0
       ]
     },
-    "class_type": "VAEEncodeForInpaint",
+    "class_type": "InpaintModelConditioning",
     "_meta": {
-      "title": "VAE Encode (for Inpainting)"
+      "title": "InpaintModelConditioning"
     }
   }
 }
