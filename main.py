@@ -146,6 +146,11 @@ def get_lora_yaml():
 
 def add_watermark(image, text, data):
     
+    extras = data['extras']
+    
+    if(extras["removeWatermark"] == True):
+        return image
+    
     # create a font size based on the width and height of the image:
     data_height = image.height
     data_width = image.width
@@ -311,7 +316,6 @@ def save_image(request_id, output_image, model_type, data):
             "seed": data['seedNumber'],
             "CFG": data['guidance'],
             "model": data['og_model'],
-            "upscaled": data['upscale'],
             "generation_date": datetime.datetime.now().isoformat(),
             "accountId": str(data['accountId']),
             "scheduler": data['scheduler']
@@ -579,27 +583,167 @@ def process_request(queue_item):
             if data['scheduler'] == "ddim":
                 request_json['282']['inputs']['sampler_name'] = "ddim"
                 request_json['282']['inputs']['scheduler'] = "normal"
+                
+                
+                
+                
+        extras = data['extras']
+        
+        if extras['upscale'] == True:
+            # add this to the request_json in a way that detects what the highest node ID is and goes 1 or 2 etc higher than it:
+            # "303": {
+            #     "inputs": {
+            #     "upscale_by": 2,
+            #     "seed": 1028553443747953,
+            #     "steps": 20,
+            #     "cfg": 4,
+            #     "sampler_name": "euler_ancestral",
+            #     "scheduler": "normal",
+            #     "denoise": 0.3,
+            #     "mode_type": "Linear",
+            #     "tile_width": 768,
+            #     "tile_height": 768,
+            #     "mask_blur": 16,
+            #     "tile_padding": 64,
+            #     "seam_fix_mode": "None",
+            #     "seam_fix_denoise": 1,
+            #     "seam_fix_width": 128,
+            #     "seam_fix_mask_blur": 16,
+            #     "seam_fix_padding": 32,
+            #     "force_uniform_tiles": true,
+            #     "tiled_decode": false,
+            #     "image": [
+            #         "141",
+            #         0
+            #     ],
+            #     "model": [
+            #         "117",
+            #         0
+            #     ],
+            #     "positive": [
+            #         "225",
+            #         0
+            #     ],
+            #     "negative": [
+            #         "222",
+            #         0
+            #     ],
+            #     "vae": [
+            #         "288",
+            #         2
+            #     ],
+            #     "upscale_model": [
+            #         "304",
+            #         0
+            #     ]
+            #     },
+            #     "class_type": "UltimateSDUpscale",
+            #     "_meta": {
+            #     "title": "Ultimate SD Upscale"
+            #     }
+            # },
+            # "304": {
+            #     "inputs": {
+            #     "model_name": "nmkdSiaxCX_200k.pt"
+            #     },
+            #     "class_type": "UpscaleModelLoader",
+            #     "_meta": {
+            #     "title": "Load Upscale Model"
+            #     }
+            # }
+            
+            # detect highest node ID in the request_json:
+            highest_node_id = 0
+            for key in request_json:
+                # check if its an int before comparing:
+                if key.isnumeric():
+                    if int(key) > highest_node_id:
+                        highest_node_id = int(key)
+                        
+            # add 1 to the highest node ID to get the new node ID:
+            upscaleImageNodeId = highest_node_id + 1
+            
+            # random positive integer below 999999999:
+            randomSeed = random.randint(0, 999999999)
+            
+            upscaleModelNodeId = upscaleImageNodeId + 1
+            
+            # add the new nodes to the request_json:
+            upscaleImageNode = {
+                "inputs": {
+                    "upscale_by": 2,
+                    "seed": randomSeed,
+                    "steps": 20,
+                    "cfg": data['guidance'],
+                    "sampler_name": "euler_ancestral",
+                    "scheduler": "normal",
+                    "denoise": 0.3,
+                    "mode_type": "Linear",
+                    "tile_width": 768,
+                    "tile_height": 768,
+                    "mask_blur": 16,
+                    "tile_padding": 64,
+                    "seam_fix_mode": "None",
+                    "seam_fix_denoise": 1,
+                    "seam_fix_width": 128,
+                    "seam_fix_mask_blur": 16,
+                    "seam_fix_padding": 32,
+                    "force_uniform_tiles": True,
+                    "tiled_decode": False,
+                    "image": [
+                        "141",
+                        0
+                    ],
+                    "model": [
+                        "117",
+                        0
+                    ],
+                    "positive": [
+                        "225",
+                        0
+                    ],
+                    "negative": [
+                        "222",
+                        0
+                    ],
+                    "vae": [
+                        "288",
+                        2
+                    ],
+                    "upscale_model": [
+                        str(upscaleModelNodeId),
+                        0
+                    ]
+                },
+                "class_type": "UltimateSDUpscale",
+                "_meta": {
+                    "title": "Ultimate SD Upscale"
+                }
+            }
+            
+            upscaleModelNode = {
+                "inputs": {
+                    "model_name": "nmkdSiaxCX_200k.pt"
+                },
+                "class_type": "UpscaleModelLoader",
+                "_meta": {
+                    "title": "Load Upscale Model"
+                }
+            }
+            
+            # add the upscaleImageNode and upscaleModelNode to the request_json, with the new node IDs:
+            request_json[str(upscaleImageNodeId)] = upscaleImageNode
+            request_json[str(upscaleModelNodeId)] = upscaleModelNode
+            
+            # set 64 to use the new upscaleImageNodeId as an inputs images:
+            request_json['64']['inputs']['images'] = [str(upscaleImageNodeId), 0]
+            
+            
             
         
         p = {"prompt": request_json}
         request_json = json.dumps(p).encode('utf-8')
         
-        # save the request_json to a file that includes the model name:
-        # makedir:
-        # os.makedirs("request_jsons", exist_ok=True)
-        # with open(f"request_jsons/{request_id}_{data['model']}.json", "w") as f:
-        #     f.write(json.dumps(p, indent=4))
-        
-        # print("Request JSON: ", request_json)
-        
-        # remove all files in images_dir:
-        # for filename in os.listdir(images_dir):
-        #     file_path = os.path.join(images_dir, filename)
-        #     try:
-        #         if os.path.isfile(file_path):
-        #             os.unlink(file_path)
-        #     except Exception as e:
-        #         print(f"Error deleting file: {e}")
         
         
         comfyui_response_code = None
@@ -609,7 +753,7 @@ def process_request(queue_item):
             print("ComfyUI Response Status Code: ", comfyui_response.status_code)
             comfyui_response_code = comfyui_response.status_code
             print("ComfyUI Response: ", comfyui_response.text)
-            time.sleep(0.1)
+            time.sleep(0.5)
             
         prompt_id = comfyui_response.json()['prompt_id']
         
@@ -779,55 +923,6 @@ def process_queue_1():
         # Sleep if no unprocessed request is found
         if not any(item.status == "queued" for item in request_queue_1):
             time.sleep(0.5)
-
-def update_fast_passes_map():
-    global fast_passes_map
-    while True:
-        try:
-            with open('./fast_passes.yaml', 'r', encoding='utf-8') as f:
-                fast_passes_content = f.read()
-            # print("Lora Weights Content:", lora_weights_content)  # Debugging line
-            fast_passes_map = yaml.safe_load(fast_passes_content)
-
-        except Exception as e:
-            print(f"Error reading the fast pass yaml file: {e}")
-        time.sleep(1)
-        
-# Start a separate thread that updates the lora_weights_map
-threading.Thread(target=update_fast_passes_map, daemon=True).start()
-
-def check_fast_pass(fastpass, validated_data):
-    if fastpass is None:
-        return False, None
-
-    # Remove all numbers from the fastpass string
-    fastpass = ''.join([i for i in fastpass if not i.isdigit()])
-
-    if str(fastpass) == "":
-        # print("Fast pass is nonexistent or the same as the accountId.")
-        return False, None
-    
-    
-
-    # Ensure thread-safe read with threading.Lock()
-    with threading.Lock():
-        fastpass_data = fast_passes_map.get('passes', {}).get(fastpass, {})
-        
-
-    # Check if the fastpass is enabled
-    if fastpass_data.get('enabled', False) == False:
-        return False, "Fastpass is invalid"
-
-    # Check if the discordId matches
-    if int(fastpass_data.get('discordId', 0)) != int(validated_data['accountId']):
-        return False, "Fastpass is invalid"
-
-    # Check if the fast pass has not expired
-    if time.time() > int(fastpass_data.get('expires', 0)):
-        return False, "Fastpass is invalid"
-
-    print(f"Fast pass {fastpass} is valid and active.")
-    return True, None
     
 def randomize_string(input_string):
     
@@ -887,7 +982,6 @@ def update_banned_map():
 threading.Thread(target=update_banned_map, daemon=True).start()
 
 def check_banned_users(userid, request_type):
-    # print(f"Checking fast pass: {userid} against the fast pass map: {fast_passes_map}")
     
     # Ensure thread-safe read
     with threading.Lock():
@@ -1141,7 +1235,6 @@ def generate_image():
             else:
                 data['width'] = data['width'] * global_settings['sd15_resolution_multiplier']
                 data['height'] = data['height'] * global_settings['sd15_resolution_multiplier']
-   
                 
         if data['model'].startswith("sdxl-"):
             if len(data['lora']) > global_settings['max_loras_sdxl']:
@@ -1290,10 +1383,10 @@ def generate_image():
                 # Calculate new dimensions
                 new_width = round_to_multiple_of_eight(data['image'].width * scale_factor)
                 new_height = round_to_multiple_of_eight(data['image'].height * scale_factor)
-
-
+                
                 # Update dimensions in the data dictionary
                 data['width'], data['height'] = new_width, new_height
+                    
 
                 # Resize the image
                 data['image'] = data['image'].resize((new_width, new_height))
@@ -1382,7 +1475,6 @@ def generate_image():
             'lora_strengths': data.get('lora_strengths', None),
             'enhance_prompt': data.get('enhance_prompt', False),
             'request_type': data['request_type'],
-            'upscale': data.get('upscale', False),
             'inpainting_original_option': True,
             'splitType': data.get('splitType', "horizontal"),
             'splits': int(data.get('splits', 1)),
@@ -1392,7 +1484,6 @@ def generate_image():
             'accountId': int(data.get('accountId', 0)),
             'true_prompt': str(true_prompt),
             'scheduler': data.get('scheduler', "eulera"),
-            'fastpass': data.get('fastpass', None),
             'seedNumber': int(data['seedNumber']),
             'og_seed': int(og_seed),
             "save_image": bool(data.get("save_image", False)),
@@ -1405,6 +1496,7 @@ def generate_image():
             "og_model": data['og_model'],
             "fastqueue": data.get("fastqueue", False),
             "creditsRequired": data.get("creditsRequired", 0),
+            "extras": data.get("extras", None),
         }
         
         data['width'] = round_to_multiple_of_eight(data['width'])
@@ -1414,7 +1506,6 @@ def generate_image():
         # Check for banned users and fast pass
         account_id = validated_data['accountId']
         request_type = validated_data['request_type']
-        fastpass = validated_data.get('fastpass', None)
         
         if request_type == "latent_couple":
             return generate_error_response("Latent couple is currently disabled.", 503)
@@ -1522,22 +1613,6 @@ def generate_image():
                         print("IP is in the queue")
                         print(f"IP: {data['ip']}, Request IP: {item.data['ip']}")
                         return generate_error_response("You are already in the queue", 400)
-        
-            
-
-        fastpass_enabled, error_message = check_fast_pass(fastpass, validated_data)
-        if error_message:
-            return generate_error_response(error_message, 400)
-        
-        if global_settings.get('upscale', False):
-            if validated_data['upscale']:
-                # if validated_data['model'].startswith("sdxl-"):
-                #     return generate_error_response("Upscaling is currently disabled for SDXL models!", 503)
-                return generate_error_response("Upscaling is currently disabled.", 503)
-            
-        if validated_data['model'].startswith("sdxl-"):
-            if validated_data['upscale']:
-                return generate_error_response("Upscaling is currently disabled for SDXL models!", 503)
                 
         # Check if the model is valid
         model_name = validated_data['model']
@@ -1571,24 +1646,16 @@ def generate_image():
         elif data['gpu_id'] == 1:
             if queue_item.data in [item.data for item in request_queue_1]:
                 return generate_error_response("Duplicate request", 400)
-
-        
-        
-        # print(f"Fast pass: {fastpass}, Fast pass enabled: {fastpass_enabled}")
         
         fastqueue = None
         queueNumber = None
 
         if data['gpu_id'] == 0:
             queueNumber = 0
-            if fastpass and fastpass_enabled:
-                fastqueue = True
                 
             position = len(request_queue_0)  # Current position in the queue is its length
         elif data['gpu_id'] == 1:
             queueNumber = 1
-            if fastpass and fastpass_enabled:
-                fastqueue = True
                 
         if data['fastqueue'] is True:
             fastqueue = True
