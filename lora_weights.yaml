@@ -5226,6 +5226,40 @@ character:
     rating: safe
     link: https://civitai.com/models/154996/hisuian-zoroark
     dateCreated: 1721338564520.806
+  character-sdxlsonicthehedgehogpack:
+    lora: sdxl\character\sonicthehedgehogpack.safetensors
+    name: SDXL Sonic the Hedgehog Pack
+    strength: 1
+    words:
+      - amy_rose, (or amy rose), red dress, short dress, red boots, jewelry;
+      - rouge_the_bat, bodysuit, cleavage, elbow gloves, white boots;
+      - blaze_the_cat, dress coat, white pants, gloves, cuffs, purple footwear;
+      - >-
+        tikal_the_echidna, crop top, jewelry, green skirt, pattern skirt, short
+        skirt, sandals, white gloves;
+      - >-
+        LanolinSheep, blue eyes, horns, two-tone body fur, white body fur,
+        orange shirt, belt, fingerless gloves, medium breasts, sleeveless, bell,
+        green pants, baggy pants, gloves;
+      - >-
+        Sonica, blue body fur, hair over one eye, two-tone body fur, red crop
+        top, multicolored top, red shorts, black thigh highs, red footwear, red
+        fingerless gloves;
+      - >-
+        vanilla_the_rabbit, vest, blue tie, purple skirt, long skirt, pleated
+        skirt, short, purple sleeves, gloves, short puffy sleeves,;
+      - >-
+        HTheCat, black hair, twintails, hair frills, red dress, red boots,
+        gloves, hairband, short puffy sleeves;
+      - >-
+        sarasth, human, brown hair, animal ears, hat, earrings, choker,
+        multicolored hair, long hair, green eyes, yellow crop top, yellow skirt,
+        mini skirt, midriff, navel, pink jacket, cropped jacket, short sleeves,
+        black belt, brown gloves, cat tail
+    description: Character pack for sonic characters
+    rating: safe
+    link: https://civitai.com/models/592863
+    dateCreated: 1721607884206.107
 clothing:
   clothing-acrylicheartdress:
     rating: suggestive
