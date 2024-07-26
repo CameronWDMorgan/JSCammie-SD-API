@@ -1496,8 +1496,15 @@ def generate_image():
             "og_model": data['og_model'],
             "fastqueue": data.get("fastqueue", False),
             "creditsRequired": data.get("creditsRequired", 0),
-            "extras": data.get("extras", None),
+            "extras": data.get("extras", {"removeWatermark": False, "upscale": False}),
         }
+        
+        # sanity check that each extras values are there, if they arent then add them as False:
+        if "removeWatermark" not in validated_data['extras']:
+            validated_data['extras']['removeWatermark'] = False
+            
+        if "upscale" not in validated_data['extras']:
+            validated_data['extras']['upscale'] = False
         
         data['width'] = round_to_multiple_of_eight(data['width'])
         data['height'] = round_to_multiple_of_eight(data['height'])

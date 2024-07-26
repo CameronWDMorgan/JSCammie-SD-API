@@ -77,7 +77,8 @@ async def insert_image_hashes(image_hashes, metadata, image_hash_mongo, image_re
         result = await collection.insert_many(documents)
         print(f"Inserted {len(result.inserted_ids)} documents into MongoDB.")
     except Exception as e:
-        logging.error(str(e)) 
+        logging.error(str(e))
+        
 
 
 import numpy as np
