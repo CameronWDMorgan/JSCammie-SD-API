@@ -1220,6 +1220,22 @@ def generate_image():
                 data['width'] = 576
                 data['height'] = 1024
                 
+            elif data['aspect_ratio'] == "21:9":
+                # needs to be divisible by 64:
+                if data['model'].startswith("sdxl-"):
+                    data['width'] = 1344
+                    data['height'] = 576
+                else:
+                    data['width'] = 1024
+                    data['height'] = 432
+            elif data['aspect_ratio'] == "9:21":
+                if data['model'].startswith("sdxl-"):
+                    data['width'] = 576
+                    data['height'] = 1344
+                else:
+                    data['width'] = 432
+                    data['height'] = 1024
+                
             if data['model'].startswith("sdxl-"):
                 # multiply the width and height by the global_settings['sdxl_resolution_multiplier']:
                 data['width'] = data['width'] * global_settings['sdxl_resolution_multiplier']
@@ -1530,82 +1546,35 @@ def generate_image():
             if data['gpu_id'] == 0:
                 for item in request_queue_0:
                     if int(item.data['accountId']) == int(account_id):
-                        index = request_queue_0.index(item)
-                        if index > 2:
-                            # set the generate_retries to 0 if it doesn't exist:
-                            if 'generate_retries' not in item.data:
-                                item.data['generate_retries'] = 0
+                        # send them the correct info:
+                        # return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
+                        # send them info about their request to allow the client to resume it:
+                        return jsonify({"status": item.status, "request_id": item.request_id, "position": request_queue_0.index(item) + 1, "queue_length": len(request_queue_0)}), 202
 
-                            print(f"Generate Retries: {item.data['generate_retries']}")
-                            if item.data['generate_retries'] == 3 or item.data['generate_retries'] > 3:
-                                # cancel the request:
-                                item.status = "cancelled"
-                                request_queue_0.remove(item)
-                                return generate_error_response(f"User {account_id} already has a request in the queue, the request has been cancelled", 400)
-                            else:
-                                item.data['generate_retries'] += 1
-                                return generate_error_response(f"User {account_id} already has a request in the queue, retry {3 - item.data['generate_retries']} more times to cancel the request", 400)
-                        else:
-                            return generate_error_response(f"User {account_id} already has a request in the queue", 400)
             elif data['gpu_id'] == 1:
                 for item in request_queue_1:
                     if int(item.data['accountId']) == int(account_id):
-                        index = request_queue_0.index(item)
-                        if index > 2:
-                            # set the generate_retries to 0 if it doesn't exist:
-                            if 'generate_retries' not in item.data:
-                                item.data['generate_retries'] = 0
-
-                            if item.data['generate_retries'] == 3:
-                                # cancel the request:
-                                item.status = "cancelled"
-                                request_queue_1.remove(item)
-                                return generate_error_response(f"User {account_id} already has a request in the queue, the request has been cancelled", 400)
-                            else:
-                                item.data['generate_retries'] += 1
-                                return generate_error_response(f"User {account_id} already has a request in the queue, retry {3 - item.data['generate_retries']} more times to cancel the request", 400)
-                        else:
-                            return generate_error_response(f"User {account_id} already has a request in the queue", 400) 
+                        # send them the correct info:
+                        # return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
+                        # send them info about their request to allow the client to resume it:
+                        return jsonify({"status": item.status, "request_id": item.request_id, "position": request_queue_1.index(item) + 1, "queue_length": len(request_queue_1)}), 202
                         
         # check if the ip is already in the queue and cancel after 3 retries:
         if data['ip'] is not None:
             if data['ip'] != "123123123":
                 for item in request_queue_0:
                     if item.data['ip'] == data['ip']:
-                        index = request_queue_0.index(item)
-                        if index > 2:
-                            # set the generate_retries to 0 if it doesn't exist:
-                            if 'generate_retries' not in item.data:
-                                item.data['generate_retries'] = 0
-
-                            if item.data['generate_retries'] == 3:
-                                # cancel the request:
-                                item.status = "cancelled"
-                                request_queue_0.remove(item)
-                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, the request has been cancelled", 400)
-                            else:
-                                item.data['generate_retries'] += 1
-                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, retry {3 - item.data['generate_retries']} more times to cancel the request", 400)
-                        else:
-                            return generate_error_response(f"IP {data['ip']} already has a request in the queue", 400)
+                        # send them the correct info:
+                        # return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
+                        # send them info about their request to allow the client to resume it:
+                        return jsonify({"status": item.status, "request_id": item.request_id, "position": request_queue_0.index(item) + 1, "queue_length": len(request_queue_0)}), 202
+                        
                 for item in request_queue_1:
                     if item.data['ip'] == data['ip']:
-                        index = request_queue_1.index(item)
-                        if index > 2:
-                            # set the generate_retries to 0 if it doesn't exist:
-                            if 'generate_retries' not in item.data:
-                                item.data['generate_retries'] = 0
-
-                            if item.data['generate_retries'] == 3:
-                                # cancel the request:
-                                item.status = "cancelled"
-                                request_queue_1.remove(item)
-                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, the request has been cancelled", 400)
-                            else:
-                                item.data['generate_retries'] += 1
-                                return generate_error_response(f"IP {data['ip']} already has a request in the queue, retry {3 - item.data['generate_retries']} more times to cancel the request", 400)
-                        else:
-                            return generate_error_response(f"IP {data['ip']} already has a request in the queue", 400)
+                        # send them the correct info:
+                        # return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
+                        # send them info about their request to allow the client to resume it:
+                        return jsonify({"status": item.status, "request_id": item.request_id, "position": request_queue_1.index(item) + 1, "queue_length": len(request_queue_1)}), 202
         
         # if the ip is already in the queue, return an error:
         if data['ip'] is not None:
