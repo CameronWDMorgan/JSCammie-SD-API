@@ -522,7 +522,7 @@ character:
     rating: safe
     description: Callie from Splatoon
     link: https://civitai.com/models/218686/callie-splatoon
-    lora: character\callie_(splatoon).safetensors
+    lora: character\callie_splatoon.safetensors
     name: Callie (Splatoon)
     strength: 1
     words:
@@ -1744,7 +1744,7 @@ character:
     description: Angela from talking tom mobile games
     link: >-
       https://civitai.com/models/449482/angela-talking-tom-and-friends-ponydiffusionxl
-    lora: sdxl\character\angela(talkingtom).safetensors
+    lora: sdxl\character\angelatalkingtom.safetensors
     name: SDXL Angela (Talking Tom)
     strength: 0.8
     words:
@@ -1787,13 +1787,13 @@ character:
       - >-
         zzBoosette, 1girl, long hair, white hair, long white dress, ballroom
         dress, white gloves
-  character-sdxlcamieutsushimi(myheroacademia):
+  character-sdxlcamieutsushimimyheroacademia:
     dateCreated: 1717352606819.6887
     rating: safe
     description: Camie Utsushimi from My Hero Academia
     link: >-
       https://civitai.com/models/407759/camie-utsushimi-my-hero-academia-boku-no-hero-academia-pony-xl?modelVersionId=454566
-    lora: sdxl\character\camieutsushimi(myheroacademia).safetensors
+    lora: sdxl\character\camieutsushimimyheroacademia.safetensors
     name: SDXL Camie Utsushimi (My Hero Academia)
     strength: 1
     words:
@@ -2030,7 +2030,7 @@ character:
     description: Hex Manic from Pokemon
     link: >-
       https://civitai.com/models/398968/hex-maniac-pokemon-xl-pony?modelVersionId=449730
-    lora: sdxl\character\hexmanic(pokemon).safetensors
+    lora: sdxl\character\hexmanicpokemon.safetensors
     name: SDXL Hex Manic (Pokemon)
     strength: 1
     words:
@@ -2103,7 +2103,7 @@ character:
     words:
       - Krystal, adventures
       - Krystal, assault
-      - krystal's staff
+      - krystals staff
   character-sdxllammyumjammerlammy:
     dateCreated: 1717352695292.757
     rating: safe
@@ -2183,7 +2183,7 @@ character:
     description: Lute from Hazbin Hotel
     link: >-
       https://civitai.com/models/411308/lute-hazbin-hotel-pony-xl?modelVersionId=458470
-    lora: sdxl\character\lute(hazbinhotel).safetensors
+    lora: sdxl\character\lutehazbinhotel.safetensors
     name: SDXL Lute (Hazbin Hotel)
     strength: 0.8
     words:
@@ -2196,7 +2196,7 @@ character:
     description: Marnie from pokemon
     link: >-
       https://civitai.com/models/190310/marnie-dark-type-delicacy-or-pokemon-best-girl-pony-and-sd15
-    lora: sdxl\character\marnie(pokemon).safetensors
+    lora: sdxl\character\marniepokemon.safetensors
     name: SDXL Marnie (Pokemon)
     strength: 1
     words:
@@ -2299,7 +2299,7 @@ character:
     link: >-
       https://civitai.com/models/346227/ochako-uraraka-my-hero-academia?modelVersionId=387462
     lora: sdxl\character\ochako-uraraka-ponyxl-lora-nochekaiser.safetensors
-    name: SDXL Ochaco Uraraka (My Hero Academia)
+    name: SDXL Ochako Uraraka (My Hero Academia)
     strength: 1
     words:
       - >-
@@ -2363,7 +2363,7 @@ character:
       - >-
         pururun, 1girl,red helmet, cat tail, blue eyes, cat ears, robot,
         android,red armor,neck bell
-  character-sdxlranni(eldenring):
+  character-sdxlrannieldenring:
     dateCreated: 1717352733902.252
     rating: safe
     description: Ranni from Elden Ring
@@ -2378,13 +2378,13 @@ character:
       - >-
         IncrsXLRanni, wavy hair, cracked skin, blue skin, colored skin, extra
         arms, extra faces, doll joints, white dress, witch hat, brown cloak
-  character-sdxlraventeamleader(fortnite):
+  character-sdxlraventeamleaderfortnite:
     dateCreated: 1717352734547.2908
     rating: safe
     description: Raven Team Leader from Fortnite
     link: >-
       https://civitai.com/models/444793/raven-team-leader-fortnite-pdxl?modelVersionId=495314
-    lora: sdxl\character\raventeamleader(fortnite).safetensors
+    lora: sdxl\character\raventeamleaderfortnite.safetensors
     name: SDXL Raven Team Leader (Fortnite)
     strength: 1
     words:
@@ -2416,7 +2416,7 @@ character:
     rating: safe
     description: Rosa from pokemon
     link: https://civitai.com/models/410892/rosa-pokemon
-    lora: sdxl\character\rosa(pokemon).safetensors
+    lora: sdxl\character\rosapokemon.safetensors
     name: SDXL Rosa (Pokemon)
     strength: 1
     words:
@@ -2503,7 +2503,7 @@ character:
     rating: safe
     description: Shantae from Shantae
     link: https://civitai.com/models/451485/shantae-pony-xl?modelVersionId=503056
-    lora: sdxl\character\shantae(shantae).safetensors
+    lora: sdxl\character\shantaeshantae.safetensors
     name: SDXL Shantae (Shantae)
     strength: 1
     words:
@@ -2567,7 +2567,7 @@ character:
     rating: safe
     description: Sonia from Pokemon
     link: https://civitai.com/models/374620/sonia-pokemon
-    lora: sdxl\character\sonia(pokemon).safetensors
+    lora: sdxl\character\soniapokemon.safetensors
     name: SDXL Sonia (Pokemon)
     strength: 1
     words:
@@ -2595,7 +2595,7 @@ character:
     rating: safe
     description: Stella from Helluva Boss
     link: https://civitai.com/models/422072/stella-pdxl-ponyxl
-    lora: sdxl\character\stella(helluvaboss).safetensors
+    lora: sdxl\character\stellahelluvaboss.safetensors
     name: SDXL Stella (Helluva Boss)
     strength: 1
     words:
@@ -2670,7 +2670,7 @@ character:
     description: The Twins from Atomic Heart
     link: >-
       https://civitai.com/models/452167/the-twins-atomic-heart-nsfwsfw-sdxl-lora-pony?modelVersionId=503454
-    lora: sdxl\character\thetwins(atomicheart).safetensors
+    lora: sdxl\character\thetwinsatomicheart.safetensors
     name: SDXL The Twins (Atomic Heart)
     strength: 1
     words:
@@ -3469,7 +3469,7 @@ character:
     link: https://civitai.com/models/412933?modelVersionId=488656
     dateCreated: 1717697943129.9146
   character-sdxlmariesplatoon:
-    rating: safe
+    rating: suggestive
     lora: sdxl\character\mariesplatoon.safetensors
     name: SDXL Marie (Splatoon)
     strength: 1
@@ -3656,7 +3656,7 @@ character:
       https://civitai.com/models/497494/tsuyu-asui-boku-no-hero-academia-xl-pony?modelVersionId=553062
     dateCreated: 1717895285905.3318
   character-sdxldemisubverse:
-    rating: safe
+    rating: suggestive
     lora: sdxl\character\demisubverse.safetensors
     name: SDXL DEMI (Subverse)
     strength: 0.8
@@ -3735,7 +3735,7 @@ character:
     strength: 1
     words:
       - necoarc;
-      - blonde hair, red eyes, slit pupils, cat ears, :3, chibi;
+      - blonde hair, red eyes, slit pupils, cat ears, chibi;
       - >-
         turtleneck, white shirt, blue skirt, pleated skirt, pantyhose, brown
         footwear;
@@ -3745,7 +3745,7 @@ character:
     link: https://civitai.com/models/315164?modelVersionId=481234
     dateCreated: 1720736030551.4453
   character-sdxlcortanahalo:
-    rating: safe
+    rating: suggestive
     lora: sdxl\character\cortanahalo.safetensors
     name: SDXL Cortana (Halo)
     strength: 0.8
@@ -4244,7 +4244,7 @@ character:
   character-sdxlmirandawakfu:
     lora: sdxl\character\mirandawakfu.safetensors
     name: SDXL Miranda (Wakfu)
-    strength: 0.8
+    strength: 0.6
     words:
       - >-
         1girl, , miranda \(wakfu\), furry, animal ears, brown hair, blunt bangs,
@@ -4760,13 +4760,13 @@ character:
     rating: safe
     link: https://civitai.com/models/458507/judyanimalcrossing
     dateCreated: 1720718329209.411
-  character-sdxlalphysundertaleforponyxl:
+  character-sdxlalphysundertale:
     lora: sdxl\character\alphysundertaleforponyxl.safetensors
-    name: SDXL Alphys (Undertale) for PonyXL
+    name: SDXL Alphys (Undertale)
     strength: 1
     words:
       - alphys \(undertale\)
-    description: Alphys (Undertale) for PonyXL
+    description: Alphys (Undertale)
     rating: safe
     link: https://civitai.com/models/523895?modelVersionId=582065
     dateCreated: 1720718348307.9438
@@ -4966,7 +4966,7 @@ character:
       - digby (animal crossing), brown fur, brown hair, freckles, white eyes;
       - furry male, dog
     description: Digby (Animal Crossing)
-    rating: safe
+    rating: nsfw
     link: https://civitai.com/models/508550/digby-animal-crossing-pony
     dateCreated: 1720734214071.6118
   character-sdxlelvisanimalcrossing:
@@ -5574,19 +5574,6 @@ character:
     rating: safe
     link: https://civitai.com/models/547562?modelVersionId=614191
     dateCreated: 1721856284051.1772
-  character-sdxlbridgetfitzsimmonsfisforfamily:
-    lora: sdxl\character\bridgetfitzsimmonsfisforfamily.safetensors
-    name: SDXL Bridget Fitzsimmons (F Is for Family)
-    strength: 1
-    words:
-      - BRIDGET, solo, 1girl,  solo, orange hair, black eyes, hairclip,;
-      - blue plaid dress, short sleeves,;
-      - white socks,;
-      - mary janes,
-    description: Bridget Fitzsimmons (F Is for Family)
-    rating: safe
-    link: https://civitai.com/models/567230
-    dateCreated: 1721885577618.8035
   character-sdxlbangboozenlesszonezero:
     lora: sdxl\character\bangboozenlesszonezero.safetensors
     name: SDXL Bangboo (zenless_zone_zero)
@@ -5597,18 +5584,6 @@ character:
     rating: safe
     link: https://civitai.com/models/557439?modelVersionId=620495
     dateCreated: 1721885647417.4614
-  character-sdxlmaureenmurphyfisforfamily:
-    lora: sdxl\character\maureenmurphyfisforfamily.safetensors
-    name: SDXL Maureen Murphy (F Is for Family)
-    strength: 1
-    words:
-      - >-
-        MAUREEN, solo, 1girl,  solo, brown hair, twintails, black eyes, pink
-        shirt, skirt, white socks, brown mary janes
-    description: Maureen Murphy (F Is for Family)
-    rating: safe
-    link: https://civitai.com/models/567592/maureen-murphy-f-is-for-family-by-leaf
-    dateCreated: 1721885742750.5806
   character-sdxlduolingo:
     lora: sdxl\character\duolingo.safetensors
     name: SDXL Duolingo
@@ -5897,7 +5872,118 @@ character:
     description: Clown Character Type
     rating: safe
     link: https://civitai.com/models/503118/clowns
-    dateCreated: 1721954811991.0266
+    dateCreated: 1721957904375.4622
+  character-sdxlhisuianzoruapokemon:
+    lora: sdxl\character\hisuianzoruapokemon.safetensors
+    name: SDXL Hisuian Zorua (Pokemon)
+    strength: 0.6
+    words:
+      - hisuian zorua;
+      - 1girl, solo, anthro, yellow eyes
+    description: Hisuian Zorua (Pokemon)
+    rating: nsfw
+    link: https://civitai.com/models/617088
+    dateCreated: 1722903890742.067
+  character-senaxenobladechronicles:
+    lora: character\senaxenobladechronicles.safetensors
+    name: Sena (Xenoblade Chronicles)
+    strength: 1
+    words:
+      - sena \(xenoblade\), jacket, crop top, shorts, thighhighs, elbow gloves
+    description: Sena (Xenoblade Chronicles)
+    rating: safe
+    link: https://civitai.com/models/47361
+    dateCreated: 1722903930844.2615
+  character-sdxlglamrockchicafivenightsatfreddysmayosplash:
+    lora: sdxl\character\glamrockchicafivenightsatfreddysmayosplash.safetensors
+    name: SDXL Glamrock Chica (Five Nights at Freddys) [mayosplash]
+    strength: 0.7
+    words:
+      - glamrock chica (mayosplash), chica, robot, white body, purple eyes
+    description: FNAF Glamrock Chica (mayosplash)
+    rating: nsfw
+    link: https://civitai.com/models/575698/fnaf-glamrock-chica-mayosplash
+    dateCreated: 1722907664496.9119
+  character-sdxlroxannewolffivenightsatfreddysmayosplash:
+    lora: sdxl\character\roxannewolffivenightsatfreddysmayosplash.safetensors
+    name: SDXL Roxanne Wolf (Five Nights at Freddys) [mayosplash]
+    strength: 0.7
+    words:
+      - roxanne wolf, Animatronic, long hair, yellow eyes , grey fur,
+    description: Roxanne Wolf (Five Nights at Freddys) [mayosplash]
+    rating: nsfw
+    link: https://civitai.com/models/574942/fnaf-roxanne-wolf-roxy-mayosplash
+    dateCreated: 1722907784731.328
+  character-sdxllunalapokemon:
+    lora: sdxl\character\lunalapokemon.safetensors
+    name: SDXL Lunala (Pokemon)
+    strength: 1
+    words:
+      - pokemon \(creature\), Lunala, pink sclera, wings
+    description: Lunala (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/501680?modelVersionId=557620
+    dateCreated: 1722907867683.8633
+  character-sdxlwraithevolve:
+    lora: sdxl\character\wraithevolve.safetensors
+    name: SDXL Wraith (EVOLVE)
+    strength: 0.8
+    words:
+      - >-
+        1girl, eyeless, colored skin, gray skin, claws, breasts, monster,
+        monster girl, teeth, sharp teeth, black teeth, extra arms;
+      - long tongue, tentacle tongue, fewer digits, scales, black teeth, tail;
+      - tentacle legs, floating
+    description: Wraith (EVOLVE)
+    rating: nsfw
+    link: https://civitai.com/models/436692/wraith-evolve-sdxl-pony
+    dateCreated: 1722908179898.31
+  character-sdxlxenomorphqueenalien:
+    lora: sdxl\character\xenomorphqueenalien.safetensors
+    name: SDXL Xenomorph Queen (Alien)
+    strength: 0.9
+    words:
+      - >-
+        1girl, teeth, sharp teeth, colored skin, black skin, no eyes, tail,
+        monster, breasts, thighs;
+      - tongue, saliva, drool, muscular female
+    description: Xenomorph Queen (Alien)
+    rating: nsfw
+    link: >-
+      https://civitai.com/models/473334/xenomorph-queen-aliens-1986-sdxl-pony?modelVersionId=526525
+    dateCreated: 1722908256888.5815
+  character-sdxlespiothechameleonsonicthehedgehog:
+    lora: sdxl\character\espiothechameleonsonicthehedgehog.safetensors
+    name: SDXL Espio the Chameleon (Sonic the Hedgehog)
+    strength: 1
+    words:
+      - Espio the Chameleon, single horn, gloves, shoes, ninja
+    description: Espio the Chameleon (Sonic the Hedgehog)
+    rating: safe
+    link: https://civitai.com/models/581206?modelVersionId=648282
+    dateCreated: 1722961025151.0767
+  character-sdxlzerosuitfox:
+    lora: sdxl\character\zerosuitfox.safetensors
+    name: SDXL Zero Suit Fox
+    strength: 1
+    words:
+      - zero suit fox, zero suit
+    description: Zero Suit Fox
+    rating: suggestive
+    link: https://civitai.com/models/622986/zero-suit-fox
+    dateCreated: 1722961611430.9382
+  character-sdxlvectorthecrocodilesonicthehedgehog:
+    lora: sdxl\character\vectorthecrocodilesonicthehedgehog.safetensors
+    name: SDXL Vector the Crocodile (Sonic the Hedgehog)
+    strength: 1
+    words:
+      - >-
+        Vector the crocodile, headphones, gold chain necklace, white gloves,
+        black boots
+    description: Vector the Crocodile (Sonic the Hedgehog)
+    rating: safe
+    link: https://civitai.com/models/566071/vector-the-crocodile
+    dateCreated: 1722961895220.2969
 clothing:
   clothing-acrylicheartdress:
     rating: suggestive
@@ -8831,7 +8917,7 @@ concept:
     dateCreated: 1717352965068.902
     description: Helps with creating stripper characters
     link: https://civitai.com/models/416513/strippers-pony?modelVersionId=464062
-    lora: sdxl\concept\Strippers (Pony).safetensors
+    lora: sdxl\concept\StrippersPony.safetensors
     name: SDXL Strippers
     strength: 0.7
     words:
@@ -9764,6 +9850,33 @@ concept:
     rating: safe
     link: https://civitai.com/models/573599
     dateCreated: 1721884318577.2522
+  concept-kenmugshotmeme:
+    lora: concept\kenmugshotmeme.safetensors
+    name: Ken Mugshot (Meme)
+    strength: 0.9
+    words:
+      - >-
+        concept_ken_mugshot_ownwaifu, www.ownwaifu.com,   1boy,
+        ken_(barbie)_(cosplay), height_mark,mugshot,  multicolored_clothes,
+        barbie_mugshot_(meme),hat, holding, holding sign, letterboxed, looking
+        at viewer, meme, open mouth, shirt, short hair, sign, smile, solo, upper
+        body, drop_shadow,
+    description: Ken Mugshot (Meme)
+    rating: safe
+    link: >-
+      https://civitai.com/models/148232/ken-mugshot-meme-or-barbie-movie-or-ownwaifu
+    dateCreated: 1722908358999.5254
+  concept-sdxlwillsmithslappingchrisrockmeme:
+    lora: sdxl\concept\willsmithslappingchrisrockmeme.safetensors
+    name: SDXL Will Smith Slapping Chris Rock (Meme)
+    strength: 1
+    words:
+      - slapping, motion lines, motion blur
+    description: Will Smith Slapping Chris Rock (Meme)
+    rating: safe
+    link: >-
+      https://civitai.com/models/594273/will-smith-slapping-chris-rock-meme-or-concept-lora-xl?modelVersionId=663748
+    dateCreated: 1722960404222.851
 effect:
   effect-animetarot:
     rating: safe
@@ -11759,7 +11872,7 @@ style:
     strength: 1
     words:
       - >-
-        neco-arc, necopose, 1girl, full body, :3, cat ears, chibi, cat girl, cat
+        neco-arc, necopose, 1girl, full body, cat ears, chibi, cat girl, cat
         tail, solo, slit pupils
   style-neocoill:
     rating: safe
@@ -13699,3 +13812,54 @@ style:
     link: >-
       https://civitai.com/models/502640/yayahiyayaka-artstyle?modelVersionId=558690
     dateCreated: 1721954404080.8357
+  style-sdxltemmie:
+    lora: sdxl\style\temmie.safetensors
+    name: SDXL Temmie
+    strength: 1
+    words:
+      - tmchng;
+      - sketch, chibi, temloaf, flat colors
+    description: Temmie
+    rating: safe
+    link: https://civitai.com/models/447385/temmie-style
+    dateCreated: 1722902766840.4192
+  style-sdxloilpainting1990:
+    lora: sdxl\style\oilpainting1990.safetensors
+    name: SDXL Oil Painting 1990
+    strength: 0.9
+    words:
+      - oil_painting, oil-painting-style,
+    description: Oil Painting 1990
+    rating: safe
+    link: https://civitai.com/models/450132?modelVersionId=501192
+    dateCreated: 1722903797879.3542
+  style-sdxladventuretime:
+    lora: sdxl\style\adventuretime.safetensors
+    name: SDXL Adventure Time
+    strength: 1
+    words:
+      - adventure time, dot eyes
+    description: Adventure Time
+    rating: safe
+    link: https://civitai.com/models/389661/adventure-time-style-ponydiffusionxl
+    dateCreated: 1722908051683.148
+  style-sdxlcutesexyrobutts:
+    lora: sdxl\style\cutesexyrobutts.safetensors
+    name: SDXL Cutesexyrobutts
+    strength: 1
+    words:
+      - csr style
+    description: Cutesexyrobutts
+    rating: suggestive
+    link: https://civitai.com/models/11161/cutesexyrobutts-style
+    dateCreated: 1722960830138.8142
+  style-sdxldiffusion64:
+    lora: sdxl\style\diffusion64.safetensors
+    name: SDXL Diffusion64
+    strength: 1
+    words:
+      - n64style, n64, 3d, ocarinaoftime, majorasmask
+    description: Diffusion64
+    rating: safe
+    link: https://civitai.com/models/136354?modelVersionId=173723
+    dateCreated: 1722960911794.8337
