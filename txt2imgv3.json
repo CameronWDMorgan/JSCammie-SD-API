@@ -83,68 +83,6 @@
       "title": "Negative Prompt"
     }
   },
-  "222": {
-    "inputs": {
-      "text": [
-        "213",
-        0
-      ],
-      "parser": "compel",
-      "mean_normalization": true,
-      "multi_conditioning": true,
-      "use_old_emphasis_implementation": false,
-      "with_SDXL": false,
-      "ascore": 6,
-      "width": 1024,
-      "height": 1024,
-      "crop_w": 0,
-      "crop_h": 0,
-      "target_width": 1024,
-      "target_height": 1024,
-      "text_g": "",
-      "text_l": "",
-      "smZ_steps": 1,
-      "clip": [
-        "117",
-        1
-      ]
-    },
-    "class_type": "smZ CLIPTextEncode",
-    "_meta": {
-      "title": "Negative: CLIP Text Encode++"
-    }
-  },
-  "225": {
-    "inputs": {
-      "text": [
-        "212",
-        0
-      ],
-      "parser": "compel",
-      "mean_normalization": true,
-      "multi_conditioning": true,
-      "use_old_emphasis_implementation": false,
-      "with_SDXL": false,
-      "ascore": 6,
-      "width": 1024,
-      "height": 1024,
-      "crop_w": 0,
-      "crop_h": 0,
-      "target_width": 1024,
-      "target_height": 1024,
-      "text_g": "",
-      "text_l": "",
-      "smZ_steps": 1,
-      "clip": [
-        "117",
-        1
-      ]
-    },
-    "class_type": "smZ CLIPTextEncode",
-    "_meta": {
-      "title": "Positive: CLIP Text Encode++"
-    }
-  },
   "230": {
     "inputs": {
       "downsample_factor_depth_1": 2,
@@ -236,11 +174,11 @@
         0
       ],
       "positive": [
-        "225",
+        "290",
         0
       ],
       "negative": [
-        "222",
+        "291",
         0
       ],
       "latent_image": [
@@ -282,6 +220,42 @@
     "class_type": "CheckpointLoaderSimpleShared //Inspire",
     "_meta": {
       "title": "Shared Checkpoint Loader (Inspire)"
+    }
+  },
+  "290": {
+    "inputs": {
+      "text": [
+        "212",
+        0
+      ],
+      "token_normalization": "length+mean",
+      "weight_interpretation": "compel",
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "AdvancedCLIPTextEncodeWithBreak",
+    "_meta": {
+      "title": "AdvancedCLIPTextEncode with BREAK syntax"
+    }
+  },
+  "291": {
+    "inputs": {
+      "text": [
+        "213",
+        0
+      ],
+      "token_normalization": "length+mean",
+      "weight_interpretation": "compel",
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "AdvancedCLIPTextEncodeWithBreak",
+    "_meta": {
+      "title": "AdvancedCLIPTextEncode with BREAK syntax"
     }
   }
 }

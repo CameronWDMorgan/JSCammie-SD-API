@@ -1,6 +1,6 @@
 {
-  "last_node_id": 290,
-  "last_link_id": 103,
+  "last_node_id": 294,
+  "last_link_id": 109,
   "nodes": [
     {
       "id": 283,
@@ -143,12 +143,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 88
+          "link": 104
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 87
+          "link": 105
         },
         {
           "name": "latent_image",
@@ -415,273 +415,6 @@
       }
     },
     {
-      "id": 222,
-      "type": "smZ CLIPTextEncode",
-      "pos": [
-        2006,
-        184
-      ],
-      "size": {
-        "0": 235.1999969482422,
-        "1": 158.39999389648438
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 12
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 11,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            87
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Negative: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
-      "id": 225,
-      "type": "smZ CLIPTextEncode",
-      "pos": [
-        2011,
-        -8
-      ],
-      "size": {
-        "0": 235.1999969482422,
-        "1": 158.39999389648438
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 14
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 36,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            88
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Positive: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
-      "id": 213,
-      "type": "Primitive string multiline [Crystools]",
-      "pos": [
-        1542,
-        580
-      ],
-      "size": {
-        "0": 400,
-        "1": 200
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "string",
-          "type": "STRING",
-          "links": [
-            11
-          ],
-          "shape": 3
-        }
-      ],
-      "title": "Negative Prompt",
-      "properties": {
-        "Node name for S&R": "Primitive string multiline [Crystools]"
-      },
-      "widgets_values": [
-        "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
-      ]
-    },
-    {
-      "id": 212,
-      "type": "Primitive string multiline [Crystools]",
-      "pos": [
-        1537,
-        324
-      ],
-      "size": {
-        "0": 400,
-        "1": 200
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "string",
-          "type": "STRING",
-          "links": [
-            36
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Prompt",
-      "properties": {
-        "Node name for S&R": "Primitive string multiline [Crystools]"
-      },
-      "widgets_values": [
-        "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt, at beach"
-      ]
-    },
-    {
-      "id": 117,
-      "type": "Power Lora Loader (rgthree)",
-      "pos": {
-        "0": 1567,
-        "1": 124,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 340.20001220703125,
-        "1": 142
-      },
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 97,
-          "dir": 3
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 99,
-          "dir": 3
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            89
-          ],
-          "shape": 3,
-          "dir": 4,
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            12,
-            14
-          ],
-          "shape": 3,
-          "dir": 4
-        }
-      ],
-      "properties": {
-        "Show Strengths": "Single Strength"
-      },
-      "widgets_values": [
-        null,
-        {
-          "type": "PowerLoraLoaderHeaderWidget"
-        },
-        {
-          "on": false,
-          "lora": "sdxl\\style\\cutestylemix.safetensors",
-          "strength": 1,
-          "strengthTwo": null
-        },
-        null,
-        ""
-      ]
-    },
-    {
       "id": 230,
       "type": "ToDoPatchModel",
       "pos": [
@@ -732,7 +465,7 @@
         "1": 166
       },
       "flags": {},
-      "order": 7,
+      "order": 5,
       "mode": 0,
       "outputs": [
         {
@@ -828,12 +561,12 @@
         1140,
         652
       ],
-      "size": [
-        315,
-        313.99998474121094
-      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
       "flags": {},
-      "order": 8,
+      "order": 6,
       "mode": 0,
       "outputs": [
         {
@@ -859,6 +592,247 @@
         "4aeee032a98b6b03a21ba09723b21897.mp4",
         "image"
       ]
+    },
+    {
+      "id": 117,
+      "type": "Power Lora Loader (rgthree)",
+      "pos": {
+        "0": 1567,
+        "1": 124,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 340.20001220703125,
+        "1": 142
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 97,
+          "dir": 3
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 99,
+          "dir": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            89
+          ],
+          "shape": 3,
+          "dir": 4,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            106,
+            107
+          ],
+          "shape": 3,
+          "dir": 4,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Show Strengths": "Single Strength"
+      },
+      "widgets_values": [
+        null,
+        {
+          "type": "PowerLoraLoaderHeaderWidget"
+        },
+        {
+          "on": false,
+          "lora": "sdxl\\style\\cutestylemix.safetensors",
+          "strength": 1,
+          "strengthTwo": null
+        },
+        null,
+        ""
+      ]
+    },
+    {
+      "id": 212,
+      "type": "Primitive string multiline [Crystools]",
+      "pos": [
+        1537,
+        324
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            108
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Prompt",
+      "properties": {
+        "Node name for S&R": "Primitive string multiline [Crystools]"
+      },
+      "widgets_values": [
+        "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt, at beach"
+      ]
+    },
+    {
+      "id": 213,
+      "type": "Primitive string multiline [Crystools]",
+      "pos": [
+        1542,
+        580
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            109
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Negative Prompt",
+      "properties": {
+        "Node name for S&R": "Primitive string multiline [Crystools]"
+      },
+      "widgets_values": [
+        "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
+      ]
+    },
+    {
+      "id": 294,
+      "type": "AdvancedCLIPTextEncodeWithBreak",
+      "pos": [
+        1955,
+        133
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 106
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 109,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            105
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AdvancedCLIPTextEncodeWithBreak"
+      },
+      "widgets_values": [
+        "",
+        "length+mean",
+        "compel"
+      ]
+    },
+    {
+      "id": 293,
+      "type": "AdvancedCLIPTextEncodeWithBreak",
+      "pos": [
+        1938,
+        -126
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 107
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 108,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            104
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AdvancedCLIPTextEncodeWithBreak"
+      },
+      "widgets_values": [
+        "",
+        "length+mean",
+        "compel"
+      ]
     }
   ],
   "links": [
@@ -877,38 +851,6 @@
       142,
       0,
       "IMAGE"
-    ],
-    [
-      11,
-      213,
-      0,
-      222,
-      1,
-      "STRING"
-    ],
-    [
-      12,
-      117,
-      1,
-      222,
-      0,
-      "CLIP"
-    ],
-    [
-      14,
-      117,
-      1,
-      225,
-      0,
-      "CLIP"
-    ],
-    [
-      36,
-      212,
-      0,
-      225,
-      1,
-      "STRING"
     ],
     [
       74,
@@ -949,22 +891,6 @@
       282,
       4,
       "INT"
-    ],
-    [
-      87,
-      222,
-      0,
-      282,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      88,
-      225,
-      0,
-      282,
-      1,
-      "CONDITIONING"
     ],
     [
       89,
@@ -1045,16 +971,64 @@
       290,
       1,
       "VAE"
+    ],
+    [
+      104,
+      293,
+      0,
+      282,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      105,
+      294,
+      0,
+      282,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      106,
+      117,
+      1,
+      294,
+      0,
+      "CLIP"
+    ],
+    [
+      107,
+      117,
+      1,
+      293,
+      0,
+      "CLIP"
+    ],
+    [
+      108,
+      212,
+      0,
+      293,
+      1,
+      "STRING"
+    ],
+    [
+      109,
+      213,
+      0,
+      294,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.620921323059155,
+      "scale": 1,
       "offset": {
-        "0": -394.1977233886719,
-        "1": 121.27824401855469
+        "0": -1332.5829633886706,
+        "1": 259.5299740185547
       }
     }
   },

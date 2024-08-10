@@ -1,6 +1,6 @@
 {
-  "last_node_id": 293,
-  "last_link_id": 115,
+  "last_node_id": 295,
+  "last_link_id": 123,
   "nodes": [
     {
       "id": 283,
@@ -148,7 +148,7 @@
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 114
+          "link": 119
         },
         {
           "name": "latent_image",
@@ -415,69 +415,348 @@
       }
     },
     {
-      "id": 213,
-      "type": "Primitive string multiline [Crystools]",
+      "id": 230,
+      "type": "ToDoPatchModel",
       "pos": [
-        1542,
-        580
+        1581,
+        -11
       ],
       "size": {
-        "0": 400,
-        "1": 200
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 98
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            97
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ToDoPatchModel"
+      },
+      "widgets_values": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": 291,
+      "type": "LoadImageMask",
+      "pos": [
+        1135,
+        1037
+      ],
+      "size": {
+        "0": 315,
+        "1": 318
       },
       "flags": {},
       "order": 5,
       "mode": 0,
       "outputs": [
         {
-          "name": "string",
-          "type": "STRING",
+          "name": "MASK",
+          "type": "MASK",
           "links": [
-            11
+            108
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
         }
       ],
-      "title": "Negative Prompt",
       "properties": {
-        "Node name for S&R": "Primitive string multiline [Crystools]"
+        "Node name for S&R": "LoadImageMask"
       },
       "widgets_values": [
-        "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
+        "4aeee032a98b6b03a21ba09723b21897.mp4",
+        "red",
+        "image"
       ]
     },
     {
-      "id": 212,
-      "type": "Primitive string multiline [Crystools]",
+      "id": 289,
+      "type": "LoadImage",
       "pos": [
-        1537,
-        324
+        1140,
+        652
       ],
       "size": {
-        "0": 400,
-        "1": 200
+        "0": 315,
+        "1": 314
       },
       "flags": {},
       "order": 6,
       "mode": 0,
       "outputs": [
         {
-          "name": "string",
-          "type": "STRING",
+          "name": "IMAGE",
+          "type": "IMAGE",
           "links": [
-            36
+            109
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "4aeee032a98b6b03a21ba09723b21897.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 288,
+      "type": "CheckpointLoaderSimpleShared //Inspire",
+      "pos": [
+        1162,
+        89
+      ],
+      "size": {
+        "0": 315,
+        "1": 166
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            98
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "links": [
+            99
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "links": [
+            100,
+            110
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "cache key",
+          "type": "STRING",
+          "links": null,
+          "shape": 3,
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimpleShared //Inspire"
+      },
+      "widgets_values": [
+        "autismmixSDXL_autismmixPony.safetensors",
+        "",
+        "Auto"
+      ]
+    },
+    {
+      "id": 294,
+      "type": "AdvancedCLIPTextEncodeWithBreak",
+      "pos": [
+        1944,
+        -130
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 121
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 122,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            117
           ],
           "shape": 3,
           "slot_index": 0
         }
       ],
-      "title": "Prompt",
       "properties": {
-        "Node name for S&R": "Primitive string multiline [Crystools]"
+        "Node name for S&R": "AdvancedCLIPTextEncodeWithBreak"
       },
       "widgets_values": [
-        "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt, at beach"
+        "",
+        "length+mean",
+        "compel"
       ]
+    },
+    {
+      "id": 295,
+      "type": "AdvancedCLIPTextEncodeWithBreak",
+      "pos": [
+        1955,
+        131
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 120
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 123,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            118
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AdvancedCLIPTextEncodeWithBreak"
+      },
+      "widgets_values": [
+        "",
+        "length+mean",
+        "compel"
+      ]
+    },
+    {
+      "id": 293,
+      "type": "InpaintModelConditioning",
+      "pos": [
+        1516,
+        1004
+      ],
+      "size": {
+        "0": 216.59999084472656,
+        "1": 106
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 117
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 118
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 110
+        },
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 109
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 108
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            113
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            119
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            115
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "InpaintModelConditioning"
+      }
     },
     {
       "id": 117,
@@ -530,11 +809,12 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            12,
-            14
+            120,
+            121
           ],
           "shape": 3,
-          "dir": 4
+          "dir": 4,
+          "slot_index": 1
         }
       ],
       "properties": {
@@ -556,376 +836,70 @@
       ]
     },
     {
-      "id": 230,
-      "type": "ToDoPatchModel",
+      "id": 212,
+      "type": "Primitive string multiline [Crystools]",
       "pos": [
-        1581,
-        -11
+        1537,
+        324
       ],
       "size": {
-        "0": 315,
-        "1": 82
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 98
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            97
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ToDoPatchModel"
-      },
-      "widgets_values": [
-        2,
-        1
-      ]
-    },
-    {
-      "id": 291,
-      "type": "LoadImageMask",
-      "pos": [
-        1135,
-        1037
-      ],
-      "size": {
-        "0": 315,
-        "1": 318
-      },
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": [
-            108
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImageMask"
-      },
-      "widgets_values": [
-        "4aeee032a98b6b03a21ba09723b21897.mp4",
-        "red",
-        "image"
-      ]
-    },
-    {
-      "id": 289,
-      "type": "LoadImage",
-      "pos": [
-        1140,
-        652
-      ],
-      "size": {
-        "0": 315,
-        "1": 314
+        "0": 400,
+        "1": 200
       },
       "flags": {},
       "order": 8,
       "mode": 0,
       "outputs": [
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
+          "name": "string",
+          "type": "STRING",
           "links": [
-            109
+            122
           ],
           "shape": 3,
           "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
         }
       ],
+      "title": "Prompt",
       "properties": {
-        "Node name for S&R": "LoadImage"
+        "Node name for S&R": "Primitive string multiline [Crystools]"
       },
       "widgets_values": [
-        "4aeee032a98b6b03a21ba09723b21897.mp4",
-        "image"
+        "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt, at beach"
       ]
     },
     {
-      "id": 288,
-      "type": "CheckpointLoaderSimpleShared //Inspire",
+      "id": 213,
+      "type": "Primitive string multiline [Crystools]",
       "pos": [
-        1162,
-        89
+        1542,
+        580
       ],
       "size": {
-        "0": 315,
-        "1": 166
+        "0": 400,
+        "1": 200
       },
       "flags": {},
       "order": 9,
       "mode": 0,
       "outputs": [
         {
-          "name": "model",
-          "type": "MODEL",
+          "name": "string",
+          "type": "STRING",
           "links": [
-            98
+            123
           ],
           "shape": 3,
           "slot_index": 0
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "links": [
-            99
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "links": [
-            100,
-            110
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "cache key",
-          "type": "STRING",
-          "links": null,
-          "shape": 3,
-          "slot_index": 3
         }
       ],
+      "title": "Negative Prompt",
       "properties": {
-        "Node name for S&R": "CheckpointLoaderSimpleShared //Inspire"
+        "Node name for S&R": "Primitive string multiline [Crystools]"
       },
       "widgets_values": [
-        "autismmixSDXL_autismmixPony.safetensors",
-        "",
-        "Auto"
+        "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
       ]
-    },
-    {
-      "id": 225,
-      "type": "smZ CLIPTextEncode",
-      "pos": [
-        2000,
-        -35
-      ],
-      "size": {
-        "0": 235.1999969482422,
-        "1": 158.39999389648438
-      },
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 14
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 36,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            111
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Positive: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
-      "id": 222,
-      "type": "smZ CLIPTextEncode",
-      "pos": [
-        2006,
-        184
-      ],
-      "size": {
-        "0": 235.1999969482422,
-        "1": 158.39999389648438
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 12
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 11,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            112
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Negative: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
-      "id": 293,
-      "type": "InpaintModelConditioning",
-      "pos": [
-        1516,
-        1004
-      ],
-      "size": {
-        "0": 216.59999084472656,
-        "1": 106
-      },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 111
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 112
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 110
-        },
-        {
-          "name": "pixels",
-          "type": "IMAGE",
-          "link": 109
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": 108
-        }
-      ],
-      "outputs": [
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "links": [
-            113
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "links": [
-            114
-          ],
-          "shape": 3,
-          "slot_index": 1
-        },
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "links": [
-            115
-          ],
-          "shape": 3,
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "InpaintModelConditioning"
-      }
     }
   ],
   "links": [
@@ -944,38 +918,6 @@
       142,
       0,
       "IMAGE"
-    ],
-    [
-      11,
-      213,
-      0,
-      222,
-      1,
-      "STRING"
-    ],
-    [
-      12,
-      117,
-      1,
-      222,
-      0,
-      "CLIP"
-    ],
-    [
-      14,
-      117,
-      1,
-      225,
-      0,
-      "CLIP"
-    ],
-    [
-      36,
-      212,
-      0,
-      225,
-      1,
-      "STRING"
     ],
     [
       74,
@@ -1098,35 +1040,11 @@
       "VAE"
     ],
     [
-      111,
-      225,
-      0,
-      293,
-      0,
-      "CONDITIONING"
-    ],
-    [
-      112,
-      222,
-      0,
-      293,
-      1,
-      "CONDITIONING"
-    ],
-    [
       113,
       293,
       0,
       282,
       1,
-      "CONDITIONING"
-    ],
-    [
-      114,
-      293,
-      1,
-      282,
-      2,
       "CONDITIONING"
     ],
     [
@@ -1136,16 +1054,72 @@
       276,
       0,
       "LATENT"
+    ],
+    [
+      117,
+      294,
+      0,
+      293,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      118,
+      295,
+      0,
+      293,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      119,
+      293,
+      1,
+      282,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      120,
+      117,
+      1,
+      295,
+      0,
+      "CLIP"
+    ],
+    [
+      121,
+      117,
+      1,
+      294,
+      0,
+      "CLIP"
+    ],
+    [
+      122,
+      212,
+      0,
+      294,
+      1,
+      "STRING"
+    ],
+    [
+      123,
+      213,
+      0,
+      295,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.9090909090909092,
+      "scale": 0.8264462809917359,
       "offset": {
-        "0": -910.6216743062039,
-        "1": -328.1550534171039
+        "0": -1176.8317095273196,
+        "1": 384.5511823735158
       }
     }
   },

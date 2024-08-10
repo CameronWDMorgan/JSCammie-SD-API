@@ -1,6 +1,6 @@
 {
-  "last_node_id": 288,
-  "last_link_id": 100,
+  "last_node_id": 291,
+  "last_link_id": 106,
   "nodes": [
     {
       "id": 283,
@@ -177,12 +177,12 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 88
+          "link": 103
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 87
+          "link": 106
         },
         {
           "name": "latent_image",
@@ -238,7 +238,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        441800855870091,
+        620701449998059,
         "randomize",
         20,
         8,
@@ -449,161 +449,101 @@
       }
     },
     {
-      "id": 222,
-      "type": "smZ CLIPTextEncode",
+      "id": 230,
+      "type": "ToDoPatchModel",
       "pos": [
-        2006,
-        184
-      ],
-      "size": [
-        235.1999969482422,
-        134.39999389648438
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 12
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 11,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            87
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Negative: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
-      "id": 225,
-      "type": "smZ CLIPTextEncode",
-      "pos": [
-        2011,
-        -8
-      ],
-      "size": [
-        235.1999969482422,
-        134.39999389648438
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 14
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 36,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            88
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "title": "Positive: CLIP Text Encode++",
-      "properties": {
-        "Node name for S&R": "smZ CLIPTextEncode"
-      },
-      "widgets_values": [
-        "",
-        "compel",
-        true,
-        true,
-        false,
-        false,
-        6,
-        1024,
-        1024,
-        0,
-        0,
-        1024,
-        1024,
-        "",
-        "",
-        1
-      ]
-    },
-    {
-      "id": 213,
-      "type": "Primitive string multiline [Crystools]",
-      "pos": [
-        1542,
-        580
+        1581,
+        -11
       ],
       "size": {
-        "0": 400,
-        "1": 200
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 98
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            97
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ToDoPatchModel"
+      },
+      "widgets_values": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": 288,
+      "type": "CheckpointLoaderSimpleShared //Inspire",
+      "pos": [
+        1162,
+        89
+      ],
+      "size": {
+        "0": 315,
+        "1": 166
       },
       "flags": {},
       "order": 6,
       "mode": 0,
       "outputs": [
         {
-          "name": "string",
-          "type": "STRING",
+          "name": "model",
+          "type": "MODEL",
           "links": [
-            11
+            98
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "links": [
+            99
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "links": [
+            100
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "cache key",
+          "type": "STRING",
+          "links": null,
+          "shape": 3,
+          "slot_index": 3
         }
       ],
-      "title": "Negative Prompt",
       "properties": {
-        "Node name for S&R": "Primitive string multiline [Crystools]"
+        "Node name for S&R": "CheckpointLoaderSimpleShared //Inspire"
       },
       "widgets_values": [
-        "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
+        "autismmixSDXL_autismmixPony.safetensors",
+        "",
+        "Auto"
       ]
     },
     {
@@ -625,7 +565,7 @@
           "name": "string",
           "type": "STRING",
           "links": [
-            36
+            101
           ],
           "shape": 3,
           "slot_index": 0
@@ -690,11 +630,12 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            12,
-            14
+            102,
+            104
           ],
           "shape": 3,
-          "dir": 4
+          "dir": 4,
+          "slot_index": 1
         }
       ],
       "properties": {
@@ -716,101 +657,134 @@
       ]
     },
     {
-      "id": 230,
-      "type": "ToDoPatchModel",
+      "id": 213,
+      "type": "Primitive string multiline [Crystools]",
       "pos": [
-        1581,
-        -11
+        1542,
+        580
       ],
       "size": {
-        "0": 315,
-        "1": 82
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 98
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            97
-          ],
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ToDoPatchModel"
-      },
-      "widgets_values": [
-        2,
-        1
-      ]
-    },
-    {
-      "id": 288,
-      "type": "CheckpointLoaderSimpleShared //Inspire",
-      "pos": [
-        1162,
-        89
-      ],
-      "size": {
-        "0": 315,
-        "1": 166
+        "0": 400,
+        "1": 200
       },
       "flags": {},
       "order": 8,
       "mode": 0,
       "outputs": [
         {
-          "name": "model",
-          "type": "MODEL",
+          "name": "string",
+          "type": "STRING",
           "links": [
-            98
+            105
           ],
           "shape": 3,
           "slot_index": 0
-        },
+        }
+      ],
+      "title": "Negative Prompt",
+      "properties": {
+        "Node name for S&R": "Primitive string multiline [Crystools]"
+      },
+      "widgets_values": [
+        "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
+      ]
+    },
+    {
+      "id": 291,
+      "type": "AdvancedCLIPTextEncodeWithBreak",
+      "pos": [
+        1969,
+        144
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "links": [
-            99
-          ],
-          "shape": 3,
-          "slot_index": 1
+          "link": 104
         },
         {
-          "name": "vae",
-          "type": "VAE",
-          "links": [
-            100
-          ],
-          "shape": 3,
-          "slot_index": 2
-        },
-        {
-          "name": "cache key",
+          "name": "text",
           "type": "STRING",
-          "links": null,
+          "link": 105,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            106
+          ],
           "shape": 3,
-          "slot_index": 3
+          "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "CheckpointLoaderSimpleShared //Inspire"
+        "Node name for S&R": "AdvancedCLIPTextEncodeWithBreak"
       },
       "widgets_values": [
-        "autismmixSDXL_autismmixPony.safetensors",
         "",
-        "Auto"
+        "length+mean",
+        "compel"
+      ]
+    },
+    {
+      "id": 290,
+      "type": "AdvancedCLIPTextEncodeWithBreak",
+      "pos": [
+        1964,
+        -104
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 102
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 101,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            103
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AdvancedCLIPTextEncodeWithBreak"
+      },
+      "widgets_values": [
+        "",
+        "length+mean",
+        "compel"
       ]
     }
   ],
@@ -830,38 +804,6 @@
       142,
       0,
       "IMAGE"
-    ],
-    [
-      11,
-      213,
-      0,
-      222,
-      1,
-      "STRING"
-    ],
-    [
-      12,
-      117,
-      1,
-      222,
-      0,
-      "CLIP"
-    ],
-    [
-      14,
-      117,
-      1,
-      225,
-      0,
-      "CLIP"
-    ],
-    [
-      36,
-      212,
-      0,
-      225,
-      1,
-      "STRING"
     ],
     [
       74,
@@ -902,22 +844,6 @@
       282,
       4,
       "INT"
-    ],
-    [
-      87,
-      222,
-      0,
-      282,
-      2,
-      "CONDITIONING"
-    ],
-    [
-      88,
-      225,
-      0,
-      282,
-      1,
-      "CONDITIONING"
     ],
     [
       89,
@@ -982,16 +908,64 @@
       141,
       1,
       "VAE"
+    ],
+    [
+      101,
+      212,
+      0,
+      290,
+      1,
+      "STRING"
+    ],
+    [
+      102,
+      117,
+      1,
+      290,
+      0,
+      "CLIP"
+    ],
+    [
+      103,
+      290,
+      0,
+      282,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      104,
+      117,
+      1,
+      291,
+      0,
+      "CLIP"
+    ],
+    [
+      105,
+      213,
+      0,
+      291,
+      1,
+      "STRING"
+    ],
+    [
+      106,
+      291,
+      0,
+      282,
+      2,
+      "CONDITIONING"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.564473930053778,
+      "scale": 0.683013455365071,
       "offset": {
-        "0": -448.1145935058594,
-        "1": 332.7987365722656
+        "0": -1090.5006838084187,
+        "1": 55.04941641526586
       }
     }
   },
