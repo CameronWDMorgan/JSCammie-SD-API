@@ -19,7 +19,7 @@
       },
       "lora_1": {
         "on": false,
-        "lora": "sdxl\\style\\cutestylemix.safetensors",
+        "lora": "flux\\style\\cfluxcartoon.safetensors",
         "strength": 1
       },
       "➕ Add Lora": "",
@@ -65,24 +65,6 @@
       "title": "Preview Image"
     }
   },
-  "212": {
-    "inputs": {
-      "string": "score_9, score_8_up, score_7_up, masterpiece, high quality, 2d, vivid, 1girl, solo, sonic \\(series\\), amy rose \\(sonic\\), looking at viewer, denim jeans, t-shirt, at beach"
-    },
-    "class_type": "Primitive string multiline [Crystools]",
-    "_meta": {
-      "title": "Prompt"
-    }
-  },
-  "213": {
-    "inputs": {
-      "string": "score_1, score_2, score_3, score_4, (black and white, monochrome, hands, hyperrealistic, sfm, 3d)"
-    },
-    "class_type": "Primitive string multiline [Crystools]",
-    "_meta": {
-      "title": "Negative Prompt"
-    }
-  },
   "230": {
     "inputs": {
       "downsample_factor_depth_1": 2,
@@ -97,50 +79,14 @@
       "title": "ToDo: Token Dowsampling"
     }
   },
-  "256": {
-    "inputs": {
-      "int": 1
-    },
-    "class_type": "Primitive integer [Crystools]",
-    "_meta": {
-      "title": "Quantity"
-    }
-  },
-  "266": {
-    "inputs": {
-      "float": 4
-    },
-    "class_type": "Primitive float [Crystools]",
-    "_meta": {
-      "title": "CFG"
-    }
-  },
-  "268": {
-    "inputs": {
-      "int": 123123213
-    },
-    "class_type": "Primitive integer [Crystools]",
-    "_meta": {
-      "title": "Seed"
-    }
-  },
-  "270": {
-    "inputs": {
-      "int": 20
-    },
-    "class_type": "Primitive integer [Crystools]",
-    "_meta": {
-      "title": "Steps"
-    }
-  },
   "276": {
     "inputs": {
       "amount": [
-        "256",
+        "306",
         0
       ],
       "samples": [
-        "293",
+        "312",
         2
       ]
     },
@@ -152,21 +98,21 @@
   "282": {
     "inputs": {
       "seed": [
-        "268",
+        "304",
         0
       ],
       "steps": [
-        "270",
+        "303",
         0
       ],
       "cfg": [
-        "266",
+        "305",
         0
       ],
-      "sampler_name": "euler_ancestral",
+      "sampler_name": "euler",
       "scheduler": "normal",
       "denoise": [
-        "283",
+        "301",
         0
       ],
       "model": [
@@ -174,11 +120,11 @@
         0
       ],
       "positive": [
-        "293",
+        "312",
         0
       ],
       "negative": [
-        "293",
+        "312",
         1
       ],
       "latent_image": [
@@ -191,18 +137,9 @@
       "title": "KSampler"
     }
   },
-  "283": {
-    "inputs": {
-      "float": 1
-    },
-    "class_type": "Primitive float [Crystools]",
-    "_meta": {
-      "title": "Strength"
-    }
-  },
   "288": {
     "inputs": {
-      "ckpt_name": "autismmixSDXL_autismmixPony.safetensors",
+      "ckpt_name": "fluxUnchainedBySCG_hyfu8StepHybridV10.safetensors",
       "key_opt": "",
       "mode": "Auto"
     },
@@ -211,28 +148,135 @@
       "title": "Shared Checkpoint Loader (Inspire)"
     }
   },
-  "289": {
+  "294": {
     "inputs": {
-      "image": "4aeee032a98b6b03a21ba09723b21897.mp4",
+      "text": [
+        "298",
+        0
+      ],
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "295": {
+    "inputs": {
+      "text": [
+        "300",
+        0
+      ],
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "298": {
+    "inputs": {
+      "text": ""
+    },
+    "class_type": "JWStringMultiline",
+    "_meta": {
+      "title": "Positive Prompt"
+    }
+  },
+  "300": {
+    "inputs": {
+      "text": ""
+    },
+    "class_type": "JWStringMultiline",
+    "_meta": {
+      "title": "Negative Prompt"
+    }
+  },
+  "301": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "JWFloat",
+    "_meta": {
+      "title": "Strength"
+    }
+  },
+  "303": {
+    "inputs": {
+      "value": 0
+    },
+    "class_type": "JWInteger",
+    "_meta": {
+      "title": "Steps"
+    }
+  },
+  "304": {
+    "inputs": {
+      "value": 0
+    },
+    "class_type": "JWInteger",
+    "_meta": {
+      "title": "Seed"
+    }
+  },
+  "305": {
+    "inputs": {
+      "value": 4
+    },
+    "class_type": "JWFloat",
+    "_meta": {
+      "title": "CFG"
+    }
+  },
+  "306": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "JWInteger",
+    "_meta": {
+      "title": "Batch Quantity"
+    }
+  },
+  "307": {
+    "inputs": {
+      "image": "example.png",
       "upload": "image"
     },
     "class_type": "LoadImage",
     "_meta": {
-      "title": "Load Image"
+      "title": "Base Image"
     }
   },
-  "291": {
+  "309": {
     "inputs": {
-      "image": "4aeee032a98b6b03a21ba09723b21897.mp4",
-      "channel": "red",
+      "image": "example.png",
       "upload": "image"
     },
-    "class_type": "LoadImageMask",
+    "class_type": "LoadImage",
     "_meta": {
-      "title": "Load Image (as Mask)"
+      "title": "Inpainting Image"
     }
   },
-  "293": {
+  "311": {
+    "inputs": {
+      "channel": "red",
+      "image": [
+        "309",
+        0
+      ]
+    },
+    "class_type": "ImageToMask",
+    "_meta": {
+      "title": "Convert Image to Mask"
+    }
+  },
+  "312": {
     "inputs": {
       "positive": [
         "294",
@@ -247,53 +291,17 @@
         2
       ],
       "pixels": [
-        "289",
+        "307",
         0
       ],
       "mask": [
-        "291",
+        "311",
         0
       ]
     },
     "class_type": "InpaintModelConditioning",
     "_meta": {
       "title": "InpaintModelConditioning"
-    }
-  },
-  "294": {
-    "inputs": {
-      "text": [
-        "212",
-        0
-      ],
-      "token_normalization": "length+mean",
-      "weight_interpretation": "compel",
-      "clip": [
-        "117",
-        1
-      ]
-    },
-    "class_type": "AdvancedCLIPTextEncodeWithBreak",
-    "_meta": {
-      "title": "AdvancedCLIPTextEncode with BREAK syntax"
-    }
-  },
-  "295": {
-    "inputs": {
-      "text": [
-        "213",
-        0
-      ],
-      "token_normalization": "length+mean",
-      "weight_interpretation": "compel",
-      "clip": [
-        "117",
-        1
-      ]
-    },
-    "class_type": "AdvancedCLIPTextEncodeWithBreak",
-    "_meta": {
-      "title": "AdvancedCLIPTextEncode with BREAK syntax"
     }
   }
 }

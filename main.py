@@ -91,6 +91,7 @@ try:
         'sdxl-sonichasautismmix': {'model_path': config["sdxl_sonichasautismmix_model_path"]},
         'sdxl-ponyrealism': {'model_path': config["sdxl_ponyrealism_model_path"]},
         'sd3-medium': {'model_path': config["sd3_medium_model_path"]},
+        'flux-unchained': {'model_path': config["flux_unchained_model_path"]},
     }
 
 except Exception as e:
@@ -352,11 +353,6 @@ log.setLevel(logging.ERROR)
 
 # create websocket client:
 import websocket
-server_address = "127.0.0.1:8188"
-
-images_dir = 'C:/Users/anime/Documents/Coding/Stability Matrix/Data/Packages/ComfyUI/output'
-
-
 
 def check_for_image(prompt_id, data):
     previous_comfyui_response = None
@@ -371,7 +367,7 @@ def check_for_image(prompt_id, data):
         time.sleep(0.1)  # Delay to prevent too frequent requests
         try:
             # Fetch history or current status of the image generation using the prompt_id
-            response = requests.get(f"http://{server_address}/history/{prompt_id}")
+            response = requests.get(f"{data['server_address']}/history/{prompt_id}")
             comfyui_response = response.json()
 
             if not comfyui_response:
@@ -403,7 +399,7 @@ def check_for_image(prompt_id, data):
                 for image_info in image_info_64:
                     image_filename = image_info.get('filename')
                     if image_filename:
-                        image_path = os.path.join(images_dir, image_filename)
+                        image_path = os.path.join(data['images_dir'], image_filename)
                         try:
                             with Image.open(image_path) as img:
                                 output_images.append(img.copy())
@@ -468,20 +464,20 @@ def process_request(queue_item):
         request_json['288']['inputs']['ckpt_name'] = ckpt_name
                 
         if data['request_type'] == "img2img" or data['request_type'] == "inpainting":
-            request_json['283']['inputs']['float'] = data['strength']
+            request_json['301']['inputs']['value'] = data['strength']
             # convert the PIL Image to a base64 string:
             # print type:
             # make sure the directory exists:
             os.makedirs("process_images/image", exist_ok=True)
-            request_json['289']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png"
+            request_json['307']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png"
         else:
             # txt2img, so set the strength to 1:
-            request_json['283']['inputs']['float'] = 1
+            request_json['301']['inputs']['value'] = 1
             
         if data['request_type'] == "inpainting":
             # make sure the dir exists:
             os.makedirs("process_images/inpainting", exist_ok=True)
-            request_json['291']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\inpainting\\inpainting{request_id}{data['gpu_id']}.png"
+            request_json['309']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\inpainting\\inpainting{request_id}{data['gpu_id']}.png"
         
         if data['lora_strengths'] is None or data['lora_strengths'] == []:
             data['lora_strengths'] = []
@@ -491,11 +487,11 @@ def process_request(queue_item):
         for key in data['loras_data']:
             print(key, data['loras_data'][key])
             
-        if not data['model'].startswith("sd3"):
-            for i in range(1, 10):
-                # remove all 117 "inputs" "lora_1", "lora_2", etc. values if they exist:
-                if f"lora_{i}" in request_json['117']['inputs']:
-                    request_json['117']['inputs'].pop(f"lora_{i}", None)
+        # if not data['model'].startswith("sd3"):
+        #     for i in range(1, 10):
+        #         # remove all 117 "inputs" "lora_1", "lora_2", etc. values if they exist:
+        #         if f"lora_{i}" in request_json['117']['inputs']:
+        #             request_json['117']['inputs'].pop(f"lora_{i}", None)
                 
             print(f"Data['loras_data']: {data['loras_data']}")
             
@@ -532,47 +528,34 @@ def process_request(queue_item):
                     }
                             
         # Prompt
-        request_json['212']['inputs']['string'] = data['prompt']
+        request_json['298']['inputs']['text'] = data['prompt']
         
         # Negative Prompt
-        request_json['213']['inputs']['string'] = data['negative_prompt']
+        request_json['300']['inputs']['text'] = data['negative_prompt']
         
         # Steps
-        request_json['270']['inputs']['int'] = data['steps']
-        request_json['266']['inputs']['float'] = data['guidance']
-        request_json['268']['inputs']['int'] = data['seed']
+        request_json['303']['inputs']['value'] = data['steps']
+        request_json['305']['inputs']['value'] = data['guidance']
+        request_json['304']['inputs']['value'] = data['seed']
         
         if data['request_type'] == "txt2img":
             request_json['285']['inputs']['width'] = data['width']
             request_json['285']['inputs']['height'] = data['height']
             
-        request_json['256']['inputs']['int'] = data['image_count']
+        request_json['306']['inputs']['value'] = data['image_count']
             
             
             
         request_json['64']['inputs']['filename_prefix'] = request_id
             
-        if not data['model'].startswith("sdxl") and not data['model'].startswith("sd3"):
-            request_json['213']['inputs']['string'] = f"{request_json['213']['inputs']['string']} embedding:boring_e621_v4.pt embedding:fluffynegative.pt embedding:badyiffymix41.safetensors embedding:gnarlysick-neg.pt embedding:negative_hand-neg.pt"
+        if not data['model'].startswith("sdxl") and not data['model'].startswith("flux"):
+            request_json['300']['inputs']['text'] = f"{request_json['300']['inputs']['text']} embedding:boring_e621_v4.pt embedding:fluffynegative.pt embedding:badyiffymix41.safetensors embedding:gnarlysick-neg.pt embedding:negative_hand-neg.pt"
                     
         print(f"LIGHNING MODE: {data['lightning_mode']}")
                     
-        if data['model'].startswith("sdxl") and data['lightning_mode']:
-            if data['scheduler'] == "eulera":
-                request_json['282']['inputs']['sampler_name'] = "euler_ancestral"
-                request_json['282']['inputs']['scheduler'] = "simple"
-                
-            if data['scheduler'] == "dpm":
-                request_json['282']['inputs']['sampler_name'] = "dpmpp_2m"
-                request_json['282']['inputs']['scheduler'] = "simple"
-                
-            if data['scheduler'] == "ddim":
-                request_json['282']['inputs']['sampler_name'] = "ddim"
-                request_json['282']['inputs']['scheduler'] = "simple"
-                
-            # remove 233 from the request_json, re-route 230 to 117:
-            request_json.pop('233', None)
-            request_json['117']['inputs']['model'] = "230"
+        if data['model'].startswith("flux"):
+                request_json['282']['inputs']['sampler_name'] = "euler"
+                request_json['282']['inputs']['scheduler'] = "normal"
         else:
             if data['scheduler'] == "eulera":
                 request_json['282']['inputs']['sampler_name'] = "euler_ancestral"
@@ -699,11 +682,11 @@ def process_request(queue_item):
                         0
                     ],
                     "positive": [
-                        "225",
+                        "294",
                         0
                     ],
                     "negative": [
-                        "222",
+                        "295",
                         0
                     ],
                     "vae": [
@@ -720,6 +703,11 @@ def process_request(queue_item):
                     "title": "Ultimate SD Upscale"
                 }
             }
+            
+            if data['request_type'] == "inpainting":
+                upscaleImageNode['inputs']['positive'] = ["312", 0]
+                upscaleImageNode['inputs']['negative'] = ["312", 0]
+                
             
             upscaleModelNode = {
                 "inputs": {
@@ -749,7 +737,7 @@ def process_request(queue_item):
         comfyui_response_code = None
         
         while comfyui_response_code != 200:
-            comfyui_response = requests.post(f"http://{server_address}/prompt", data=request_json)
+            comfyui_response = requests.post(f"{data['server_address']}/prompt", data=request_json)
             print("ComfyUI Response Status Code: ", comfyui_response.status_code)
             comfyui_response_code = comfyui_response.status_code
             print("ComfyUI Response: ", comfyui_response.text)
@@ -760,9 +748,9 @@ def process_request(queue_item):
         output_images = check_for_image(prompt_id, data)
         
         # delete the images from the images_dir that match the request_id:
-        for filename in os.listdir(images_dir):
+        for filename in os.listdir(data['images_dir']):
             if filename.startswith(f"{request_id}"):
-                file_path = os.path.join(images_dir, filename)
+                file_path = os.path.join(data['images_dir'], filename)
                 try:
                     if os.path.isfile(file_path):
                         os.unlink(file_path)
@@ -805,6 +793,20 @@ def process_request(queue_item):
         total_time = time.time() - time_added_to_queue
         
         average_queue_times.append(total_time)
+        
+        historyData = {
+            "account_id": data['accountId'],
+            "prompt": data['true_prompt'],
+            "negative_prompt": data['true_negative_prompt'],
+            "model": data['og_model'],
+            "aspect_ratio": data['aspect_ratio'],
+            "loras": data['lora'],
+            "lora_strengths": data['lora_strengths'],
+            "steps": data['steps'],
+            "cfg": data['guidance'],
+            "seed": data['seed'],
+            
+        }
 
         results[request_id] = {
             "images": Base64Images,
@@ -814,6 +816,7 @@ def process_request(queue_item):
                 "totaltime": total_time,
                 "timestamp": time.time()
             },
+            "historyData": historyData,
             "fastqueue": data['fastqueue'],
             "creditsRequired": str(data['creditsRequired']),
         }
@@ -995,24 +998,25 @@ def check_banned_users(userid, request_type):
 @app.route('/cancel_request/<request_id>', methods=['GET'])
 def cancel_request(request_id):
     try:
+        # First, check in request_queue_0
         for item in request_queue_0:
             if item.request_id == request_id:
-                # check the position of the item in the queue, if its 1st or 2nd then return processing:
                 index = request_queue_0.index(item)
                 if index < 2:
                     return jsonify({"status": "processing", "message": "Request is currently being processed"}), 200
                 item.status = "cancelled"
                 request_queue_0.remove(item)
                 return jsonify({"status": "cancelled", "message": "Cancelled Request"}), 200
-            else:
-                for item in request_queue_1:
-                    if item.request_id == request_id:
-                        index = request_queue_0.index(item)
-                        if index < 2:
-                            return jsonify({"status": "processing", "message": "Request is currently being processed"}), 200
-                        item.status = "cancelled"
-                        request_queue_1.remove(item)
-                        return jsonify({"status": "cancelled", "message": "Cancelled Request"}), 200
+
+        # If not found in request_queue_0, check in request_queue_1
+        for item in request_queue_1:
+            if item.request_id == request_id:
+                index = request_queue_1.index(item)
+                if index < 2:
+                    return jsonify({"status": "processing", "message": "Request is currently being processed"}), 200
+                item.status = "cancelled"
+                request_queue_1.remove(item)
+                return jsonify({"status": "cancelled", "message": "Cancelled Request"}), 200
                     
         return jsonify({"status": "not found", "message": "Invalid request_id, Not Found"}), 404
     
@@ -1133,6 +1137,15 @@ def generate_image():
         if data['model'] == "sdxl-ponydiffusion":
             data['model'] = "sdxl-autismmix"
             
+        if data['model'] == "flux-unchained":
+            # if there are any flux requests in the queue, return an error:
+            for item in request_queue_0:
+                if item.data['model'].startswith("flux-"):
+                    return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+            for item in request_queue_1:
+                if item.data['model'].startswith("flux-"):
+                    return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+            
         if data['model'] == "sdxl-zonkey":
             return generate_error_response("Zonkey is currently disabled, please use the other models instead.", 503)
         
@@ -1156,6 +1169,10 @@ def generate_image():
         
         data['gpu_id'] = 0
         # if request_queue_0 has 2 more items than request_queue_1, add the request to request_queue_1 and vice versa:
+        
+        # if data['model'].startswith("sdxl-") != True:
+        #     data['gpu_id'] = 1
+        
         if len(request_queue_0) > len(request_queue_1) + 1:
             data['gpu_id'] = 1
             
@@ -1168,22 +1185,14 @@ def generate_image():
                 
         if data.get('aspect_ratio', None) is not None:
             if data['aspect_ratio'] == "portrait":
-                if data['model'].startswith("sdxl-"):
-                    data['width'] = 768
-                    data['height'] = 1024
-                elif data['model'].startswith("sd3-"):
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
                     data['width'] = 768
                     data['height'] = 1024
                 else:
                     data['width'] = 512
                     data['height'] = 768
-                    
-                
             elif data['aspect_ratio'] == "landscape":
-                if data['model'].startswith("sdxl-"):
-                    data['width'] = 1024
-                    data['height'] = 768
-                elif data['model'].startswith("sd3-"):
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
                     data['width'] = 1024
                     data['height'] = 768
                 else:
@@ -1192,10 +1201,7 @@ def generate_image():
                     
                 
             elif data['aspect_ratio'] == "square":
-                if data['model'].startswith("sdxl-"):
-                    data['width'] = 1024
-                    data['height'] = 1024
-                elif data['model'].startswith("sd3-"):
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
                     data['width'] = 1024
                     data['height'] = 1024
                 else:
@@ -1222,21 +1228,21 @@ def generate_image():
                 
             elif data['aspect_ratio'] == "21:9":
                 # needs to be divisible by 64:
-                if data['model'].startswith("sdxl-"):
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
                     data['width'] = 1344
                     data['height'] = 576
                 else:
                     data['width'] = 1024
                     data['height'] = 432
             elif data['aspect_ratio'] == "9:21":
-                if data['model'].startswith("sdxl-"):
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
                     data['width'] = 576
                     data['height'] = 1344
                 else:
                     data['width'] = 432
                     data['height'] = 1024
                 
-            if data['model'].startswith("sdxl-"):
+            if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
                 # multiply the width and height by the global_settings['sdxl_resolution_multiplier']:
                 data['width'] = data['width'] * global_settings['sdxl_resolution_multiplier']
                 data['height'] = data['height'] * global_settings['sdxl_resolution_multiplier']
@@ -1252,7 +1258,7 @@ def generate_image():
                 data['width'] = data['width'] * global_settings['sd15_resolution_multiplier']
                 data['height'] = data['height'] * global_settings['sd15_resolution_multiplier']
                 
-        if data['model'].startswith("sdxl-"):
+        if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
             if len(data['lora']) > global_settings['max_loras_sdxl']:
                 return generate_error_response(f"Maximum number of Lora options is {global_settings['max_loras_sdxl']}", 400)
         else:
@@ -1297,12 +1303,12 @@ def generate_image():
         if sus_word and nsfw_word:
             return None, "Your prompt contains words that are not allowed, please remove them and try again."
 
-        data['accountId'] = data.get('accountId', 0)
+        data['accountId'] = data.get('accountId', "0")
 
         if data['accountId'] == "":
-            data['accountId'] = 0
+            data['accountId'] = "0"
 
-        data['accountId'] = int(data['accountId'])
+        data['accountId'] = str(data['accountId'])
 
         data['prompt'] = randomize_string(data['prompt'])
 
@@ -1341,8 +1347,10 @@ def generate_image():
         
         if model == None:
             return None, "Model is not specified, please try re-selecting the model and try again."
+        
+        data['true_negative_prompt'] = data.get("negativeprompt", "")
 
-        if data.get("model", "sonic").startswith("sdxl-"):
+        if data.get("model", "sonic").startswith("sdxl-") or data.get("model", "sonic").startswith("flux-"):
             
             negative_embedding_words_sdxl = ""
             
@@ -1391,14 +1399,26 @@ def generate_image():
                 
                 # print("Image width height before")
                 
-                # Determine the scaling factor to ensure both sides are at least 512px
-                scale_factor = max(512 / data['image'].width, 512 / data['image'].height)
+                # Determine the scaling factor to ensure both sides are at least 512px OR 768px for sdxl/flux models
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                    scale_factor = max(768 / data['image'].width, 768 / data['image'].height)
+                else:
+                    scale_factor = max(512 / data['image'].width, 512 / data['image'].height)
                 
                 # print("Image width height after")
 
                 # Calculate new dimensions
                 new_width = round_to_multiple_of_eight(data['image'].width * scale_factor)
                 new_height = round_to_multiple_of_eight(data['image'].height * scale_factor)
+                
+                # if they are perfect squares of 512 or 768 then set to be 768 or 1024:
+                if new_width == new_height:
+                    if new_width == 512:
+                        new_width = 768
+                        new_height = 768
+                    elif new_width == 768:
+                        new_width = 1024
+                        new_height = 1024
                 
                 # Update dimensions in the data dictionary
                 data['width'], data['height'] = new_width, new_height
@@ -1423,14 +1443,27 @@ def generate_image():
             
                 # print("Image width height before")
                 
-                # Determine the scaling factor to ensure both sides are at least 512px
-                scale_factor = max(512 / data['inpaintingMask'].width, 512 / data['inpaintingMask'].height)
+                # Determine the scaling factor to ensure both sides are at least 512px OR 768px for sdxl/flux models
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                    scale_factor = max(768 / data['inpaintingMask'].width, 768 / data['inpaintingMask'].height)
+                else:
+                    scale_factor = max(512 / data['inpaintingMask'].width, 512 / data['inpaintingMask'].height)
+                
                 
                 # print("Image width height after")
 
                 # Calculate new dimensions
                 new_width = round_to_multiple_of_eight(data['inpaintingMask'].width * scale_factor)
                 new_height = round_to_multiple_of_eight(data['inpaintingMask'].height * scale_factor)
+                
+                # if they are perfect squares of 512 or 768 then set to be 768 or 1024:
+                if new_width == new_height:
+                    if new_width == 512:
+                        new_width = 768
+                        new_height = 768
+                    elif new_width == 768:
+                        new_width = 1024
+                        new_height = 1024
 
 
                 # Update dimensions in the data dictionary
@@ -1477,6 +1510,7 @@ def generate_image():
             'model': data.get('model'),
             'prompt': data.get('prompt'),
             'negative_prompt': negative_prompt_final,
+            'true_negative_prompt':  data['true_negative_prompt'],
             'image_count': int(data.get("quantity")),
             'steps': int(data.get("steps", 20)),
             'width': int(data.get("width", 512)),
@@ -1497,7 +1531,7 @@ def generate_image():
             'splitOverlap': float(data.get('splitOverlap', 0.1)),
             'finalStrength': float(data.get('finalStrength', 0.2)),
             'video_length': int(data.get('video_length', 16)),
-            'accountId': int(data.get('accountId', 0)),
+            'accountId': str(data.get('accountId', "0")),
             'true_prompt': str(true_prompt),
             'scheduler': data.get('scheduler', "eulera"),
             'seedNumber': int(data['seedNumber']),
@@ -1541,11 +1575,11 @@ def generate_image():
             if ban_check_result is not False:
                 return generate_error_response(f"User {account_id} is banned for {ban_check_result['reason']}, in the {request_type} category", 400)
             
-        if int(account_id) != 0 and int(account_id) != 1194813360529735711:
+        if str(account_id) != "0" and str(account_id):
             # if account_id is already in the request_queue_0 or request_queue_1, return an error:
             if data['gpu_id'] == 0:
                 for item in request_queue_0:
-                    if int(item.data['accountId']) == int(account_id):
+                    if str(item.data['accountId']) == str(account_id):
                         # send them the correct info:
                         # return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
                         # send them info about their request to allow the client to resume it:
@@ -1553,13 +1587,12 @@ def generate_image():
 
             elif data['gpu_id'] == 1:
                 for item in request_queue_1:
-                    if int(item.data['accountId']) == int(account_id):
+                    if str(item.data['accountId']) == str(account_id):
                         # send them the correct info:
                         # return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
                         # send them info about their request to allow the client to resume it:
                         return jsonify({"status": item.status, "request_id": item.request_id, "position": request_queue_1.index(item) + 1, "queue_length": len(request_queue_1)}), 202
                         
-        # check if the ip is already in the queue and cancel after 3 retries:
         if data['ip'] is not None:
             if data['ip'] != "123123123":
                 for item in request_queue_0:
@@ -1625,13 +1658,23 @@ def generate_image():
         
         fastqueue = None
         queueNumber = None
+        
+        data['server_address'] = "127.0.0.1:8188"
 
         if data['gpu_id'] == 0:
             queueNumber = 0
-                
+            data['server_address'] = "http://127.0.0.1:8188"
+            data['images_dir'] = "C:/Users/anime/Documents/Coding/ComfyUIs/ComfyUI/output"
             position = len(request_queue_0)  # Current position in the queue is its length
+            
         elif data['gpu_id'] == 1:
             queueNumber = 1
+            data['server_address'] = "http://127.0.0.1:8188"
+            data['images_dir'] = "C:/Users/anime/Documents/Coding/ComfyUIs/ComfyUI/output"
+            # data['server_address'] = "http://127.0.0.1:8189"
+            # data['images_dir'] = "C:/Users/anime/Documents/Coding/Stability Matrix/Data/Packages/ComfyUI2/output"
+            position = len(request_queue_1)  # Current position in the queue is its length
+            
                 
         if data['fastqueue'] is True:
             fastqueue = True
@@ -1648,9 +1691,6 @@ def generate_image():
                 request_queue_0.append(queue_item)
             elif data['gpu_id'] == 1:
                 request_queue_1.append(queue_item)
-            
-                
-        position = len(request_queue_1)  # Current position in the queue is its length
 
         return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
 
