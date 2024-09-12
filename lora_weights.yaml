@@ -268,6 +268,18 @@ background:
     rating: safe
     link: https://civitai.com/models/314278/underground-club?modelVersionId=742265
     dateCreated: 1724207198115.9824
+  background-sdxlicecreamvendingmachine:
+    lora: sdxl\background\icecreamvendingmachine.safetensors
+    name: SDXL Ice-cream Vending Machine
+    strength: 0.8
+    words:
+      - >-
+        17ice, vending machine, food, ice cream, still life, english text,
+        scenery,
+    description: Ice-cream Vending Machine
+    rating: safe
+    link: https://civitai.com/models/655546/ice-cream-vending-machine-pony
+    dateCreated: 1726072385643.046
 character:
   character-2bneirautomata:
     dateCreated: 1717352308897.1985
@@ -6350,6 +6362,163 @@ character:
     rating: safe
     link: https://civitai.com/models/407882/sera-hazbin-hotel-pony-xl#
     dateCreated: 1725821296857.2993
+  character-sdxlberriconkersbadfurday:
+    lora: sdxl\character\berriconkersbadfurday.safetensors
+    name: SDXL Berri (Conkers Bad Fur Day)
+    strength: 0.6
+    words:
+      - >-
+        cbfdberri, furry female, grey fur, bodyfur, blonde hair, ponytail,
+        eyeshadow, blue eyes, animal ears
+    description: Berri (Conkers Bad Fur Day)
+    rating: suggestive
+    link: https://civitai.com/models/575953/berri-conkers-bad-fur-day
+    dateCreated: 1726069449297.0896
+  character-sdxlwalpeachmario:
+    lora: sdxl\character\walpeachmario.safetensors
+    name: SDXL Walpeach (Mario)
+    strength: 0.9
+    words:
+      - >-
+        walpeach, blonde hair, hair over one eye, long hair, blue eyes, blush
+        stickers, crown,;
+      - >-
+        black dress, elbow gloves, black gloves, boots, black footwear, spiked
+        bracelet, black headgear, plataform footwear,;
+      - >-
+        purple dress, elbow gloves, purple gloves, boots, purple footwear,
+        spiked bracelet, purple headgear, plataform footwear
+    description: Walpeach from Mario
+    rating: safe
+    link: https://civitai.com/models/220832?modelVersionId=468149
+    dateCreated: 1726069606582.626
+  character-sdxlscolipedepokemon:
+    lora: sdxl\character\scolipedepokemon.safetensors
+    name: SDXL Scolipede (Pokemon)
+    strength: 0.85
+    words:
+      - >-
+        anthro, no humans, pokemon creature, colored skin, colored sclera,
+        yellow sclera, yellow eyes,;
+      - >-
+        feral, no humans, pokemon creature, colored skin, colored sclera, yellow
+        sclera, yellow eyes
+    description: Scolipede (Pokemon)
+    rating: suggestive
+    link: https://civitai.com/models/538084/scolipede-pokemon-sdxl-pony
+    dateCreated: 1726069982547.6555
+  character-sdxltorielundertale:
+    lora: sdxl\character\torielundertale.safetensors
+    name: SDXL Toriel (Undertale)
+    strength: 1
+    words:
+      - toriel,;
+      - classic outfit,
+    description: Toriel (Undertale)
+    rating: safe
+    link: https://civitai.com/models/465166/toriel-undertale-pony-xl-lora
+    dateCreated: 1726070145568.1787
+  character-sdxlenderdragonminecraft:
+    lora: sdxl\character\enderdragonminecraft.safetensors
+    name: SDXL Ender Dragon (Minecraft)
+    strength: 1
+    words:
+      - >-
+        scalie, dragon girl, white dragon horns, dragon wings, dragon tail,
+        reptile girl, purple eyes, black skin, detailed scales, white spikes,
+    description: Ender Dragon (Minecraft)
+    rating: suggestive
+    link: https://civitai.com/models/600407/ender-dragon-minecraft-ponyxl
+    dateCreated: 1726070208077.9497
+  character-sdxljayjayzoophobia:
+    lora: sdxl\character\jayjayzoophobia.safetensors
+    name: SDXL JayJay (Zoophobia)
+    strength: 1
+    words:
+      - JayJay \(Zoophobia\), thigh highs, JayJay , Anthro
+    description: JayJay (Zoophobia)
+    rating: safe
+    link: https://civitai.com/models/462313/jayjay-ponyxl?modelVersionId=514451
+    dateCreated: 1726070297457.693
+  character-sdxlblazethecatsirpercivalsonicthehedgehog:
+    lora: sdxl\character\blazethecatsirpercivalsonicthehedgehog.safetensors
+    name: SDXL Blaze The Cat/Sir Percival (Sonic the Hedgehog)
+    strength: 1
+    words:
+      - >-
+        BlazeTheCat, SirPercival, ponytail, helmet , forehead jewel, armor,
+        purple fur, cat tail, boots, gauntlets knight,;
+      - >-
+        BlazeTheCat, SirPercival, ponytail, forehead jewel, armor, purple fur,
+        cat tail, boots, gauntlets knight,;
+      - >-
+        BlazeTheCat, classicOutfit, ponytail, forehead jewel, cat ears, jacket,
+        purple fur, purple body, gloves, necklace, high heels, fur trim, pink
+        footwear, hair, gold necklace, fur-trimmed gloves, white gloves,
+        fur-trimmed footwear
+    description: Blaze The Cat/Sir Percival (Sonic the Hedgehog)
+    rating: safe
+    link: https://civitai.com/models/690026
+    dateCreated: 1726070395504.9424
+  character-sdxlcatnappoppyplaytime:
+    lora: sdxl\character\catnappoppyplaytime.safetensors
+    name: SDXL Catnap (Poppy Playtime)
+    strength: 1
+    words:
+      - >-
+        catnap, poppy_playtime, black sclera, white eyes, long tail, yellow
+        crescent-shaped necklace,
+    description: Catnap (Poppy Playtime)
+    rating: safe
+    link: >-
+      https://civitai.com/models/728094/catnap-poppy-playtime-or-ketnep-poppi-plejtajm
+    dateCreated: 1726070480897.7744
+  character-sdxldogdaypoppyplaytime:
+    lora: sdxl\character\dogdaypoppyplaytime.safetensors
+    name: SDXL Dog Day (Poppy Playtime)
+    strength: 1
+    words:
+      - >-
+        Dogday, poppy playtime, black sclera, white eyes, sun necklace, fluffy
+        tail, male focus
+    description: Dog Day (Poppy Playtime)
+    rating: safe
+    link: >-
+      https://civitai.com/models/730242/dogday-poppy-playtime-or-dogdej-poppi-plejtajm
+    dateCreated: 1726070519943.8
+  character-ranamondigimon:
+    lora: character\ranamondigimon.safetensors
+    name: Ranamon (Digimon)
+    strength: 1
+    words:
+      - renamon, digimon,;
+      - >-
+        Ranamon, monster girl, helmet, (hairless), green skin, red eyes, gloves,
+        blue leotard, fins, dutch angle, clothing cutout, side cutout, anklet,
+        digimon,
+    description: Ranamon (Digimon)
+    rating: suggestive
+    link: https://civitai.com/models/43546/digimon-ranamon
+    dateCreated: 1726110427224.7988
+  character-sdxlryokohakubitenchimuyo:
+    lora: sdxl\character\ryokohakubitenchimuyo.safetensors
+    name: SDXL Ryoko Hakubi (Tenchi Muyo)
+    strength: 1
+    words:
+      - ryouko \(tenchi muyou!\),;
+      - >-
+        ryouko \(tenchi muyou!\), sl33v3s jacket, white dress, red legwear,
+        sash, red gloves red choker,;
+      - ryouko \(tenchi muyou!\), pink vest, blue dress, sash,;
+      - ryouko \(tenchi muyou!\), striped sweater dress, sash, tail,;
+      - ryouko \(tenchi muyou!\), red black bodysuit,;
+      - anime screencap
+    description: >-
+      Ryoko Hakubi (Tenchi Muyo), use "long sleeves, puffy sleeves, jacket" if
+      you DONT want certain outfits!
+    rating: safe
+    link: https://civitai.com/models/367508?modelVersionId=410690
+    dateCreated: 1726110621277.8252
 clothing:
   clothing-acrylicheartdress:
     rating: suggestive
@@ -7952,6 +8121,18 @@ clothing:
     rating: safe
     link: https://civitai.com/models/563588?modelVersionId=628067
     dateCreated: 1724777334628.1833
+  clothing-sdxlhevsuithalflife:
+    lora: sdxl\clothing\hevsuithalflife.safetensors
+    name: SDXL H.E.V Suit (Half-Life)
+    strength: 1
+    words:
+      - >-
+        hevsuit mk5, armored, beige tinted armor, half life hev suit, H.E.V Mk5
+        Suit,
+    description: H.E.V Suit (Half-Life)
+    rating: safe
+    link: https://civitai.com/models/601179/hev-suit-half-life-concept-lora-ponyxl
+    dateCreated: 1726110340675.1526
 concept:
   concept-aftersex:
     rating: nsfw
@@ -8980,7 +9161,7 @@ concept:
         holding_penis, looking at penis, smile, blush, sweat, open mouth,
         against wall, arched_back
   concept-sdxldakimakura2sides:
-    rating: safe
+    rating: suggestive
     dateCreated: 1717352885038.8687
     description: Body Pillow / Dakimakura with 2 Sides
     link: >-
@@ -9126,7 +9307,7 @@ concept:
     words:
       - HangingLegsER, sex
   concept-sdxlkeepout:
-    rating: safe
+    rating: suggestive
     dateCreated: 1717352917796.5122
     description: Keep Out tape over the character/subject
     link: >-
@@ -10469,6 +10650,87 @@ concept:
     rating: suggestive
     link: https://civitai.com/models/612068/broly-culo-meme-or-concept-lora-xl
     dateCreated: 1725820686131.585
+  concept-sdxltoyplushies:
+    lora: sdxl\concept\toyplushies.safetensors
+    name: SDXL Toy Plushies
+    strength: 1
+    words:
+      - plushieSDXL, solo, chibi, white background, sitting,
+    description: Toy Plushies
+    rating: safe
+    link: https://civitai.com/models/648340
+    dateCreated: 1726070743452.8787
+  concept-sdxlfullfaceblush:
+    lora: sdxl\concept\fullfaceblush.safetensors
+    name: SDXL Full-face Blush
+    strength: 0.8
+    words:
+      - B1ush,  Blush, Full-Faced Blush, Embarrassed, red face, steam
+    description: Full-face Blush
+    rating: safe
+    link: https://civitai.com/models/612749/full-face-blush?modelVersionId=684974
+    dateCreated: 1726070767316.4736
+  concept-sdxlanthrobirds:
+    lora: sdxl\concept\anthrobirds.safetensors
+    name: SDXL Anthro Birds
+    strength: 1
+    words:
+      - eagle,;
+      - falcon,;
+      - peafowl,;
+      - stork,;
+      - heron,;
+      - macaw,;
+      - cockatoo,;
+      - parakeet,;
+      - a_grey;
+      - parrot,;
+      - swan,;
+      - toucan,;
+      - shoebill,;
+      - cardinal,;
+      - victoria_pigeon,;
+      - dove,;
+      - cassowary,;
+      - ostrich,;
+      - ratite,;
+      - hummingbird,
+    description: Anthro Birds
+    rating: safe
+    link: https://civitai.com/models/385443/anthro-birds-for-pony
+    dateCreated: 1726070903915.9326
+  concept-sdxlearrubs:
+    lora: sdxl\concept\earrubs.safetensors
+    name: SDXL Ear Rubs
+    strength: 1
+    words:
+      - earrub
+    description: Ear Rubs
+    rating: suggestive
+    link: https://civitai.com/models/421427/ear-rubs-ponyxl
+    dateCreated: 1726070929731.6003
+  concept-sdxlbitingintoburger:
+    lora: sdxl\concept\bitingintoburger.safetensors
+    name: SDXL Biting Into Burger
+    strength: 1
+    words:
+      - dokaguiburger, eating gurger, holdinf burger
+    description: Biting Into Burger
+    rating: safe
+    link: https://civitai.com/models/476605/for-pony-biting-into-a-hamburger-lora
+    dateCreated: 1726072234164.0403
+  concept-sdxlsurroundedbychaosemeraldssonicthehedgehog:
+    lora: sdxl\concept\surroundedbychaosemeraldssonicthehedgehog.safetensors
+    name: SDXL Surrounded by Chaos Emeralds (Sonic the Hedgehog)
+    strength: 1
+    words:
+      - >-
+        chaoes emerald, gemstone, gemstones, red gemstone, green gemstone, blue
+        gemstone
+    description: Surrounded by Chaos Emeralds (Sonic the Hedgehog)
+    rating: safe
+    link: https://civitai.com/models/614170?modelVersionId=686554
+    dateCreated: 1726110087936.0457
 effect:
   effect-animetarot:
     rating: safe
@@ -11625,6 +11887,7 @@ pose:
     words:
       - PinchingPOV, pov, cheek pull
   pose-povskirtlift:
+    rating: nsfw
     dateCreated: 1717352550020.0525
     description: Character lifts their skirt to show their panties from a pov angle
     link: >-
@@ -14877,3 +15140,34 @@ style:
     rating: safe
     link: https://civitai.com/models/63439/esthetic-80s-style
     dateCreated: 1725817262090.0325
+  style-sdxlargentosonicboom53:
+    lora: sdxl\style\argentosonicboom53.safetensors
+    name: SDXL Argento (sonicboom53)
+    strength: 1
+    words:
+      - argento, by sonicboom53,;
+      - argento, by sonicboom53, mobian,
+    description: Argento (sonicboom53)
+    rating: safe
+    link: https://civitai.com/models/457822?modelVersionId=509588
+    dateCreated: 1726070660983.3093
+  style-fluxoldschoolcartoon:
+    lora: flux\style\oldschoolcartoon.safetensors
+    name: FLUX Old School Cartoon
+    strength: 1
+    words:
+      - a cartoon
+    description: Old School Cartoon
+    rating: safe
+    link: https://civitai.com/models/694273/old-school-cartoon-style-for-flux
+    dateCreated: 1726071199473.1682
+  style-sdxlarcaneleagueoflegends:
+    lora: sdxl\style\arcaneleagueoflegends.safetensors
+    name: SDXL Arcane (League of Legends)
+    strength: 1
+    words:
+      - arcan3styl3v1
+    description: Arcane (League of Legends)
+    rating: safe
+    link: https://civitai.com/models/367168/arcane-style-pony-diffusion-xl
+    dateCreated: 1726072322863.1543
