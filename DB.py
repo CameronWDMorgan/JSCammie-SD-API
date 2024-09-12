@@ -89,16 +89,11 @@ async def process_images_and_store_hashes(image_results, metadata):
     image_hashes = []
     for image in image_results:
         # Extracting hashes
-        image_hash = imagehash.average_hash(image, 8)
+        image_hash = imagehash.phash(image, hash_size=8)
         image_hash = await twos_complement(str(image_hash), 64)
-        
-        image_hash_mongo = imagehash.average_hash(image, 64).hash
-
-        # Converting numpy array of booleans to integer
-        image_hash_mongo = int(''.join(map(str, image_hash_mongo.flatten().astype(int))), 2)
 
         image_hashes.append(image_hash)
-        image_hashes_mongo.append(image_hash_mongo)
+        image_hashes_mongo.append(image_hash)
 
     try:
         await insert_image_hashes(image_hashes, metadata, image_hashes_mongo, image_results)

@@ -1138,13 +1138,14 @@ def generate_image():
             data['model'] = "sdxl-autismmix"
             
         if data['model'] == "flux-unchained":
-            # if there are any flux requests in the queue, return an error:
-            for item in request_queue_0:
-                if item.data['model'].startswith("flux-"):
-                    return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
-            for item in request_queue_1:
-                if item.data['model'].startswith("flux-"):
-                    return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+            if str(data['accountId']) != "1039574722163249233":
+                # if there are any flux requests in the queue, return an error:
+                for item in request_queue_0:
+                    if item.data['model'].startswith("flux-"):
+                        return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+                for item in request_queue_1:
+                    if item.data['model'].startswith("flux-"):
+                        return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
             
         if data['model'] == "sdxl-zonkey":
             return generate_error_response("Zonkey is currently disabled, please use the other models instead.", 503)
