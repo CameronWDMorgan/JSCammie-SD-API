@@ -1,9 +1,9 @@
 {
     "maintenance": False,
     "sdxl": False,
-    "sdxl_max_steps": 30,
+    "sdxl_max_steps": 40,
     "max_loras": 5,
-    "max_loras_sdxl": 3,
+    "max_loras_sdxl": 5,
     "sd3_resolution_multiplier": 1,
     "sdxl_resolution_multiplier": 1,
     "sd15_resolution_multiplier": 1,
