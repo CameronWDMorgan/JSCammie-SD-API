@@ -9669,7 +9669,7 @@ concept:
     name: Majik Fone
     strength: 1
     words:
-      - majikfone
+      - majikfone, smartphone, cellphone, phone, holding_phone, partial_nudity
   concept-mechamusume:
     rating: safe
     dateCreated: 1717352367071.0295
@@ -9752,7 +9752,7 @@ concept:
     name: Padoru Padoru!
     strength: 1
     words:
-      - padoru meme, holding sack, chibi, :d, santa hat
+      - padoru meme, holding sack, chibi, santa hat
   concept-pagetearreveal:
     rating: nsfw
     dateCreated: 1717352415322.3765
