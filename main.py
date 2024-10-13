@@ -288,7 +288,7 @@ def load_loras(request_id, lora_items, data):
                     
             else:
                 print(f"No data found for {item}")
-                log_error(f"No data found for {item}", data)
+                data['loras_broken'] = True
         except Exception as e:
             print(f"Error processing item '{item}': {e}")
             log_error(f"Error processing item '{item}': {e}", data)
@@ -309,7 +309,7 @@ def save_image(request_id, output_image, model_type, data):
         metadata = {
             "request_id": request_id,
             "model_type": model_type,
-            "prompt": data['true_prompt'],
+            "prompt": data['prompt'],
             "negative_prompt": str(data['negative_prompt']),
             "loras": data['lora'],
             "lora_strengths": data['lora_strengths'],
@@ -460,7 +460,7 @@ def process_request(queue_item):
                 # make it a dict:
                 request_json = json.load(f)
                 
-        print("Request JSON 288: ", request_json['288'])
+        # print("Request JSON 288: ", request_json['288'])
         request_json['288']['inputs']['ckpt_name'] = ckpt_name
                 
         if data['request_type'] == "img2img" or data['request_type'] == "inpainting":
@@ -481,8 +481,17 @@ def process_request(queue_item):
         
         if data['lora_strengths'] is None or data['lora_strengths'] == []:
             data['lora_strengths'] = []
+            
+        data['loras_broken'] = False
         
         load_loras(request_id, data['lora'], data)
+        
+        # if any loras dont
+        if data['loras_broken'] == True:
+            print("Broken Lora detected, skipping request.")
+            results[request_id] = {"status": "error", "message": "You have a broken lora selected, please refresh the page and try again.\n Failing that, please contact JSCammie!"}
+            queue_item.status = "error"
+            return "skipped"
         
         for key in data['loras_data']:
             print(key, data['loras_data'][key])
@@ -493,7 +502,7 @@ def process_request(queue_item):
         #         if f"lora_{i}" in request_json['117']['inputs']:
         #             request_json['117']['inputs'].pop(f"lora_{i}", None)
                 
-            print(f"Data['loras_data']: {data['loras_data']}")
+            # print(f"Data['loras_data']: {data['loras_data']}")
             
             if data['model'].startswith("sdxl") and data['lightning_mode'] == True:
                 request_json['117']['inputs'][f"lora_1"] = {
@@ -551,7 +560,7 @@ def process_request(queue_item):
         if not data['model'].startswith("sdxl") and not data['model'].startswith("flux"):
             request_json['300']['inputs']['text'] = f"{request_json['300']['inputs']['text']} embedding:boring_e621_v4.pt embedding:fluffynegative.pt embedding:badyiffymix41.safetensors embedding:gnarlysick-neg.pt embedding:negative_hand-neg.pt"
                     
-        print(f"LIGHNING MODE: {data['lightning_mode']}")
+        # print(f"LIGHNING MODE: {data['lightning_mode']}")
                     
         if data['model'].startswith("flux"):
                 request_json['282']['inputs']['sampler_name'] = "euler"
@@ -758,7 +767,7 @@ def process_request(queue_item):
                     print(f"Error deleting file: {e}")
         
         if output_images is None:
-            results[request_id] = {"status": "error", "message": "Error processing request"}
+            results[request_id] = {"status": "error", "message": "Error processing request, outputted images in None, Contact JSCammie!"}
             queue_item.status = "error"
             return "skipped"
         
@@ -781,6 +790,17 @@ def process_request(queue_item):
             img_data = base64.b64decode(img_str)
             img = Image.open(io.BytesIO(img_data))
             PIL_Images.append(img)
+            
+        data['loraStrings'] = ""
+        
+        # for each lora in the data['lora'], add it to the data['loraStrings']:
+        # its an array:
+        # if there are loras, the data['lora'] may be empty array OR string, so check if its not empty:
+        if data['lora'] != "":
+            for index, lora in enumerate(data['lora']):
+                data['loraStrings'] += f"{lora} - Strength: {data['loras_data'][lora][1]}\n"
+                
+        print("Lora Strings: ", data['loraStrings'])
 
         hash_object = {
             "data": data,
@@ -796,7 +816,7 @@ def process_request(queue_item):
         
         historyData = {
             "account_id": data['accountId'],
-            "prompt": data['true_prompt'],
+            "prompt": data['prompt'],
             "negative_prompt": data['true_negative_prompt'],
             "model": data['og_model'],
             "aspect_ratio": data['aspect_ratio'],
@@ -1142,10 +1162,12 @@ def generate_image():
                 # if there are any flux requests in the queue, return an error:
                 for item in request_queue_0:
                     if item.data['model'].startswith("flux-"):
-                        return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+                        queue_position_string = f"{request_queue_0.index(item) + 1}/{len(request_queue_0)}"
+                        return generate_error_response(f"Current Flux Gen: {queue_position_string}\nFlux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
                 for item in request_queue_1:
                     if item.data['model'].startswith("flux-"):
-                        return generate_error_response("Flux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+                        queue_position_string = f"{request_queue_1.index(item) + 1}/{len(request_queue_1)}"
+                        return generate_error_response(f"Current Flux Gen: {queue_position_string}\nFlux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
             
         if data['model'] == "sdxl-zonkey":
             return generate_error_response("Zonkey is currently disabled, please use the other models instead.", 503)
