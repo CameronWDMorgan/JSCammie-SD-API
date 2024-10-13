@@ -31,7 +31,8 @@ collection = db.userGenerations
 
 
 async def insert_image_hashes(image_hashes, metadata, image_hash_mongo, image_results):
-    insert_query = """ INSERT INTO hashes (hash, prompt, negative_prompt, seed, cfg, model, created_date) VALUES (%s, %s, %s, %s, %s, %s, %s) """
+    
+    insert_query = """ INSERT INTO hashes (hash, prompt, negative_prompt, seed, cfg, model, created_date, loras) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) """
     values = [
         (
             image_hashes[i],
@@ -40,7 +41,8 @@ async def insert_image_hashes(image_hashes, metadata, image_hash_mongo, image_re
             str(metadata['seedNumber']),
             str(metadata['guidance']),
             str(metadata['model']),
-            datetime.datetime.fromtimestamp(int(time.time())).strftime('%Y-%m-%d %H:%M:%S')
+            datetime.datetime.fromtimestamp(int(time.time())).strftime('%Y-%m-%d %H:%M:%S'),
+            metadata['loraStrings']
         )
         for i in range(int(metadata['image_count']))
     ]
