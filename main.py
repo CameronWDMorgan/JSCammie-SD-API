@@ -90,6 +90,7 @@ try:
         'sdxl-autismmix': {'model_path': config["sdxl_autismmix_model_path"]},
         'sdxl-sonichasautismmix': {'model_path': config["sdxl_sonichasautismmix_model_path"]},
         'sdxl-ponyrealism': {'model_path': config["sdxl_ponyrealism_model_path"]},
+        'sdxl-fluffysonic': {'model_path': config["sdxl_fluffysonic_model_path"]},
         'sd3-medium': {'model_path': config["sd3_medium_model_path"]},
         'flux-unchained': {'model_path': config["flux_unchained_model_path"]},
     }
@@ -1157,18 +1158,23 @@ def generate_image():
         if data['model'] == "sdxl-ponydiffusion":
             data['model'] = "sdxl-autismmix"
             
+            
         if data['model'] == "flux-unchained":
+            flux_count = 0
             if str(data['accountId']) != "1039574722163249233":
                 # if there are any flux requests in the queue, return an error:
                 for item in request_queue_0:
                     if item.data['model'].startswith("flux-"):
-                        queue_position_string = f"{request_queue_0.index(item) + 1}/{len(request_queue_0)}"
-                        return generate_error_response(f"Current Flux Gen: {queue_position_string}\nFlux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+                        flux_count += 1
                 for item in request_queue_1:
                     if item.data['model'].startswith("flux-"):
-                        queue_position_string = f"{request_queue_1.index(item) + 1}/{len(request_queue_1)}"
-                        return generate_error_response(f"Current Flux Gen: {queue_position_string}\nFlux Unchained is currently limited to 1 gen in the queue at a time due to my computer being too slow to run it quickly w/ the other models aswell, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
-            
+                        flux_count += 1
+                        
+                if flux_count > 3:
+                    return generate_error_response("Flux Unchained is currently limited to 3 gens in the queue at a time, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
+
+
+
         if data['model'] == "sdxl-zonkey":
             return generate_error_response("Zonkey is currently disabled, please use the other models instead.", 503)
         
@@ -1388,11 +1394,7 @@ def generate_image():
             negative_prompt_final = negative_embedding_words_sd15 + data.get("negativeprompt", "")
                     
         data['negative_prompt'] = negative_prompt_final
-        
-        # remove colons from prompt and negative prompt strings:
-        data['prompt'] = data['prompt'].replace(":", "")
-        data['negative_prompt'] = data['negative_prompt'].replace(":", "")
-            
+                    
         if data['strength'] > 1:
             data['strength'] = data['strength'] / 100
         
