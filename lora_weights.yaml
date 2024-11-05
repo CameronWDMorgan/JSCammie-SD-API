@@ -280,21 +280,6 @@ background:
     rating: safe
     link: https://civitai.com/models/655546/ice-cream-vending-machine-pony
     dateCreated: 1726072385643.046
-  background-sdxlhildaseries:
-    lora: sdxl\background\hildaseries.safetensors
-    name: SDXL Hilda Series
-    strength: 1
-    words:
-      - Hildelf,;
-      - Deerfox,;
-      - Fog,;
-      - Red Tint,;
-      - Troll,
-    description: Hilda Series
-    rating: safe
-    link: >-
-      https://civitai.com/models/641777/hilda-series-style-characters-and-backgrounds
-    dateCreated: 1727366477374.7434
   background-sdxlstripclub:
     lora: sdxl\background\stripclub.safetensors
     name: SDXL Strip Club
@@ -2298,14 +2283,14 @@ character:
   character-sdxlmilestailsprowersonicthehedgehog:
     dateCreated: 1717352713567.9346
     rating: safe
-    description: Miels 'Tails' Prower from Sonic the Hedgehog
+    description: Miles 'Tails' Prower from Sonic the Hedgehog
     link: >-
       https://civitai.com/models/404605/miles-tails-prower-sonic-character-ponyxl
     lora: sdxl\character\Miles_Tails_Prower_Sonic_Character_PonyXL.safetensors
     name: SDXL Miles 'Tails' Prower (Sonic the Hedgehog)
     strength: 0.8
     words:
-      - MylesPrower, Miles Prower, fox boy
+      - MylesPrower, Miles Prower, fox boy, white shirt, denim jeans
   character-sdxlmimisentryteamfortress2:
     dateCreated: 1717352636619.2375
     rating: safe
@@ -2594,17 +2579,6 @@ character:
       - >-
         Sinder, masterpiece, best quality, 1girl, red hair, long hair, red
         horns, animal ears, red eyes, dragon tail, gray skin, large breasts
-  character-sdxlsliverthehedgehogsonicthehedgehog:
-    dateCreated: 1717352753521.244
-    rating: safe
-    description: Silver the Hedgehog... ITS NO USE!
-    link: >-
-      https://civitai.com/models/400850/silver-the-hedgehog-pony-sonic-the-hedgehog
-    lora: sdxl\character\Silver_the_Hedgehog_Pony.safetensors
-    name: SDXL Silver the Hedgehog (Sonic the Hedgehog)
-    strength: 1
-    words:
-      - silver the hedgehog
   character-sdxlsmolderkanel:
     dateCreated: 1717352760214.8918
     rating: safe
@@ -3812,16 +3786,6 @@ character:
     description: Verosika Mayday from Helluva Boss
     link: https://civitai.com/models/482863/verosika-mayday
     dateCreated: 1718060342363.977
-  character-sdxlwakfucharacterpack:
-    rating: safe
-    lora: sdxl\character\wakfucharacterpack.safetensors
-    name: SDXL Wakfu Character Pack
-    strength: 1
-    words:
-      - N/A
-    description: Wakfu Character Pack
-    link: https://civitai.com/models/351174/wakfu-character-pack
-    dateCreated: 1718060396728.8113
   character-sdxlamysquirrel:
     rating: safe
     lora: sdxl\character\amysquirrel.safetensors
@@ -3874,24 +3838,16 @@ character:
       https://civitai.com/models/504776/jackie-lynn-thomas-star-vs-the-forces-of-evil-nsfwsfw-sdxl-lora-pony?modelVersionId=561077
     dateCreated: 1718241114763.9685
   character-sdxlstarbutterflystarvstheforcesofevil:
-    rating: safe
     lora: sdxl\character\starbutterflystarvstheforcesofevil.safetensors
-    name: SDXL Star Butterfly (Star vs. The Forces of Evil)
-    strength: 0.75
+    name: SDXL Star Butterfly (Star vs. the forces of evil)
+    strength: 0.8
     words:
-      - >-
-        1girl, star butterfly, \(Star vs. the Forces of Evil\),(ultra HD quality
-        details), blonde hair, long hair, very long hair, blue eyes, heart, 
-        facial mark, eyelashes;
-      - >-
-        green dress, squid printed dress, short sleeves, striped pantyhose,
-        purple striped pantyhose, boots, purple boots;
-      - horned headwear, hairband;
-      - star shaped bag, shoulder bag, small bag
-    description: Star Butterfly (Star vs. The Forces of Evil)
+      - Star Butterfly
+    description: Star Butterfly (Star vs. the forces of evil)
+    rating: safe
     link: >-
-      https://civitai.com/models/503927/star-butterfly-star-vs-the-forces-of-evil-pony?modelVersionId=560156
-    dateCreated: 1718241188309.0542
+      https://civitai.com/models/773384/star-vs-the-forces-of-evil-star-butterfly-pony-xl
+    dateCreated: 1729229761565.5837
   character-sdxlladynagantmyheroacademia:
     rating: safe
     lora: sdxl\character\ladynagantmyheroacademia.safetensors
@@ -5008,7 +4964,7 @@ character:
         yellow fur, yellow body, animal ears, X slash on left cheek, lion,
         anthro lion, brown hair, brown mane, brown lion mane, eyebrows, brown
         eyebrows, slash on right cheek, brown eyes, animal nose, brown animal
-        nose, anthro, anthro animal, (male anthro lion)+++++
+        nose, anthro, anthro animal, (male anthro lion:1.75)
     description: Elvis (Animal Crossing)
     rating: suggestive
     link: https://civitai.com/models/515674/elvis-animal-crossing
@@ -5397,7 +5353,7 @@ character:
   character-sdxlhekapoostarvstheforcesofevil:
     lora: sdxl\character\hekapoostarvstheforcesofevil.safetensors
     name: SDXL Hekapoo (Star vs. the Forces of Evil)
-    strength: 1
+    strength: 0.6
     words:
       - >-
         hekapoo, red hair, yellow sclera, horns, flame fangs, spiked arms,
@@ -6772,26 +6728,6 @@ character:
     rating: suggestive
     link: https://civitai.com/models/529385/betty-boop
     dateCreated: 1727127497183.445
-  character-sdxlazumangacharacterpack:
-    lora: sdxl\character\azumangacharacterpack.safetensors
-    name: SDXL Azumanga (Character Pack)
-    strength: 1
-    words:
-      - ayumu kasuga,;
-      - chiyo mihama,;
-      - chiyo’s father,;
-      - kagura,;
-      - kaori,;
-      - kimura,;
-      - koyomi mizuhara,;
-      - minamo kurosawa,;
-      - sakaki,;
-      - tomo takina,;
-      - yukari tanizaki,
-    description: Azumanga (Character Pack)
-    rating: safe
-    link: https://civitai.com/models/488867?modelVersionId=543597
-    dateCreated: 1727127681222.3562
   character-sdxlfoxxylovedrawntogether:
     lora: sdxl\character\foxxylovedrawntogether.safetensors
     name: SDXL Foxxy Love (Drawn Together)
@@ -7223,7 +7159,7 @@ character:
     words:
       - ara, furry, cat girl, Blue eyes,
     description: ARA (Fluff-Kevlar)
-    rating: safe
+    rating: suggestive
     link: https://civitai.com/models/391907/ara-fluff-kevlar-ponyxl
     dateCreated: 1728321238087.394
   character-sdxldraculauramonsterhigh:
@@ -7279,7 +7215,7 @@ character:
     name: SDXL Bluey Heeler (Bluey)
     strength: 1
     words:
-      - blueyxl, bluey heeler,
+      - boxchibi, blueyxl, bluey heeler,
     description: Bluey Heeler (Bluey)
     rating: safe
     link: https://civitai.com/models/509983/bluey-xl
@@ -7289,7 +7225,7 @@ character:
     name: SDXL Bingo Heeler (Bluey)
     strength: 1
     words:
-      - blueyxl, bingo heeler,
+      - boxchibi, blueyxl, bingo heeler,
     description: Bingo Heeler (Bluey)
     rating: safe
     link: https://civitai.com/models/509983/bluey-xl
@@ -7299,7 +7235,7 @@ character:
     name: SDXL Bandit Heeler (Bluey)
     strength: 1
     words:
-      - blueyxl, bandit heeler,
+      - boxchibi, blueyxl, bandit heeler,
     description: Bandit Heeler (Bluey)
     rating: safe
     link: https://civitai.com/models/509983/bluey-xl
@@ -7309,21 +7245,11 @@ character:
     name: SDXL Chili Heeler (Bluey)
     strength: 1
     words:
-      - blueyxl, chili heeler,
+      - boxchibi, blueyxl, chili heeler,
     description: Chili Heeler (Bluey)
     rating: safe
     link: https://civitai.com/models/509983/bluey-xl
     dateCreated: 1728322910000.2766
-  character-sdxlmuffinheelerbluey:
-    lora: sdxl\character\muffinheelerbluey.safetensors
-    name: SDXL Muffin Heeler (Bluey)
-    strength: 1
-    words:
-      - blueyxl, muffin (bluey),
-    description: Muffin Heeler (Bluey)
-    rating: safe
-    link: https://civitai.com/models/509983/bluey-xl
-    dateCreated: 1728322926417.2178
   character-sdxlcraftycornpoppyplaytime:
     lora: sdxl\character\craftycornpoppyplaytime.safetensors
     name: SDXL Crafty Corn (Poppy Playtime)
@@ -7440,6 +7366,658 @@ character:
     rating: safe
     link: https://civitai.com/models/576615/geiru-toneido-ace-attorney
     dateCreated: 1728603291121.8188
+  character-sdxlsylviamarpoleanextremelygoofymovie:
+    lora: sdxl\character\sylviamarpoleanextremelygoofymovie.safetensors
+    name: SDXL Sylvia Marpole (An Extremely Goofy Movie)
+    strength: 1
+    words:
+      - sylvia, 1girl, solo, orange hair, short hair, green eyes, furry female
+    description: Sylvia Marpole (An Extremely Goofy Movie)
+    rating: safe
+    link: >-
+      https://civitai.com/models/542326/sylvia-marpole-an-extremely-goofy-movie-commission?modelVersionId=602978
+    dateCreated: 1729228702974.8972
+  character-sdxlholliwouldcoolworld:
+    lora: sdxl\character\holliwouldcoolworld.safetensors
+    name: SDXL Holli Would (Cool World)
+    strength: 1
+    words:
+      - >-
+        HolliW, makeup, blonde hair, bangs, side locks, thick eyebrows, hair
+        between eyes,;
+      - White Dress, White leotard, see-through, white choker, thigh boots,
+    description: Holli Would (Cool World)
+    rating: suggestive
+    link: https://civitai.com/models/269635?modelVersionId=468872
+    dateCreated: 1729228917815.658
+  character-sdxltaarnaheavymetal:
+    lora: sdxl\character\taarnaheavymetal.safetensors
+    name: SDXL Taarna (Heavy Metal)
+    strength: 1
+    words:
+      - t44rna, white hair,;
+      - >-
+        lack bra, black panties, black thighhighs, red shoulder armor, red
+        glove, red boots,
+    description: Taarna (Heavy Metal)
+    rating: suggestive
+    link: https://civitai.com/models/444234/taarna-heavy-metal-xl
+    dateCreated: 1729229165231.9016
+  character-sdxlstaceyanextremelygoofymovie:
+    lora: sdxl\character\staceyanextremelygoofymovie.safetensors
+    name: SDXL Stacey (An Extremely Goofy Movie)
+    strength: 0.8
+    words:
+      - >-
+        StaceyGM, furry, anthro, female canine, braces, purple round glasses,
+        black nose, black eyes, orange hair, long hair,;
+      - >-
+        white hat, flower on hat, purple jacket, long jacket, red shirt, brown
+        pants, tailless
+    description: Stacey (An Extremely Goofy Movie)
+    rating: safe
+    link: https://civitai.com/models/822784/stacey-an-extremely-goofy-movie
+    dateCreated: 1729229232393.4062
+  character-sdxltouhoupack145characters:
+    lora: sdxl\character\touhoupack145characters.safetensors
+    name: SDXL Touhou (Pack) (145 Characters)
+    strength: 1
+    words:
+      - aki_shizuha,;
+      - alice_margatroid,;
+      - alice_margatroid_(pc-98),;
+      - chen,;
+      - cirno,;
+      - clownpiece,;
+      - curiosities_of_lotus_asia,;
+      - daiyousei,;
+      - doremy_sweet,;
+      - embodiment_of_scarlet_devil,;
+      - eternity_larva,;
+      - ex-keine,;
+      - flandre_scarlet,;
+      - fujiwara_no_mokou,;
+      - futatsuiwa_mamizou,;
+      - goutokuji_mike,;
+      - hakurei_reimu,;
+      - haniyasushin_keiki,;
+      - hata_no_kokoro,;
+      - hecatia_lapislazuli,;
+      - hidden_star_in_four_seasons,;
+      - hieda_no_akyuu,;
+      - hijiri_byakuren,;
+      - himekaidou_hatate,;
+      - himemushi_momoyo,;
+      - hinanawi_tenshi,;
+      - hong_meiling,;
+      - horikawa_raiko,;
+      - hoshiguma_yuugi,;
+      - hoshiguma_yuugi_(kimono),;
+      - houjuu_nue,;
+      - houraisan_kaguya,;
+      - hourai_doll,;
+      - ibaraki_kasen,;
+      - iizunamaru_megumu,;
+      - imaizumi_kagerou,;
+      - inaba_tewi,;
+      - inubashiri_momiji,;
+      - izayoi_sakuya,;
+      - jacket_girl_(dipp),;
+      - joutouguu_mayumi,;
+      - junko_(touhou),;
+      - kaenbyou_rin,;
+      - kaenbyou_rin_(cat),;
+      - kagiyama_hina,;
+      - kaku_seiga,;
+      - kamishirasawa_keine,;
+      - kana_anaberal,;
+      - kasodani_kyouko,;
+      - kawashiro_nitori,;
+      - kazami_yuuka,;
+      - kazami_yuuka_(pc-98),;
+      - kicchou_yachie,;
+      - kijin_seija,;
+      - kirisame_marisa,;
+      - kishin_sagume,;
+      - kisume,;
+      - koakuma,;
+      - kochiya_sanae,;
+      - komakusa_sannyo,;
+      - komano_aunn,;
+      - komeiji_koishi,;
+      - komeiji_satori,;
+      - konpaku_youmu,;
+      - konpaku_youmu_(ghost),;
+      - kudamaki_tsukasa,;
+      - kumoi_ichirin,;
+      - kurodani_yamame,;
+      - kurokoma_saki,;
+      - legacy_of_lunatic_kingdom,;
+      - letty_whiterock,;
+      - lily_white,;
+      - lunasa_prismriver,;
+      - luna_child,;
+      - lyrica_prismriver,;
+      - maribel_hearn,;
+      - medicine_melancholy,;
+      - merlin_prismriver,;
+      - mima_(touhou),;
+      - miyako_yoshika,;
+      - mizuhashi_parsee,;
+      - mononobe_no_futo,;
+      - moriya_suwako,;
+      - motoori_kosuzu,;
+      - murasa_minamitsu,;
+      - mystia_lorelei,;
+      - nagae_iku,;
+      - nazrin,;
+      - niwatari_kutaka,;
+      - okamisty,;
+      - okazaki_yumemi,;
+      - okunoda_miyoi,;
+      - onozuka_komachi,;
+      - patchouli_knowledge,;
+      - perfect_cherry_blossom,;
+      - pyonta,;
+      - reisen_(touhou_bougetsushou),;
+      - reisen_udongein_inaba,;
+      - reiuji_utsuho,;
+      - reiuji_utsuho_(bird),;
+      - remilia_scarlet,;
+      - ringo_(touhou),;
+      - rumia,;
+      - saigyouji_yuyuko,;
+      - sakata_nemuno,;
+      - seiran_(touhou),;
+      - sekibanki,;
+      - shameimaru_aya,;
+      - shanghai_doll,;
+      - shiki_eiki,;
+      - shinki_(touhou),;
+      - soga_no_tojiko,;
+      - star_sapphire,;
+      - su-san,;
+      - sukuna_shinmyoumaru,;
+      - sunken_fossil_world,;
+      - sunny_milk,;
+      - tanned_cirno,;
+      - tatara_kogasa,;
+      - tenkajin_chiyari,;
+      - tenkyuu_chimata,;
+      - tokiko_(touhou),;
+      - toramaru_shou,;
+      - toutetsu_yuuma,;
+      - toyosatomimi_no_miko,;
+      - tsukumo_benben,;
+      - unconnected_marketeers,;
+      - urban_legend_in_limbo,;
+      - usami_renko,;
+      - usami_sumireko,;
+      - ushizaki_urumi,;
+      - wakasagihime,;
+      - watatsuki_no_toyohime,;
+      - watatsuki_no_yorihime,;
+      - wriggle_nightbug,;
+      - yagokoro_eirin,;
+      - yakumo_ran,;
+      - yakumo_yukari,;
+      - yamashiro_takane,;
+      - yasaka_kanako,;
+      - yatadera_narumi,;
+      - yomotsu_hisami,;
+      - yorigami_jo'on,;
+      - yorigami_shion,
+    description: Touhou (Pack), over 145 characters
+    rating: safe
+    link: >-
+      https://civitai.com/models/413006/pony-touhou-characters-145-characters-145
+    dateCreated: 1729229529545.6707
+  character-sdxlroxanneagoofymovie:
+    lora: sdxl\character\roxanneagoofymovie.safetensors
+    name: SDXL Roxanne (A Goofy Movie)
+    strength: 1
+    words:
+      - Rox, Mole, Furry, turquoise shirt, denim jeans
+    description: Roxanne (A Goofy Movie)
+    rating: safe
+    link: https://civitai.com/models/463176/roxanne-goofy-movie-ponyxl
+    dateCreated: 1729229603653.0703
+  character-sdxlpennystardewvalley:
+    lora: sdxl\character\pennystardewvalley.safetensors
+    name: SDXL Penny (Stardew Valley)
+    strength: 1
+    words:
+      - NSPennyStardew, green eyes, short hair, red hair, curly hair, earrings,;
+      - yellow collared shirt, orange skirt,
+    description: Penny (Stardew Valley)
+    rating: safe
+    link: https://civitai.com/models/364036/penny-or-stardew-valley-pony-xl-lora
+    dateCreated: 1729229666794.2505
+  character-sdxlpuruglypokemon:
+    lora: sdxl\character\puruglypokemon.safetensors
+    name: SDXL Purugly (Pokemon)
+    strength: 1
+    words:
+      - purugly, pokemon, anthro, yellow sclera, curled tail, grey fur,;
+      - purugly, pokemon, cat, feral, yellow sclera, curled tail, grey fur
+    description: Purugly (Pokemon)
+    rating: suggestive
+    link: https://civitai.com/models/593912/purugly-pdxl-character
+    dateCreated: 1729229950773.1936
+  character-catnappoppyplaytime:
+    lora: character\catnappoppyplaytime.safetensors
+    name: Cat Nap (Poppy Playtime)
+    strength: 1
+    words:
+      - >-
+        smiling critters, furry, purple cat, black sclera, black mouth, open
+        smile, paw pad, moon necklace, plush toy, seams, red smoke
+    description: Cat Nap (Poppy Playtime)
+    rating: safe
+    link: https://civitai.com/models/335787?modelVersionId=376059
+    dateCreated: 1729230059600.8171
+  character-sdxlprincesspeachmovieversion:
+    lora: sdxl\character\princesspeachmovieversion.safetensors
+    name: SDXL Princess Peach (Movie Version)
+    strength: 0.9
+    words:
+      - >-
+        Peach, blonde hair, blue eyes, thick lips, earrings, crown on head, pink
+        dress, short puffy sleeves, long white gloves,;
+      - >-
+        Peach, blonde hair ponytail, blue eyes, Crown on head, white jumpsuit,
+        pink scarf, shoulder pads,pink gloves, pink boot,
+    description: Princess Peach (Movie Version)
+    rating: safe
+    link: https://civitai.com/models/637994/princess-peach-movie
+    dateCreated: 1729231756357.2822
+  character-sdxlladyoscartheroseofversailles:
+    lora: sdxl\character\ladyoscartheroseofversailles.safetensors
+    name: SDXL Lady Oscar (The Rose of Versailles)
+    strength: 1
+    words:
+      - Lady Oscar, blonde hair, blue eyes
+    description: Lady Oscar (The Rose of Versailles)
+    rating: safe
+    link: https://civitai.com/models/646371/lady-oscar
+    dateCreated: 1729423691400.0933
+  character-sdxlmikamireikogsmikamigokurakudaisakusen:
+    lora: sdxl\character\mikamireikogsmikamigokurakudaisakusen.safetensors
+    name: SDXL Mikami Reiko (GS Mikami Gokuraku Daisakusen)
+    strength: 1
+    words:
+      - mikami_reiko, green eyes, red hair, long hair, forehead,;
+      - >-
+        earrings, necklace, cleavage, bare shoulders, purple dress, short dress,
+        strapless dress, tube dress,;
+      - >-
+        white japanese clothes, long sleeves, miko, hakama skirt, red hakama,
+        white thighhighs,;
+      - sweater dress, turtleneck,
+    description: Mikami Reiko (GS Mikami Gokuraku Daisakusen)
+    rating: safe
+    link: >-
+      https://civitai.com/models/362399/pony-gs-mikami-reiko-gs-mikami-gokuraku-daisakusen
+    dateCreated: 1729423793699.7578
+  character-sdxlsneaselpokemon:
+    lora: sdxl\character\sneaselpokemon.safetensors
+    name: SDXL Sneasel (Pokemon)
+    strength: 1
+    words:
+      - pokemon (creature), Sneasel, 2claws,
+    description: Sneasel (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/561630?modelVersionId=683403
+    dateCreated: 1729423874251.2266
+  character-sdxlfrennifazclairefrennifazclairesnightclubfivenightsatfreddys:
+    lora: >-
+      sdxl\character\frennifazclairefrennifazclairesnightclubfivenightsatfreddys.safetensors
+    name: >-
+      SDXL Frenni Fazclaire (Frenni Fazclaire's Nightclub / Five Nights at
+      Freddys)
+    strength: 1
+    words:
+      - >-
+        FrenniFazclaire, long hair, bangs, blue eyes, brown hair, navel, animal
+        ears, tail, ponytail, sidelocks, skindentation, :3, swept bangs,
+        glowing, glowing eyes, furry, colored sclera, furry female, body fur, w,
+        bear ears, animal nose, brown fur, bear girl, v-shaped eyebrows,
+        makeup,;
+      - >-
+        shirt, thighhighs, gloves, hat, bow, cleavage, underwear, panties, short
+        sleeves, black gloves, elbow gloves, midriff, black thighhighs,
+        fingerless gloves, vest, crop top, black panties, clothing cutout, black
+        headwear, black vest, mini hat, top hat, mini top hat,
+    description: Frenni Fazclaire (Frenni Fazclaire's Nightclub / Five Nights at Freddys)
+    rating: suggestive
+    link: https://civitai.com/models/561630?modelVersionId=683403
+    dateCreated: 1729424002023.015
+  character-sdxlbowsettemario:
+    lora: sdxl\character\bowsettemario.safetensors
+    name: SDXL Bowsette (Mario)
+    strength: 1
+    words:
+      - >-
+        bowsette, blue eyes, blonde hair, ponytail, medium hair, sidelocks,
+        pointy ears, horns, crown, smile, teeth, fangs,;
+      - >-
+        dress, leotard, cleavage, black dress, black leotard, spikes, bracelet,
+        collar, spiked collar, turtle shell, strapless leotard, strapless,
+        spiked shell, spiked bracelet,
+    description: Bowsette (Mario)
+    rating: suggestive
+    link: https://civitai.com/models/375120/bowsette-koppa-hime-super-mario-bros
+    dateCreated: 1729424050694.7202
+  character-sdxlsilverthehedgehogsonicthehedgehog:
+    lora: sdxl\character\silverthehedgehogsonicthehedgehog.safetensors
+    name: SDXL Silver the Hedgehog (Sonic the Hedgehog)
+    strength: 1
+    words:
+      - s1lv3r, furry, hedgehog, white fur,
+    description: Silver the Hedgehog (Sonic the Hedgehog)
+    rating: safe
+    link: https://civitai.com/models/400850?modelVersionId=473204
+    dateCreated: 1729424189164.3706
+  character-sdxlshrekshrek:
+    lora: sdxl\character\shrekshrek.safetensors
+    name: SDXL Shrek (Shrek)
+    strength: 1
+    words:
+      - shrek, green skin
+    description: Shrek (Shrek)
+    rating: safe
+    link: https://civitai.com/models/354050/shrek-or-character-lora-xl
+    dateCreated: 1729424419765.7769
+  character-sdxlmartletundertaleyellow:
+    lora: sdxl\character\martletundertaleyellow.safetensors
+    name: SDXL Martlet (Undertale Yellow)
+    strength: 1
+    words:
+      - >-
+        martlet, avian, blue body, winged arms, beak, anthro, blue feathers,
+        bird
+    description: Martlet (Undertale Yellow)
+    rating: safe
+    link: https://civitai.com/models/435455?modelVersionId=485048
+    dateCreated: 1729424447362.8396
+  character-sdxlcreamymami:
+    lora: sdxl\character\creamymami.safetensors
+    name: SDXL Creamy Mami
+    strength: 0.7
+    words:
+      - >-
+        japanese clothes, floral print kimono, flower, hair ornament, hair
+        flower,;
+      - >-
+        hat, red beret, green sunglasses, pink dress, dress, turtleneck, belt,
+        long sleeves,;
+      - >-
+        gloves, dress, red dress, flower, puffy sleeves, puffy short sleeves,
+        legs, bare legs, high heels,;
+      - >-
+        school uniform, serafuku, sailor collar, yellow skirt, shoes, socks, red
+        footwear,;
+      - swimsuit, bikini, red bikini, hairband,;
+      - leotard, boots, choker, pink footwear, knee boots, pink leotard,;
+      - >-
+        leotard, boots, choker, yellow footwear, yellow knee boots, yellow
+        leotard,;
+      - >-
+        dress, pink dress, sleeveless, bare shoulders, wrist corsage, ribbon,
+        frills, red footwear, tiara,;
+      - coat, red coat, fur trim,;
+      - >-
+        flower, wedding dress,  rose,  gloves, jewelry,  pearl necklace, bridal
+        veil, frills, hair flower, bow, hair ornament, bilateral symmetry rose,
+        bilateral symmetry pink flower, bilateral symmetry hair flower,;
+      - retro_artstyle, green_pajamas, pajamas,
+    description: Creamy Mami Magical Girl
+    rating: safe
+    link: https://civitai.com/models/426551/creamymami
+    dateCreated: 1730430171907.06
+  character-sdxlinspectortezukaducktales:
+    lora: sdxl\character\inspectortezukaducktales.safetensors
+    name: SDXL Inspector Tezuka (Ducktales)
+    strength: 0.9
+    words:
+      - >-
+        inspector tezuka, black skin, dark beak, beak, black eyes, avian feet, 3
+        toes, black legs, crow, corvid, eyeliner, tail feathers,;
+      - >-
+        headwear, fedora, trench coat, frilled dress shirt, dress shirt, belt,
+        pants, black footwear, tan footwear, high heels,
+    description: Inspector Tezuka (Ducktales)
+    rating: safe
+    link: >-
+      https://civitai.com/models/408677/inspector-tezuka-or-ducktales-2017-pdxl-and-15
+    dateCreated: 1730431094530.439
+  character-sdxltrudyproudproudfamily:
+    lora: sdxl\character\trudyproudproudfamily.safetensors
+    name: SDXL Trudy Proud (Proud Family)
+    strength: 0.8
+    words:
+      - N/A
+    description: Trudy Proud (Proud Family)
+    rating: safe
+    link: https://civitai.com/models/487737/trudy-proud-proud-family
+    dateCreated: 1730431156918.2126
+  character-sdxljennywakemanmylifeasateenagerobot:
+    lora: sdxl\character\jennywakemanmylifeasateenagerobot.safetensors
+    name: SDXL Jenny Wakeman (My Life as a Teenage Robot)
+    strength: 1
+    words:
+      - Jenny, twintails, white skin, joints, android/robot,;
+      - crop top, knee boots, skirt,;
+      - tube top, thighhighs, high heels, elbow gloves, skirt, wide hips,
+    description: Jenny Wakeman (My Life as a Teenage Robot)
+    rating: safe
+    link: >-
+      https://civitai.com/models/687306/jenny-wakeman-my-life-as-a-teenage-robot-character-ponydiffusionxl
+    dateCreated: 1730431870687.85
+  character-sdxlsarabellumpowerpuffgirls:
+    lora: sdxl\character\sarabellumpowerpuffgirls.safetensors
+    name: SDXL Sara Bellum (Powerpuff Girls)
+    strength: 1
+    words:
+      - orange hair, big hair, lipstick, head out of frame,;
+      - red jacket, red skirt, belt, high heels,;
+      - >-
+        polka dot, tied shirt, denim, short shorts, barefoot, cleavage,
+        underboob, sleeveless,;
+      - orange hair, big hair, hair over one eye, lipstick, blue eyes, makeup,;
+      - xbellumx
+    description: Sara Bellum (Powerpuff Girls)
+    rating: safe
+    link: https://civitai.com/models/540675/sara-bellum-powerpuff-girls
+    dateCreated: 1730431941572.3608
+  character-sdxljessicarabbit:
+    lora: sdxl\character\jessicarabbit.safetensors
+    name: SDXL Jessica Rabbit
+    strength: 0.8
+    words:
+      - JessicaRabbitXLP,;
+      - >-
+        red dress, elbow gloves, narrow waist, large breasts, wide hips, green
+        eyes, makeup, eyeshadow, lipstick,;
+      - screencap, blurry background, detailed eyes,
+    description: Jessica Rabbit
+    rating: suggestive
+    link: >-
+      https://civitai.com/models/90316/jessica-rabbit-disney-xl-pony-or-sd-15-by-yeiyeiart
+    dateCreated: 1730432004530.118
+  character-sdxlladyamaltheathelastunicorn:
+    lora: sdxl\character\ladyamaltheathelastunicorn.safetensors
+    name: SDXL Lady Amalthea (The Last Unicorn)
+    strength: 1
+    words:
+      - amalthea, purple eyes, white hair, very long hair, forehead_mark,
+    description: Lady Amalthea (The Last Unicorn)
+    rating: safe
+    link: >-
+      https://civitai.com/models/315930/lady-amalthea-the-last-unicorn-character-ponyxl
+    dateCreated: 1730432588467.1929
+  character-sdxlcheelaidragonball:
+    lora: sdxl\character\cheelaidragonball.safetensors
+    name: SDXL Cheelai (Dragon Ball)
+    strength: 1
+    words:
+      - >-
+        cheelai, purple bodysuit, white armor, white gloves, white boots, belt,
+        tinted eyewear
+    description: Cheelai (Dragon Ball)
+    rating: safe
+    link: https://civitai.com/models/323733/ponyxl-dragon-ball-super-broly-cheelai
+    dateCreated: 1730432655241.6873
+  character-sdxlmargesimpsonthesimpsons:
+    lora: sdxl\character\margesimpsonthesimpsons.safetensors
+    name: SDXL Marge Simpson (The Simpsons)
+    strength: 1
+    words:
+      - marges, blue hair, 1girl, solo, yellow skin, smile;
+      - pearl necklace, green dress, red footwear
+    description: Marge Simpson (The Simpsons)
+    rating: safe
+    link: https://civitai.com/models/496789?modelVersionId=552269
+    dateCreated: 1730433408450.3933
+  character-garfieldgarfield:
+    lora: character\garfieldgarfield.safetensors
+    name: Garfield (Garfield)
+    strength: 1
+    words:
+      - >-
+        garfield, orange body, orange fur, striped, cat ears, cat tail, striped
+        tail, black eyes, pink nose,
+    description: Garfield (Garfield)
+    rating: safe
+    link: https://civitai.com/models/114231/garfield
+    dateCreated: 1730669241252.2754
+  character-gothfieldgarfield:
+    lora: character\gothfieldgarfield.safetensors
+    name: Gothfield (Garfield)
+    strength: 1
+    words:
+      - >-
+        gothfield, goth, orange hair, black highlights, streaked hair, hair over
+        one eye, black eyeshadow, black nose, black lips, choker, black tube
+        top, black skirt, fishnets, fishnet elbow gloves, fishnet thighhighs
+    description: Gothfield (Garfield)
+    rating: suggestive
+    link: https://civitai.com/models/114231/garfield
+    dateCreated: 1730669273204.6135
+  character-sdxlrallygunsmithcats:
+    lora: sdxl\character\rallygunsmithcats.safetensors
+    name: SDXL Rally (Gunsmith Cats)
+    strength: 1
+    words:
+      - gnsmth, rally, dark-skinned female, black hair, blue eyes, short hair
+    description: Rally (Gunsmith Cats)
+    rating: safe
+    link: >-
+      https://civitai.com/models/388572/gunsmith-cats-or-style-and-character-lora
+    dateCreated: 1730669658929.899
+  character-sdxlmaygunsmithcats:
+    lora: sdxl\character\maygunsmithcats.safetensors
+    name: SDXL May (Gunsmith Cats)
+    strength: 1
+    words:
+      - gnsmth, minniemay, blonde hair, green eyes, short hair,
+    description: May (Gunsmith Cats)
+    rating: safe
+    link: >-
+      https://civitai.com/models/388572/gunsmith-cats-or-style-and-character-lora
+    dateCreated: 1730669684653.5283
+  character-sdxlbeckygunsmithcats:
+    lora: sdxl\character\beckygunsmithcats.safetensors
+    name: SDXL Becky (Gunsmith Cats)
+    strength: 1
+    words:
+      - >-
+        gnsmth, becky, round eyewear, freckles, grey eyes, brown hair, long
+        hair, hairband,
+    description: Becky (Gunsmith Cats)
+    rating: safe
+    link: >-
+      https://civitai.com/models/388572/gunsmith-cats-or-style-and-character-lora
+    dateCreated: 1730669699546.728
+  character-sdxlprincesslexafortnite:
+    lora: sdxl\character\princesslexafortnite.safetensors
+    name: SDXL Princess Lexa (Fortnite)
+    strength: 1
+    words:
+      - >-
+        1girl, white hair, long hair, red eyes, dress, black crown, spiked
+        diadem, black thighhighs, black footwear, jewerely,
+    description: Princess Lexa (Fortnite)
+    rating: safe
+    link: https://civitai.com/models/509219?modelVersionId=572526
+    dateCreated: 1730669965490.2307
+  character-sdxlarceuspokemon:
+    lora: sdxl\character\arceuspokemon.safetensors
+    name: SDXL Arceus (Pokemon)
+    strength: 1
+    words:
+      - arceus,
+    description: Arceus (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/542303?modelVersionId=603192
+    dateCreated: 1730670144234.457
+  character-sdxldextersmomdexterlaboratory:
+    lora: sdxl\character\dextersmomdexterlaboratory.safetensors
+    name: SDXL Dexters Mom (Dexter Laboratory)
+    strength: 1
+    words:
+      - >-
+        dextersmom, solo, 1girl, aqua shirt, green pants, rubber gloves, orange
+        hair, earrings, apron, short hair, smile, kitchen, lipstick, green
+        footwear
+    description: Dexters Mom (Dexter Laboratory)
+    rating: safe
+    link: https://civitai.com/models/488383/dexters-mom-dexter-laboratory
+    dateCreated: 1730670228803.828
+  character-sdxlloislanemyadventureswithsuperman:
+    lora: sdxl\character\loislanemyadventureswithsuperman.safetensors
+    name: SDXL Lois Lane (My Adventures with Superman)
+    strength: 0.9
+    words:
+      - >-
+        LoisSDXL,1girl,short hair, black hair, brown eyes, jewelry, earrings,
+        pants, dark skin, dark-skinned female, blue pants, white shirt, tomboy,;
+      - >-
+        LoisSDXL, 1girl, short hair, black hair, cleavage, brown eyes, jewelry,
+        earrings, black pants, dark skin, off shoulder, dark-skinned female,
+        green coat, black pants, tank top, white tank top,
+    description: Lois Lane (My Adventures with Superman)
+    rating: safe
+    link: >-
+      https://civitai.com/models/745021/lois-lane-my-adventures-with-superman-nsfwsfw-sdxl-pony
+    dateCreated: 1730670693016.5564
+  character-sdxltyphlosionpokemon:
+    lora: sdxl\character\typhlosionpokemon.safetensors
+    name: SDXL Typhlosion (Pokemon)
+    strength: 1
+    words:
+      - >-
+        Hisuian Typhlosion_(Pokemon), Red Eyes, Light Yellow Skin, Purple
+        flames, Purple Orb Neck Flames
+    description: Typhlosion (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/863026/typhlosion-pokemon-ponyxl
+    dateCreated: 1730670895354.324
+  character-sdxlraichupokemon:
+    lora: sdxl\character\raichupokemon.safetensors
+    name: SDXL Raichu (Pokemon)
+    strength: 1
+    words:
+      - raichu, pokemon, orange skin,;
+      - >-
+        raichu, pokemon, orange skin, white belly, chubby, brown toes, brown
+        hands, tan soles, single circular paw pad on soles, chubby yellow
+        cheeks, long tail, lighting bolt on tail, no humans, pokemon (creature)
+        pink circular paw pads, three toes,
+    description: Raichu (Pokemon)
+    rating: safe
+    link: https://civitai.com/models/483419/raichu-ponyxl-redux
+    dateCreated: 1730670959265.6492
 clothing:
   clothing-acrylicheartdress:
     rating: suggestive
@@ -8925,9 +9503,9 @@ clothing:
     strength: 1
     words:
       - >-
-        black thighhighs, (black hoodie)++, cropped hoodie, multicolored hoodie,
-        black panties, long sleeves, pink sleeves, navel, underwear, front-print
-        panties, skull panties, pink print, pink skull
+        black thighhighs, (black hoodie:1.3), cropped hoodie, multicolored
+        hoodie, black panties, long sleeves, pink sleeves, navel, underwear,
+        front-print panties, skull panties, pink print, pink skull
     description: Paggi Outfit (Pink and black hoodie with panties and thighhighs)
     rating: suggestive
     link: https://civitai.com/models/590386
@@ -11253,11 +11831,18 @@ concept:
     name: SDXL Living Inflatables
     strength: 1
     words:
-      - living inflatable, animate inanimate, seams, glistening, glistening skin
+      - >-
+        living inflatable, animate inanimate, seams, glistening, glistening
+        body,;
+      - humanoid proportions,;
+      - toy proportions,;
+      - handles on hips,;
+      - handles on shoulders,;
+      - navel nozzle
     description: Living Inflatables
     rating: suggestive
-    link: https://civitai.com/models/453720?modelVersionId=508586
-    dateCreated: 1720064252041.496
+    link: https://civitai.com/models/453720/living-inflatables-for-pony-xl
+    dateCreated: 1729229870403.3337
   concept-sdxltransformationassist:
     lora: sdxl\concept\transformationassist.safetensors
     name: SDXL Transformation Assist
@@ -11524,7 +12109,7 @@ concept:
     name: FLUX Snapchat Selfie
     strength: 1
     words:
-      - N/A
+      - a caption that reads "text"
     description: Snapchat Selfie
     rating: suggestive
     link: https://civitai.com/models/663378/snapchat-selfie?modelVersionId=742402
@@ -11993,6 +12578,175 @@ concept:
     rating: suggestive
     link: https://civitai.com/models/786973/sonic-the-werehog
     dateCreated: 1728329121665.3838
+  concept-sdxlcunnilingusgesture:
+    lora: sdxl\concept\cunnilingusgesture.safetensors
+    name: SDXL Cunnilingus Gesture
+    strength: 1
+    words:
+      - cunnilingus gesture, v, tongue out
+    description: Cunnilingus Gesture
+    rating: suggestive
+    link: https://civitai.com/models/447727/cunnilingus-gesture-concept
+    dateCreated: 1729229021680.6843
+  concept-sdxlsexgesture:
+    lora: sdxl\concept\sexgesture.safetensors
+    name: SDXL Sex Gesture
+    strength: 0.8
+    words:
+      - SGER, hands
+    description: Sex Gesture
+    rating: suggestive
+    link: https://civitai.com/models/483844/sex-gesture-comission
+    dateCreated: 1729229040671.5813
+  concept-sdxlcartoonelectrocution:
+    lora: sdxl\concept\cartoonelectrocution.safetensors
+    name: SDXL Cartoon Electrocution
+    strength: 0.8
+    words:
+      - electrocut1on, skeleton, full body, ribs, skull, electricity
+    description: Cartoon Electrocution
+    rating: safe
+    link: https://civitai.com/models/594031/cartoon-electrocution
+    dateCreated: 1729229111686.8518
+  concept-sdxlfutanarionaholemasturbation:
+    lora: sdxl\concept\futanarionaholemasturbation.safetensors
+    name: SDXL Futanari Onahole masturbation
+    strength: 1
+    words:
+      - gigantic_onahole, huge_onahole, large_onahole, small_onahole
+    description: Futanari Onahole masturbation
+    rating: nsfw
+    link: https://civitai.com/models/376843/onahole-masturbation
+    dateCreated: 1729229707742.6692
+  concept-sdxlpiperperrimeme:
+    lora: sdxl\concept\piperperrimeme.safetensors
+    name: SDXL Piper Perri (Meme)
+    strength: 1
+    words:
+      - piperperri_meme,;
+      - piperperri_meme_reversed,
+    description: >-
+      prompt generally goes like this: 1girl, 1boy, multiple girls, multiple
+      boys, xgirls, xboys, , sitting, couch ; make sure to use the trigger word!
+    rating: suggestive
+    link: https://civitai.com/models/520634/concept-piper-perri-meme-pdxl
+    dateCreated: 1729422487245.59
+  concept-talkingonphone:
+    lora: concept\talkingonphone.safetensors
+    name: Talking on phone
+    strength: 1
+    words:
+      - talking on phone
+    description: Talking on phone
+    rating: nsfw
+    link: https://civitai.com/models/51572/concept-talking-on-phone
+    dateCreated: 1729423229428.6619
+  concept-sdxlmultitaskingphonesex:
+    lora: sdxl\concept\multitaskingphonesex.safetensors
+    name: SDXL Multitasking - Phone Sex
+    strength: 1
+    words:
+      - phone call, answering phone, holding cellphone
+    description: Multitasking - Phone Sex
+    rating: nsfw
+    link: https://civitai.com/models/485494/multitasking-phone-sex-v3
+    dateCreated: 1729423316284.2627
+  concept-sdxlonthephonesexrealistic:
+    lora: sdxl\concept\onthephonesexrealistic.safetensors
+    name: SDXL On The Phone Sex (Realistic)
+    strength: 1
+    words:
+      - otps3x, , otps3x, on the phone, phone to ear, cellphone,
+    description: On The Phone Sex, focused more on real / realistic photography
+    rating: nsfw
+    link: https://civitai.com/models/736768/on-the-phone-sex-pony
+    dateCreated: 1729423374483.8667
+  concept-sdxlpuckeredponyponuts:
+    lora: sdxl\concept\puckeredponyponuts.safetensors
+    name: SDXL Puckered Pony Ponuts
+    strength: 1
+    words:
+      - my little pony, puckered anus
+    description: Puckered Pony Ponuts
+    rating: nsfw
+    link: https://civitai.com/models/146171/puckered-pony-ponuts-concept-sd15-pxl
+    dateCreated: 1729423403578.5195
+  concept-sdxlfuckmebodywriting:
+    lora: sdxl\concept\fuckmebodywriting.safetensors
+    name: SDXL FUCK ME Body Writing
+    strength: 1
+    words:
+      - f0ckm3, body writing
+    description: FUCK ME Body Writing
+    rating: nsfw
+    link: https://civitai.com/models/713340/ponyxl-fuck-me-body-writing
+    dateCreated: 1729423447079.8198
+  concept-avalispecies:
+    lora: concept\avalispecies.safetensors
+    name: Avali (Species)
+    strength: 1
+    words:
+      - avali, avian
+    description: Avali (Species)
+    rating: safe
+    link: https://civitai.com/models/19777/avali-lora
+    dateCreated: 1729423568455.6665
+  concept-sdxlavalispecies:
+    lora: sdxl\concept\avalispecies.safetensors
+    name: SDXL Avali (Species)
+    strength: 1
+    words:
+      - avali
+    description: Avali (Species)
+    rating: safe
+    link: https://civitai.com/models/573283/zavali-xlpony
+    dateCreated: 1729423591231.6174
+  concept-sdxlassistedexposuremeangirls:
+    lora: sdxl\concept\assistedexposuremeangirls.safetensors
+    name: SDXL Assisted exposure (Mean girls)
+    strength: 0.8
+    words:
+      - st0l3n_cl0th3s, assisted exposure, arm grab, arms up, 3girls, kneeling,;
+      - >-
+        st0l3n_cl0th3s,assisted exposure,arm grab, arms up, POV,
+        standing_behind,;
+      - >-
+        multiple_girls_laughing, blushing, tears, arms up, pussy, clothes pull,
+        shirt lift,
+    description: Assisted exposure (Mean girls)
+    rating: nsfw
+    link: https://civitai.com/models/637729/assisted-exposure-mean-girls
+    dateCreated: 1730430823812.5774
+  concept-fluxwaterballoonpopped:
+    lora: flux\concept\waterballoonpopped.safetensors
+    name: FLUX Water Balloon Popped
+    strength: 1
+    words:
+      - Water Balloon popped
+    description: Water Balloon Popped, makes things pop like a water balloon
+    rating: safe
+    link: https://civitai.com/models/873353?modelVersionId=977635
+    dateCreated: 1730670304941.0696
+  concept-sdxlwaterballoonpopped:
+    lora: sdxl\concept\waterballoonpopped.safetensors
+    name: SDXL Water Balloon Popped
+    strength: 1
+    words:
+      - Water Balloon popped
+    description: Water Balloon Popped, makes things pop like a water balloon
+    rating: safe
+    link: https://civitai.com/models/873353?modelVersionId=977635
+    dateCreated: 1730670312627.2573
+  concept-sdxlslimegirlspecies:
+    lora: sdxl\concept\slimegirlspecies.safetensors
+    name: SDXL Slime Girl (Species)
+    strength: 1
+    words:
+      - slime girl, transparent, translucent,
+    description: Slime Girl (Species)
+    rating: nsfw
+    link: https://civitai.com/models/382007/slime-girl-xl?modelVersionId=426411
+    dateCreated: 1730670776392.2017
 effect:
   effect-animetarot:
     rating: safe
@@ -12227,18 +12981,10 @@ effect:
     name: SDXL After Work
     strength: 0.8
     words:
-      - multiple views, 2koma
-  effect-sdxlappicons:
-    rating: safe
-    dateCreated: 1717353002348.569
-    description: Helps create app icons
-    link: >-
-      https://civitai.com/models/122827/iconsredmond-app-icons-lora-for-sd-xl-10?modelVersionId=177460
-    lora: sdxl\effect\IconsRedmondV2-Icons.safetensors
-    name: SDXL App Icons
-    strength: 1
-    words:
-      - icons
+      - multiple views, 2koma;
+      - >-
+        multiple views, 2koma, hoodie, jeans, fishnets, reverse bunnysuit,
+        nipple pasties
   effect-sdxlcameraframe:
     rating: safe
     dateCreated: 1717352986085.9114
@@ -12438,8 +13184,8 @@ effect:
     strength: 1
     words:
       - overfit style;
-      - (overfit style)+++;
-      - (overfit style)++++++
+      - (overfit style:1.3);
+      - (overfit style:1.7)
     description: EasyFix, <PUT OVERFIT STYLE IN NEGATIVE PROMPT>
     rating: safe
     link: https://civitai.com/models/149316
@@ -13310,7 +14056,7 @@ pose:
     words:
       - >-
         (c0rrect_p0sture, before and after, gaming, gamer, gender
-        transformation, arched back)+++
+        transformation, arched back:1.4)
   pose-sdxldoggyfingering:
     rating: nsfw
     dateCreated: 1717353033264.661
@@ -13768,7 +14514,7 @@ pose:
         hands_against_wall, hands_on_wall;
       - >-
         1woman, from behind, standing, hand_on_wall, against wall, ass_shake,
-        bent_over+++,;
+        (bent_over:1.3),;
       - impossible_clothes, ass_focus, looking_back, blush;
       - sideview;
       - >-
@@ -13880,6 +14626,21 @@ pose:
     link: >-
       https://civitai.com/models/435912/finger-gun-pointing-at-viewer-or-concept-pose-lora-xl
     dateCreated: 1728316374087.2732
+  pose-sdxlshowingnailsmegantheestallionpose:
+    lora: sdxl\pose\showingnailsmegantheestallionpose.safetensors
+    name: SDXL Showing Nails (Megan Thee Stallion Pose)
+    strength: 0.7
+    words:
+      - >-
+        hud_n4ilz, perspective, from above, arms up, COLOR nail polish,
+        fingernails, smile, full body, looking at viewer,
+    description: >-
+      Showing Nails (Megan Thee Stallion Pose), make sure to replace "COLOR" in
+      the words with the colour you want!
+    rating: safe
+    link: >-
+      https://civitai.com/models/599914/showin-nails-or-megan-thee-stallion-pose-pony-xl
+    dateCreated: 1730430455017.1582
 style:
   style-abmayo:
     rating: safe
@@ -16161,7 +16922,7 @@ style:
   style-sdxldiffusion64:
     lora: sdxl\style\diffusion64.safetensors
     name: SDXL Diffusion64
-    strength: 1
+    strength: 1.5
     words:
       - n64style, n64, 3d, ocarinaoftime, majorasmask
     description: Diffusion64
@@ -16477,23 +17238,13 @@ style:
   style-sdxlcrochetedcharacters:
     lora: sdxl\style\crochetedcharacters.safetensors
     name: SDXL Crocheted Characters
-    strength: 1
+    strength: 3
     words:
       - A crocheted toy resembling a
     description: Crocheted Characters
     rating: safe
     link: https://civitai.com/models/478374/tq-crocheted-characters-xl
     dateCreated: 1726543322299.858
-  style-sdxlkunaboto:
-    lora: sdxl\style\kunaboto.safetensors
-    name: SDXL Kunaboto
-    strength: 1
-    words:
-      - swimsuit, nipplebikini
-    description: Kunaboto
-    rating: nsfw
-    link: https://civitai.com/models/67589?modelVersionId=83624
-    dateCreated: 1726545018302.4253
   style-sdxlcanvassolaris:
     lora: sdxl\style\canvassolaris.safetensors
     name: SDXL Canvassolaris
@@ -16544,7 +17295,7 @@ style:
   style-sdxlmichiking:
     lora: sdxl\style\michiking.safetensors
     name: SDXL Michiking
-    strength: 1
+    strength: 0.8
     words:
       - N/A
     description: Michiking
@@ -16561,16 +17312,6 @@ style:
     rating: suggestive
     link: https://civitai.com/models/704355?modelVersionId=787873
     dateCreated: 1727365364877.3125
-  style-sdxliridescentjelly:
-    lora: sdxl\style\iridescentjelly.safetensors
-    name: SDXL 🫧 Iridescent Jelly 🫧
-    strength: 1
-    words:
-      - p1nk1r1j3lly, made out of iridescent jelly,
-    description: 🫧 Iridescent Jelly 🫧
-    rating: safe
-    link: https://civitai.com/models/593604?modelVersionId=662983
-    dateCreated: 1727365441267.528
   style-fluxiridescentjelly:
     lora: flux\style\iridescentjelly.safetensors
     name: FLUX 🫧 Iridescent Jelly 🫧
@@ -16619,6 +17360,7 @@ style:
     name: SDXL Barbie (1980s)
     strength: 0.8
     words:
+      - retro artstyle, ;
       - hud_millirob, retro artstyle,
     description: Barbie (1980s)
     rating: safe
@@ -16647,7 +17389,7 @@ style:
   style-sdxlsnao:
     lora: sdxl\style\snao.safetensors
     name: SDXL Snao
-    strength: 1
+    strength: 0.8
     words:
       - N/A
     description: Snao
@@ -16657,7 +17399,7 @@ style:
   style-sdxlfellatrix:
     lora: sdxl\style\fellatrix.safetensors
     name: SDXL Fellatrix
-    strength: 1
+    strength: 0.6
     words:
       - N/A
     description: Fellatrix
@@ -16708,7 +17450,7 @@ style:
   style-sdxltwokindstomfischbach:
     lora: sdxl\style\twokindstomfischbach.safetensors
     name: SDXL Twokinds (Tom Fischbach)
-    strength: 1.2
+    strength: 1
     words:
       - tomfischbachcolour,;
       - tomfischbachsketch,
@@ -16719,7 +17461,7 @@ style:
   style-sdxlomardogan:
     lora: sdxl\style\omardogan.safetensors
     name: SDXL Omar Dogan
-    strength: 1
+    strength: 0.8
     words:
       - traditional media, marker \(medium\)
     description: Omar Dogan
@@ -16736,3 +17478,100 @@ style:
     rating: safe
     link: https://civitai.com/models/764817/gravity-falls-style-ponyxl
     dateCreated: 1728595917398.1597
+  style-sdxlbigdad:
+    lora: sdxl\style\bigdad.safetensors
+    name: SDXL BigDad
+    strength: 1
+    words:
+      - N/A
+    description: BigDad
+    rating: suggestive
+    link: https://civitai.com/models/398388/pony-xl-bigdad-style
+    dateCreated: 1729228648444.3293
+  style-sdxlforesttherotten:
+    lora: sdxl\style\foresttherotten.safetensors
+    name: SDXL ForestTheRotten
+    strength: 1
+    words:
+      - N/A
+    description: ForestTheRotten
+    rating: safe
+    link: https://civitai.com/models/769524/foresttherotten-artist-style-ponyxl
+    dateCreated: 1729229084838.5916
+  style-sdxlsonicx:
+    lora: sdxl\style\sonicx.safetensors
+    name: SDXL Sonic X
+    strength: 0.6
+    words:
+      - sonicx_style
+    description: Sonic X
+    rating: safe
+    link: https://civitai.com/models/839836/sonic-x-style-ns
+    dateCreated: 1730429809109.7502
+  style-sdxljoaoppereiraus:
+    lora: sdxl\style\joaoppereiraus.safetensors
+    name: SDXL Joaoppereiraus
+    strength: 1
+    words:
+      - joao, by joaoppereiraus, source_cartoon, source_furry
+    description: Joaoppereiraus
+    rating: suggestive
+    link: https://civitai.com/models/418878?modelVersionId=517329
+    dateCreated: 1730430565003.2163
+  style-sailormoonanime:
+    lora: style\sailormoonanime.safetensors
+    name: Sailor Moon Anime
+    strength: 1
+    words:
+      - >-
+        EPTakeuchiNaokoStyle, 1990s \(style\), anime screencap, retro artstyle,
+        anime coloring, traditional media
+    description: Sailor Moon Anime
+    rating: safe
+    link: https://civitai.com/models/332577/sailor-moon-anime-style-lora
+    dateCreated: 1730430605858.8196
+  style-sdxlanimixanimescreencap:
+    lora: sdxl\style\animixanimescreencap.safetensors
+    name: SDXL AniMix Anime Screencap
+    strength: 1
+    words:
+      - Anime Screencap
+    description: AniMix Anime Screencap
+    rating: safe
+    link: >-
+      https://civitai.com/models/554091/clean-anime-screencap-loras-mini-ver-of-animixv9xl-ponyv6autismmixxl?modelVersionId=616641
+    dateCreated: 1730430711760.8972
+  style-sdxlcutiehoney1970s:
+    lora: sdxl\style\cutiehoney1970s.safetensors
+    name: SDXL Cutie Honey 1970s
+    strength: 1
+    words:
+      - N/A
+    description: Cutie Honey 1970s
+    rating: safe
+    link: https://civitai.com/models/740993/cutie-honey-1970s-art-style
+    dateCreated: 1730669035143.7244
+  style-sdxlthesimpsons:
+    lora: sdxl\style\thesimpsons.safetensors
+    name: SDXL The Simpsons
+    strength: 1
+    words:
+      - theSimpsonsstyle,;
+      - >-
+        four fingers, circle eyes, overbite, dot pupil, source_cartoon, toony,
+        theSimpsonsstyle, yellow skin
+    description: The Simpsons
+    rating: safe
+    link: >-
+      https://civitai.com/models/443797/the-simpsons-style-pdxl?modelVersionId=494234
+    dateCreated: 1730670027448.7788
+  style-sdxllollipopcon:
+    lora: sdxl\style\lollipopcon.safetensors
+    name: SDXL Lollipopcon
+    strength: 1
+    words:
+      - N/A
+    description: Lollipopcon
+    rating: suggestive
+    link: https://civitai.com/models/560598/lollipopcon-style
+    dateCreated: 1730670843372.3496
