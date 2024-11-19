@@ -578,72 +578,141 @@ def process_request(queue_item):
                 request_json['282']['inputs']['scheduler'] = "normal"
                 
                 
-                
+        regionalPromptSettings = data['regionalPromptSettings']
+        
+        if regionalPromptSettings['status'] == "true":
+            
+            highest_node_id = 0
+            for key in request_json:
+                # check if its an int before comparing:
+                if key.isnumeric():
+                    if int(key) > highest_node_id:
+                        highest_node_id = int(key)
+                        
+            # add 1 to the highest node ID to get the new node ID:
+            regionalPromptNodes = {
+                "image": str(highest_node_id + 1),
+                "promptAText": str(highest_node_id + 2),
+                "promptBText": str(highest_node_id + 3),
+                "promptAPrompt": str(highest_node_id + 4),
+                "promptBPrompt": str(highest_node_id + 5),
+                "conditioning": str(highest_node_id + 6)
+            }
+            
+            regionalPromptImageNode = {
+                "inputs": {
+                "image": f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png",
+                "upload": "image"
+                },
+                "class_type": "LoadImage",
+                "_meta": {
+                "title": "Load Image"
+                }
+            } 
+            
+            regionalPromptNodeAText = {
+                "inputs": {
+                    "text": f"{regionalPromptSettings['regionalPromptBase']}, {regionalPromptSettings['regionalPromptA']}"
+                },
+                "class_type": "JWStringMultiline",
+                "_meta": {
+                    "title": "Positive Prompt A"
+                }
+            }
+
+            regionalPromptNodeBText = {
+                "inputs": {
+                    "text": f"{regionalPromptSettings['regionalPromptBase']}, {regionalPromptSettings['regionalPromptB']}"
+                },
+                "class_type": "JWStringMultiline",
+                "_meta": {
+                    "title": "Positive Prompt B"
+                }
+            }
+
+            
+            regionalPromptNodeAPrompt = {
+                "inputs": {
+                "mask_color": regionalPromptSettings['hexA'],
+                "strength": float(regionalPromptSettings['regionalPromptAStrength'] / 100),
+                "set_cond_area": "default",
+                "prompt": [
+                    regionalPromptNodes['promptAText'],
+                    0
+                ],
+                "dilation": 0,
+                "clip": [
+                    "117",
+                    1
+                ],
+                "color_mask": [
+                    regionalPromptNodes['image'],
+                    0
+                ]
+                },
+                "class_type": "RegionalConditioningColorMask //Inspire",
+                "_meta": {
+                "title": "Regional Conditioning By Color Mask (Inspire)"
+                }
+            }
+            
+            regionalPromptNodeBPrompt = {
+                "inputs": {
+                "mask_color": regionalPromptSettings['hexB'],
+                "strength": float(regionalPromptSettings['regionalPromptBStrength'] / 100),
+                "set_cond_area": "default",
+                "prompt": [
+                    regionalPromptNodes['promptBText'],
+                    0
+                ],
+                "dilation": 0,
+                "clip": [
+                    "117",
+                    1
+                ],
+                "color_mask": [
+                    regionalPromptNodes['image'],
+                    0
+                ]
+                },
+                "class_type": "RegionalConditioningColorMask //Inspire",
+                "_meta": {
+                "title": "Regional Conditioning By Color Mask (Inspire)"
+                }
+            }
+            
+            regionalPromptNodeConditioning = {
+                "inputs": {
+                "conditioning_1": [
+                    regionalPromptNodes['promptAPrompt'],
+                    0
+                ],
+                "conditioning_2": [
+                    regionalPromptNodes['promptBPrompt'],
+                    0
+                ]
+                },
+                "class_type": "ConditioningCombine",
+                "_meta": {
+                "title": "Conditioning (Combine)"
+                }
+            }
+            
+            # set 282 'positive' to the regionalPromptNodeConditioning:
+            request_json['282']['inputs']['positive'] = [regionalPromptNodes['conditioning'], 0]
+            
+            # add all the regional prompt nodes to the request_json:
+            request_json[regionalPromptNodes['image']] = regionalPromptImageNode
+            request_json[regionalPromptNodes['promptAText']] = regionalPromptNodeAText
+            request_json[regionalPromptNodes['promptBText']] = regionalPromptNodeBText
+            request_json[regionalPromptNodes['promptAPrompt']] = regionalPromptNodeAPrompt
+            request_json[regionalPromptNodes['promptBPrompt']] = regionalPromptNodeBPrompt
+            request_json[regionalPromptNodes['conditioning']] = regionalPromptNodeConditioning
+            
                 
         extras = data['extras']
         
         if extras['upscale'] == True:
-            # add this to the request_json in a way that detects what the highest node ID is and goes 1 or 2 etc higher than it:
-            # "303": {
-            #     "inputs": {
-            #     "upscale_by": 2,
-            #     "seed": 1028553443747953,
-            #     "steps": 20,
-            #     "cfg": 4,
-            #     "sampler_name": "euler_ancestral",
-            #     "scheduler": "normal",
-            #     "denoise": 0.3,
-            #     "mode_type": "Linear",
-            #     "tile_width": 768,
-            #     "tile_height": 768,
-            #     "mask_blur": 16,
-            #     "tile_padding": 64,
-            #     "seam_fix_mode": "None",
-            #     "seam_fix_denoise": 1,
-            #     "seam_fix_width": 128,
-            #     "seam_fix_mask_blur": 16,
-            #     "seam_fix_padding": 32,
-            #     "force_uniform_tiles": true,
-            #     "tiled_decode": false,
-            #     "image": [
-            #         "141",
-            #         0
-            #     ],
-            #     "model": [
-            #         "117",
-            #         0
-            #     ],
-            #     "positive": [
-            #         "225",
-            #         0
-            #     ],
-            #     "negative": [
-            #         "222",
-            #         0
-            #     ],
-            #     "vae": [
-            #         "288",
-            #         2
-            #     ],
-            #     "upscale_model": [
-            #         "304",
-            #         0
-            #     ]
-            #     },
-            #     "class_type": "UltimateSDUpscale",
-            #     "_meta": {
-            #     "title": "Ultimate SD Upscale"
-            #     }
-            # },
-            # "304": {
-            #     "inputs": {
-            #     "model_name": "nmkdSiaxCX_200k.pt"
-            #     },
-            #     "class_type": "UpscaleModelLoader",
-            #     "_meta": {
-            #     "title": "Load Upscale Model"
-            #     }
-            # }
             
             # detect highest node ID in the request_json:
             highest_node_id = 0
@@ -737,7 +806,7 @@ def process_request(queue_item):
             request_json['64']['inputs']['images'] = [str(upscaleImageNodeId), 0]
             
             
-            
+        print(request_json)
         
         p = {"prompt": request_json}
         request_json = json.dumps(p).encode('utf-8')
@@ -1248,13 +1317,21 @@ def generate_image():
                 data['height'] = 1024
                 
             elif data['aspect_ratio'] == "16:9":
-                data['width'] = 1024
-                data['height'] = 576
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                    data['width'] = 1024
+                    data['height'] = 576
+                else:
+                    data['width'] = 768
+                    data['height'] = 432
                 
             elif data['aspect_ratio'] == "9:16":
-                data['width'] = 576
-                data['height'] = 1024
-                
+                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                    data['width'] = 576
+                    data['height'] = 1024
+                else:
+                    data['width'] = 432
+                    data['height'] = 768
+            
             elif data['aspect_ratio'] == "21:9":
                 # needs to be divisible by 64:
                 if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
@@ -1412,7 +1489,6 @@ def generate_image():
                 data['image'] = Image.open(data['input_image'])
             except Exception as e:
                 return generate_error_response("Failed to identify image file", 400)
-                
 
         if data['image'] is not None:
             try:
@@ -1504,6 +1580,36 @@ def generate_image():
         else:
             data['inpaintingMask'] = None
             
+            
+            
+        data['regionalPromptSettings'] = data.get("regionalPromptSettings", {"status": "false"})
+    
+        if data['regionalPromptSettings']['status'] == "true":
+            
+            print("Regional Prompt Settings: ", data['regionalPromptSettings'])
+            data['regionalPromptSettings']['regionalPromptSplitPosition'] = float(data['regionalPromptSettings']['regionalPromptSplitPosition'])
+            data['regionalPromptSettings']['regionalPromptAStrength'] = float(data['regionalPromptSettings']['regionalPromptAStrength'])
+            data['regionalPromptSettings']['regionalPromptBStrength'] = float(data['regionalPromptSettings']['regionalPromptBStrength'])
+            
+            image = Image.new('RGB', (data['width'], data['height']), color = (0, 0, 0))
+            
+            # split the image into two parts:
+            split_position = int(data['regionalPromptSettings']['regionalPromptSplitPosition'] * data['width'] / 100)
+            
+            # create the two images have one side be blue and the other red, set the regionalPromptSettingsHex1 and regionalPromptSettingsHex2 to be the hex values:
+            data['regionalPromptSettings']['hexA'] = "#0000FF"
+            data['regionalPromptSettings']['hexB'] = "#FF0000"
+            
+            leftImage = Image.new('RGB', (int(split_position), data['height']), color = data['regionalPromptSettings']['hexA'])
+            rightImage = Image.new('RGB', (data['width'] - int(split_position), data['height']), color = data['regionalPromptSettings']['hexB'])
+            
+            image.paste(leftImage, (0, 0))
+            image.paste(rightImage, (int(split_position), 0))
+            
+            data['image'] = image
+            
+            
+            
         og_seed = data['seed']
 
         if int(data['seed']) == -1:
@@ -1571,7 +1677,8 @@ def generate_image():
             "og_model": data['og_model'],
             "fastqueue": data.get("fastqueue", False),
             "creditsRequired": data.get("creditsRequired", 0),
-            "extras": data.get("extras", {"removeWatermark": False, "upscale": False}),
+            "extras": data.get("extras", {"removeWatermark": False, "upscale": False, "doubleImages": False}),
+            "regionalPromptSettings": data.get("regionalPromptSettings", {"status": "false"}),
         }
         
         # sanity check that each extras values are there, if they arent then add them as False:
@@ -1580,6 +1687,22 @@ def generate_image():
             
         if "upscale" not in validated_data['extras']:
             validated_data['extras']['upscale'] = False
+            
+        if "doubleImages" not in validated_data['extras']:
+            validated_data['extras']['doubleImages'] = False
+            
+        if validated_data['extras']['doubleImages'] == True:
+            validated_data['image_count'] = validated_data['image_count'] * 2
+            
+            
+            
+        if validated_data['regionalPromptSettings']['status'] == "true":
+            # split the prompt into 3 parts, the first part is the prompt, the second part is the regional promptA, the third part is the regional promptB:
+            prompt_split = validated_data['prompt'].split("<rp>")
+            validated_data['regionalPromptSettings']['regionalPromptBase'] = prompt_split[0]
+            validated_data['regionalPromptSettings']['regionalPromptA'] = prompt_split[1]
+            validated_data['regionalPromptSettings']['regionalPromptB'] = prompt_split[2]
+            
         
         data['width'] = round_to_multiple_of_eight(data['width'])
         data['height'] = round_to_multiple_of_eight(data['height'])
@@ -1773,34 +1896,7 @@ async def main():
     await process_hash_queue()
 
 if __name__ == '__main__':
-    # if model_move_manual == False:
-        
-        # for model_name, model_info in txt2img_models.items():
-        #     if model_name.startswith("sdxl-"):
-        #         data = {'gpu_id': 0}
-        #     else:
-        #         data = {'gpu_id': 0}
-        #     if model_info['loaded'] is None:
-        #         model_info['loaded'] = load_models.txt2img(model_name, data, model_info['model_path'])
-        #         print(f"Loaded {model_name}, txt2img")
-                
-        # for model_name, model_info in img2img_models.items():
-        #     if model_name.startswith("sdxl-"):
-        #         data = {'gpu_id': 0}
-        #     else:
-        #         data = {'gpu_id': 0}
-        #     if model_info['loaded'] is None:
-        #         model_info['loaded'] = load_models.img2img(model_name, data, model_info['model_path'])
-        #         print(f"Loaded {model_name}, img2img")
-                
-        # for model_name, model_info in inpainting_models.items():
-        #     if model_name.startswith("sdxl-"):
-        #         data = {'gpu_id': 0}
-        #     else:
-        #         data = {'gpu_id': 0}
-        #     if model_info['loaded'] is None:
-        #         model_info['loaded'] = load_models.inpainting(model_name, data, model_info['model_path'])
-        #         print(f"Loaded {model_name}, inpainting")
+
     asyncio.run(main())
     print("Startup time: " + str(time.time() - program_start_time) + " seconds")
-    app.run(host='0.0.0.0', port=5003)
+    app.run(host='127.0.0.1', port=5003)
