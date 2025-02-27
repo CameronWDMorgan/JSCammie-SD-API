@@ -17,11 +17,6 @@
       "PowerLoraLoaderHeaderWidget": {
         "type": "PowerLoraLoaderHeaderWidget"
       },
-      "lora_1": {
-        "on": false,
-        "lora": "flux\\style\\cfluxcartoon.safetensors",
-        "strength": 1
-      },
       "➕ Add Lora": "",
       "model": [
         "230",
@@ -109,8 +104,8 @@
         "305",
         0
       ],
-      "sampler_name": "euler",
-      "scheduler": "normal",
+      "sampler_name": "dpm_2",
+      "scheduler": "karras",
       "denoise": [
         "301",
         0
@@ -150,7 +145,7 @@
   },
   "288": {
     "inputs": {
-      "ckpt_name": "fluxUnchainedBySCG_hyfu8StepHybridV10.safetensors",
+      "ckpt_name": "novaFurryXL_illustriousV30.safetensors",
       "key_opt": "",
       "mode": "Auto"
     },
@@ -193,7 +188,7 @@
   },
   "298": {
     "inputs": {
-      "text": ""
+      "text": "sfw, masterpiece, best quality, amazing quality, 1girl, sonic \\(series\\), furry hedgehog, medium hair, black fur, furry body, black hair, bangs, parted hair, parted bangs, wavy hair, purple hair highlights, blue eyes, white eyeshadow, blue lipstick, tan belly, (tan arms, tan shoulders), medium breasts, sleeveless, white crop top, turtleneck, denim jeans, white gloves, blue ring bracelet,"
     },
     "class_type": "JWStringMultiline",
     "_meta": {
@@ -202,7 +197,7 @@
   },
   "300": {
     "inputs": {
-      "text": ""
+      "text": "multiple tails, modern, recent, old, oldest, graphic, cartoon, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), bad anatomy, sketch, jpeg artifacts, signature, watermark, username, simple background, conjoined, ai-generated, human, no fur, smooth skin, (((blunt bangs)))"
     },
     "class_type": "JWStringMultiline",
     "_meta": {
@@ -220,7 +215,7 @@
   },
   "303": {
     "inputs": {
-      "value": 0
+      "value": 35
     },
     "class_type": "JWInteger",
     "_meta": {
@@ -229,7 +224,7 @@
   },
   "304": {
     "inputs": {
-      "value": 0
+      "value": 123123123
     },
     "class_type": "JWInteger",
     "_meta": {
@@ -238,7 +233,7 @@
   },
   "305": {
     "inputs": {
-      "value": 4
+      "value": 5
     },
     "class_type": "JWFloat",
     "_meta": {
@@ -247,7 +242,7 @@
   },
   "306": {
     "inputs": {
-      "value": 1
+      "value": 4
     },
     "class_type": "JWInteger",
     "_meta": {

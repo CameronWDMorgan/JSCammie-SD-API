@@ -87,10 +87,12 @@ try:
         'furryblend': {'model_path': config["furryblend_model_path"]},
         'toonify': {'model_path': config["toonify_model_path"]},
         'flat2danimerge': {'model_path': config["flat2danimerge_model_path"]},
-        'sdxl-autismmix': {'model_path': config["sdxl_autismmix_model_path"]},
-        'sdxl-sonichasautismmix': {'model_path': config["sdxl_sonichasautismmix_model_path"]},
-        'sdxl-ponyrealism': {'model_path': config["sdxl_ponyrealism_model_path"]},
-        'sdxl-fluffysonic': {'model_path': config["sdxl_fluffysonic_model_path"]},
+        'pdxl-autismmix': {'model_path': config["pdxl_autismmix_model_path"]},
+        'pdxl-sonichasautismmix': {'model_path': config["pdxl_sonichasautismmix_model_path"]},
+        'pdxl-ponyrealism': {'model_path': config["pdxl_ponyrealism_model_path"]},
+        'pdxl-fluffysonic': {'model_path': config["pdxl_fluffysonic_model_path"]},
+        'illustrious-wai': {'model_path': config["illustrious_wai_model_path"]},
+        'illustrious-novafurry': {'model_path': config["illustrious_novafurry_model_path"]},
         'sd3-medium': {'model_path': config["sd3_medium_model_path"]},
         'flux-unchained': {'model_path': config["flux_unchained_model_path"]},
     }
@@ -210,7 +212,7 @@ def add_watermark(image, text, data):
     image = Image.alpha_composite(image.convert('RGBA'), text_image)
     
     # convert the image back to RGB mode:
-    image = image.convert('RGB')
+    image = image.convert('RGBA')
     
     # save image as saved_image.png:
     # image.save('saved_image.png')
@@ -429,63 +431,11 @@ def process_request(queue_item):
     try:
         data = queue_item.data
         request_id = queue_item.request_id
+        request_json = queue_item.data['request_json']
         
         print("Processing request:", request_id)
         
         start_time = time.time()
-    
-        # comfui generation code here, call localhost:8188/prompt, with data= the custom template with user values:
-        # print("Data: ", data)
-        
-        ckpt_name = diffusion_models[data['model']]['model_path']
-        
-        # remove models/ from the ckpt_name:
-        ckpt_name = ckpt_name.replace("models/", "")
-        
-        # load it from the json:
-        if data['request_type'] == "txt2img":
-            if data['model'].startswith("sd3"):
-                with open ('SD3-txt2imgv2-1.json', 'r') as f:
-                    # make it a dict:
-                    request_json = json.load(f)
-            else:
-                with open('txt2imgv3.json', 'r') as f:
-                    # make it a dict:
-                    request_json = json.load(f)
-        elif data['request_type'] == "img2img":
-            with open('img2imgv3.json', 'r') as f:
-                # make it a dict:
-                request_json = json.load(f)
-        elif data['request_type'] == "inpainting":
-            with open('inpaintingv3.json', 'r') as f:
-                # make it a dict:
-                request_json = json.load(f)
-                
-        # print("Request JSON 288: ", request_json['288'])
-        request_json['288']['inputs']['ckpt_name'] = ckpt_name
-                
-        if data['request_type'] == "img2img" or data['request_type'] == "inpainting":
-            request_json['301']['inputs']['value'] = data['strength']
-            # convert the PIL Image to a base64 string:
-            # print type:
-            # make sure the directory exists:
-            os.makedirs("process_images/image", exist_ok=True)
-            request_json['307']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png"
-        else:
-            # txt2img, so set the strength to 1:
-            request_json['301']['inputs']['value'] = 1
-            
-        if data['request_type'] == "inpainting":
-            # make sure the dir exists:
-            os.makedirs("process_images/inpainting", exist_ok=True)
-            request_json['309']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\inpainting\\inpainting{request_id}{data['gpu_id']}.png"
-        
-        if data['lora_strengths'] is None or data['lora_strengths'] == []:
-            data['lora_strengths'] = []
-            
-        data['loras_broken'] = False
-        
-        load_loras(request_id, data['lora'], data)
         
         # if any loras dont
         if data['loras_broken'] == True:
@@ -493,320 +443,6 @@ def process_request(queue_item):
             results[request_id] = {"status": "error", "message": "You have a broken lora selected, please refresh the page and try again.\n Failing that, please contact JSCammie!"}
             queue_item.status = "error"
             return "skipped"
-        
-        for key in data['loras_data']:
-            print(key, data['loras_data'][key])
-            
-        # if not data['model'].startswith("sd3"):
-        #     for i in range(1, 10):
-        #         # remove all 117 "inputs" "lora_1", "lora_2", etc. values if they exist:
-        #         if f"lora_{i}" in request_json['117']['inputs']:
-        #             request_json['117']['inputs'].pop(f"lora_{i}", None)
-                
-            # print(f"Data['loras_data']: {data['loras_data']}")
-            
-            if data['model'].startswith("sdxl") and data['lightning_mode'] == True:
-                request_json['117']['inputs'][f"lora_1"] = {
-                    "on": True,
-                    "lora": "lightning\\sdxl_lightning_8step_lora.safetensors",
-                    "strength": 1.0
-                }
-            
-            # for each lora in the data['loras_data'] dict, add it to the request_json:
-            for i, key in enumerate(data['loras_data']):
-                
-                # lora_data = data['loras_data'][key]
-                # request_json['117']['inputs'][f"lora_{i+1}"] = {
-                #     "on": True,
-                #     "lora": lora_data[0],
-                #     "strength": lora_data[1]
-                # }
-                
-                # check if sdxl and lightning mode, if so, add the lora to the 117 inputs with the 1 offset:
-                
-                if data['model'].startswith("sdxl") and data['lightning_mode'] == True:
-                    request_json['117']['inputs'][f"lora_{i+2}"] = {
-                        "on": True,
-                        "lora": data['loras_data'][key][0],
-                        "strength": data['loras_data'][key][1]
-                    }
-                else:
-                    request_json['117']['inputs'][f"lora_{i+1}"] = {
-                        "on": True,
-                        "lora": data['loras_data'][key][0],
-                        "strength": data['loras_data'][key][1]
-                    }
-                            
-        # Prompt
-        request_json['298']['inputs']['text'] = data['prompt']
-        
-        # Negative Prompt
-        request_json['300']['inputs']['text'] = data['negative_prompt']
-        
-        # Steps
-        request_json['303']['inputs']['value'] = data['steps']
-        request_json['305']['inputs']['value'] = data['guidance']
-        request_json['304']['inputs']['value'] = data['seed']
-        
-        if data['request_type'] == "txt2img":
-            request_json['285']['inputs']['width'] = data['width']
-            request_json['285']['inputs']['height'] = data['height']
-            
-        request_json['306']['inputs']['value'] = data['image_count']
-            
-            
-            
-        request_json['64']['inputs']['filename_prefix'] = request_id
-            
-        if not data['model'].startswith("sdxl") and not data['model'].startswith("flux"):
-            request_json['300']['inputs']['text'] = f"{request_json['300']['inputs']['text']} embedding:boring_e621_v4.pt embedding:fluffynegative.pt embedding:badyiffymix41.safetensors embedding:gnarlysick-neg.pt embedding:negative_hand-neg.pt"
-                    
-        # print(f"LIGHNING MODE: {data['lightning_mode']}")
-                    
-        if data['model'].startswith("flux"):
-                request_json['282']['inputs']['sampler_name'] = "euler"
-                request_json['282']['inputs']['scheduler'] = "normal"
-        else:
-            if data['scheduler'] == "eulera":
-                request_json['282']['inputs']['sampler_name'] = "euler_ancestral"
-                request_json['282']['inputs']['scheduler'] = "normal"
-            if data['scheduler'] == "dpm":
-                request_json['282']['inputs']['sampler_name'] = "dpmpp_2m"
-                request_json['282']['inputs']['scheduler'] = "normal"
-            if data['scheduler'] == "ddim":
-                request_json['282']['inputs']['sampler_name'] = "ddim"
-                request_json['282']['inputs']['scheduler'] = "normal"
-                
-                
-        regionalPromptSettings = data['regionalPromptSettings']
-        
-        if regionalPromptSettings['status'] == "true":
-            
-            highest_node_id = 0
-            for key in request_json:
-                # check if its an int before comparing:
-                if key.isnumeric():
-                    if int(key) > highest_node_id:
-                        highest_node_id = int(key)
-                        
-            # add 1 to the highest node ID to get the new node ID:
-            regionalPromptNodes = {
-                "image": str(highest_node_id + 1),
-                "promptAText": str(highest_node_id + 2),
-                "promptBText": str(highest_node_id + 3),
-                "promptAPrompt": str(highest_node_id + 4),
-                "promptBPrompt": str(highest_node_id + 5),
-                "conditioning": str(highest_node_id + 6)
-            }
-            
-            regionalPromptImageNode = {
-                "inputs": {
-                "image": f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png",
-                "upload": "image"
-                },
-                "class_type": "LoadImage",
-                "_meta": {
-                "title": "Load Image"
-                }
-            } 
-            
-            regionalPromptNodeAText = {
-                "inputs": {
-                    "text": f"{regionalPromptSettings['regionalPromptBase']}, {regionalPromptSettings['regionalPromptA']}"
-                },
-                "class_type": "JWStringMultiline",
-                "_meta": {
-                    "title": "Positive Prompt A"
-                }
-            }
-
-            regionalPromptNodeBText = {
-                "inputs": {
-                    "text": f"{regionalPromptSettings['regionalPromptBase']}, {regionalPromptSettings['regionalPromptB']}"
-                },
-                "class_type": "JWStringMultiline",
-                "_meta": {
-                    "title": "Positive Prompt B"
-                }
-            }
-
-            
-            regionalPromptNodeAPrompt = {
-                "inputs": {
-                "mask_color": regionalPromptSettings['hexA'],
-                "strength": float(regionalPromptSettings['regionalPromptAStrength'] / 100),
-                "set_cond_area": "default",
-                "prompt": [
-                    regionalPromptNodes['promptAText'],
-                    0
-                ],
-                "dilation": 0,
-                "clip": [
-                    "117",
-                    1
-                ],
-                "color_mask": [
-                    regionalPromptNodes['image'],
-                    0
-                ]
-                },
-                "class_type": "RegionalConditioningColorMask //Inspire",
-                "_meta": {
-                "title": "Regional Conditioning By Color Mask (Inspire)"
-                }
-            }
-            
-            regionalPromptNodeBPrompt = {
-                "inputs": {
-                "mask_color": regionalPromptSettings['hexB'],
-                "strength": float(regionalPromptSettings['regionalPromptBStrength'] / 100),
-                "set_cond_area": "default",
-                "prompt": [
-                    regionalPromptNodes['promptBText'],
-                    0
-                ],
-                "dilation": 0,
-                "clip": [
-                    "117",
-                    1
-                ],
-                "color_mask": [
-                    regionalPromptNodes['image'],
-                    0
-                ]
-                },
-                "class_type": "RegionalConditioningColorMask //Inspire",
-                "_meta": {
-                "title": "Regional Conditioning By Color Mask (Inspire)"
-                }
-            }
-            
-            regionalPromptNodeConditioning = {
-                "inputs": {
-                "conditioning_1": [
-                    regionalPromptNodes['promptAPrompt'],
-                    0
-                ],
-                "conditioning_2": [
-                    regionalPromptNodes['promptBPrompt'],
-                    0
-                ]
-                },
-                "class_type": "ConditioningCombine",
-                "_meta": {
-                "title": "Conditioning (Combine)"
-                }
-            }
-            
-            # set 282 'positive' to the regionalPromptNodeConditioning:
-            request_json['282']['inputs']['positive'] = [regionalPromptNodes['conditioning'], 0]
-            
-            # add all the regional prompt nodes to the request_json:
-            request_json[regionalPromptNodes['image']] = regionalPromptImageNode
-            request_json[regionalPromptNodes['promptAText']] = regionalPromptNodeAText
-            request_json[regionalPromptNodes['promptBText']] = regionalPromptNodeBText
-            request_json[regionalPromptNodes['promptAPrompt']] = regionalPromptNodeAPrompt
-            request_json[regionalPromptNodes['promptBPrompt']] = regionalPromptNodeBPrompt
-            request_json[regionalPromptNodes['conditioning']] = regionalPromptNodeConditioning
-            
-                
-        extras = data['extras']
-        
-        if extras['upscale'] == True:
-            
-            # detect highest node ID in the request_json:
-            highest_node_id = 0
-            for key in request_json:
-                # check if its an int before comparing:
-                if key.isnumeric():
-                    if int(key) > highest_node_id:
-                        highest_node_id = int(key)
-                        
-            # add 1 to the highest node ID to get the new node ID:
-            upscaleImageNodeId = highest_node_id + 1
-            
-            # random positive integer below 999999999:
-            randomSeed = random.randint(0, 999999999)
-            
-            upscaleModelNodeId = upscaleImageNodeId + 1
-            
-            # add the new nodes to the request_json:
-            upscaleImageNode = {
-                "inputs": {
-                    "upscale_by": 2,
-                    "seed": randomSeed,
-                    "steps": 20,
-                    "cfg": data['guidance'],
-                    "sampler_name": "euler_ancestral",
-                    "scheduler": "normal",
-                    "denoise": 0.3,
-                    "mode_type": "Linear",
-                    "tile_width": 768,
-                    "tile_height": 768,
-                    "mask_blur": 16,
-                    "tile_padding": 64,
-                    "seam_fix_mode": "None",
-                    "seam_fix_denoise": 1,
-                    "seam_fix_width": 128,
-                    "seam_fix_mask_blur": 16,
-                    "seam_fix_padding": 32,
-                    "force_uniform_tiles": True,
-                    "tiled_decode": False,
-                    "image": [
-                        "141",
-                        0
-                    ],
-                    "model": [
-                        "117",
-                        0
-                    ],
-                    "positive": [
-                        "294",
-                        0
-                    ],
-                    "negative": [
-                        "295",
-                        0
-                    ],
-                    "vae": [
-                        "288",
-                        2
-                    ],
-                    "upscale_model": [
-                        str(upscaleModelNodeId),
-                        0
-                    ]
-                },
-                "class_type": "UltimateSDUpscale",
-                "_meta": {
-                    "title": "Ultimate SD Upscale"
-                }
-            }
-            
-            if data['request_type'] == "inpainting":
-                upscaleImageNode['inputs']['positive'] = ["312", 0]
-                upscaleImageNode['inputs']['negative'] = ["312", 0]
-                
-            
-            upscaleModelNode = {
-                "inputs": {
-                    "model_name": "nmkdSiaxCX_200k.pt"
-                },
-                "class_type": "UpscaleModelLoader",
-                "_meta": {
-                    "title": "Load Upscale Model"
-                }
-            }
-            
-            # add the upscaleImageNode and upscaleModelNode to the request_json, with the new node IDs:
-            request_json[str(upscaleImageNodeId)] = upscaleImageNode
-            request_json[str(upscaleModelNodeId)] = upscaleModelNode
-            
-            # set 64 to use the new upscaleImageNodeId as an inputs images:
-            request_json['64']['inputs']['images'] = [str(upscaleImageNodeId), 0]
-            
-            
-        print(request_json)
         
         p = {"prompt": request_json}
         request_json = json.dumps(p).encode('utf-8')
@@ -870,7 +506,7 @@ def process_request(queue_item):
             for index, lora in enumerate(data['lora']):
                 data['loraStrings'] += f"{lora} - Strength: {data['loras_data'][lora][1]}\n"
                 
-        print("Lora Strings: ", data['loraStrings'])
+        # print("Lora Strings: ", data['loraStrings'])
 
         hash_object = {
             "data": data,
@@ -1111,20 +747,11 @@ def cancel_request(request_id):
         return jsonify({"status": "not found", "message": "Invalid request_id, Not Found"}), 404
     
     except Exception as e:
-        return generate_error_response(str(e), 500)
-
+        generate_error_response(str(e), 500)
+        return jsonify({"status": "error", "message": str(e)}), 500
+        
 @app.route('/queue_position/<request_id>', methods=['GET'])
 def check_queue_position(request_id):
-    # Loop through the queues and find the position for the given request_id
-    # for index, item in enumerate(request_queue):
-    #     if item.request_id == request_id:
-    #         return jsonify({"status": "waiting", "request_id": request_id, "position": index + 1, "queue_length": len(request_queue)}), 200
-    # if request_id in results:
-    #     if results[request_id].get("status") == "error":
-    #         return jsonify({"status": "error", "message": results[request_id].get("message")}), 200
-    #     return jsonify({"status": "completed", "request_id": request_id}), 200
-    # return jsonify({"status": "not found", "message": "Invalid request_id"}), 404
-    
     for index, item in enumerate(request_queue_0):
         if item.request_id == request_id:
             return jsonify({"status": "waiting", "request_id": request_id, "position": index + 1, "queue_length": f"{len(request_queue_0)} ({len(request_queue_0) + len(request_queue_1)})"}), 200
@@ -1215,17 +842,19 @@ def get_all_queue():
 @app.route('/generate', methods=['POST'])
 def generate_image():
     try:
+        
         if global_settings.get('maintenance', False):
             return generate_error_response("Maintenance Mode is currently enabled, the requests that are already in the queue are being completed, please wait a minute or two and try again.", 503)
 
         data = request.json
-        
-        # sd3Users = global_settings.get('sd3_users', [])
-        
+
+        # print("Headers:", request.headers)
+        # print("Data:", request.get_json())
+                
         data['og_model'] = data['model']
         
-        if data['model'] == "sdxl-ponydiffusion":
-            data['model'] = "sdxl-autismmix"
+        if data['model'] == "pdxl-ponydiffusion":
+            data['model'] = "pdxl-autismmix"
             
             
         if data['model'] == "flux-unchained":
@@ -1240,36 +869,20 @@ def generate_image():
                         flux_count += 1
                         
                 if flux_count > 3:
-                    return generate_error_response("Flux Unchained is currently limited to 3 gens in the queue at a time, please consider donating to my ko-fi page, once I can I'll be upgrading my system so flux can be ran again!", 503)
-
-
-
-        if data['model'] == "sdxl-zonkey":
-            return generate_error_response("Zonkey is currently disabled, please use the other models instead.", 503)
+                    return generate_error_response("Flux unchained is currently disabled, please consider Buying Credits to help support the developer of the website @ enable me to upgrade the server so Flux can be unlimited again.", 503)
         
-        if data['model'].startswith("sd3-"):
-            return generate_error_response("SD3 models are currently disabled due to stability AI being morons, please use the other models instead!", 503)
-            # if data['accountId'] not in sd3Users:
-            #     return generate_error_response("SD3 models are currently limited to specific users, for more information please contact JSCammie on the discord server!", 400)
-            # if data['quantity'] > 1:
-            #     return generate_error_response("SD3 models are currently limited to generating one image at a time.", 400)
-            # if data['steps'] > 30:
-            #     return generate_error_response("SD3 models are currently limited to 100 steps.", 400)
-            # if data['request_type'] != "txt2img":
-            #     return generate_error_response("SD3 models are currently limited to text to image requests.", 400)
-        
-        if global_settings.get('sdxl', False):
-            if data['model'].startswith("sdxl-"):
-                return generate_error_response("SDXL is currently disabled, please use the other models instead.", 503)
+        if global_settings.get('pdxl', False):
+            if data['model'].startswith("pdxl-"):
+                return generate_error_response("PDXl Models are currently disabled, please use the other models instead.", 503)
+            
+        if global_settings.get('disable_illustrious', False):
+            if data['model'].startswith("illustrious-"):
+                return generate_error_response("Illustrious Models are currently disabled, please use the other models instead.", 503)
             
         if data['request_type'] == "txt2video":
             return generate_error_response("Text to video is currently disabled.", 503)
         
         data['gpu_id'] = 0
-        # if request_queue_0 has 2 more items than request_queue_1, add the request to request_queue_1 and vice versa:
-        
-        # if data['model'].startswith("sdxl-") != True:
-        #     data['gpu_id'] = 1
         
         if len(request_queue_0) > len(request_queue_1) + 1:
             data['gpu_id'] = 1
@@ -1277,20 +890,24 @@ def generate_image():
         if len(request_queue_1) > len(request_queue_0) + 1:
             data['gpu_id'] = 0
                     
-        if data['model'].startswith("sdxl-"):
-            if data['steps'] > global_settings['sdxl_max_steps']:
-                data['steps'] = global_settings['sdxl_max_steps']
+        if data['model'].startswith("pdxl-"):
+            if data['steps'] > global_settings['pdxl_max_steps']:
+                data['steps'] = global_settings['pdxl_max_steps']
+                
+        if data['model'].startswith("illustrious-"):
+            if data['steps'] > global_settings['illustrious_max_steps']:
+                data['steps'] = global_settings['illustrious_max_steps']
                 
         if data.get('aspect_ratio', None) is not None:
             if data['aspect_ratio'] == "portrait":
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     data['width'] = 768
                     data['height'] = 1024
                 else:
                     data['width'] = 512
                     data['height'] = 768
             elif data['aspect_ratio'] == "landscape":
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     data['width'] = 1024
                     data['height'] = 768
                 else:
@@ -1299,7 +916,7 @@ def generate_image():
                     
                 
             elif data['aspect_ratio'] == "square":
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     data['width'] = 1024
                     data['height'] = 1024
                 else:
@@ -1317,7 +934,7 @@ def generate_image():
                 data['height'] = 1024
                 
             elif data['aspect_ratio'] == "16:9":
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     data['width'] = 1024
                     data['height'] = 576
                 else:
@@ -1325,7 +942,7 @@ def generate_image():
                     data['height'] = 432
                 
             elif data['aspect_ratio'] == "9:16":
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     data['width'] = 576
                     data['height'] = 1024
                 else:
@@ -1334,24 +951,28 @@ def generate_image():
             
             elif data['aspect_ratio'] == "21:9":
                 # needs to be divisible by 64:
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     data['width'] = 1344
                     data['height'] = 576
                 else:
                     data['width'] = 1024
                     data['height'] = 432
             elif data['aspect_ratio'] == "9:21":
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     data['width'] = 576
                     data['height'] = 1344
                 else:
                     data['width'] = 432
                     data['height'] = 1024
                 
-            if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
-                # multiply the width and height by the global_settings['sdxl_resolution_multiplier']:
-                data['width'] = data['width'] * global_settings['sdxl_resolution_multiplier']
-                data['height'] = data['height'] * global_settings['sdxl_resolution_multiplier']
+            if data['model'].startswith("pdxl-") or data['model'].startswith("flux-"):
+                # multiply the width and height by the global_settings['pdxl_resolution_multiplier']:
+                data['width'] = data['width'] * global_settings['pdxl_resolution_multiplier']
+                data['height'] = data['height'] * global_settings['pdxl_resolution_multiplier']
+                
+            if data['model'].startswith("illustrious-"):
+                data['width'] = data['width'] * global_settings['illustrious_resolution_multiplier']
+                data['height'] = data['height'] * global_settings['illustrious_resolution_multiplier']
                 
             if data['model'].startswith("sd3-"):
                 # multiply the width and height by the global_settings['sd3_resolution_multiplier']:
@@ -1364,21 +985,33 @@ def generate_image():
                 data['width'] = data['width'] * global_settings['sd15_resolution_multiplier']
                 data['height'] = data['height'] * global_settings['sd15_resolution_multiplier']
                 
-        if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
-            if len(data['lora']) > global_settings['max_loras_sdxl']:
-                return generate_error_response(f"Maximum number of Lora options is {global_settings['max_loras_sdxl']}", 400)
+        if data['model'].startswith("pdxl-"):
+            if len(data['lora']) > global_settings['max_loras_pdxl']:
+                return generate_error_response(f"Maximum number of Lora options for PDXL models is: {global_settings['max_loras_pdxl']}", 400)
+        elif data['model'].startswith("flux-"):
+            if len(data['lora']) > global_settings['max_loras_flux']:
+                return generate_error_response(f"Maximum number of Lora options for Flux models is: {global_settings['max_loras_flux']}", 400)
+        elif data['model'].startswith("illustrious-"):
+            if len(data['lora']) > global_settings['max_loras_illustrious']:
+                return generate_error_response(f"Maximum number of Lora options for Illustrious models is: {global_settings['max_loras_illustrious']}", 400)
         else:
             if len(data['lora']) > global_settings['max_loras']:
-                return generate_error_response(f"Maximum number of Lora options is {global_settings['max_loras']}", 400)
-            
-        # if data['request_type'] == "inpainting": and the data['model'] doesnt start with sdxl- return error:
-        # if data['request_type'] == "inpainting" or data['request_type'] == "img2img":
-            # if data['request_type'] == "inpainting":
-            #     return generate_error_response("Inpainting is currently disabled.", 503)
-                 
+                return generate_error_response(f"Maximum number of Lora options is: {global_settings['max_loras']}", 400)
         
         data['width'] = round_to_multiple_of_eight(data['width'])
         data['height'] = round_to_multiple_of_eight(data['height'])
+        
+        
+        
+        # upscale global_settings sets:
+        
+        data['upscale_steps'] = global_settings['upscale_steps']
+        data['upscale_denoise'] = global_settings['upscale_denoise']
+        data['upscale_scale'] = global_settings['upscale_scale']
+        
+        
+        
+        
 
         # Validate and preprocess the input data
         validate_start_time = time.time()
@@ -1445,9 +1078,6 @@ def generate_image():
             
         if data['request_type'] != 'txt2img' and data['request_type'] != 'inpainting' and data['request_type'] != 'img2img':
             return None, "Invalid request type. Only txt2img, img2img and inpainting requests are allowed at this time."
-            # if int(data['steps']) > 50:
-            #     return None, "text 2 video is limited to 50 steps! Please reduce the number of steps and try again."
-
 
         model = data.get("model", "sonic")
         
@@ -1456,14 +1086,10 @@ def generate_image():
         
         data['true_negative_prompt'] = data.get("negativeprompt", "")
 
-        if data.get("model", "sonic").startswith("sdxl-") or data.get("model", "sonic").startswith("flux-"):
+        if data.get("model", "sonic").startswith("pdxl-") or data.get("model", "sonic").startswith("flux-") or data.get("model", "sonic").startswith("illustrious-"):
             
-            negative_embedding_words_sdxl = ""
-            
-            # negative_embedding_words_sdxl = "zPDXL-neg, "
-            # positive_embedding_words_sdxl = "zPDXL, "
-            # data['prompt'] = positive_embedding_words_sdxl + data.get("prompt", "")
-            negative_prompt_final = negative_embedding_words_sdxl + data.get("negativeprompt", "")
+            negative_embedding_words_pdxl = ""
+            negative_prompt_final = negative_embedding_words_pdxl + data.get("negativeprompt", "")
             
         else:
             
@@ -1500,8 +1126,8 @@ def generate_image():
                 
                 # print("Image width height before")
                 
-                # Determine the scaling factor to ensure both sides are at least 512px OR 768px for sdxl/flux models
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                # Determine the scaling factor to ensure both sides are at least 512px OR 768px for pdxl/flux models
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     scale_factor = max(768 / data['image'].width, 768 / data['image'].height)
                 else:
                     scale_factor = max(512 / data['image'].width, 512 / data['image'].height)
@@ -1527,7 +1153,7 @@ def generate_image():
 
                 # Resize the image
                 data['image'] = data['image'].resize((new_width, new_height))
-                data['image'] = data['image'].convert('RGB')
+                data['image'] = data['image'].convert('RGBA')
 
 
             except Exception as e:
@@ -1544,8 +1170,8 @@ def generate_image():
             
                 # print("Image width height before")
                 
-                # Determine the scaling factor to ensure both sides are at least 512px OR 768px for sdxl/flux models
-                if data['model'].startswith("sdxl-") or data['model'].startswith("flux-"):
+                # Determine the scaling factor to ensure both sides are at least 512px OR 768px for pdxl/flux models
+                if data['model'].startswith("pdxl-") or data['model'].startswith("flux-") or data['model'].startswith("illustrious-"):
                     scale_factor = max(768 / data['inpaintingMask'].width, 768 / data['inpaintingMask'].height)
                 else:
                     scale_factor = max(512 / data['inpaintingMask'].width, 512 / data['inpaintingMask'].height)
@@ -1586,7 +1212,7 @@ def generate_image():
     
         if data['regionalPromptSettings']['status'] == "true":
             
-            print("Regional Prompt Settings: ", data['regionalPromptSettings'])
+            # print("Regional Prompt Settings: ", data['regionalPromptSettings'])
             data['regionalPromptSettings']['regionalPromptSplitPosition'] = float(data['regionalPromptSettings']['regionalPromptSplitPosition'])
             data['regionalPromptSettings']['regionalPromptAStrength'] = float(data['regionalPromptSettings']['regionalPromptAStrength'])
             data['regionalPromptSettings']['regionalPromptBStrength'] = float(data['regionalPromptSettings']['regionalPromptBStrength'])
@@ -1677,8 +1303,11 @@ def generate_image():
             "og_model": data['og_model'],
             "fastqueue": data.get("fastqueue", False),
             "creditsRequired": data.get("creditsRequired", 0),
-            "extras": data.get("extras", {"removeWatermark": False, "upscale": False, "doubleImages": False}),
+            "extras": data.get("extras", {"removeWatermark": False, "upscale": False, "doubleImages": False, "removeBackground": False}),
             "regionalPromptSettings": data.get("regionalPromptSettings", {"status": "false"}),
+            "upscale_steps": data.get("upscale_steps", global_settings['upscale_steps']),
+            "upscale_denoise": data.get("upscale_denoise", global_settings['upscale_denoise']),
+            "upscale_scale": data.get("upscale_scale", global_settings['upscale_scale']),
         }
         
         # sanity check that each extras values are there, if they arent then add them as False:
@@ -1691,6 +1320,9 @@ def generate_image():
         if "doubleImages" not in validated_data['extras']:
             validated_data['extras']['doubleImages'] = False
             
+        if "removeBackground" not in validated_data['extras']:
+            validated_data['extras']['removeBackground'] = False
+            
         if validated_data['extras']['doubleImages'] == True:
             validated_data['image_count'] = validated_data['image_count'] * 2
             
@@ -1702,6 +1334,16 @@ def generate_image():
             validated_data['regionalPromptSettings']['regionalPromptBase'] = prompt_split[0]
             validated_data['regionalPromptSettings']['regionalPromptA'] = prompt_split[1]
             validated_data['regionalPromptSettings']['regionalPromptB'] = prompt_split[2]
+            
+            if validated_data['extras']['upscale'] == False:
+                # set steps to be 1.5x the steps:
+                validated_data['steps'] = int(validated_data['steps'] * 1.5)
+                # set width and height to be 1.3x the width and height:
+                validated_data['width'] = int(validated_data['width'] * 1.3)
+                validated_data['height'] = int(validated_data['height'] * 1.3)
+            else: 
+                # set steps to be 1.3x the steps:
+                validated_data['steps'] = int(validated_data['steps'] * 1.3)
             
         
         data['width'] = round_to_multiple_of_eight(data['width'])
@@ -1794,6 +1436,379 @@ def generate_image():
         data = validated_data
         
         data['request_id'] = request_id
+        
+        
+        
+        
+        ckpt_name = diffusion_models[data['model']]['model_path']
+        
+        # remove models/ from the ckpt_name:
+        ckpt_name = ckpt_name.replace("models/", "")
+        
+        # load it from the json:
+        if data['request_type'] == "txt2img":
+            if data['model'].startswith("sd3"):
+                with open ('SD3-txt2imgv2-1.json', 'r') as f:
+                    # make it a dict:
+                    request_json = json.load(f)
+            else:
+                with open('txt2imgv3.json', 'r') as f:
+                    # make it a dict:
+                    request_json = json.load(f)
+        elif data['request_type'] == "img2img":
+            with open('img2imgv3.json', 'r') as f:
+                # make it a dict:
+                request_json = json.load(f)
+        elif data['request_type'] == "inpainting":
+            with open('inpaintingv3.json', 'r') as f:
+                # make it a dict:
+                request_json = json.load(f)
+                
+        # print("Request JSON 288: ", request_json['288'])
+        request_json['288']['inputs']['ckpt_name'] = ckpt_name
+                
+        if data['request_type'] == "img2img" or data['request_type'] == "inpainting":
+            request_json['301']['inputs']['value'] = data['strength']
+            # convert the PIL Image to a base64 string:
+            # print type:
+            # make sure the directory exists:
+            os.makedirs("process_images/image", exist_ok=True)
+            request_json['307']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png"
+        else:
+            # txt2img, so set the strength to 1:
+            request_json['301']['inputs']['value'] = 1
+            
+        if data['request_type'] == "inpainting":
+            # make sure the dir exists:
+            os.makedirs("process_images/inpainting", exist_ok=True)
+            request_json['309']['inputs']['image'] = f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\inpainting\\inpainting{request_id}{data['gpu_id']}.png"
+        
+        if data['lora_strengths'] is None or data['lora_strengths'] == []:
+            data['lora_strengths'] = []
+            
+        data['loras_broken'] = False
+        
+        load_loras(request_id, data['lora'], data)
+        
+        for key in data['loras_data']:
+            print(key, data['loras_data'][key])
+            
+            # for each lora in the data['loras_data'] dict, add it to the request_json:
+            for i, key in enumerate(data['loras_data']):
+                request_json['117']['inputs'][f"lora_{i+1}"] = {
+                    "on": True,
+                    "lora": data['loras_data'][key][0],
+                    "strength": data['loras_data'][key][1]
+                }
+                        
+        # Prompt
+        request_json['298']['inputs']['text'] = data['prompt']
+        
+        # Negative Prompt
+        request_json['300']['inputs']['text'] = data['negative_prompt']
+        
+        # Steps
+        request_json['303']['inputs']['value'] = data['steps']
+        request_json['305']['inputs']['value'] = data['guidance']
+        request_json['304']['inputs']['value'] = data['seed']
+        
+        if data['request_type'] == "txt2img":
+            request_json['285']['inputs']['width'] = data['width']
+            request_json['285']['inputs']['height'] = data['height']
+            
+        request_json['306']['inputs']['value'] = data['image_count']
+            
+            
+            
+        request_json['64']['inputs']['filename_prefix'] = request_id
+            
+        if not data['model'].startswith("pdxl") and not data['model'].startswith("flux") and not data['model'].startswith("illustrious"):
+            request_json['300']['inputs']['text'] = f"{request_json['300']['inputs']['text']} embedding:boring_e621_v4.pt embedding:fluffynegative.pt embedding:badyiffymix41.safetensors embedding:gnarlysick-neg.pt embedding:negative_hand-neg.pt"
+                    
+        # print(f"LIGHNING MODE: {data['lightning_mode']}")
+                    
+        if data['model'].startswith("flux"):
+                request_json['282']['inputs']['sampler_name'] = "euler"
+                request_json['282']['inputs']['scheduler'] = "normal"
+        else:
+            if data['scheduler'] == "eulera":
+                request_json['282']['inputs']['sampler_name'] = "euler_ancestral"
+                request_json['282']['inputs']['scheduler'] = global_settings['ksampler_scheduler']
+            if data['scheduler'] == "dpm":
+                request_json['282']['inputs']['sampler_name'] = "dpmpp_2m"
+                request_json['282']['inputs']['scheduler'] = global_settings['ksampler_scheduler']
+            if data['scheduler'] == "ddim":
+                request_json['282']['inputs']['sampler_name'] = "ddim"
+                request_json['282']['inputs']['scheduler'] = global_settings['ksampler_scheduler']
+                
+                
+                
+                
+                
+                
+                
+        regionalPromptSettings = data['regionalPromptSettings']
+        
+        if regionalPromptSettings['status'] == "true":
+            
+            highest_node_id = 0
+            for key in request_json:
+                # check if its an int before comparing:
+                if key.isnumeric():
+                    if int(key) > highest_node_id:
+                        highest_node_id = int(key)
+                        
+            # add 1 to the highest node ID to get the new node ID:
+            regionalPromptNodes = {
+                "image": str(highest_node_id + 1),
+                "promptAText": str(highest_node_id + 2),
+                "promptBText": str(highest_node_id + 3),
+                "promptAPrompt": str(highest_node_id + 4),
+                "promptBPrompt": str(highest_node_id + 5),
+                "conditioning": str(highest_node_id + 6)
+            }
+            
+            regionalPromptImageNode = {
+                "inputs": {
+                "image": f"C:\\Users\\anime\\Documents\\Coding\\JSCammie-SD-API\\process_images\\image\\image{request_id}{data['gpu_id']}.png",
+                "upload": "image"
+                },
+                "class_type": "LoadImage",
+                "_meta": {
+                "title": "Load Image"
+                }
+            } 
+            
+            regionalPromptNodeAText = {
+                "inputs": {
+                    "text": f"{regionalPromptSettings['regionalPromptBase']}, {regionalPromptSettings['regionalPromptA']}"
+                },
+                "class_type": "JWStringMultiline",
+                "_meta": {
+                    "title": "Positive Prompt A"
+                }
+            }
+
+            regionalPromptNodeBText = {
+                "inputs": {
+                    "text": f"{regionalPromptSettings['regionalPromptBase']}, {regionalPromptSettings['regionalPromptB']}"
+                },
+                "class_type": "JWStringMultiline",
+                "_meta": {
+                    "title": "Positive Prompt B"
+                }
+            }
+
+            
+            regionalPromptNodeAPrompt = {
+                "inputs": {
+                "mask_color": regionalPromptSettings['hexA'],
+                "strength": float(regionalPromptSettings['regionalPromptAStrength'] / 100),
+                "set_cond_area": "default",
+                "prompt": [
+                    regionalPromptNodes['promptAText'],
+                    0
+                ],
+                "dilation": 0,
+                "clip": [
+                    "117",
+                    1
+                ],
+                "color_mask": [
+                    regionalPromptNodes['image'],
+                    0
+                ]
+                },
+                "class_type": "RegionalConditioningColorMask //Inspire",
+                "_meta": {
+                "title": "Regional Conditioning By Color Mask (Inspire)"
+                }
+            }
+            
+            regionalPromptNodeBPrompt = {
+                "inputs": {
+                "mask_color": regionalPromptSettings['hexB'],
+                "strength": float(regionalPromptSettings['regionalPromptBStrength'] / 100),
+                "set_cond_area": "default",
+                "prompt": [
+                    regionalPromptNodes['promptBText'],
+                    0
+                ],
+                "dilation": 0,
+                "clip": [
+                    "117",
+                    1
+                ],
+                "color_mask": [
+                    regionalPromptNodes['image'],
+                    0
+                ]
+                },
+                "class_type": "RegionalConditioningColorMask //Inspire",
+                "_meta": {
+                "title": "Regional Conditioning By Color Mask (Inspire)"
+                }
+            }
+            
+            regionalPromptNodeConditioning = {
+                "inputs": {
+                "conditioning_1": [
+                    regionalPromptNodes['promptAPrompt'],
+                    0
+                ],
+                "conditioning_2": [
+                    regionalPromptNodes['promptBPrompt'],
+                    0
+                ]
+                },
+                "class_type": "ConditioningCombine",
+                "_meta": {
+                "title": "Conditioning (Combine)"
+                }
+            }
+            
+            # set 282 'positive' to the regionalPromptNodeConditioning:
+            request_json['282']['inputs']['positive'] = [regionalPromptNodes['conditioning'], 0]
+            
+            # add all the regional prompt nodes to the request_json:
+            request_json[regionalPromptNodes['image']] = regionalPromptImageNode
+            request_json[regionalPromptNodes['promptAText']] = regionalPromptNodeAText
+            request_json[regionalPromptNodes['promptBText']] = regionalPromptNodeBText
+            request_json[regionalPromptNodes['promptAPrompt']] = regionalPromptNodeAPrompt
+            request_json[regionalPromptNodes['promptBPrompt']] = regionalPromptNodeBPrompt
+            request_json[regionalPromptNodes['conditioning']] = regionalPromptNodeConditioning
+            
+                
+        extras = data['extras']
+        
+        if extras['upscale'] == True:
+            
+            # detect highest node ID in the request_json:
+            highest_node_id = 0
+            for key in request_json:
+                # check if its an int before comparing:
+                if key.isnumeric():
+                    if int(key) > highest_node_id:
+                        highest_node_id = int(key)
+                        
+            # add 1 to the highest node ID to get the new node ID:
+            upscale_scheduler = highest_node_id + 1
+            upscale_vaedecode = highest_node_id + 2
+            upscale_imagescaleby = highest_node_id + 3
+            upscale_vaeencode = highest_node_id + 4
+            
+            # find the ID that feeds into 64
+            feedInto64 = request_json['64']['inputs']['images'][0]
+            feedInto64 = int(feedInto64)
+            
+            upscale_vaedecodeNode = {
+                "inputs": {
+                    "samples": ["282", 0],
+                    "vae": ["288", 2]
+                },
+                "class_type": "VAEDecode",
+                "_meta": {
+                    "title": "VAE Decode"
+                }
+            }
+            
+            upscale_imagescalebyNode = {
+                "inputs": {
+                    "upscale_method": "nearest-exact",
+                    "scale_by": data['upscale_scale'],
+                    "image": [str(upscale_vaedecode), 0]
+                },
+                "class_type": "ImageScaleBy",
+                "_meta": {
+                    "title": "Upscale Image By"
+                }
+            }
+            
+            upscale_vaeencodeNode = {
+                "inputs": {
+                    "pixels": [str(upscale_imagescaleby), 0],
+                    "vae": ["288", 2]
+                },
+                "class_type": "VAEEncode",
+                "_meta": {
+                    "title": "VAE Encode"
+                }
+            }
+            
+            # add the new nodes to the request_json, base it off of 282:
+            upscale_schedulerNode = {
+                "inputs": {
+                    "seed": request_json['282']['inputs']['seed'],
+                    "steps": data['upscale_steps'],
+                    "cfg": ["305", 0],
+                    "sampler_name": request_json['282']['inputs']['sampler_name'],
+                    "scheduler": request_json['282']['inputs']['scheduler'],
+                    "denoise": data['upscale_denoise'],
+                    "model": ["117",0],
+                    "positive": ["294", 0],
+                    "negative": ["295", 0],
+                    "latent_image": [str(upscale_vaeencode), 0]
+                },
+                "class_type": "KSampler",
+                "_meta": {
+                    "title": "KSampler"
+                }
+            }
+            
+            # add the new nodes to the request_json:
+            request_json[str(upscale_scheduler)] = upscale_schedulerNode
+            request_json[str(upscale_vaedecode)] = upscale_vaedecodeNode
+            request_json[str(upscale_imagescaleby)] = upscale_imagescalebyNode
+            request_json[str(upscale_vaeencode)] = upscale_vaeencodeNode
+            
+            # set 141 vae decode to use the new upscale_scheduler as an inputs images:
+            request_json['141']['inputs']['samples'] = [str(upscale_scheduler), 0]
+                        
+        if extras['removeBackground'] == True:
+            
+            # detect highest node ID in the request_json:
+            highest_node_id = 0
+            
+            for key in request_json:
+                # check if its an int before comparing:
+                if key.isnumeric():
+                    if int(key) > highest_node_id:
+                        highest_node_id = int(key)
+                        
+            # add 1 to the highest node ID to get the new node ID:
+            removeBackgroundImageNodeId = highest_node_id + 1
+            
+            # find the ID that feeds into 64
+            
+            feedInto64 = request_json['64']['inputs']['images'][0]
+            feedInto64 = int(feedInto64)
+            
+            # add the new node to the request_json:
+            removeBackgroundImageNode = {
+                "inputs": {
+                    "rem_mode": "Inspyrenet",
+                    "image_output": "Hide",
+                    "save_prefix": "ComfyUI",
+                    "torchscript_jit": False,
+                    "images": [
+                        str(feedInto64),
+                        0
+                    ]
+                },
+                "class_type": "easy imageRemBg",
+                "_meta": {
+                    "title": "Image Remove Bg"
+                }
+            }
+            
+            # add the removeBackgroundImageNode to the request_json, with the new node ID:
+            request_json[str(removeBackgroundImageNodeId)] = removeBackgroundImageNode
+            
+            # set 64 to use the new removeBackgroundImageNodeId as an inputs images:
+            request_json['64']['inputs']['images'] = [str(removeBackgroundImageNodeId), 0]
+        
+        data['request_json'] = request_json
+        
         queue_item = QueueRequest(request_id, data)
 
         # Check for duplicate requests
@@ -1826,26 +1841,46 @@ def generate_image():
                 
         if data['fastqueue'] is True:
             fastqueue = True
-            
-                
-
+        
+        positionToSet = 0
+        
         if fastqueue == True:
             if queueNumber == 0:
-                request_queue_0.insert(0, queue_item)
+                # if someone is already using the fastqueue, then make their position above the fastqueue'er(s):
+                for item in request_queue_0:
+                    if item.data['fastqueue'] == True:
+                        positionToSet += 1
+                    else:
+                        break
+
+                request_queue_0.insert(positionToSet, queue_item)
+            
             elif queueNumber == 1:
-                request_queue_1.insert(0, queue_item)
+                # if someone is already using the fastqueue, then make their position above the fastqueue'er(s):
+                for item in request_queue_1:
+                    if item.data['fastqueue'] == True:
+                        positionToSet += 1
+                    else:
+                        break
+
+                request_queue_1.insert(positionToSet, queue_item)
+                
         else:
-            if data['gpu_id'] == 0:
+            if queueNumber == 0:
                 request_queue_0.append(queue_item)
-            elif data['gpu_id'] == 1:
+            elif queueNumber == 1:
                 request_queue_1.append(queue_item)
+                        
+                        
+        
+        
 
         return jsonify({"status": "queued", "request_id": request_id, "position": position, "queue_length": position}), 202
 
     except Exception as e:
         error_message = str(e)
         print("Error processing request:", error_message)
-        print(data)
+        # print(data)
         return generate_error_response(error_message, 500)  # Return the error response within the request handler
 
 generateTestJson6 = {

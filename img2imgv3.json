@@ -17,11 +17,6 @@
       "PowerLoraLoaderHeaderWidget": {
         "type": "PowerLoraLoaderHeaderWidget"
       },
-      "lora_1": {
-        "on": false,
-        "lora": "flux\\style\\cfluxcartoon.safetensors",
-        "strength": 1
-      },
       "➕ Add Lora": "",
       "model": [
         "230",
