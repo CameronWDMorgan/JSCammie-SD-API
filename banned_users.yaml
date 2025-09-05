@@ -6,6 +6,10 @@ img2img: {
   ""
 }
 
+img2video: {
+  ""
+}
+
 txt2video: {
   ""
 }

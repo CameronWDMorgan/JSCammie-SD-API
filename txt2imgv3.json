@@ -145,13 +145,11 @@
   },
   "288": {
     "inputs": {
-      "ckpt_name": "novaFurryXL_illustriousV30.safetensors",
-      "key_opt": "",
-      "mode": "Auto"
+      "ckpt_name": "novaFurryXL_illustriousV7b.safetensors"
     },
-    "class_type": "CheckpointLoaderSimpleShared //Inspire",
+    "class_type": "CheckpointLoaderSimple",
     "_meta": {
-      "title": "Shared Checkpoint Loader (Inspire)"
+      "title": "Load Checkpoint"
     }
   },
   "294": {

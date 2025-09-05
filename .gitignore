@@ -75,3 +75,20 @@ embeddings/
 lora_weights copy 2.yaml
 lora_weights copy 3.yaml
 lora_weights copy.yaml
+old-mains-dont-use/gdfgdfgdiffusers.py
+old-mains-dont-use/main copy 2.py
+old-mains-dont-use/main-new.py
+old-mains-dont-use/main-wsl.py
+old-mains-dont-use/oldmain.py
+test_double_video_watermarked.webp
+test_double_video.webp
+test_webp_metadata.webp
+output.gif
+output.webp
+Wan 2.2 Lightning Olivio.json
+txt2imgv3lazycache.json
+txt2imgv3easyCache.json
+txt2imgv3HIDIFFUSION.json
+txt2imgv3InspireCheckpoint.json
+txt2imgv3-deepcache.json
+loadCheckpointDefaultTest.json

@@ -1,0 +1,428 @@
+{
+  "117": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "312",
+        0
+      ],
+      "clip": [
+        "310",
+        0
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  },
+  "294": {
+    "inputs": {
+      "text": [
+        "298",
+        0
+      ],
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "295": {
+    "inputs": {
+      "text": [
+        "300",
+        0
+      ],
+      "clip": [
+        "117",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "298": {
+    "inputs": {
+      "text": "one woman standing looking at the viewer, facing the viewer, dancing happily"
+    },
+    "class_type": "JWStringMultiline",
+    "_meta": {
+      "title": "Positive Prompt"
+    }
+  },
+  "300": {
+    "inputs": {
+      "text": "worst quality, comic, multiple views, bad quality, low quality, lowres, displeasing, very displeasing, bad anatomy, bad hands, scan artifacts, monochrome, greyscale, twitter username, jpeg artifacts, extra digits, fewer digits, jaggy lines, unclear, ai-generated"
+    },
+    "class_type": "JWStringMultiline",
+    "_meta": {
+      "title": "Negative Prompt"
+    }
+  },
+  "301": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "JWFloat",
+    "_meta": {
+      "title": "Strength"
+    }
+  },
+  "303": {
+    "inputs": {
+      "value": 6
+    },
+    "class_type": "JWInteger",
+    "_meta": {
+      "title": "Steps"
+    }
+  },
+  "304": {
+    "inputs": {
+      "value": 123123123
+    },
+    "class_type": "JWInteger",
+    "_meta": {
+      "title": "Seed"
+    }
+  },
+  "305": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "JWFloat",
+    "_meta": {
+      "title": "CFG"
+    }
+  },
+  "306": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "JWInteger",
+    "_meta": {
+      "title": "Batch Quantity"
+    }
+  },
+  "307": {
+    "inputs": {
+      "image": "img-1743622766068-3ek82zp9v.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Base Image"
+    }
+  },
+  "309": {
+    "inputs": {
+      "vae_name": "wan_2.1_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "310": {
+    "inputs": {
+      "clip_name": "wan\\umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "wan",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "311": {
+    "inputs": {
+      "unet_name": "Wan2.2-I2V-A14B-HighNoise-Q3_K_S.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "312": {
+    "inputs": {
+      "shift": 8,
+      "model": [
+        "311",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "ModelSamplingSD3"
+    }
+  },
+  "314": {
+    "inputs": {
+      "clip_name": "clip_vision_h.safetensors"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "315": {
+    "inputs": {
+      "crop": "center",
+      "clip_vision": [
+        "314",
+        0
+      ],
+      "image": [
+        "307",
+        0
+      ]
+    },
+    "class_type": "CLIPVisionEncode",
+    "_meta": {
+      "title": "CLIP Vision Encode"
+    }
+  },
+  "316": {
+    "inputs": {
+      "size": 480,
+      "interpolation_mode": "bicubic",
+      "image": [
+        "307",
+        0
+      ]
+    },
+    "class_type": "JWImageResizeByLongerSide",
+    "_meta": {
+      "title": "Image Resize by Longer Side"
+    }
+  },
+  "317": {
+    "inputs": {
+      "value": [
+        "316",
+        0
+      ]
+    },
+    "class_type": "ImpactImageInfo",
+    "_meta": {
+      "title": "ImpactImageInfo"
+    }
+  },
+  "318": {
+    "inputs": {
+      "width": [
+        "317",
+        2
+      ],
+      "height": [
+        "317",
+        1
+      ],
+      "length": 81,
+      "batch_size": 1,
+      "positive": [
+        "294",
+        0
+      ],
+      "negative": [
+        "295",
+        0
+      ],
+      "vae": [
+        "309",
+        0
+      ],
+      "clip_vision_output": [
+        "315",
+        0
+      ],
+      "start_image": [
+        "316",
+        0
+      ]
+    },
+    "class_type": "WanImageToVideo",
+    "_meta": {
+      "title": "WanImageToVideo"
+    }
+  },
+  "321": {
+    "inputs": {
+      "frame_rate": 16,
+      "loop_count": 0,
+      "filename_prefix": "Video",
+      "format": "image/webp",
+      "lossless": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "334",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "322": {
+    "inputs": {
+      "add_noise": "enable",
+      "noise_seed": [
+        "304",
+        0
+      ],
+      "steps": 6,
+      "cfg": [
+        "305",
+        0
+      ],
+      "sampler_name": "placeholder_sampler",
+      "scheduler": "placeholder_scheduler",
+      "start_at_step": 0,
+      "end_at_step": 3,
+      "return_with_leftover_noise": "enable",
+      "model": [
+        "117",
+        0
+      ],
+      "positive": [
+        "318",
+        0
+      ],
+      "negative": [
+        "318",
+        1
+      ],
+      "latent_image": [
+        "318",
+        2
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "KSampler (Advanced)"
+    }
+  },
+  "323": {
+    "inputs": {
+      "add_noise": "disable",
+      "noise_seed": [
+        "304",
+        0
+      ],
+      "steps": 6,
+      "cfg": [
+        "305",
+        0
+      ],
+      "sampler_name": "placeholder_sampler",
+      "scheduler": "placeholder_scheduler",
+      "start_at_step": 3,
+      "end_at_step": 10000,
+      "return_with_leftover_noise": "disable",
+      "model": [
+        "326",
+        0
+      ],
+      "positive": [
+        "318",
+        0
+      ],
+      "negative": [
+        "318",
+        1
+      ],
+      "latent_image": [
+        "322",
+        0
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "KSampler (Advanced)"
+    }
+  },
+  "324": {
+    "inputs": {
+      "unet_name": "Wan2.2-I2V-A14B-LowNoise-Q3_K_S.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "325": {
+    "inputs": {
+      "shift": 8,
+      "model": [
+        "324",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "ModelSamplingSD3"
+    }
+  },
+  "326": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "325",
+        0
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  },
+  "332": {
+    "inputs": {
+      "samples": [
+        "323",
+        0
+      ],
+      "vae": [
+        "309",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "334": {
+    "inputs": {
+      "method": "mkl",
+      "strength": 1.2,
+      "multithread": true,
+      "image_ref": [
+        "307",
+        0
+      ],
+      "image_target": [
+        "332",
+        0
+      ]
+    },
+    "class_type": "ColorMatch",
+    "_meta": {
+      "title": "Color Match"
+    }
+  }
+}
